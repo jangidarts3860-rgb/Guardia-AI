@@ -1,0 +1,1803 @@
+
+1.Guardia AI Case Study:-
+
+---
+
+### 1. Market & Problem Deep Dive (The "Why")
+
+Iska maksad hai stakeholders ko ye batana ki "Guardia AI" kyun zaroori hai. Humne aapke data ko 3 bade dard (Pain Points) mein baanta hai:
+
+- **The ₹22,495 Crore Crisis (Financial Loss):** India mein 2025-26 mein fraud 24% badha hai. Sabse bada dhoka "Investment Scams" (76%) aur "UPI Collect Requests" se hota hai.
+    - *Deep Detail:* Log PIN isliye dalte hain kyunki scams "Urgency" create karte hain (jaise: "Bill pay karo varna light kat jayegi"). Guardia AI ko isi "Urgency" ke beech mein ek **Speed Breaker** banna hai.
+- **The Zombie Subscription Trap:** 97% apps "Dark Patterns" use karti hain.
+    - *Deep Detail:* Ise **"Subscription Fatigue"** kehte hain. User ko pata hi nahi chalta ki unke ₹15,000 saal ke kahan gaye. Companies 'Cancel' button ko 'Settings' ke andar 4-5 layers mein chhupa deti hain (Ise **Interface Interference** kehte hain).
+- **The Trust Gap:** Banking apps sirf "Post-Mortem" karti hain (paisa katne ke baad batati hain).
+    - *Deep Detail:* Users "Financial Anxiety" mein rehte hain. Unhe ek aisa guard chahiye jo transaction hone se *pehle* unka haath pakad le.
+
+---
+
+### 2. Competitive & Dark Pattern Audit (The "Who")
+
+Humne market ke bade players ko analyze kiya hai taake hum unki galtiyon se seekh saken:
+
+| **Competitor Type** | **Examples** | **What they Lack (The Gap)** | **Guardia AI's Edge (USP)** |
+| --- | --- | --- | --- |
+| **Traditional Payment** | GPay, PhonePe | Inka focus sirf transaction complete karne par hai, protection par nahi. | **The AI Pulse:** Ye transaction ko analyze karega "PIN" maangne se pehle. |
+| **Sub. Trackers** | Rocket Money | Ye India ke UPI-linked auto-debits aur SMS alerts ko acche se nahi samajhte. | **The Subscription Map:** India-specific UPI Autopay ko track aur cancel karne ka asaan rasta. |
+| **Global Banks** | Revolut, Jupiter | Inke alerts bahut boring hote hain, log ignore kar dete hain. | **The Guard-Rail:** Ek "Critical Alert" jo user ko turant "Freeze" karne ka option dega. |
+- **Deep Insight on Dark Patterns:** Aapne jo "Drip Pricing" aur "Bait and Switch" (hidden charges) ka data nikala, Guardia AI unhe checkout screen par hi "Highlight" kar dega. User ko dhoka nahi milega.
+
+---
+
+### 3. The Human Factor (Interviews & Personas)
+
+Ye sabse zaroori hai—logon ke darr ko design mein badalna.
+
+- **The Interview Strategy (Deep Script):**
+    1. **The "Last Time" Question:** "Pichli baar jab aapka galti se paisa kata, toh aapne sabse pehle kya kiya?" (Isse humein unka panic level pata chalega).
+    2. **The "Hidden Button" Test:** "Kya aapne kabhi kisi app ko sirf isliye delete kiya kyunki uska subscription cancel nahi ho raha tha?"
+    3. **The AI Trust Test:** "Agar AI kahe ki ye QR code fake hai, toh kya aap apni payment rok denge?"
+- **Persona Mapping (Detail):**
+    - **Persona 1: "The Victim" (Gen-Z/Millennial):** Ye tech-savvy hain par "Free Trials" ke chakkar mein phans jate hain. Inka goal hai: *Automation with Control.*
+    - **Persona 2: "The Guardian" (Parent/Senior):** Ye digital payment se darte hain. Inka goal hai: *Zero-Risk Security.*
+
+---
+
+---
+
+### Section 1: User Habits & Digital Life (Background)
+
+*Pehle humein ye samajhna hai ki user digital payments aur subscriptions ko lekar kitna active hai.*
+
+1. Aap rozana kaun-kaun si payment apps (GPay, PhonePe, Paytm) use karte hain aur kyun?
+2. Aapne pichle 1 mahine mein kitni baar online payment ki hai (Food, Bills, Shopping)?
+3. Aapke phone mein lagbhag kitne digital subscriptions (OTT, Gym, SaaS, Education) hain?
+4. In sabhi payments aur subscriptions ka track aap kaise rakhte hain? (Excel, Diary, ya sirf SMS?)
+
+---
+
+### Section 2: The Pain Points (Deep Dive into Problems)
+
+*Yahan hum unke darr aur gusse (frustrations) ko nikalenge.*
+
+**Part A: Subscription Fatigue & Dark Patterns**
+
+5. Kya kabhi aisa hua hai ki aapne 'Free Trial' liya aur cancel karna bhul gaye, aur paise kat gaye? Us waqt aapne kya kiya?
+
+6. Jab aap koi subscription cancel karne ki koshish karte hain, toh sabse zyada gussa kis baat par aata hai? (e.g., button nahi mil raha, 10 sawal puch rahe hain).
+
+7. Kya aapko lagta hai ki apps jaan-बूझkar cancelation ko mushkil banati hain? Aapka pichla aisa koi bura experience batayein.
+
+8. "Hidden Charges" (jo checkout par badh jate hain) ke baare mein aapka kya khayal hai? Kya aapne kabhi payment beech mein chhodi hai?
+
+**Part B: Financial Anxiety & Fraud Fear**
+
+9. Kya aapko kabhi kisi unknown number se fake electricity bill, traffic challan, ya "Collect Request" ka SMS aaya hai? Aapka pehla reaction kya tha?
+
+10. UPI PIN dalte waqt aapke dimaag mein sabse bada darr kya hota hai?
+
+11. Agar galti se aapka paisa kisi fraud transaction mein kat jaye, toh aap sabse pehle kise contact karenge aur kyun?
+
+12. Kya aapki banking app aapko fraud hone se *pehle* koi warning deti hai? Agar nahi, toh aapko kaisa mehsoos hota hai?
+
+---
+
+### Section 3: Concept Testing (The Solution)
+
+*Yahan hum Guardia AI ke features par unka opinion lenge.*
+
+1. Agar ek AI aapko payment se pehle hi rok de aur kahe: *"Ye QR code 90% risky hai,"* toh kya aap us par bharosa karenge? Kyon ya kyon nahi?
+2. Ek aisa dashboard jo aapke saare "Chhupe huye" (hidden) subscriptions ek jagah dikhaye—ye aapki life kitni asaan banayega?
+3. 'One-Click Kill Switch' (ek click mein sab cancel) feature ke liye aap 10 mein se kitne points denge?
+4. AI ko aapko bachane ke liye aapke SMS ya Transactions read karne honge. Aapko "Trust" dilane ke liye app mein kya hona zaroori hai? (Privacy features).
+
+---
+
+### 💡 Pro-Tips for You (Senior Researcher Advice):
+
+- **The "Why" Technique:** Har jawab ke baad puchiye, *"Aisa kyun?"* ya *"Ek example dekar batayein."*
+- **Don't Guide:** User ko ye mat boliye "Kya aapko ye feature achha laga?" balki puchiye "Aapko ye feature kaisa laga?" (Open-ended).
+- **Silent Pause:** User ke bolne ke baad 2 second rukiye, aksar log pause mein sabse badi problem batate hain.
+
+**Aap ye questions lekar 3-5 logon ka interview lijiye. Uske baad mujhe batana ki unhone kya kaha, phir hum "User Personas" banayenge!**
+
+---
+
+### 🛡️ Guardia AI: The Deep Pain Point List
+
+### 1. Subscription & Financial Management (The "Money Leak")
+
+- **Hidden Exit (Dark Patterns):** Users ko subscription cancel karne ka button easily nahi milta. Companies ise intentionally ‘Settings’ ke deep andar chhupa deti hain.
+- **Trial Trap:** Users free trial le lete hain, par 7 din baad bhool jate hain. Apps bina kisi reminder ya warning ke auto-debit kar leti hain.
+- **Visibility Gap:** Users ko clear idea nahi hota ki total kitna paisa aur kin-kin apps mein har month spend ho raha hai (no consolidated view).
+- **Complex Cancellation Flows:** Cancel karne ke liye baar-baar “Are you sure?” jaise multiple steps aate hain, jo user ko frustrate kar dete hain.
+
+---
+
+### 2. Security & Fraud Anxiety (The "Fear Factor")
+
+- **Urgency-Based Scams:** “Raat 9 baje bijli cut ho jayegi” type ke SMS users mein panic create karte hain, jis wajah se wo bina soche-samjhe link par click kar dete hain.
+- **UPI PIN Confusion:** Log ‘Receive’ aur ‘Pay’ ke beech ka difference confuse kar dete hain (Collect Request Trap) aur galti se apna PIN enter kar dete hain.
+- **Reactive Banking:** Current apps tab alert deti hain jab paisa *already kat chuka hota hai*. Pehle se prevent karne wala koi “Shield” system nahi hota.
+- **Verification Difficulty:** Users ko samajhna mushkil hota hai ki kaunsa QR code ya payment request “Verified” hai aur kaunsa “Suspicious”.
+
+---
+
+### 3. Trust & Cognitive Load (The "Brain Stress")
+
+- **Information Overload:** Banking apps itna zyada data dikha deti hain ki user ko sirf “important alerts” dhoondhne mein hi problem hoti hai.
+- **AI Privacy Concern:** Users ko dar hota hai ki agar AI unka data access karega, toh unki privacy compromise ho sakti hai (Trust vs Utility issue).
+- **Manual Burden:** Har app mein jaake alag-alag subscriptions manage karna kaafi time-consuming aur tiring process hai.
+
+---
+
+### 📊 Pain Point Priority Matrix (Konsa sabse bada hai?)
+
+Aap apne project mein dikha sakte hain ki kaunse pain points par hum sabse pehle kaam karenge:
+
+| **Pain Point** | **Impact (Nuksaan)** | **Frequency (Kitni baar hota hai)** | **Priority** |
+| --- | --- | --- | --- |
+| **Dark Patterns (Hard to Cancel)** | High (Money loss) | Very High | **P1 (Urgent)** |
+| **Urgent Fraud SMS** | Very High (Major Theft) | High | **P1 (Urgent)** |
+| **Forgotten Free Trials** | Medium (Small amounts) | High | **P2 (High)** |
+| **UPI PIN Confusion** | High | Medium | **P2 (High)** |
+
+---
+
+### 🛡️ Part 1: Safety & Trust Pillars (Bharosa kaise jeetein?)
+
+User ka data lena sabse bada "Risk" hai. Humein in 4 points par Trust build karna hoga:
+
+1. **Data Sovereignty (Mera Data Mera Hai):**
+    - **Insight:** User ko batana hoga ki AI unke messages server par nahi bhej raha.
+    - **Solution:** **"On-Device AI"** ka label lagana. Saaf likhna ki *"Guardia AI aapka data kisi teesre bande ya company ko nahi bechta."*
+2. **Explicit Consent (Har kadam par ijazat):**
+    - **Insight:** Bina bataye kuch bhi "Auto-block" mat karo.
+    - **Solution:** Permission screens par clear language use karna. *"Hum aapke SMS isliye padh rahe hain taaki ₹15,000 ka fraud rok saken."*
+3. **Human in the Loop (Insaani Sahara):**
+    - **Insight:** AI galti kar sakta hai.
+    - **Solution:** Ek **"SOS Call"** button jo turant bank ya cyber cell se connect karwaye. User ko lagna chahiye ki mushkil mein koi insaan saath dega.
+4. **Regulatory Compliance (Kanooni Mohar):**
+    - **Insight:** Log sarkari ya RBI ki baaton par zyada trust karte hain.
+    - **Solution:** RBI guidelines aur **DPDP Act 2023** (Data Privacy) ka zikr app ke onboarding mein karna.
+
+---
+
+### ⚠️ Part 2: Critical Edge Cases (Jab cheezein galat ho jayein)
+
+Fintech mein sirf "Happy Path" nahi hota. In mushkil halaton ko cover karna zaroori hai:
+
+### 1. Security & Crisis Cases
+
+- **Phone Theft (Chori):** Agar phone chor ke paas hai, toh wo Guardia AI ko hi "Off" kar sakta hai.
+    - *Design Fix:* App ke andar **Secondary Bio-metric** (FaceID) mangna zaroori hai.
+- **SIM Swapping:** Hacker ne user ka number clone kar liya hai.
+    - *Design Fix:* Device binding (sirf isi phone par app chalegi) aur email-based alerts.
+- **Forced Transaction:** Kisi ne bandook ki nok par PIN dalne ko kaha.
+    - *Design Fix:* **"Panic PIN"** concept—agar user galat PIN dale toh app card "Freeze" kar de aur location police ko bhej de.
+
+### 2. System & Network Failures
+
+- **No Internet during Alert:** Fraud ho raha hai par user offline hai.
+    - *Design Fix:* **Offline SMS Alerts** ka use karna jo bina internet ke bhi card block kar sakein.
+- **False Positives (Galat Warning):** User ne hospital ka bill bhara aur AI ne use "Fraud" samajh kar block kar diya.
+    - *Design Fix:* **"Quick Unblock"** flow—30 second ke andar FaceID se card wapas chalu karne ka rasta.
+
+### 3. Human Errors
+
+- **Accidental Cancellation:** User ne galti se zaroori subscription (jaise Insurance) cancel kar diya.
+    - *Design Fix:* **"Cooling-off Period"**—24 ghante tak cancellation "Pending" state mein rahega jise Undo kiya ja sake.
+- **Alert Fatigue:** User ko itne alerts aaye ki usne bina padhe "Dismiss" kar diya.
+    - *Design Fix:* **Priority Levels**—Blue (Info), Yellow (Warning), aur Flashing Red (Immediate Danger).
+
+---
+
+### 📋 The "Risk-Response" Matrix (For your Case Study)
+
+Ise aap apne portfolio mein "Research Synthesis" ke section mein zaroor add karein:
+
+| **Category** | **High-Risk Edge Case** | **UX Design Solution** |
+| --- | --- | --- |
+| **Identity** | User's phone is unlocked by a stranger. | Re-authenticate for sensitive "Freeze/Unfreeze" actions. |
+| **Logic** | Subscription price changed without notice. | **Price Spike Alert:** Compare old vs new bill and warn user. |
+| **Behavior** | User ignores a high-risk fraud alert. | **Intrusive Alert:** Phone vibrates and sound plays till dismissed. |
+| **Ethics** | AI reads a personal private message. | **Sandboxed Reading:** Only filter keywords related to money/OTP. |
+- **interview ans**
+
+**"Persona A: Forgetful Rohan (22, Tech-Savvy Gen-Z)"** ka ek detailed simulated roleplay kar sakta hoon.
+
+Aap apne Empathy Map aur research data ke liye in simulated answers ko bilkul use kar sakte hain. Chaliye, Rohan ke perspective se aapke interview questions ke answers dekhte hain:
+
+**Interview Transcript: "Forgetful Rohan"**
+
+**Section 1: Habits & Digital Life**
+
+*Aap rozana kaun-kaun si payment apps use karte hain aur kitne subscriptions hain?*
+
+"Main din bhar mein kam se kam 5-6 baar UPI use karta hoon—zyadatar PhonePe aur GPay. College ki canteen, doston ke sath Swiggy ka bill split karna, sab UPI se hota hai. Subscriptions ki baat karun toh Netflix, Spotify, Amazon Prime, aur 2-3 design tools (jaise Canva) ke accounts hain. Inka koi proper track nahi hai mere paas. Bas jab bank se auto-debit ka SMS aata hai, tab yaad aata hai ki oh, iska bhi paisa dena tha."
+
+**Section 2: The Pain Points (Subscriptions & Fraud)**
+
+*Kya kabhi 'Free Trial' ka paisa galti se kata hai? Us waqt kaisa feel hua?*
+
+"Haan, bilkul! Pichle mahine maine ek AI video editor ka 7-day free trial liya tha ek assignment ke liye. Main calendar mein reminder lagana bhul gaya aur aathve din seedha ₹1,200 kat gaye. Mujhe itna zyada gussa aaya tha, khud ki bhool par bhi aur us app par bhi kyunki unhone renew hone se pehle ek warning mail tak nahi bheja."
+
+*Subscription cancel karte waqt sabse zyada kya chid (frustration) dilata hai?*
+
+"Cancel button ka gayab hona! Subscribe karne ka button ekdum bada aur bright color ka hota hai home screen par, par cancel karne ka text bahut chhota, light grey color mein, 'Account Settings' ke andar 4 menu cross karne ke baad milta hai. Aur us par click karo toh wo puchte hain 'Are you sure? Have 50% off for next month'. Ye manipulative lagta hai."
+
+*Fraud ya fake SMS ko lekar aapka kya experience raha hai?*
+
+"Ek baar mujhe electricity bill pending ka SMS aaya tha jisme ek payment link tha aur likha tha ki raat 9 baje connection kat jayega. Ek second ke liye main buri tarah panic ho gaya tha kyunki language ekdum real lag rahi thi. Main link par click karne hi wala tha ki mujhe yaad aaya bill toh papa pay karte hain. UPI PIN dalte waqt hamesha ek background anxiety rehti hai ki kahin scanner galat amount toh fetch nahi kar raha."
+
+**Section 3: Concept Testing (Guardia AI Solutions)**
+
+*Agar ek AI payment se pehle hi rok de aur bataye ki ye 90% fraud hai, toh kya aap trust karenge?*
+
+"Bilkul karunga. Agar main koi QR scan karu aur Guardia AI mujhe PIN dalne se pehle hi ek 'Red Screen' dikha de ki ye account suspicious hai, toh main turant back kar lunga. Aaj kal darr itna hai ki agar koi system automatically mujhe warning de raha hai, toh main uski baat manunga."
+
+*Ek 'Kill Switch' ya 'Subscription Map' jo ek click mein saare chhupe hue subscriptions block kar de, uske liye aap kitne points denge?*
+
+"Main is feature ko 10/10 dunga. Agar main Guardia AI open karu aur mujhe ek map dikh jaye ki mere ₹3,000 in 8 jagahon par auto-pay set hain, aur main wahi se ek single tap mein unhe 'Pause' ya 'Cancel' kar saku bina un specific apps mein login kiye... toh ye mere liye life-saving hoga."
+
+**Interview Transcript: "Rajesh (45, Cautious Parent)"**
+
+**Section 1: Habits & Digital Life***Aap rozana kaun-kaun si payment apps use karte hain aur kyon?*
+"Main zyadatar PhonePe aur kabhi-kabhi GPay use karta hoon. Meri badi beti ne mujhe chalana sikhaya tha. Main isse bijli ka bill, Tata Sky (TV) ka recharge, aur dukaano par sabzi vagaira ke liye payment karta hoon. Subscriptions ki baat karein toh Netflix wagaira toh bache apne phone mein chalate hain, main bas apne TV ka recharge dekhta hoon aur bache ki online class (Ed-tech) ki EMI jati hai mere account se."
+
+**Section 2: The Pain Points (Subscriptions & Fraud)***Kya kabhi bina bataye koi paisa kata hai? (TV ya bachon ke kisi plan mein?)*
+"Arre pucho mat! Pichle mahine mere account se ₹499 kat gaye. Jab maine bank me phone kiya tab pata chala ki mere chote bete ne TV par remote se khelte-khelte koi 'Kids Game Pack' subscribe kar liya tha. Ab problem ye thi ki mujhe samajh hi nahi aaya ki isko band kahan se karu! TV ke menu mein kahin 'Cancel' likha hi nahi tha. Aakhir mein mujhe customer care walo se 20 minute jhagda karna pada use band karwane ke liye. Bahut pareshani hoti hai."
+
+*Fraud ya fake SMS ko lekar aapka kya experience raha hai?*
+"Beta, roz koi na koi SMS aata hai. Kabhi likha hota hai 'Aapka KBC me lottery laga hai', toh kabhi likha hota hai 'Dear customer, aapka bijli bill pending hai, raat 9 baje light kat jayegi, is link par ₹10 pay karein'. Ek baar main bahut darr gaya tha, maine link khol bhi liya tha kyunki ghar me function tha aur main light nahi katne de sakta tha. Par shukar hai meri beti ne dekh liya aur mujhe rok diya. UPI PIN dalte waqt mere haath kaanpte hain ki kahin zero (0) zyada na lag jaye ya paisa kisi aur ko na chala jaye."
+
+**Section 3: Concept Testing (Guardia AI Solutions)***Agar Guardia AI payment se pehle hi aapko rok de aur bataye ki 'Ye Electricity bill ka SMS fake hai', toh aapko kaisa lagega?*
+"Ye toh mere liye kisi farishtey (angel) jaisa hoga! Agar koi app mujhe payment karne se pehle badi si 'Red screen' dikha kar bol de ki 'Rukiye, ye fraud hai', toh mera aadha darr wahi khatam ho jayega. Hum jaise umar daraz (aged) logon ko bas yahi toh chahiye—koi hamara haath pakad kar bata de ki kya sahi hai aur kya galat."
+
+*Agar aapko ek hi screen par apne, apne TV ke, aur bachon ke saare chhupe huye kharche dikh jayein aur aap unhe wahi se 'Stop' kar sakein?*
+"Badi raahat milegi. Abhi mujhe pata hi nahi hota ki bachon ne mere card se kahan kahan free trial le rakha hai. Agar mujhe ek jagah sab dikh jaye, aur main bina us company ko phone lagaye khud hi ek button daba kar use rok saku, toh us app ke liye main khushi-khushi thode paise bhi de dunga."
+
+**User Journey Map**
+
+Bilkul! **User Journey Map** banana sabse mazedar kaam hai kyunki yahan hum ek film ki tarah user ki life ko imagine karte hain. Hum 5 alag-alag scenarios (situations) lenge jo Guardia AI ke har ek feature aur edge case ko test karenge.
+
+---
+
+### 🛡️ Guardia AI: 5 Strategic User Journeys
+
+### 1. Rohan: The "Zombie Subscription" Trap
+
+- **Scenario:** Rohan ko pata chalta hai ki uske account se ₹1,499 kat gaye ek aise app ke liye jo usne 1 saal se use nahi ki.
+- **The Journey:**
+    - **Trigger:** Bank ka SMS aata hai.
+    - **Feeling:** Gussa aur pachtawa (Frustration).
+    - **Action with Guardia:** App open karta hai -> **Subscription Map** mein us app ko dhoondhta hai -> **One-Tap Kill Switch** dabata hai.
+    - **Outcome:** App turant cancelation process handle karti hai aur Rohan ko "Success" message dikhati hai.
+    - **Emotional Graph:** 📉 (Niche) se 📈 (Upar).
+
+### 2. Rajesh: The "Electricity Bill" Scam
+
+- **Scenario:** Rajesh ko dopahar mein SMS aata hai ki raat 9 baje unka connection kat jayega, ek link par click karein.
+- **The Journey:**
+    - **Trigger:** Fake SMS/Phishing link.
+    - **Feeling:** Panic aur darr (Anxiety).
+    - **Action with Guardia:** Rajesh link par click karte hain -> Guardia AI screen par **Bright Red Alert** dikhata hai: "🚨 High Risk! This link is a known scam." -> Rajesh "Block & Report" dabate hain.
+    - **Outcome:** Rajesh ka paisa safe rehta hai aur wo sukoon ki saans lete hain.
+    - **Emotional Graph:** 📉 (Panic) se ✨ (Relief).
+
+### 3. Priya: The "Trial-to-Paid" Prevention
+
+- **Scenario:** Priya ne ek gym app ka 7-day free trial liya hai aur wo bhul chuki hai.
+- **The Journey:**
+    - **Trigger:** Trial khatam hone se 24 ghante pehle Guardia ka notification.
+    - **Feeling:** "Achha hua yaad dila diya" (Gratitude).
+    - **Action with Guardia:** Notification par tap karti hai -> AI Pulse batata hai "You haven't used this gym app once" -> Priya "Cancel now" select karti hai.
+    - **Outcome:** Paisa katne se pehle hi problem solve ho gayi.
+    - **Emotional Graph:** Neutral se 📈 (Happy).
+
+### 4. The "Phone Theft" Edge Case (Security Journey)
+
+- **Scenario:** Ek stranger ne bheed mein Rohan ka unlocked phone chheen liya aur Guardia AI mein jakar cards "Unfreeze" karne ki koshish ki.
+- **The Journey:**
+    - **Trigger:** App ke sensitive settings mein entry.
+    - **Feeling:** (Chor ka perspective - Chalaaki).
+    - **Action with Guardia:** Chor "Unfreeze" dabata hai -> Guardia turant **Secondary Bio-metric (FaceID/PIN)** maangta hai -> 3 baar fail hone par app "Lockdown Mode" mein chali jati hai.
+    - **Outcome:** Chor card use nahi kar pata.
+    - **Emotional Graph:** Security 🛡️ (Solid).
+
+### 5. The "False Positive" Override (Trust Journey)
+
+- **Scenario:** Rajesh apni beti ki college fees (bada amount) bhara rahe hain aur AI ne ise "Suspicious" samajh kar block kar diya.
+- **The Journey:**
+    - **Trigger:** Unexpected large transaction.
+    - **Feeling:** Gussa aur Confusion (Irritation).
+    - **Action with Guardia:** Guardia alert deta hai -> Rajesh "This is Me" button dabate hain aur FaceID scan karte hain -> AI "Trust Badge" update karta hai aur payment allow kar deta hai.
+    - **Outcome:** Rajesh ko lagta hai app "Over-protective" hai par "Easy to control" hai.
+    - **Emotional Graph:** 📉 (Irritation) se 📈 (Confidence).
+
+---
+
+### 📊 Journey Map Structure (For your Case Study)
+
+Har journey ko aap is format mein dikhayein:
+
+| **Phase** | **User Action** | **Thinking/Feeling** | **Guardia AI Touchpoint** | **Opportunity** |
+| --- | --- | --- | --- | --- |
+| **Awareness** | SMS milna | "Kya ye sach hai?" | Notification Scan | Trust build karna |
+| **Decision** | App kholna | "Mujhe ise rokna hai" | Dashboard/Alert | Speed dena |
+| **Action** | Button dabana | "I hope ye ho jaye" | Kill Switch/OTP | Clarity dena |
+| **Post-Action** | Confirmation | "Ab main safe hoon" | Success Screen | Peace of Mind |
+
+---
+
+### 🛡️ Guardia AI: The Master HMW List
+
+### Theme 1: Subscriptions & Money Leaks (Financial Control)
+
+1. **HMW** simplify the subscription cancellation process so it takes less than 10 seconds?
+2. **HMW** proactively nudge users about an upcoming trial end *before* the money is deducted?
+3. **HMW** visualize all "Hidden Subscriptions" in a single map so users can see their total monthly leakage?
+4. **HMW** expose "Dark Patterns" (hidden costs) at the checkout screen before the user pays?
+
+### Theme 2: Fraud Prevention (The Shield)
+
+1. **HMW** help users verify the authenticity of an "Urgent SMS" (like electricity bill) in real-time?
+2. **HMW** create a clear visual distinction between "Receiving Money" and "Sending Money" to prevent UPI collect-request scams?
+3. **HMW** provide a "Trust Score" for unknown QR codes or payment links before the user enters their PIN?
+4. **HMW** alert the user if they are being manipulated by a scammer on a phone call during a transaction?
+
+### Theme 3: Trust, Privacy & Onboarding (The Foundation)
+
+1. **HMW** explain our "Local-First AI" processing to users so they feel 100% safe about their data privacy?
+2. **HMW** make the bank-account linking process feel as secure and transparent as a physical bank vault?
+
+### Theme 4: Edge Cases & Recovery (The Safety Net)
+
+1. **HMW** allow users to instantly "Undo" an accidental subscription cancellation or a false fraud block?
+2. **HMW** ensure critical security features (like freezing a card) work even when the user has no internet connection?
+3. **HMW** protect the user's financial data if their phone is stolen and unlocked by a stranger?
+
+# 🔥 TOP 20 BEST UX SOLUTIONS (Guardia AI)
+
+| # | HMW Question (Problem) | Solution 1 | Solution 2 |
+| --- | --- | --- | --- |
+| 1 | Simplify subscription cancellation <10 sec | **One-Tap Cancel:** Dashboard se direct cancel | **Swipe-to-Cancel:** Gesture based quick action |
+| 2 | Trial end se pehle alert dena | **Auto-Cancel Toggle:** Charge se pehle auto cancel | **Smart Reminder:** “Still using?” AI nudge |
+| 3 | Hidden subscriptions ko visualize karna | **Subscription Map:** Visual money flow graph | **Monthly Leak Meter:** Total ₹ waste highlight |
+| 4 | Dark patterns expose karna | **Dark Pattern Detector:** Hidden cancel warning | **Transparent Pricing Card:** Hidden fees breakdown |
+| 5 | Urgent SMS verify karna | **SMS Scam Detector:** “Likely scam” alert | **Verify Button:** Tap karke check authenticity |
+| 6 | UPI send vs receive confusion | **Color System:** Red = Pay, Green = Receive | **Confirmation Screen:** “You are PAYING” alert |
+| 7 | QR / payment link trust check | **Trust Score:** 0–100 risk rating | **Risk Labels:** Safe / Suspicious badge |
+| 8 | Scam call ke during alert dena | **Call Scam Alert:** Live warning popup | **Transaction Blocker:** Risk pe payment stop |
+| 9 | AI privacy explain karna | **Local AI Visual:** Data stays on device | **Privacy Dashboard:** User control panel |
+| 10 | Secure bank linking experience | **Vault Animation Flow:** Bank vault metaphor | **Step Progress UI:** Transparent linking steps |
+| 11 | Undo actions instantly | **Undo Snackbar:** 5-sec undo option | **Activity History Restore:** Action rollback |
+| 12 | Offline security features | **Offline Freeze Button:** No internet needed | **Emergency Mode:** Limited security UI |
+| 13 | Phone stolen hone par protection | **Behavior Detection Lock:** Suspicious use → lock | **Remote Kill Switch:** Dusre device se lock |
+
+---
+
+## 🧩 1. One-Tap Universal Cancel
+
+**Problem:** Hidden Exit + Complex Cancellation
+
+💡 Sab subscriptions ek jagah → “Cancel in 1 Tap”
+
+⭐ **Why best:** Directly solves dark pattern industry problem → **high impact + bold UX**
+
+---
+
+## 🧩 2. Auto-Cancel Before Trial Ends
+
+**Problem:** Trial Trap
+
+💡 Toggle: “Auto cancel before charge”
+
+⭐ **Why best:** Removes user dependency → **proactive UX (rare & powerful)**
+
+---
+
+## 🧩 3. AI Smart Cancel Recommendation
+
+**Problem:** Visibility Gap + Manual Burden
+
+💡 “Aap 2 months se use nahi kar rahe → Cancel?”
+
+⭐ **Why best:** Behavior-based decision → **AI + UX combo**
+
+---
+
+## 🧩 4. Subscription Map (Visual Money Flow)
+
+**Problem:** Visibility Gap
+
+💡 Graph/map showing ₹ flow across apps
+
+⭐ **Why best:** Complex data → simple visual → **portfolio highlight feature**
+
+---
+
+## 🧩 5. Monthly Leak Meter
+
+**Problem:** Visibility Gap
+
+💡 “₹2,450/month wasted” indicator
+
+⭐ **Why best:** Emotional trigger → **instant awareness UX**
+
+---
+
+## 🧩 6. Bulk Subscription Cleanup Mode
+
+**Problem:** Manual Burden
+
+💡 Select multiple → Cancel all
+
+⭐ **Why best:** Saves time massively → **high usability value**
+
+---
+
+## 🧩 7. Dark Pattern Detector
+
+**Problem:** Hidden Exit + Dark Patterns
+
+💡 App warns: “This service hides cancel option”
+
+⭐ **Why best:** Industry-level thinking → **very unique concept**
+
+---
+
+## 🧩 8. Transparent Checkout Breakdown
+
+**Problem:** Hidden Costs
+
+💡 Before payment → show total + hidden fees
+
+⭐ **Why best:** Builds trust → **ethical UX case study gold**
+
+---
+
+## 🧩 9. Urgency Scam Detector (SMS AI)
+
+**Problem:** Urgency-Based Scams
+
+💡 “⚠️ This message uses urgency tactics”
+
+⭐ **Why best:** Real-world problem → **strong AI application**
+
+---
+
+## 🧩 10. Real-Time SMS Verification Button
+
+**Problem:** Verification Difficulty
+
+💡 “Verify this SMS” → Safe/Scam result
+
+⭐ **Why best:** Actionable UX → **not just alert, gives control**
+
+---
+
+## 🧩 11. UPI Color + Motion System
+
+**Problem:** UPI PIN Confusion
+
+💡
+
+- Green = Receive
+- Red = Pay
+- Different animations
+⭐ **Why best:** Prevents mistakes visually → **simple but powerful**
+
+---
+
+## 🧩 12. “You Are PAYING” Confirmation Screen
+
+**Problem:** UPI Confusion
+
+💡 Big bold screen before PIN
+
+⭐ **Why best:** Stops accidental fraud → **critical UX safeguard**
+
+---
+
+## 🧩 13. QR / Link Trust Score
+
+**Problem:** Verification Difficulty
+
+💡 Score (0–100) before payment
+
+⭐ **Why best:** Turns invisible risk → visible → **high clarity**
+
+---
+
+## 🧩 14. Fraud Shield (Pre-Transaction Blocker)
+
+**Problem:** Reactive Banking
+
+💡 Suspicious action → block before payment
+
+⭐ **Why best:** Shift from reactive → proactive → **core innovation**
+
+---
+
+## 🧩 15. Call-Based Scam Detection
+
+**Problem:** Urgency + Manipulation
+
+💡 During call: “⚠️ Possible scam”
+
+⭐ **Why best:** Very advanced + rare → **next-level UX thinking**
+
+---
+
+## 🧩 16. Panic “Freeze Everything” Button
+
+**Problem:** Fraud Anxiety
+
+💡 1 tap → freeze cards, UPI, bank
+
+⭐ **Why best:** Emergency UX → **high trust builder**
+
+---
+
+## 🧩 17. Local-First AI Privacy Visual
+
+**Problem:** AI Privacy Concern
+
+💡 “Your data never leaves your phone” visual
+
+⭐ **Why best:** Builds trust → **important differentiator**
+
+---
+
+## 🧩 18. Bank Vault Linking Experience
+
+**Problem:** Trust during onboarding
+
+💡 Vault animation + step-by-step secure flow
+
+⭐ **Why best:** Emotional reassurance → **strong storytelling UX**
+
+---
+
+## 🧩 19. Undo Any Action (Instant Recovery)
+
+**Problem:** Edge cases / mistakes
+
+💡 Cancel/Freeze → Undo within seconds
+
+⭐ **Why best:** Reduces fear → **user confidence boost**
+
+---
+
+## 🧩 20. Stolen Phone Protection (Behavior AI Lock)
+
+**Problem:** Phone stolen risk
+
+💡 Detect unusual behavior → auto lock
+
+⭐ **Why best:** Invisible security → **advanced AI UX**
+
+### 📱 Guardia AI: App Structure (Site Map)
+
+### 🧠 Part 1: Detailed Information Architecture (IA)
+
+*The Logic & Layout Strategy*
+
+**Core Concept:** Guardia AI is a "Financial Security Overlay", not a payment app.
+**Navigation Strategy:** 4 Bottom Tabs (Hick’s Law - kam options taaki Rajesh ko confusion na ho).
+
+### 1. 🏠 HOME (The Pulse & Monitoring)
+
+- **Goal:** User ko app khulte hi apna financial health aur risk level pata chalna chahiye.
+- **Target UX:** Cognitive load ekdam zero. Badi information, simple words.
+- **Key Elements:**
+    - **AI Shield Status:** Ek subtle breathing green glow jo bataye "You are protected".
+    - **The Leak Meter:** Bada visual number (e.g., "₹850 wasted this month").
+    - **Smart Nudges (✨ AI Powered):** Cards jisme action ho (e.g., "Netflix not used, Cancel? ✨").
+    - **Recent Status:** "Cancellation pending..." (Taaki user ko confirmation mile).
+
+### 2. 🔍 VERIFY (The Pre-Payment Guard) - *Central FAB/Tab*
+
+- **Goal:** GPay/PhonePe par payment karne se pehle fraud check karna.
+- **Target UX:** Paytm jaisa familiar scanner (Jakob’s Law), par result mein payment nahi, "Trust Score" dikhega.
+- **Key Elements:**
+    - **Input:** QR Code Scanner, ya SMS/Link paste karne ka box.
+    - **Output (Trust Report):** 0-100 Score.
+        - *Green (Safe):* "Safe to Pay" -> Redirects to GPay/PhonePe.
+        - *Red (Danger):* "Scam Alert! Do not pay."
+
+### 3. 💸 SUBS (The Money Controller)
+
+- **Goal:** Hidden subscriptions aur auto-debit loops ko ek jagah dikhana aur rokna.
+- **Target UX:** Chunking (Miller's Law). Information ko Family vs Self mein baantna.
+- **Key Elements:**
+    - **Visual Map:** Paisa kahan ja raha hai uska graph.
+    - **Categorization:** "My Spends" vs "Family Spends".
+    - **Action:** Har active sub ke andar ek bada **"1-Tap Cancel ✨"** button.
+    - **Edge Case:** "Unknown Charges" list jahan user unidentified kharchon ko tag kar sake.
+
+### 4. ⚙️ VAULT (Data, Sync & Emergency)
+
+- **Goal:** Permissions, setup, aur crisis management ko ek safe jagah rakhna (Progressive Disclosure).
+- **Target UX:** Trust aur control.
+- **Key Elements:**
+    - **The Panic Button (Top Priority):** "Freeze All Connected Accounts" (Bada laal button).
+    - **Data Sync Center:** Account Aggregator (AA) aur bank accounts manage karna.
+    - **Privacy Dashboard:** "0 Data sent to cloud" ka proof.
+    - **SOS Support:** Direct Cyber Cell helpline.
+
+---
+
+### 🌳 Part 2: The Final Visual Sitemap (Tree Structure)
+
+<aside>
+💡
+
+[Root] Guardia AI App (Security Overlay)
+│
+├── [Tab 1] 🏠 HOME (Monitoring)
+│   ├── User Profile & Quick Settings
+│   ├── AI Shield Status Indicator (Green/Red)
+│   ├── **The Leak Meter** (Chart: Monthly Wasted ₹)
+│   ├── **Smart Nudges (✨ AI)**
+│   │   ├── Trial Ending Tomorrow Alert
+│   │   ├── Unused App Cancel Suggestion
+│   │   └── Unusual Transaction Hold Alert
+│   └── Recent Actions Status (e.g., "Refund Processing")
+│
+├── [Tab 2 / Center Button] 🔍 VERIFY (Pre-Payment)
+│   ├── Live Camera QR Scanner
+│   ├── Paste Link / SMS Input Box
+│   └── **[Result] Trust Score Report (✨ AI)**
+│       ├── Green State: "Verified Merchant" → Button: [Pay via GPay/PhonePe]
+│       └── Red State: "High Risk Scam" → Button: [Report & Block]
+│
+├── [Tab 3] 💸 SUBS (Control Center)
+│   ├── View Toggle: My Spends | Family Spends
+│   ├── **The Flow Map** (Visual money distribution)
+│   ├── Active Subscriptions Hub
+│   │   └── [Detail Page] Sub Details + **1-Tap Cancel Button**
+│   └── The "Unknown/Ghost" Queue (User tags missing info here)
+│
+└── [Tab 4] ⚙️ VAULT (Setup & Crisis)
+       ├── 🚨 **THE PANIC ROOM** (1-Tap Freeze Everything)
+       ├── **Data Sync & Bank Vault**
+       │   ├── Manage Linked Accounts (AA Framework)
+       │   └── Sync Status (Online/Offline/Delayed)
+       ├── **Privacy & AI Control**
+       │   ├── Data Dashboard ("Data stays on device")
+       │   └── Manage Active Guards (Call Scan, SMS Scan Toggles)
+       ├── Family Member Profiles
+       └── Help & SOS (Cyber Cell / Human Support)
+
+</aside>
+
+Ek Senior UI/UX designer ki tarah agar hum **Guardia AI** ke scope ko dekhein, toh humein "Quantity" se zyada "Quality" par focus karna chahiye. Lekin ek complete case study ke liye, humein lagbhag **12 se 15 Main Screens** banani hongi.
+
+Isse kam mein aapka logic adhura lagega, aur isse zyada mein app complicated ho jayegi.
+
+Chaliye, main aapko screens ki ek breakdown list deta hoon:
+
+---
+
+### 📱 1. Onboarding & Setup (3 Screens)
+
+Naye users ko app ka concept samjhane aur trust build karne ke liye.
+
+- **Splash/Intro Screen:** Brand name "Guardia AI" aur ek line mein USP (e.g., "Your Financial Bodyguard").
+- **Bank Sync (Account Aggregator):** Jahan user apna bank link karta hai (Security ka pehla step).
+- **Permissions Screen:** AI ko SMS aur App usage read karne ki permission dena.
+
+### 🏠 2. Home Screen (The Pulse - 1 Screen)
+
+- Sabse important screen. Isme **Leak Meter**, **AI Shield Status**, aur **Smart Nudges (Cards)** dikhenge.
+
+### 🔍 3. Verify Flow (3 Screens)
+
+- **Scanner View:** Camera interface QR scan karne ke liye.
+- **Loading/Analyzing:** AI background mein jab scan kar raha ho (Verification animation).
+- **Result Screen:** Green (Safe) ya Red (Scam) trust score ke saath.
+
+### 💸 4. Subscription Management (3 Screens)
+
+- **Subs Dashboard:** Visual map aur saare active subscriptions ki list.
+- **Subscription Details:** Jahan usage stats aur "1-Tap Cancel" button ho.
+- **Confirmation/Success:** Cancel hone ke baad ka feedback screen.
+
+### 🛡️ 5. Shield & Panic Room (2 Screens)
+
+- **Security Hub:** Jahan saare protection toggles (Call/SMS/Fraud) hon.
+- **Panic Mode Active:** Jab user sab block kar de, toh ek "Locked" state wali screen.
+
+### ### 6. Vault & Settings (2 Screens)
+
+- **Bank Vault:** Linked accounts aur cards ko manage karna.
+- **Privacy & Support:** Data privacy controls aur Cyber Cell ka SOS contact.
+
+
+2. The Final Master Flow (1-28 Screens):- 
+
+----
+
+### 🗺️ Guardia AI: The Final Master Flow (1-28 Screens)
+
+Maine ise **5 Stages** mein baant diya hai. Aap Figma mein isi sequence mein screens ko arrange kijiye:
+
+### **Stage 1: The Welcome Gate (Entry)**
+
+User pehli baar app kholega toh ye sequence chalega:
+
+1. **Screen 5: Splash Screen** (Logo dikhega) → *Auto-jump to* →
+2. **Screen 16: Login Page** (Existing user ke liye) → *New user clicks 'Create Account'* →
+3. **Screen 17: Signup Step 1** (Name/Mobile) →
+4. **Signup Step 2 (OTP Verification)** →
+5. **Signup Step 3 (Security PIN Setup)** →
+6. **Screen 18: OS Permissions** (Camera/SMS allow karna) →
+7. **Screen 6: Onboarding Walkthrough** (App kaise chalani hai - 3 slides) →
+8. **Screen 7: Bank Linking** (3-step bank connection process).
+
+---
+
+### **Stage 2: The Command Center (Main Tabs)**
+
+Bank link hone ke baad user **Home** par aayega. Niche 4 buttons (Navigation Bar) hamesha rahenge:
+9.  **Screen 1: Home Dashboard** (AI Risk meter aur main alerts).
+10. **Screen 2: Subscriptions Hub** (Paisa kahan leak ho raha hai).
+11. **Screen 3: Verify (Scanner)** (QR code scan karne ke liye).
+12. **Screen 4: Vault (Bank Accounts)** (Aapke linked bank cards).
+
+---
+
+### **Stage 3: Feature Flows (Action lene par)**
+
+Jab user kisi button par click karega, toh ye "Choti Screens" khulengi:
+
+- **Agar Home se Logs dekhne hain:**
+13. **Screen 13: Transaction & Safety Logs** (History) → *Click Calendar* → **Screen 21: Date Picker Overlay**.
+14. **Screen 23: Share Victory Card** (History se kuch share karna).
+- **Agar Subscriptions manage karne hain (Screen 2 se):**
+15. **Screen 10: Subscription Detail Page** → *Click Cancel* →
+16. **Screen 11: Cancellation Success Screen**.
+17. **Screen 12: Family Spend Hub** (Wife/Kids ki spending).
+18. **Screen 19: Empty State** (Agar koi sub nahi hai toh kya dikhega).
+- **Agar Scan karna hai (Screen 3 se):**
+19. **Screen 8: AI Analyzing Loading** (Scan ke baad ki loading).
+20. **Screen 9A: Red Alert (Scam Found)** → *Click SOS* → **Screen 14: Cyber SOS (Help)**.
+21. **Screen 9B: Green Alert (Safe)**.
+22. **Screen 28: Payment Success Feedback** (Paisa transfer hone ke baad).
+
+---
+
+### **Stage 4: Account & Settings (Management)**
+
+User apni profile ya settings mein jayega toh ye sequence aayega:
+23. **Screen 15: Profile & Settings Main Page**.
+24. **Screen 25: Notification Center** (Saare purane alerts).
+25. **Screen 27: Edit Profile Form** (Naam/Email badalna).
+26. **Screen 24: Forgot/Reset PIN Flow** (Agar PIN bhool jaye).
+27. **Screen 26: Freeze/Delete Account Modal** (Account band karne ki warning).
+
+---
+
+### **Stage 5: Error Handling (Emergency)**
+
+Jab app mein kuch kharab ho jaye:
+28. **Screen 20: Error / Offline Screen** (Internet ya server down hone par).
+
+---
+
+### 💡 Figma Prototyping Checklist (Connecting the Dots)
+
+Jab aap Figma mein wires khinchenge, toh ye 3 baatein dhyan rakhna:
+
+1. **The Bottom Nav:** Screen 1, 2, 3, aur 4 ke beech mein wires "Instant" rakhein. User kisi bhi waqt kisi bhi tab par ja sakta hai.
+2. **Back Button:** Har screen (Home ke ilawa) par ek `< Back` button hoga jo user ko pichli screen par wapas bhejega.
+3. **Overlays:** Screen 21 (Calendar), Screen 26 (Delete Modal), aur Screen 23 (Share Card) ko **"Open Overlay"** ke roop mein connect karein taaki wo screen ke upar se pop-up ho kar aayein.
+
+
+3. Guardia AI: Home Screen Wireframe Layout:-
+
+-----
+
+### 📱 Guardia AI: Home Screen Wireframe Layout
+
+### 1. Top Bar (The Header)
+
+*(Apne Figma mein ek Phone frame lein aur in elements ko upar se niche tak place karein)*
+
+- **Left Side:** User Profile Icon + Greeting (e.g., "Hi, Rajesh 👋")
+- **Right Side:** Settings Icon ⚙️
+- **UX Law (Jakob’s Law):** Users ko aadat hai ki profile aur settings upar hi milte hain. Hum is standard ko break nahi karenge taaki Rajesh ko sikhna na pade.
+
+### 2. The Hero Section (Trust Builder)
+
+- **Center/Top:** **AI Shield Status Indicator** 🟢
+- **Visual Style:** Ek glowing green ring ya shield icon. Text: *"System Secure - No live threats."*
+- **UX Law (Aesthetic-Usability Effect):** Sabse pehle user ko "Shanti" (Peace of mind) milni chahiye. Green color aur clear status dekh kar user ki financial anxiety khatam hoti hai.
+
+### 3. The Core Metric (The Leak Meter)
+
+- **Layout:** Ek bada, wide rectangular card.
+- **Content:**
+    - Title: "Monthly Leak Meter"
+    - Big Number: **₹ 849.00** (Red ya Orange color mein, kyunki ye waste hua paisa hai)
+    - Subtitle: *"Wasted on unused apps this month"*
+    - Small Graph/Chart: Ek choti si line ya bar graph.
+- **UX Law (Von Restorff Effect):** Hum chahte hain ki user ka dhyan turant is "Waste" par jaye, isliye is card ka size bada aur number ka font sabse prominent hoga.
+
+### 4. Action Area (Smart Nudges ✨)
+
+- **Title:** "Smart Alerts ✨"
+- **Layout:** Horizontal scrolling cards (ya 1-2 vertical stack).
+- **Card Design:**
+    - Icon: Netflix/Amazon logo.
+    - Text: *"Netflix unused for 45 days. Renewing in 2 days."*
+    - Button: **[Cancel in 1-Tap]** (Primary button).
+- **UX Law (Hick’s Law):** Hum yahan 10 notifications nahi dikhayenge. AI filter karke sirf top 1 ya 2 sabse zaroori action dikhayega, taaki user confuse na ho aur turant decision le sake.
+
+### 5. Footer/List Area (Recent Actions)
+
+- **Layout:** Ek choti si list sabse niche.
+- **Content:** Text: *"Spotify cancellation processing..."* (Saath mein chota loader spinner).
+- **UX Law (Visibility of System Status):** User ko hamesha pata hona chahiye ki background mein kya chal raha hai. Agar usne kal cancel dabaya tha, toh use update yahan dikhna chahiye.
+
+### 6. Bottom Navigation (The Fitts's Law Area)
+
+- **Layout:** Standard bottom bar.
+- **Items:**
+    1. 🏠 Home (Active state)
+    2. 💸 Subs
+    3. **[ 🔍 VERIFY ]** -> Ye ek **Floating Action Button (FAB)** hoga jo nav bar ke thoda upar utha hua aur sabse bada hoga.
+    4. 🔒 Vault
+- **UX Law (Fitts’s Law):** Sabse important action (Verify/Scan) thumb ke sabse paas aur sabse bada rakha gaya hai, taaki emergencies mein tap karna sabse aasaan ho.
+
+---
+
+### 📐 Text-Based Visual Guide (Copy this mental model to Figma)
+
+<aside>
+💡
+
+## 
+
+!image.png
+
+</aside>
+
+### 1. Quick Settings Icon ⚙️ mein kya hoga?
+
+Ye icon "Main App Settings" (Jo Vault mein hai) se thoda alag hai. Yahan hum sirf wo cheezein rakhenge jo user ko **Home Screen ka view** customize karne mein madad karein. Isme ye teen cheezein honi chahiye:
+
+- **Notification Toggles:** Kya user ko Smart Nudges ke push notifications chahiye ya nahi?
+- **Leak Meter Privacy:** Kya user Home screen par apna "Wasted Amount" (Paisa) chhupana chahta hai? (Taki public mein koi dekh na le).
+- **Data Sync Refresh:** Ek "Sync Now" button taaki user manually bank data update kar sake agar AI ne abhi tak latest transaction nahi uthaya hai.
+
+---
+
+### 2. Multiple Smart Nudges (Agar 1 se zyada alert hon)
+
+Jab Netflix ke saath-saath Prime ya kisi aur app ka charge aane wala ho, toh hum use "Netflix ke niche" vertical list mein nahi dikhayenge.
+
+**Kyun?** Kyunki agar hum niche list banayenge toh Home Screen bahut lambi ho jayegi aur user ko scroll karna padega. Iske liye hum **Horizontal Carousel (Slider)** ya **Stacking** use karenge.
+
+### **UX Solution: Horizontal Scroll Cards**
+
+Home screen par "Smart Alerts ✨" section mein cards left-to-right move honge.
+
+- **Pehla Card:** Netflix ka alert dikhega.
+- **Side Preview:** Dusre card (e.g., Prime Video) ka thoda sa hissa edge se dikhega taaki user ko pata chale ki aur bhi alerts hain.
+- **UX Law (Continuity):** User ko visual cue milega ki "Swipe" karne par aur info hai.
+
+---
+
+### 3. Recent Actions (Multiple Activities)
+
+"Recent Actions" ka kaam hai user ko "Peace of Mind" dena ki uska kaam ho raha hai. Agar multiple apps par action liya hai, toh hum yahan ek **Short List (Max 2-3 items)** dikhayenge:
+
+- **Item 1:** ⏳ SonyLIV: Cancellation Processing...
+- **Item 2:** ✅ Hotstar: Successfully Cancelled.
+- **"View All" Button:** Agar 3 se zyada actions hain, toh niche ek chota link hoga "View All History" jo user ko detailed log par le jayega.
+
+---
+
+### 📐 Layout Update (Multiple Data visualization)
+
+Figma mein is section ko aise draw karein:
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 2: VERIFY (Scanner) Layout
+
+### 1. The Header Area (Top)
+
+- **Layout:** Left mein `[< Back]` icon. Center mein Title `"Verify Merchant"`. Right mein Flashlight icon `[🔦]`.
+- **UX Law (Jakob’s Law):** Paytm ya PhonePe jaisa standard top bar. User ko pata hai flashlight upar right mein hoti hai.
+
+### 2. The Core Viewfinder (Center)
+
+- **Layout:** Ek bada square bracket `[ ]` jisme live camera feed chalegi.
+- **Visual Detail:** Iske andar ek neon scanning line (laser) upar-niche hogi, aur sath mein ek chota text hoga: *"✨ AI is checking safety..."*
+- **UX Law (Visibility of System Status):** Laser line aur text user ko batate hain ki app sirf photo nahi kheench rahi, balki "Dimaag" laga rahi hai.
+
+### 3. Manual Entry Area (Bottom)
+
+- **Layout:** Camera viewfinder ke theek niche ek input box.
+- **Content:** Text field jisme likha ho: `"Paste UPI ID, Link,mobile number or SMS here"` aur uske bagal mein ek "Paste 📋" ka quick icon.
+- **UX Law (Fitts's Law):** Ye box thumb ke bilkul paas hoga. Agar QR kaam nahi kar raha, toh user turant link paste kar sake bina upar stretch kiye.
+
+---
+
+### 📈 The Magic Moment: AI Trust Report (Result Bottom Sheet)
+
+Jab scan complete hoga, toh niche se ek card slide hokar aayega. Ye sabse important UI component hai.
+
+- **Layout:** Bada, clear Bottom Sheet.
+- **The Gauge (Meter):** Sabse upar ek visual meter.
+    - *Green State:* Meter full green. Score: **95/100 (Safe)**.
+    - *Red State:* Meter red. Score: **12/100 (Scam Alert)**.
+- **Merchant Info:** "Sharma Kirana Store (Verified 5 years ago)".
+- **Action Buttons:**
+    - *Primary (Bada Button):* **[ 🚀 Pay via GPay ]** (Ye seedha unki existing payment app khol dega).
+    - *Secondary (Chota Text):* *"Report Fraud"*
+
+---
+
+### 📐 Text-Based Visual Guide (Copy this mental model to Figma)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 💡 UX Pro-Tip for your Case Study:
+
+Jab aap ise design karenge, toh "Red State" (Scam Alert) ka ek variant zaroor banayega. Usme primary button laal rang ka hoga jisme likha hoga **[ 🛑 BLOCK MERCHANT ]**, taaki user galti se pay na kar de.
+
+### 📱 Screen 3: SUBS (Subscription Controller) Layout
+
+### 1. The Toggle Switch (Personal vs Family)
+
+- **Layout:** Top bar ke bilkul niche ek segmented control (Tab switcher).
+- **Options:** `[ My Spends ]` | `[ Family Spends ]`
+- **UX Law (Mental Models):** Aaj kal log Netflix ya Disney+ poori family ke liye lete hain. Is toggle se Rajesh ko pata chalega ki uska beta ya beti kitna kharch kar rahe hain (Transparency).
+
+### 2. The Visual Flow Map (✨ AI Money Map)
+
+- **Layout:** Ek circular chart ya horizontal bar chart.
+- **Content:** Paisa categories mein divide hoga (e.g., Entertainment 🎬, Productivity 🛠️, News 📰).
+- **AI Touch:** Agar koi subscription achanak mehnga ho gaya hai (Price hike), toh wo category **Orange** color mein "Pulse" karegi.
+- **UX Law (Aesthetic-Usability Effect):** Boring numbers ke bajaye visual chart dekh kar user ko "Aha!" moment milta hai aur wo app ko zyada trust karta hai.
+
+### 3. Active Subscriptions Hub (The List)
+
+- **Layout:** Ek vertical list jisme har item ek card hoga.
+- **Card Elements:**
+    - App Logo (e.g., Spotify)
+    - Next Renewal Date (e.g., "18 April")
+    - Amount (e.g., "₹199/mo")
+    - **Usage Alert (✨):** Ek chota tag—*"Used only 3 times this month"* (Ye user ko cancel karne ke liye motivate karega).
+- **UX Law (Miller’s Law):** Hum har card mein sirf 3-4 zaroori info hi dikhayenge.
+
+### 4. The "Unknown/Ghost" Queue (Bottom Section)
+
+- **Layout:** Ek alag section jiska header hoga: *"Unidentified Charges (3)"*.
+- **Logic:** Kabhi-kabhi bank statement mein ajeeb se naam aate hain (e.g., "GOOGLE*SERVICES"). AI ise yahan dikhayega aur user se poochega: *"Kya aapne ise pehchana?"*
+- **UX Logic:** Ye user ki "Fear of Unknown" ko khatam karta hai.
+
+---
+
+### 📐 Text-Based Visual Guide (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 🛑 The "1-Tap Cancel" Logic (Micro-interaction)
+
+Jab user kisi card (e.g., SonyLIV) par tap karega, toh ek detail screen khulegi jahan bada button hoga: **[ CANCEL SUBSCRIPTION ✨ ]**.
+
+- **Design Detail:** Is button par tap karne ke baad ek "Progressive Disclosure" wala pop-up aayega jo dikhayega: *"Cancelling... Communicating with Bank... Done!"* ---
+
+**Mera Mentor Sawal:**
+Subs screen ka layout kaisa laga? Isme "Family Spends" wala feature humne isliye rakha hai taaki Rajesh apne bacho ke faltu kharche bhi monitor kar sakein.
+
+### 📱 Screen 4: VAULT (The Crisis Center) Layout
+
+### 1. The Hero Action (The Panic Room)
+
+- **Layout:** Screen ke top par ek bada, prominent card jisme ek lal (red) ya orange button ho.
+- **Content:** Title `"Emergency Freeze"`. Button text: `"Hold to Lock All Accounts"`.
+- **UX Law (Error Prevention & Fitts's Law):** Button bada hona chahiye taaki panic mein easily tap ho sake (Fitts's Law). Lekin galti se dabne se bachane ke liye "Hold to confirm" (3 seconds) ka interaction dena zaroori hai (Error Prevention).
+
+### 2. Data Sync & Bank Vault (The Engine)
+
+- **Layout:** Ek neat list jahan linked bank accounts dikhte hain.
+- **Content:** Bank logos (SBI, HDFC), aur unke aage `"Synced 2 mins ago"`. Ek button naye bank add karne ke liye (`+ Link via Account Aggregator`).
+- **UX Law (Visibility of System Status):** User ko saaf dikhna chahiye ki uska data kab aakhri baar update hua tha. Isse system par trust badhta hai.
+
+### 3. Privacy & AI Control (Transparency)
+
+- **Layout:** Toggles (Switches) ka ek section.
+- **Content:** * "On-Device AI Scan" (Toggle On) - *Info: "Data never leaves your phone."*
+    - "SMS Threat Detection" (Toggle On)
+- **UX Law (User Control and Freedom):** User ko power milni chahiye ki wo AI ko kitna data dena chahta hai. Privacy dikhane se app ki credibility 10x badh jati hai.
+
+### 4. Help & SOS (The Lifeline)
+
+- **Layout:** Sabse niche ek dedicated support section.
+- **Content:** `"Report to Cyber Cell"` (Direct dial) aur `"Contact Guardia Support"`.
+- **UX Law (Help and Documentation):** Mushkil waqt mein support dhoondhne ke liye user ko menus mein na ghoomna pade.
+
+---
+
+### 📐 Text-Based Visual Guide (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 5: Splash Screen (The Identity)
+
+Ye wo screen hai jo app kholte hi 1-2 seconds ke liye dikhti hai. Iska kaam sirf brand recall aur loading hai.
+
+### Layout:
+
+- **Center:** Guardia AI Logo (Shield icon + Text).
+- **Below Logo:** Tagline: *"Your Financial Bodyguard."*
+- **Bottom:** "Securely encrypted by [Logo]" (Trust building start se hi).
+
+### UX Law:
+
+- **Aesthetic-Usability Effect:** Agar Splash screen clean aur professional dikhti hai, toh user ko lagta hai ki app ka andar ka kaam bhi utna hi solid hoga.
+
+---
+
+### 📱 Screen 6: Onboarding Walkthrough (The Education)
+
+Ye screens user ko sikhayengi ki app kaam kaise karti hai. Hum 3 slides banayenge.
+
+### Common Layout for all 3 Slides:
+
+1. **Top Right:** `[Skip]` button (Taki expert users ko zor-zabardasti na jhelni pade).
+2. **Center:** Ek badi, sundar Illustration ya Icon jo feature ko samjhaye.
+3. **Below Image:** Bada Headline (Bold).
+4. **Below Headline:** Chota Subtext (Explaination).
+5. **Bottom:** Progress Dots `( . o . )` aur ek `[ Next ➔ ]` button.
+
+### Content for 3 Slides:
+
+- **Slide 1 (Monitoring):** * *Headline:* "Stop the Leaks"
+    - *Subtext:* "AI automatically detects unused subscriptions and hidden charges that eat your money."
+- **Slide 2 (Protection):** * *Headline:* "Verify Before You Pay"
+    - *Subtext:* "Scan any QR or link to get an instant AI safety report and avoid scams."
+- **Slide 3 (Control):** * *Headline:* "Total Crisis Control"
+    - *Subtext:* "One tap to freeze all accounts in case of emergency. You are always in charge."
+
+### UX Laws:
+
+- **Miller’s Law:** Humne features ko 3 "chunks" (slides) mein baanta hai taaki user ko info overload na ho.
+- **Zeigarnik Effect:** Niche ke dots user ko batate hain ki thoda sa kaam baki hai, isse wo flow complete karne ke liye motivate rehta hai.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+**Screen 5: Splash**
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+<aside>
+💡
+
+### 📱 Screen 6: Onboarding (Slide 1 of 3)
+
+**Focus:** Subscription Leak Detection (Paisa Bachao)
+
+!image.png
+
+Screen 6: Onboarding (Slide 2 - Example)
+
+!image.png
+
+### 📱 Screen 6: Onboarding (Slide 3 of 3)
+
+**Focus:** Emergency Action (Crisis Control)
+
+!image.png
+
+### 💡 Designer Tip for Figma:
+
+- **Slide 1** mein image thodi "Worrying" ho sakti hai (Money leaking).
+- **Slide 3** mein image bahut "Solid" aur "Stable" honi chahiye (Blue/Green shield) taaki user ko suraksha mehsoos ho.
+</aside>
+
+<aside>
+💡
+
+### Screen 7: Bank Link (Account Aggregator) Layout
+
+- **Top Bar:** Progress Indicator (Step 1 of 3).
+- **Title:** "Securely Link Your Finances".
+- **Body:**
+    - Ek chota **"Trust Badge"** (e.g., "RBI Regulated Framework" ya "128-bit Encrypted").
+    - Mobile Number Input field.
+    - **Bank Grid:** Top banks (SBI, HDFC, ICICI) ke logos taaki user turant recognize kare.
+- **Action:** Bada "Proceed" button.
+- **UX Law (Social Proof):** Niche ek line: *"Joined by 1M+ safe users."*
+
+---
+
+### 📐 Text-Based Wireframe (Bank Link)
+
+!image.png
+
+</aside>
+
+### Screen 7: Step 2/3 (OTP Verification)
+
+**Focus:** User ki identity verify karna.
+
+!image.png
+
+**UX Laws Used:**
+
+- **Visibility of System Status:** User ko saaf dikh raha hai ki OTP kahan gaya hai aur countdown kab khatam hoga.
+- **Hick’s Law:** Ek waqt par sirf ek kaam (OTP enter karna), taaki dimaag par bojh na pade.
+
+---
+
+### 📱 Screen 7: Step 3/3 (Account Selection & Consent)
+
+**Focus:** Kaunse accounts protect karne hain aur user ki permission (Consent) lena. Ye screen sabse zaroori hai "Trust" build karne ke liye.
+
+!image.png
+
+### 📱 Screen 8: The Analyzing State (Processing)
+
+**Focus:** Jab AI scan kar raha ho. User ko ye nahi lagna chahiye ki app hang ho gayi hai.
+
+### Layout:
+
+- **Center:** Ek bada **Circular Progress Loader** ya **Pulse Animation** (Jo 'Guardia Shield' ki tarah dikhe).
+- **Below Loader:** Dynamic Status Text. Ye text har 1.5 second mein badlega:
+    - *"Scanning Merchant Database..."*
+    - *"Checking UPI History..."*
+    - *"Verifying Account Age..."*
+- **Bottom:** Chota sa text—*"Powered by Real-time AI Analysis."*
+
+### UX Laws:
+
+- **Doherty Threshold:** User ko 400ms ke andar feedback milna chahiye. Isliye hum animation aur text updates turant shuru kar dete hain.
+- **Visibility of System Status:** User ko batana ki piche kya ho raha hai (Scanning, Checking etc.) uske "Perceived Waiting Time" ko kam kar deta hai.
+
+---
+
+### 📱 Screen 9: RED ALERT (Scam Found! 🚨)
+
+**Focus:** User ko payment karne se rokna. Ye screen **High-Friction** honi chahiye.
+
+### Layout:
+
+- **Background:** Deep Red (Hazard Red) ya Warning Orange.
+- **Top:** Bada 🚨 ya 🛑 icon jo "Pulse" (blink) kar raha ho.
+- **Headline:** "HIGH RISK DETECTED!" (Bold & Capital).
+- **The Reason (The 'Why'):** Ek box jisme likha ho:
+    - *"This merchant was reported 45 times in the last hour for phishing."*
+    - *"Account created 2 hours ago. ⚠️"*
+- **Primary Action (Fitts's Law):** Sabse bada aur aasaan button: **[ 🛑 STOP & BLOCK MERCHANT ]**.
+- **Secondary Action:** Bahut chota aur niche hidden text: *"I trust this person, proceed anyway"* (Taki galti se tap na ho).
+
+### UX Laws:
+
+- **Hick’s Law:** Hum user ko options nahi de rahe. Hum sirf ek hi bada option de rahe hain—**Ruk jao!** Choices kam = Fast decision (Life saving).
+- **Von Restorff Effect:** Red color aur flashing icon poori screen par sabse alag dikhenge, jo user ke "Flight or Fight" response ko trigger karenge.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+**Screen 8: Analyzing**
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+Screen 9: Red Alert 🚨 (A)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 9 (B): SAFE STATE (Success Found! ✅)
+
+**Focus:** User ko batana ki merchant safe hai aur use payment ke liye aage badhana.
+
+### Layout:
+
+- **Background:** Soft Green tint ya White (clean look).
+- **Top:** Bada ✅ ya Shield icon (Green color mein).
+- **Headline:** "VERIFIED & SAFE" (Bold).
+- **Trust Score:** Bada circular gauge jo **98/100** dikha raha ho.
+- **The Reason (The 'Why'):** Ek box jisme "Trust Badges" hon:
+    - *"Merchant active for 3+ years."*
+    - *"10,000+ safe transactions processed."*
+    - *"Verified via NPCI / Bank Database."*
+- **Primary Action (CTA):** Sabse bada aur bright button: **[ 🚀 PROCEED TO PAY ]**. Niche chote icons honge (GPay, PhonePe, Paytm) ye batane ke liye ki ye button unhe kahan le jayega.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 10: Subscription Detail Page
+
+**Focus:** User ko saboot (evidence) dena ki ye subscription unke liye zaruri hai ya nahi.
+
+### Layout:
+
+1. **Header:** `[ < Back ]` aur `[ Share icon ]` (Taaki Rajesh apni wife ko bata sake ki ye subscription kyu cancel kar raha hai).
+2. **App Info:** Bada Logo (e.g., Netflix) + Title + Plans (e.g., "Premium Ultra HD").
+3. **Cost Section:** Bada text: **₹649 / Month**. Niche: *"Next billing on 20th April"*.
+4. **Usage Analytics (✨ AI Insight):** Ye sabse main part hai.
+    - Ek bar chart dikhao: *"Time spent: 2 hrs this month."*
+    - Cost per hour calculation: *"You are paying ₹324 per hour of watching."* (Ye dekh kar user ko "paisa waste" hone ka ehsas hota hai).
+5. **Family Access:** List of members using this (e.g., Rajesh, Beta, Beti).
+6. **Primary Action:** Bada button: **[ 🛑 CANCEL SUBSCRIPTION ✨ ]**.
+7. **Secondary Action:** `[ ⏸️ Pause for 1 Month ]` (Taki user ko lage uske paas flexibility hai).
+
+### UX Law:
+
+- **Progressive Disclosure:** Hum sirf zaroori info pehle dikhate hain (Price, Usage). Baki billing history wagera niche scroll par rakhte hain.
+- **Framing Effect:** Jab hum "Cost per hour" dikhate hain, toh user ko kharcha zyada bada lagta hai, jisse wo decision fast leta hai.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+**Screen 10: Sub Detail**
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 11: Cancellation Success (The "Victory" Screen)
+
+**Focus:** Cancellation ke baad user ko "Good Job" feel karana.
+
+### Layout:
+
+1. **Center Animation:** Ek bada green checkmark (✅) jo rotate hokar settle ho.
+2. **Headline:** "Subscription Cancelled Successfully!"
+3. **Savings Badge:** Ek chamakta hua card: *"You just saved ₹7,788 annually!"* (Monthly ke bajaye saal ka savings dikhana zyada impact dalta hai).
+4. **Access Info:** Ek chota note: *"You still have access until 20th April (End of current cycle)."* (Taki user ko darr na lage ki turant band ho gaya).
+5. **Final Action:** Bada button: **[ 🏠 BACK TO HOME ]**.
+
+### UX Law:
+
+- **Peak-End Rule:** Insaan apne poore experience ko uske "End" se yaad rakhta hai. Agar cancel karne ke baad user ko "Saved Money" ka reward dikhega, toh wo app ko 5-star rating dega.
+
+---
+
+### **Screen 11: Cancel Success**
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 12: Family Spend Hub Layout
+
+### 1. Total Family Leak (Hero Card)
+
+- **Layout:** Screen ke top par ek bada card.
+- **Content:** * Title: "Total Family Spend"
+    - Amount: **₹2,450 / mo**
+    - AI Insight Text: *"₹800 can be saved by merging duplicate accounts."* (Ye "Duplicate detection" hamara killer feature hai).
+
+### 2. Member Profiles (Horizontal Scroll)
+
+- **Layout:** Circular avatars (Wife, Son, Daughter).
+- **Action:** Kisi bhi profile par tap karne se niche ki list filter ho jayegi.
+- **Visual:** Active member ke avatar ke charo taraf ek glowing border.
+
+### 3. Duplicate Alert (✨ AI Highlight)
+
+- **Layout:** Ek high-visibility card (Yellow/Orange tint).
+- **Content:** *"Double Trouble! ⚠️ Both Rohan and Neha are paying for Disney+ separately. Merge into a Family Plan to save ₹299."*
+- **Action:** `[ Resolve Now ]` button.
+
+### 4. Member-wise Breakdown (The List)
+
+- **Layout:** Standard list cards.
+- **Content:**
+    - App Name (e.g., Roblox, YouTube Premium).
+    - Purchased by: "Rohan (Son)".
+    - Type: "Auto-renewal is ON".
+- **UX Law (Visibility of System Status):** Har member ke spending ke sath ek 'Tag' hoga—Safe ✅ or High 📈.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 13: Transaction & Safety Logs Layout
+
+### 1. The "Impact" Header (Summary Card)
+
+- **Layout:** Screen ke sabse upar ek clean card.
+- **Content:** * **Total Savings:** ₹12,400 (Is saal ki total bachat).
+    - **Threats Blocked:** 14 (Kitne fraud se bachaya).
+- **UX Law (Peak-End Rule):** User ko hamesha achhi feelings ke saath chhodna chahiye. Ye numbers dekh kar user ko app ki real value samajh aati hai.
+
+### 2. Filter Tabs (Quick Sort)
+
+- **Layout:** Chote chips/buttons.
+- **Options:** `[ All ]` `[ 🛡️ Scams ]` `[ 💸 Subs ]`
+- **UX Law (Hick’s Law):** Categorize karne se user ko apni specific history dhoondhne mein mehnat nahi karni padti.
+
+### 3. Log List (The Timeline)
+
+- **Layout:** Vertical list, niche ki taraf scroll hone wali.
+- **List Item Elements:**
+    - **Icon:** Agar scam block kiya toh 🚨, agar sub cancel kiya toh ✅, agar scan safe tha toh 🟢.
+    - **Title:** "Scam Blocked: Fake Electricity Bill" ya "Cancelled: SonyLIV".
+    - **Date & Time:** "Yesterday, 4:20 PM".
+    - **Outcome:** "Saved ₹500" ya "Fraud Prevented".
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 14: Cyber SOS / Help Center
+
+Ye hamari app ki **"Emergency Ward"** hai. Jab user ke saath koi dhokha ho jaye, toh wo ghabrahat mein hota hai. Is screen ka design **High-Contrast** aur **Action-Oriented** hona chahiye.
+
+### 1. The Global SOS Button (The Red Zone)
+
+- **Layout:** Sabse upar ek bada rectangular Red Card.
+- **Content:** Bada text: **"Call Cyber Crime Helpline (1930)"**.
+- **Action:** Tap karte hi phone ka dialer khul jaye.
+- **Logic:** Emergency mein user ko menus nahi dhoondhne hote. Seedha phone lagna chahiye.
+
+### 2. Report a New Fraud (Guided Flow)
+
+- **Layout:** Ek simple button list.
+- **Options:** * `[ 💸 Money Stolen ]`
+    - `[ 🆔 Identity Theft ]`
+    - `[ 📱 App Hacked ]`
+- **UX Logic:** AI user se 2-3 sawal pooch kar automatically ek "Report Draft" taiyar kar dega jo wo Cyber Cell ko bhej sake.
+
+### 3. "What to do now?" (The Calm Guide)
+
+- **Layout:** Chote informational cards.
+- **Content:** * *"Step 1: Freeze your bank account (Click here)."*
+    - *"Step 2: Change your UPI PIN."*
+    - *"Step 3: Log out from all devices."*
+- **UX Law (Cognitive Load):** Ghabrahat mein insaan bhool jata hai kya karna hai. Hum unhe step-by-step checklist de rahe hain.
+
+### 4. Human Support (The Safety Net)
+
+- **Layout:** Bottom section.
+- **Content:** `"Chat with Guardia Expert"` or `"Email Support"`.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 💡 Senior Designer Insight:
+
+Is screen par colors ka use bohot sambhal kar karein. **Red** sirf Helpline button ke liye rakhein. Baaki screen ko **White ya Soft Blue** rakhein taaki user "Panic" na kare balki "Solution" par focus kare.
+
+### 📱 Screen 15: Profile & AI Settings (The Control Room)
+
+Ye screen user ko "Power" deti hai. Yahan Rajesh apni aur AI dono ki settings control karega. Guardia AI dusri apps se alag hai, toh iski settings mein bhi ek "AI Brain" ka section hona chahiye.
+
+### 1. Profile Header
+
+- **Layout:** Top par user ka naam, number aur email.
+- **Action:** Profile edit karne ka option.
+
+### 2. The AI Guard Level (✨ Killer Feature)
+
+- **Layout:** 3 options wala radio-button ya slider.
+- **Content:** User decide karega ki AI kitna strict hona chahiye.
+    - *Relaxed:* Sirf dangerous scams block karega.
+    - *Balanced (Default):* Scams aur faltu subscriptions dono dekhega.
+    - *Strict:* Har naye UPI number par warning dega.
+- **UX Law (User Control & Freedom):** User ko lagna chahiye ki "AI mera naukar hai, main uska boss hoon." Jab user ko control milta hai, toh trust badhta hai.
+
+### 3. Security & App Privacy
+
+- **Layout:** Simple toggles (On/Off switches).
+- **Content:**
+    - "App Lock (FaceID / Fingerprint)"
+    - "Hide Leak Meter Balance" (Agar public mein app kholein toh balance na dikhe).
+- **UX Law (Aesthetic-Usability Effect):** Settings page jitna clean aur minimal hoga, user ko settings change karne mein utna kam darr lagega.
+
+### 4. Family Management
+
+- **Layout:** List of linked family members.
+- **Action:** Naya member add karne ka `[ + Invite ]` button.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 16: Login Screen (The Entrance)
+
+**Focus:** Jo purane users hain unke liye fast entry.
+
+### Layout:
+
+- **Top:** Chota Guardia AI Logo aur "Welcome Back" message.
+- **Input Fields:** * Mobile Number / Email ID box.
+- **The "Guardia Fast-Track":** Ek bada button **[ 🔓 Login with Biometrics ]** (FaceID ya Fingerprint). Fintech apps mein log ise zyada pasand karte hain.
+- **Secondary Action:** "Forgot Password?" link.
+- **Bottom:** "New to Guardia? **Create Account**" (Ye link humein Signup screen par le jayega).
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 17: Signup Screen (The Foundation) stap 1
+
+**Focus:** Naye user ki info lena aur security samjhana. Jab user Login page par "Create Account" par click karega, toh ye screen khulegi.
+
+### Layout:
+
+- **Progress Bar:** Top par ek patli line (Step 1 of 3) — taaki user ko lage ki process chota hai.
+- **Headline:** "Start Your Financial Shield".
+- **Inputs:**
+    - Full Name (As per Bank/PAN)
+    - Mobile Number
+    - Referral Code (Optional - Doston ko invite karne ke liye).
+- **Trust Checkbox:** `[ ]` "I agree to let Guardia AI analyze my spends securely (RBI Regulated)."
+- **Action:** Bada **[ 🚀 NEXT: VERIFY MOBILE ]** button.
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 17: Signup Step 2/3 (OTP Verification)
+
+**Focus:** User ne jo mobile number diya hai, use verify karna. Ye step spam accounts ko rokta hai.
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### Screen 17: Signup Step 3/3 (App Lock & Vault Setup)
+
+**Focus:** Kyunki hum password nahi le rahe, toh app kholne ke liye ek "Local Device Security" banani zaroori hai. Ye Step 3 app ki Tijori (Vault) ka lock set karne ke liye hai.
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 18: OS Permissions (The Access Gate)
+
+**Focus:** User ko "Allow" button dabane ke liye taiyar karna. Agar user yahan "Deny" kar dega, toh app bekar ho jayegi. Isliye humein unhe **W-H-Y** (Kyun?) batana hoga.
+
+### Layout:
+
+1. **Icon:** Ek bada animated hand ya shield jo phone permissions ki taraf ishara kare.
+2. **Title:** "Guardia needs your shield's power".
+3. **The 'Why' List:** * **SMS Access:** "To automatically detect hidden subscriptions and bills."
+    - **Camera Access:** "To scan and verify QR codes for instant scam alerts."
+    - **Notifications:** "To alert you immediately during a fraud attempt."
+4. **Primary Action:** Bada button **[ 🛡️ ENABLE ALL PERMISSIONS ]**.
+5. **Secondary Action:** `[ Maybe Later ]` (Niche chota text).
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 19: Empty State (The "No Data" Screen)
+
+**Focus:** Maan lijiye Rajesh naya user hai. Usne app install ki aur uske account mein **ek bhi** faltu subscription ya hidden charge nahi mila. Toh "Subs" tab par khali safed (white) screen nahi aani chahiye, usse user sochega app kharab hai.
+
+### Layout (Subs Tab - Empty):
+
+- **Center Illustration:** Ek khush (happy) AI Shield ya "Clean Desk" ka graphic.
+- **Headline:** "Zero Leaks Found! 🎉"
+- **Subtext:** "Your finances are perfectly optimized. We couldn't find any unused subscriptions or hidden charges."
+- **Primary Action:** `[ 🔍 Scan Another Bank Account ]`
+- **UX Law (Aesthetic-Usability Effect & Emotional Design):** Khali dabba dikhane ke bajaye, user ko "Good Job" feel karana uski app ke sath engagement badhata hai.
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 20: Error / Offline State (The "Oops" Screen)
+
+**Focus:** Fintech app mein internet connection ya bank ka server down hona aam baat hai. Agar app crash ho gayi jaisa dikhega, toh trust toot jayega. Humein ek calm (shaant) error screen chahiye.
+
+### Layout:
+
+- **Center Illustration:** Ek toota hua plug ya "Sleeping Shield" ka icon.
+- **Headline:** "Connection Lost" ya "Bank Server is Sleeping 💤".
+- **Subtext:** "We couldn't connect to the server. Don't worry, your data and money are completely safe offline."
+- **Primary Action:** Bada **[ 🔄 Tap to Retry ]** button.
+- **UX Law (Visibility of System Status):** User ko saaf batao ki problem kya hai (Internet ya Server), aur problem solve karne ka rasta (Retry) do.
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 21: Calendar / Date Picker Popup
+
+**Focus:** History screen mein specific transactions dhoondhna. Yahan humein user ki mehnat (cognitive load) kam karni hai.
+
+### Layout:
+
+1. **Header:** "Select Date Range" aur do boxes: `[ From Date ]` aur `[ To Date ]`.
+2. **Quick Presets:** Fintech apps mein log aksar pichle kuch dino ka data dekhte hain. Isliye niche 3 buttons honge:
+    - `[ Last 7 Days ]`
+    - `[ Last 30 Days ]`
+    - `[ This Month ]`
+3. **The Grid:** Ek standard monthly calendar view.
+4. **Selection Logic:** Jab user do dates select karega, toh unke beech ki dates **Highlight** (Blue/Green tint) ho jayengi.
+5. **Action:** Bada button **[ ✅ APPLY FILTER ]**.
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+!image.png
+
+### 📱 Screen 22: Add New Bank (The Search & Select)
+
+**Focus:** User ko hazaron banks ki list mein se apna bank 2 second mein dhoondhne mein madad karna.
+
+### Layout:
+
+1. **Search Bar:** Sabse upar bada bar—`[ 🔍 Search your bank name... ]`.
+2. **Popular Banks (Grid):** India ke top 5-6 banks ke logos (SBI, HDFC, ICICI, Axis, PNB).
+    - **UX Reason:** 80% users ko search karne ki zaroorat nahi padegi, wo yahin se tap kar lenge (**Hick's Law**).
+3. **All Banks (List):** Alphabetical order (A-Z) mein baaki saare banks ki list.
+4. **Alphabet Scroller:** Side mein chota A...Z scroller taaki user turant "Y" (Yes Bank) par jump kar sake.
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+!image.png
+
+### 📱 Screen 23: Share Sheet / Victory Card
+
+**Focus:** User ki "Savings" ya "Safety" ko ek sundar card (image) mein badalna taaki wo WhatsApp ya Instagram par share kar sake.
+
+### Layout:
+
+1. **The Card (Center):** Ek chamakta hua card jisme background par halki patterns hon.
+    - **Top:** Guardia AI Logo + "Verified Protection".
+    - **The Big Win:** Bada text: **"₹1,200 SAVED THIS MONTH"** ya **"SCAM ATTEMPT BLOCKED! 🛡️"**.
+    - **The Details:** Chota note: *"AI detected a fake electricity bill link and saved my balance."*
+    - **The Invite:** "Get your Financial Bodyguard. Scan to download." (Ek chota QR code).
+2. **Share Options (Bottom):** Horizontal icons ki list.
+    - `[ WhatsApp ]` `[ Instagram Story ]` `[ Twitter ]` `[ Save Image ]`
+3. **Close Button:** Top Right par `[ X ]` taaki user wapas app par ja sake.
+
+### UX Laws:
+
+- **Social Proof:** Jab Rajesh share karega, toh uske dost dekhenge ki "Guardia AI sach mein kaam karti hai."
+- **Gamification:** Savings ko ek "Reward" ki tarah dikhana user ko app baar-baar use karne ke liye motivate karta hai.
+
+---
+
+### 📐 Text-Based Wireframe (Figma ke liye)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 24: Forgot / Reset PIN Flow
+
+**Focus:** Jab user apna PIN bhool jaye. Ye 2 steps ka chota flow hoga.
+
+**Step 1: Identity Verification**
+
+- **Headline:** "Reset Your Security PIN"
+- **Input:** `[ 📱 Mobile Number ]`
+- **Action:** `[ Send OTP ]`
+
+**Step 2: New PIN Entry**
+
+- **Headline:** "Create New PIN"
+- **Input:** Do sets of boxes—`[ Set PIN ]` and `[ Confirm PIN ]`.
+- **UX Tip:** Hamesha "Confirm" wala box zaroori hai taaki "Typing Error" na ho.
+
+---
+
+### 📐 Text-Based Wireframe (Components for Figma)
+
+**Step 1: Mobile Verification**
+
+!image.png
+
+Step 2: Create New PIN
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 25: Notification Center
+
+**Focus:** User ko purane alerts aur messages dikhana.
+
+- **Layout:** Vertical list.
+- **Categories (Filter Chips):** `[ All ]` `[ 🚨 Alerts ]` `[ 💰 Savings ]`
+- **List Item:**
+    - *Icon:* Red 🚨 for scams, Green 💸 for savings.
+    - *Text:* "You saved ₹200 on Netflix yesterday!"
+    - *Time:* "2 hours ago".
+- **Action:** "Mark all as read" ka chota link top par.
+
+---
+
+### 📐 Text-Based Wireframe (Components for Figma)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 26: Account Deletion / Freeze (The Modal)
+
+**Focus:** Ye ek "Bottom Sheet" ya "Popup" hoga jo Settings se trigger hoga. Humein yahan **Friction** (rok-tok) badhani hai taaki user galti se account delete na kare.
+
+- **Headline (Red Color):** "Wait! Are you sure?"
+- **Warning Message:** "If you delete your account, your Financial Shield will stop working, and we won't be able to alert you about future scams."
+- **Primary Action (Neutral):** `[ 🛡️ Keep My Shield Active ]` (Ise bada aur bright rakho).
+- **Secondary Action (Danger):** `[ 🗑️ Delete Account Anyway ]` (Ise chota aur red border wala rakho).
+
+---
+
+### 📐 Text-Based Wireframe (Components for Figma)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 27: Profile Edit
+
+**Focus:** Basic details update karna.
+
+- **Avatar:** Center mein bada circle `[ 👤 Change Photo ]`.
+- **Fields:**
+    - `[ Full Name ]`
+    - `[ Email Address ]`
+    - `[ Primary Bank linked: HDFC Bank ]` (Read-only field).
+- **Action:** Bada **[ 💾 Save Changes ]** button.
+
+---
+
+### 📐 Text-Based Wireframe (Components for Figma)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+### 📱 Screen 28: Payment Feedback (The Micro-Success)
+
+**Focus:** QR Scan ke baad jab payment confirm hoti hai. Ye screen sirf 2 second ke liye aati hai.
+
+- **Layout:** Minimalist.
+- **Icon:** Ek bada animated **Green Checkmark (✅)**.
+- **Text:** "Payment Successful!"
+- **AI Badge:** *"Verified & Secured by Guardia AI"* (Ye badge user ko batata hai ki payment safe jagah gayi hai).
+- **Details:** Amount (₹500) + Merchant Name (Sharma Stores).
+
+---
+
+### 📐 Text-Based Wireframe (Components for Figma)
+
+<aside>
+💡
+
+!image.png
+
+</aside>
+
+[](https://app.notion.com/p/374f9fdadfef8011bf18ee86cfab2399?pvs=21)
+
+
+
