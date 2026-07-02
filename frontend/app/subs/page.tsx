@@ -26,6 +26,7 @@ export default function SubscriptionsHub() {
   const [spendTab, setSpendTab] = useState<'my' | 'family'>('my')
   const [subs, setSubs] = useState<StoredSubscription[]>([])
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   // Modal states for family spends
   const [selectedFamilySub, setSelectedFamilySub] = useState<{ memberId: string; subId: string; subName: string; cost: number; memberName: string } | null>(null)
@@ -52,6 +53,7 @@ export default function SubscriptionsHub() {
   ])
 
   useEffect(() => {
+    setMounted(true)
     setSubs(getStoredSubscriptions())
   }, [])
 
@@ -80,76 +82,92 @@ export default function SubscriptionsHub() {
   // Calculate SVG stroke offset ratios
   let accumulatedPercent = 0
 
+  if (!mounted) return null
+
   return (
     <MobileFrame>
-      <div className="relative px-4 pt-4 pb-28 flex flex-col text-slate-100 min-h-full select-none bg-[#0A0A0A]">
+      <div className="relative min-h-full bg-gradient-to-b from-[#0A0A0A] via-[#0F0F1E] to-[#0A0A0A] overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-20%] left-[-10%] w-96 h-96 bg-gradient-to-br from-[#8537FD]/20 to-transparent rounded-full blur-3xl animate-float-slow" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-96 h-96 bg-gradient-to-br from-[#E837FD]/15 to-transparent rounded-full blur-3xl animate-drift" />
+          <div className="absolute top-[50%] right-[-5%] w-72 h-72 bg-gradient-to-br from-[#AFFD37]/10 to-transparent rounded-full blur-3xl animate-float" />
+        </div>
+
+        <div className="relative px-4 pt-4 pb-28 flex flex-col text-slate-100 select-none">
         
-        {/* Top Header - Refined */}
-        <div className="flex items-center justify-between mt-1 z-10 relative">
+        {/* Top Header - Animated entrance */}
+        <div className="flex items-center justify-between mt-1 z-10 relative animate-fade-in-down">
           <button 
             onClick={() => router.push('/home')}
-            className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center cursor-pointer active:scale-95 transition-all"
+            className="w-10 h-10 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-[#8537FD]/40 flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group"
             aria-label="Go back"
           >
-            <ArrowLeft size={16} className="text-slate-300" />
+            <ArrowLeft size={18} className="text-slate-300 group-hover:text-[#8537FD] transition-colors" />
           </button>
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Subscriptions</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white transition-colors">💳 Subscriptions Hub</span>
           <button 
-            className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center cursor-pointer active:scale-95 transition-all"
+            className="w-10 h-10 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-[#AFFD37]/40 flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group"
             onClick={() => router.push('/vault')}
             aria-label="Add new subscription"
           >
-            <Plus size={16} className="text-slate-300" />
+            <Plus size={18} className="text-slate-300 group-hover:text-[#AFFD37] transition-colors" />
           </button>
         </div>
 
-        {/* Spend Context Toggle - Refined */}
-        <div className="mt-6 flex bg-white/5 p-1 rounded-2xl border border-white/10 z-10 relative">
+        {/* Spend Context Toggle - Premium animated tabs */}
+        <div className="mt-6 flex bg-white/5 p-1.5 rounded-2xl border border-white/10 z-10 relative animate-fade-in-up gap-1" style={{ animationDelay: '0.1s' }}>
           <button
             onClick={() => setSpendTab('my')}
-            className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
               spendTab === 'my' 
-                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/20' 
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/30 scale-105' 
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <User size={14} />
+            <User size={15} />
             <span>My Spends</span>
           </button>
           <button
             onClick={() => setSpendTab('family')}
-            className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
               spendTab === 'family' 
-                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/20' 
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/30 scale-105' 
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Users size={14} />
+            <Users size={15} />
             <span>Family</span>
           </button>
         </div>
 
         {spendTab === 'my' ? (
           <>
-            {/* Spend Hero Card - Refined */}
-            <div className="mt-6 bg-gradient-to-br from-white/5 to-white/[0.02] rounded-3xl p-6 border border-white/10 relative overflow-hidden z-10">
-              <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#8537FD]/10 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="relative z-10 flex items-start justify-between">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Total Monthly Spend</span>
-                  <div className="mt-2 flex items-baseline gap-2">
-                    <span className="text-4xl font-black font-mono">₹{myTotal}</span>
-                    <span className="text-sm text-slate-400 font-semibold">/month</span>
-                  </div>
-                </div>
-                {/* Insights Pill */}
-                {hasNetflixLeak && (
-                  <div className="px-3 py-1.5 rounded-full bg-[#E837FD]/10 border border-[#E837FD]/20 text-xs font-bold text-[#E837FD] animate-pulse">
-                    {activeLeaks.length} Leaked
-                  </div>
-                )}
-              </div>              {/* Visual Donut Spend Map */}
+            {/* Spend Hero Card - Premium animated entrance */}
+            <div className="mt-6 animate-scale-in-spring" style={{ animationDelay: '0.15s' }}>
+              <div className="relative group">
+                {/* Animated gradient border */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#8537FD] via-[#E837FD] to-[#AFFD37] rounded-3xl opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-500 animate-pulse-scale" />
+                
+                <div className="relative bg-gradient-to-br from-[#AFFD37]/20 to-[#8537FD]/10 rounded-3xl p-7 border border-[#AFFD37]/30 overflow-hidden shadow-2xl shadow-[#AFFD37]/10">
+                  <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#AFFD37]/15 rounded-full blur-3xl animate-float" />
+                  <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-[#8537FD]/10 rounded-full blur-2xl animate-drift" />
+                  
+                  <div className="relative z-10 flex items-start justify-between">
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500">📊 Total Monthly Spend</span>
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <span className="text-5xl font-black font-mono text-white animate-count-up">₹{myTotal}</span>
+                        <span className="text-sm text-slate-400 font-semibold">/month</span>
+                      </div>
+                    </div>
+                    {/* Insights Pill */}
+                    {hasNetflixLeak && (
+                      <div className="px-3 py-1.5 rounded-full bg-gradient-to-r from-[#E837FD]/30 to-[#FDE837]/20 border border-[#E837FD]/50 text-xs font-bold text-[#AFFD37] animate-glow-pulse">
+                        ⚡ {subs.filter(s => !s.isCancelled && (s.isUnused || s.isUnknown)).length} Leaks
+                      </div>
+                    )}
+                  </div>              {/* Visual Donut Spend Map */}
               <div className="mt-6 flex items-center gap-6">
                 <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">

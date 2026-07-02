@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { ArrowLeft, Zap, Scan, Clipboard, CheckCircle2, AlertTriangle, AlertCircle, Sparkles, QrCode } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { ArrowLeft, Zap, Scan, Clipboard, CheckCircle2, AlertTriangle, AlertCircle, Sparkles, QrCode, Lock, ChevronRight } from 'lucide-react'
 import MobileFrame from '@/components/MobileFrame'
 import BottomNav from '@/components/BottomNav'
 import { useRouter } from 'next/navigation'
@@ -12,13 +12,18 @@ export default function VerifyScanner() {
   const [manualInput, setManualInput] = useState('')
   const [pasteSuccess, setPasteSuccess] = useState(false)
   const [pasteSource, setPasteSource] = useState<'clipboard' | 'simulated' | ''>('')
+  const [mounted, setMounted] = useState(false)
+  const [scanActive, setScanActive] = useState(true)
 
-  // Popular/recent scans logs
   const recentScans = [
-    { name: 'Swiggy Instamart', status: 'safe' },
-    { name: 'Fake Electricity Link', status: 'scam' },
-    { name: 'Zomato Merchant', status: 'safe' },
+    { name: 'Swiggy Instamart', status: 'safe', icon: CheckCircle2 },
+    { name: 'Fake Electricity Link', status: 'scam', icon: AlertTriangle },
+    { name: 'Zomato Merchant', status: 'safe', icon: CheckCircle2 },
   ]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleVerify = (text: string) => {
     const trimmed = (text || '').trim()
@@ -30,7 +35,6 @@ export default function VerifyScanner() {
                   trimmed.toLowerCase().includes('electricity') ||
                   trimmed.toLowerCase().includes('verify.kyc')
 
-    // Redirect to analyzing with simulated state
     router.push(`/verify/analyzing?type=${isScam ? 'scam' : 'safe'}&payload=${encodeURIComponent(trimmed)}`)
   }
 
@@ -42,7 +46,6 @@ export default function VerifyScanner() {
       setPasteSuccess(true)
       setTimeout(() => setPasteSuccess(false), 2000)
     } catch (err) {
-      // Fallback for sandboxed browser environment
       setManualInput('http://verify.kyc-update.com/electricity-bill/pay-now')
       setPasteSource('simulated')
       setPasteSuccess(true)
@@ -50,143 +53,150 @@ export default function VerifyScanner() {
     }
   }
 
+  if (!mounted) return null
+
   return (
     <MobileFrame>
-      <div className="relative px-5 pt-5 pb-28 flex flex-col text-slate-100 min-h-full select-none bg-[#0C0C0C]">
-        
-        {/* Top Header Navigation (Frentix style) */}
-        <div className="flex items-center justify-between mt-2 z-10 relative">
-          <button 
-            onClick={() => router.push('/home')}
-            className="w-10 h-10 rounded-full bg-[#181818] border border-white/5 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
-          >
-            <ArrowLeft size={18} className="text-slate-300" />
-          </button>
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Verify Scan</span>
-          <button 
-            onClick={() => setFlashlight(!flashlight)}
-            className={`w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer active:scale-95 transition-transform ${
-              flashlight 
-                ? 'bg-[#8537FD]/20 border-[#8537FD]/40 text-[#AFFD37]' 
-                : 'bg-[#181818] border-white/5 text-slate-300'
-            }`}
-          >
-            <Zap size={18} />
-          </button>
+      <div className="relative min-h-full bg-gradient-to-b from-[#0A0A0A] via-[#0F0F1E] to-[#0A0A0A] overflow-hidden flex flex-col">
+        {/* Animated background gradients */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-30%] right-[-10%] w-96 h-96 bg-gradient-to-br from-[#8537FD]/20 to-transparent rounded-full blur-3xl animate-float-slow" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-80 h-80 bg-gradient-to-br from-[#E837FD]/10 to-transparent rounded-full blur-3xl animate-drift" />
         </div>
 
-        {/* Viewfinder Area (Centered) */}
-        <div className="mt-8 flex-1 flex flex-col items-center justify-center z-10 relative">
-          {/* Animated Viewfinder Box */}
-          <div className="relative w-60 h-60 rounded-[32px] overflow-hidden flex items-center justify-center border border-white/5 bg-slate-950/20">
-            {/* Viewfinder Corners (Frentix Glowing Purple style) */}
-            <div className="absolute top-0 left-0 w-8 h-8 border-t-3 border-l-3 border-[#8537FD] rounded-tl-2xl" />
-            <div className="absolute top-0 right-0 w-8 h-8 border-t-3 border-r-3 border-[#8537FD] rounded-tr-2xl" />
-            <div className="absolute bottom-0 left-0 w-8 h-8 border-b-3 border-l-3 border-[#8537FD] rounded-bl-2xl" />
-            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-3 border-r-3 border-[#8537FD] rounded-br-2xl" />
-            
-            {/* Grid Mesh lines inside viewfinder */}
-            <div className="absolute inset-4 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:12px_12px] rounded-[20px]" />
-
-            {/* Glowing Scan QR Icon inside */}
-            <QrCode size={64} className="text-[#8537FD] opacity-25 animate-pulse" />
-
-            {/* Laser Line Scanning Animation */}
-            <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#AFFD37] to-transparent shadow-[0_0_12px_#AFFD37] animate-[scan_2s_ease-in-out_infinite]" />
-          </div>
-
-          <p className="text-xs text-slate-400 mt-5 flex items-center gap-1.5 animate-pulse">
-            <Scan size={12} className="text-[#8537FD]" />
-            <span>Align QR code inside the frame</span>
-          </p>
-        </div>
-
-        {/* Manual Input Panel (Frentix Bottom Sheet Card) */}
-        <div className="mt-6 bg-[#181818] rounded-[28px] p-5 border border-white/5 z-10 relative">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Manual Entry</span>
-            {pasteSuccess && (
-              <span className="text-[10px] font-bold text-[#AFFD37] animate-fade-in">
-                {pasteSource === 'clipboard' ? 'Pasted!' : 'Simulated Link Pasted!'}
-              </span>
-            )}
-          </div>
-
-          {/* Input Box with Paste Button */}
-          <div className="mt-3.5 relative flex items-center">
-            <input
-              type="text"
-              name="verify_url"
-              autoComplete="off"
-              value={manualInput}
-              onChange={(e) => setManualInput(e.target.value)}
-              placeholder="e.g. pay.swiggy-instamart.in/order-38291…"
-              className="w-full h-12 pl-4 pr-12 rounded-xl bg-[#0C0C0C] border border-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#181818] text-xs font-medium text-white placeholder-slate-500"
-            />
-            <button
-              onClick={handlePaste}
-              className="absolute right-2.5 w-8 h-8 rounded-lg bg-[#181818] border border-white/5 flex items-center justify-center text-[#8537FD] active:scale-95 transition-transform hover:border-white/10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD]"
-              title="Paste clipboard"
-              aria-label="Paste from clipboard"
+        <div className="relative px-4 pt-4 pb-28 flex flex-col text-slate-100 min-h-full select-none">
+          
+          {/* HEADER - Animated entrance */}
+          <div className="flex items-center justify-between mt-2 z-10 relative animate-fade-in-down">
+            <button 
+              onClick={() => router.push('/home')}
+              className="w-10 h-10 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-[#8537FD]/40 flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group"
             >
-              <Clipboard size={14} aria-hidden="true" />
+              <ArrowLeft size={18} className="text-slate-300 group-hover:text-[#8537FD] transition-colors" />
+            </button>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-300">🔍 Verify & Scan</span>
+            <button 
+              onClick={() => setFlashlight(!flashlight)}
+              className={`w-10 h-10 rounded-2xl border flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group ${
+                flashlight 
+                  ? 'bg-gradient-to-br from-[#AFFD37]/30 to-[#8537FD]/20 border-[#AFFD37]/60 text-[#AFFD37] shadow-lg shadow-[#AFFD37]/30' 
+                  : 'bg-white/10 border-white/20 text-slate-300 hover:bg-white/20 hover:border-[#AFFD37]/40 group-hover:text-[#AFFD37]'
+              }`}
+            >
+              <Zap size={18} />
             </button>
           </div>
 
-          {/* Quick-Test Scenarios (For Behance Presentation) */}
-          <div className="mt-3 flex gap-2">
-            <button
-              onClick={() => handleVerify('verify.kyc-update.com/electricity-bill')}
-              className="flex-1 h-7 rounded-lg bg-[#E837FD]/5 border border-[#E837FD]/20 text-[9px] font-extrabold uppercase tracking-wider text-[#E837FD] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1"
-            >
-              <AlertCircle size={10} />
-              <span>Test Scam Link</span>
-            </button>
-            <button
-              onClick={() => handleVerify('pay.swiggy-instamart.in/order-38291')}
-              className="flex-1 h-7 rounded-lg bg-[#AFFD37]/5 border border-[#AFFD37]/20 text-[9px] font-extrabold uppercase tracking-wider text-[#AFFD37] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1"
-            >
-              <CheckCircle2 size={10} />
-              <span>Test Safe Link</span>
-            </button>
-          </div>
+          {/* SCANNER AREA - Premium animated viewfinder */}
+          <div className="mt-10 flex-1 flex flex-col items-center justify-center z-10 relative animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            {/* Animated Viewfinder */}
+            <div className="relative group">
+              {/* Outer glow effect */}
+              <div className="absolute inset-0 w-72 h-72 rounded-3xl bg-gradient-to-r from-[#8537FD] via-[#E837FD] to-[#AFFD37] opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-500 animate-pulse-scale" />
+              
+              {/* Main viewfinder */}
+              <div className="relative w-72 h-72 rounded-3xl overflow-hidden flex items-center justify-center border-2 border-[#8537FD]/40 bg-gradient-to-br from-slate-950/40 to-slate-900/20 shadow-2xl shadow-[#8537FD]/20">
+                {/* Grid pattern background */}
+                <div className="absolute inset-4 bg-[linear-gradient(rgba(133,55,253,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(133,55,253,0.05)_1px,transparent_1px)] bg-[size:16px_16px] rounded-2xl" />
 
-          {/* Verify Button */}
-          <button
-            onClick={() => handleVerify(manualInput)}
-            disabled={!manualInput}
-            className={`mt-4 w-full h-11 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-1 shadow-md ${
-              manualInput 
-                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white hover:shadow-[0_8px_20px_rgba(133,55,253,0.2)] active:scale-[0.98]' 
-                : 'bg-[#0C0C0C] text-slate-500 border border-white/5'
-            }`}
-          >
-            <span>Verify Source</span>
-            <Sparkles size={12} />
-          </button>
-        </div>
+                {/* Corner markers */}
+                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#8537FD]/60" />
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#8537FD]/60" />
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#8537FD]/60" />
+                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#8537FD]/60" />
 
-        {/* Recent Scans Pill Logs */}
-        <div className="mt-5 flex flex-col gap-2.5 z-10 relative">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-1">Recent Checks</span>
-          <div className="flex gap-2 flex-wrap">
-            {recentScans.map((scan, i) => (
-              <div
-                key={i}
-                className="h-8 px-3 rounded-full bg-[#181818] border border-white/5 flex items-center gap-1.5 cursor-pointer hover:border-white/10"
-                onClick={() => handleVerify(scan.name)}
-              >
-                <div className={`w-1.5 h-1.5 rounded-full ${scan.status === 'safe' ? 'bg-[#AFFD37]' : 'bg-[#E837FD]'}`} />
-                <span className="text-[10px] font-bold text-slate-300">{scan.name}</span>
+                {/* Central QR icon with pulsing effect */}
+                <div className="relative z-10">
+                  <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-br from-[#8537FD]/30 to-[#E837FD]/20 blur-2xl animate-pulse-scale" />
+                  <QrCode size={72} className="relative text-[#AFFD37] drop-shadow-lg animate-float" />
+                </div>
+
+                {/* Scanning laser line */}
+                {scanActive && (
+                  <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#AFFD37] to-transparent shadow-[0_0_16px_#AFFD37] animate-[scan_2.5s_ease-in-out_infinite]" />
+                )}
+
+                {/* Animated borders */}
+                <div className="absolute inset-0 rounded-3xl border border-transparent animate-border-glow" style={{ borderColor: 'rgba(133, 55, 253, 0.4)' }} />
               </div>
-            ))}
+            </div>
+
+            {/* Scanning instructions */}
+            <div className="mt-8 text-center space-y-2 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <p className="text-sm font-bold text-white">Position QR code in frame</p>
+              <p className="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+                <Scan size={13} className="text-[#8537FD] animate-pulse" />
+                <span>Scanning active</span>
+              </p>
+            </div>
+          </div>
+
+          {/* MANUAL INPUT SECTION */}
+          <div className="mt-8 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Or enter URL manually</label>
+              <div className="relative group">
+                <input
+                  type="text"
+                  value={manualInput}
+                  onChange={(e) => setManualInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleVerify(manualInput)}
+                  placeholder="Paste suspicious link here..."
+                  className="w-full h-12 pl-4 pr-16 rounded-2xl bg-white/5 border border-white/15 focus:outline-none focus:ring-2 focus:ring-[#8537FD] focus:ring-offset-2 focus:ring-offset-[#0A0A0A] hover:border-white/30 focus:border-[#8537FD] group-focus-within:bg-[#8537FD]/5 transition-all text-sm font-medium text-white placeholder-slate-600"
+                />
+                <button
+                  onClick={handlePaste}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white text-xs font-bold hover:shadow-lg hover:shadow-[#8537FD]/40 active:scale-90 transition-all"
+                >
+                  Paste
+                </button>
+              </div>
+            </div>
+
+            {/* Verify Button */}
+            <button
+              onClick={() => handleVerify(manualInput)}
+              disabled={!manualInput}
+              className="w-full h-12 rounded-2xl bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white font-bold uppercase tracking-widest text-sm hover:shadow-lg hover:shadow-[#8537FD]/40 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-all flex items-center justify-center gap-2 group"
+            >
+              <Lock size={16} />
+              <span>Verify Link</span>
+            </button>
+          </div>
+
+          {/* RECENT SCANS */}
+          <div className="mt-8 space-y-3 animate-fade-in-up stagger-children" style={{ animationDelay: '0.4s' }}>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">Recent Scans</h3>
+            {recentScans.map((scan, idx) => {
+              const Icon = scan.status === 'safe' ? CheckCircle2 : AlertTriangle
+              return (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-white/20 transition-all group cursor-pointer"
+                  style={{ animationDelay: `${0.1 * (idx + 1)}s` }}
+                >
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                    scan.status === 'safe'
+                      ? 'bg-emerald-500/20 border border-emerald-500/40'
+                      : 'bg-red-500/20 border border-red-500/40'
+                  }`}>
+                    <Icon size={18} className={scan.status === 'safe' ? 'text-emerald-400' : 'text-red-400'} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold text-white">{scan.name}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      {scan.status === 'safe' ? '✓ Safe & verified' : '⚠ Potential scam detected'}
+                    </p>
+                  </div>
+                  <ChevronRight size={16} className="text-slate-600 group-hover:text-slate-400 transition-colors" />
+                </div>
+              )
+            })}
           </div>
         </div>
 
+        <BottomNav />
       </div>
-      
-      {/* Floating Bottom Nav */}
-      <BottomNav activeTab="verify" />
     </MobileFrame>
   )
 }
