@@ -164,8 +164,14 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans bg-[#0A0A0A];
   }
+  
+  h1 { @apply font-black tracking-tight; }
+  h2 { @apply font-bold tracking-tight; }
+  h3 { @apply font-bold; }
+  h4 { @apply font-semibold; }
+  h5, h6 { @apply font-medium; }
 }
 
 /* Hide scrollbar globally for all elements (removes the browser's white scroll strip) */
@@ -192,12 +198,19 @@
   }
 }
 
-/* Premium Glassmorphism Cards */
+/* Refined Glassmorphism Cards */
 .glass-card {
-  background: rgba(24, 24, 24, 0.45) !important;
+  background: rgba(20, 20, 20, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.05) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 /* High-End Electric AI Backlights */
@@ -216,7 +229,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Micro-animations */
+/* Micro-animations & Effects */
 @keyframes pulse-glowing-lime {
   0%, 100% {
     box-shadow: 0 0 16px rgba(175, 253, 55, 0.2);
@@ -228,6 +241,15 @@
 
 .animate-glow-lime {
   animation: pulse-glowing-lime 2s infinite ease-in-out;
+}
+
+@keyframes gentle-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.animate-gentle-scale {
+  animation: gentle-scale 3s infinite ease-in-out;
 }
 
 @keyframes float-gentle {

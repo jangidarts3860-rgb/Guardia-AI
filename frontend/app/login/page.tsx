@@ -64,23 +64,23 @@ export default function LoginPage() {
 
   return (
     <MobileFrame>
-      <div className="relative px-5 pt-8 pb-10 flex flex-col text-slate-100 min-h-full select-none bg-[#0C0C0C]">
+      <div className="relative px-4 pt-8 pb-10 flex flex-col text-slate-100 min-h-full select-none bg-[#0A0A0A]">
         
-        {/* Header logo */}
-        <div className="flex flex-col items-center text-center mt-4">
-          <div className="w-14 h-14 rounded-2xl bg-[#181818] border border-white/10 flex items-center justify-center text-[#AFFD37] shadow-[0_0_24px_rgba(133,55,253,0.15)] animate-[bounce_3s_infinite]">
-            <Shield size={24} aria-hidden="true" />
+        {/* Header logo - Refined */}
+        <div className="flex flex-col items-center text-center mt-6">
+          <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#8537FD]/20 to-[#E837FD]/20 border border-[#8537FD]/30 flex items-center justify-center text-[#AFFD37] shadow-xl shadow-[#8537FD]/10">
+            <Shield size={28} aria-hidden="true" />
           </div>
-          <h2 className="text-lg font-bold text-white mt-4">Welcome back</h2>
-          <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Secure Guardian Gateway</p>
+          <h2 className="text-2xl font-black text-white mt-6 tracking-tight">Welcome back</h2>
+          <p className="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-2">Guardian AI</p>
         </div>
 
-        {/* Input Details */}
-        <div className="mt-8 flex flex-col gap-3.5">
+        {/* Input Details - Refined */}
+        <div className="mt-8 flex flex-col gap-5">
           <div>
-            <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1 px-1">Mobile Number</label>
+            <label className="text-xs text-slate-500 font-bold uppercase tracking-widest block mb-2 px-1">Mobile Number</label>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-xs font-bold text-slate-400 font-mono">+91</span>
+              <span className="absolute left-4 text-sm font-bold text-slate-500 font-mono">+91</span>
               <input
                 type="tel"
                 maxLength={10}
@@ -88,38 +88,40 @@ export default function LoginPage() {
                 autoComplete="tel-national"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value.replace(/\D/g, ''))}
-                placeholder="e.g. 98765 43210…"
-                className="w-full h-12 pl-12 pr-4 rounded-2xl bg-[#181818] border border-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0C0C0C] text-xs font-extrabold text-white placeholder-slate-600 font-mono"
+                placeholder="98765 43210"
+                className="w-full h-12 pl-14 pr-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0A] hover:border-white/20 transition-all text-sm font-semibold text-white placeholder-slate-600 font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-2.5 px-1">Guardian PIN</label>
-            <div className={`flex justify-center gap-3.5 ${pinError ? 'animate-bounce' : ''}`}>
+            <label className="text-xs text-slate-500 font-bold uppercase tracking-widest block mb-3 px-1">Guardian PIN</label>
+            <div className={`flex justify-center gap-3 ${pinError ? 'animate-shake' : ''}`}>
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  className={`w-3.5 h-3.5 rounded-full border transition-all duration-150 ${
+                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
                     i < pin.length
-                      ? 'bg-[#AFFD37] border-[#AFFD37] shadow-[0_0_10px_rgba(175,253,55,0.4)]'
+                      ? 'bg-[#AFFD37] border-[#AFFD37] shadow-lg shadow-[#AFFD37]/30'
                       : pinError
-                        ? 'border-red-500 bg-red-500/10'
-                        : 'border-white/20 bg-transparent'
+                        ? 'border-red-500/50 bg-red-500/10'
+                        : 'border-white/30 bg-transparent'
                   }`}
                 />
               ))}
             </div>
+            {pinError && <p className="text-xs text-red-400 mt-2 text-center font-semibold">Incorrect PIN</p>}
           </div>
         </div>
 
-        {/* Custom keypad */}
-        <div className="mt-auto w-full max-w-[270px] mx-auto grid grid-cols-3 gap-y-3.5 gap-x-5 text-center text-white pt-6">
+        {/* Custom Keypad - Refined */}
+        <div className="mt-auto w-full max-w-80 mx-auto grid grid-cols-3 gap-3 text-center text-white pt-8">
           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((val) => (
             <button
               key={val}
               onClick={() => handleKeypadPress(val)}
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center font-bold text-lg hover:bg-white/10 active:scale-90 transition-transform cursor-pointer mx-auto"
+              className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 flex items-center justify-center font-bold text-xl hover:border-white/30 active:scale-90 transition-all cursor-pointer text-white"
+              aria-label={`Press ${val}`}
             >
               {val}
             </button>
@@ -128,38 +130,40 @@ export default function LoginPage() {
           {/* Biometrics button */}
           <button
             onClick={triggerBiometrics}
-            className="w-12 h-12 rounded-full bg-[#8537FD]/10 border border-[#8537FD]/20 flex items-center justify-center hover:bg-[#8537FD]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD] active:scale-90 transition-transform cursor-pointer mx-auto text-[#8537FD]"
+            className="w-14 h-14 rounded-2xl bg-[#8537FD]/20 border border-[#8537FD]/40 hover:bg-[#8537FD]/30 flex items-center justify-center hover:border-[#8537FD]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8537FD] active:scale-90 transition-all cursor-pointer text-[#8537FD]"
             title="Biometric Login"
             aria-label="Biometric Login"
           >
-            <Fingerprint size={20} aria-hidden="true" />
+            <Fingerprint size={22} aria-hidden="true" />
           </button>
           
           <button
             onClick={() => handleKeypadPress('0')}
-            className="w-12 h-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center font-bold text-lg hover:bg-white/10 active:scale-90 transition-transform cursor-pointer mx-auto"
+            className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 flex items-center justify-center font-bold text-xl hover:border-white/30 active:scale-90 transition-all cursor-pointer text-white"
+            aria-label="Press 0"
           >
             0
           </button>
           
           <button
             onClick={handleBackspace}
-            className="w-12 h-12 rounded-full bg-transparent flex items-center justify-center font-bold text-xs active:scale-90 transition-transform cursor-pointer mx-auto text-slate-500"
+            className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 flex items-center justify-center text-xl active:scale-90 transition-all cursor-pointer text-slate-400 hover:text-slate-300 hover:border-white/30"
+            aria-label="Clear PIN"
           >
-            Clear
+            ←
           </button>
         </div>
 
-        {/* Redirect toggle to signup */}
-        <div className="mt-8 text-center flex flex-col gap-2 text-[10px]">
+        {/* Signup Link - Refined */}
+        <div className="mt-8 text-center flex flex-col gap-3">
           <button 
             onClick={() => router.push('/signup')}
-            className="text-slate-400 font-bold hover:text-white flex items-center justify-center gap-1 cursor-pointer"
+            className="text-slate-400 font-semibold hover:text-white flex items-center justify-center gap-2 cursor-pointer text-sm"
           >
-            <UserPlus size={12} className="text-[#8537FD]" />
-            <span>New user? Create Account</span>
+            <UserPlus size={16} className="text-[#8537FD]" />
+            <span>New to Guardian? Create Account</span>
           </button>
-          <span className="text-slate-600 font-bold uppercase tracking-wider font-mono">PIN hint: 123456</span>
+          <p className="text-xs text-slate-600 font-mono tracking-wider">Demo PIN: 123456</p>
         </div>
 
         {/* Biometrics scanning sheet overlay */}

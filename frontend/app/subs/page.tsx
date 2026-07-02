@@ -82,67 +82,71 @@ export default function SubscriptionsHub() {
 
   return (
     <MobileFrame>
-      <div className="relative px-5 pt-5 pb-28 flex flex-col text-slate-100 min-h-full select-none bg-[#0C0C0C]">
+      <div className="relative px-4 pt-4 pb-28 flex flex-col text-slate-100 min-h-full select-none bg-[#0A0A0A]">
         
-        {/* Top Header */}
-        <div className="flex items-center justify-between mt-2 z-10 relative">
+        {/* Top Header - Refined */}
+        <div className="flex items-center justify-between mt-1 z-10 relative">
           <button 
             onClick={() => router.push('/home')}
-            className="w-9 h-9 rounded-full bg-[#181818] border border-white/5 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+            className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center cursor-pointer active:scale-95 transition-all"
+            aria-label="Go back"
           >
             <ArrowLeft size={16} className="text-slate-300" />
           </button>
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Subscriptions Hub</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Subscriptions</span>
           <button 
-            className="w-9 h-9 rounded-full bg-[#181818] border border-white/5 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+            className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center cursor-pointer active:scale-95 transition-all"
             onClick={() => router.push('/vault')}
+            aria-label="Add new subscription"
           >
             <Plus size={16} className="text-slate-300" />
           </button>
         </div>
 
-        {/* Spend context toggle */}
-        <div className="mt-6 flex bg-[#181818] p-1 rounded-full border border-white/5 z-10 relative">
+        {/* Spend Context Toggle - Refined */}
+        <div className="mt-6 flex bg-white/5 p-1 rounded-2xl border border-white/10 z-10 relative">
           <button
             onClick={() => setSpendTab('my')}
-            className={`flex-1 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
               spendTab === 'my' 
-                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-md' 
+                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/20' 
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <User size={12} />
+            <User size={14} />
             <span>My Spends</span>
           </button>
           <button
             onClick={() => setSpendTab('family')}
-            className={`flex-1 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
               spendTab === 'family' 
-                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-md' 
+                ? 'bg-gradient-to-r from-[#8537FD] to-[#E837FD] text-white shadow-lg shadow-[#8537FD]/20' 
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Users size={12} />
-            <span>Family Spends</span>
+            <Users size={14} />
+            <span>Family</span>
           </button>
         </div>
 
         {spendTab === 'my' ? (
           <>
-            {/* SPENDS HERO CARD: Donut Spend Map & Monthly total */}
-            <div className="mt-6 bg-[#181818] rounded-[28px] p-5 border border-white/5 relative overflow-hidden z-10">
-              <div className="flex items-center justify-between">
+            {/* Spend Hero Card - Refined */}
+            <div className="mt-6 bg-gradient-to-br from-white/5 to-white/[0.02] rounded-3xl p-6 border border-white/10 relative overflow-hidden z-10">
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#8537FD]/10 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="relative z-10 flex items-start justify-between">
                 <div>
-                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Total Outflow</span>
-                  <div className="mt-1 flex items-baseline gap-1">
-                    <span className="text-2xl font-extrabold font-mono">₹{myTotal}</span>
-                    <span className="text-[10px] text-slate-500 font-bold">/ month</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Total Monthly Spend</span>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="text-4xl font-black font-mono">₹{myTotal}</span>
+                    <span className="text-sm text-slate-400 font-semibold">/month</span>
                   </div>
                 </div>
-                {/* Micro-insights pill */}
+                {/* Insights Pill */}
                 {hasNetflixLeak && (
-                  <div className="px-2.5 py-1 rounded-full bg-[#E837FD]/10 border border-[#E837FD]/20 text-[9px] font-bold text-[#E837FD] animate-pulse">
-                    1 Inactive App
+                  <div className="px-3 py-1.5 rounded-full bg-[#E837FD]/10 border border-[#E837FD]/20 text-xs font-bold text-[#E837FD] animate-pulse">
+                    {activeLeaks.length} Leaked
                   </div>
                 )}
               </div>              {/* Visual Donut Spend Map */}
