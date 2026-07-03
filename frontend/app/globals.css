@@ -759,8 +759,122 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* LIGHT MODE THEME VARIABLES */
+@layer base {
+  :root:not(.dark) {
+    --background: #ffffff;
+    --foreground: #0F172A;
+    
+    --card: #f8fafc;
+    --card-foreground: #0F172A;
+    
+    --popover: #ffffff;
+    --popover-foreground: #0F172A;
+    
+    --muted: #e2e8f0;
+    --muted-foreground: #64748b;
+    
+    --accent: #0F172A;
+    --accent-foreground: #ffffff;
+    
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #8537FD;
+    
+    --radius: 0.5rem;
+  }
 
+  .light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --card-shadow: rgba(15, 23, 42, 0.08);
+  }
 
+  .dark {
+    --bg-primary: #0F172A;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #0f172a;
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+  }
+}
 
+/* Light mode specific styles */
+:not(.dark) {
+  --tw-prose-pre-bg: #f1f5f9;
+  color-scheme: light;
+}
+
+:not(.dark) .bg-background {
+  @apply bg-white;
+}
+
+:not(.dark) .text-foreground {
+  @apply text-[#0F172A];
+}
+
+:not(.dark) .bg-card {
+  @apply bg-slate-50;
+}
+
+:not(.dark) .border-border {
+  @apply border-slate-200;
+}
+
+:not(.dark) button:not(.glass-card) {
+  @apply bg-slate-100 hover:bg-slate-200 text-slate-900;
+}
+
+:not(.dark) .glass-card {
+  @apply bg-white/90 border-slate-200;
+}
+
+/* Dark mode button styles */
+.dark button:not(.glass-card) {
+  @apply bg-slate-800 hover:bg-slate-700 text-white;
+}
+
+.dark .glass-card {
+  @apply bg-slate-900/50 border-slate-700;
+}
+
+/* ACCESSIBILITY: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-slide-in-up,
+  .animate-scale-in,
+  .animate-scale-in-spring,
+  .animate-float,
+  .animate-drift,
+  .animate-bounce-soft,
+  .animate-glow-pulse,
+  .animate-pulse-scale,
+  .animate-shimmer {
+    animation: none !important;
+    opacity: 1;
+    transform: none !important;
+  }
+}
 
 

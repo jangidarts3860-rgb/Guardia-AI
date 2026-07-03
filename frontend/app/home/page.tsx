@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Bell, Shield, ShieldAlert, AlertTriangle, AlertCircle, Info, CheckCircle2, ChevronRight, QrCode, CreditCard, Flame, Plus, ShieldCheck, X, Check, TrendingDown, Lock, Zap } from 'lucide-react'
 import MobileFrame from '@/components/MobileFrame'
 import BottomNav from '@/components/BottomNav'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { useRouter } from 'next/navigation'
 import { getStoredSubscriptions, StoredSubscription } from '@/lib/storage'
 
@@ -108,14 +109,17 @@ export default function HomeDashboard() {
                 </div>
               </div>
               
-              <button 
-                className="relative w-10 h-10 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-[#8537FD]/40 flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group"
-                onClick={() => router.push('/notifications')}
-                aria-label="View notifications"
-              >
-                <Bell size={18} className="text-slate-300 group-hover:text-[#8537FD] transition-colors" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-gradient-to-r from-[#E837FD] to-[#FDE837] rounded-full animate-glow-pulse" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button 
+                  className="relative w-10 h-10 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-[#8537FD]/40 flex items-center justify-center cursor-pointer active:scale-90 transition-all hover-lift group"
+                  onClick={() => router.push('/notifications')}
+                  aria-label="View notifications"
+                >
+                  <Bell size={18} className="text-slate-300 group-hover:text-[#8537FD] transition-colors" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-gradient-to-r from-[#E837FD] to-[#FDE837] rounded-full animate-glow-pulse" />
+                </button>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
 
@@ -126,7 +130,7 @@ export default function HomeDashboard() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#8537FD] via-[#E837FD] to-[#AFFD37] rounded-3xl opacity-0 group-hover:opacity-75 blur-xl transition-opacity duration-500 animate-pulse-scale" />
               
               {/* Main card */}
-              <div className="relative bg-gradient-to-br from-[#8537FD] to-[#E837FD] rounded-3xl p-6 shadow-2xl shadow-[#8537FD]/25 overflow-hidden">
+              <div className="relative bg-gradient-to-br from-[#8537FD] to-[#E837FD] rounded-3xl p-6 shadow-xl shadow-[#8537FD]/10 overflow-hidden">
                 {/* Animated background elements */}
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-3xl animate-float" />
                 <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-white/5 rounded-full blur-2xl animate-drift" />

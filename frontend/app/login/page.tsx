@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Shield, Fingerprint, Lock, CheckCircle2, UserPlus, Info, Zap, Eye } from 'lucide-react'
+import Image from 'next/image'
 import MobileFrame from '@/components/MobileFrame'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -82,19 +84,32 @@ export default function LoginPage() {
 
         <div className="relative px-4 pt-8 pb-10 flex flex-col text-slate-100 select-none flex-1">
           
+          {/* Theme Toggle Button */}
+          <div className="flex justify-end mb-4 animate-fade-in-right" style={{ animationDelay: '0.3s' }}>
+            <ThemeToggle />
+          </div>
+
           {/* HEADER - Animated entrance with spring effect */}
-          <div className="flex flex-col items-center text-center mt-8 animate-fade-in-down" style={{ animationDelay: '0s' }}>
-            <div className="relative">
-              {/* Glow effect behind icon */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#8537FD]/30 to-[#E837FD]/20 rounded-3xl blur-xl" />
+          <div className="flex flex-col items-center text-center mt-6 animate-fade-in-down" style={{ animationDelay: '0.1s' }}>
+            <div className="relative animate-bounce-soft">
+              {/* Glow effect behind logo */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#8537FD]/40 to-[#AFFD37]/20 rounded-full blur-2xl animate-pulse-scale" />
               
-              <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-[#8537FD]/25 to-[#E837FD]/15 border border-[#8537FD]/40 flex items-center justify-center text-white shadow-2xl shadow-[#8537FD]/20 animate-scale-in-spring">
-                <Shield size={36} strokeWidth={1.5} />
+              {/* Animated Shield Logo */}
+              <div className="relative w-28 h-28 rounded-full flex items-center justify-center animate-scale-in-spring">
+                <Image
+                  src="/guardia-logo.png"
+                  alt="Guardia AI Shield Logo"
+                  width={112}
+                  height={112}
+                  className="w-28 h-28 object-contain drop-shadow-2xl animate-glow-pulse"
+                  priority
+                />
               </div>
             </div>
             
-            <h2 className="text-3xl font-black text-white mt-8 tracking-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>Welcome to Guardian</h2>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>AI-Powered Financial Security</p>
+            <h2 className="text-3xl font-black bg-gradient-to-r from-[#8537FD] to-[#AFFD37] bg-clip-text text-transparent mt-8 tracking-tight animate-fade-in-up" style={{ animationDelay: '0.2s' }}>Guardian AI</h2>
+            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-2 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>Financial Protection Powered by AI</p>
           </div>
 
           {/* MOBILE NUMBER INPUT - Animated with focus states */}
