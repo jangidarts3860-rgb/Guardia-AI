@@ -1,0 +1,6 @@
+{
+  "name": "Guardia AI",
+  "description": "A modern financial protection and subscription management application.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
