@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ScreenId, Subscription, Bank, NotificationItem, ActivityItem } from './types';
 import {
   initialSubscriptions,
@@ -13,6 +13,22 @@ import { Home, CreditCard, ShieldCheck, User, Scan } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 export default function App() {
   const isEmbed = typeof window !== 'undefined' && (window.location.search.includes('embed=true') || window.location.search.includes('fullscreen=true'));
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobileDevice(
+        window.innerWidth < 500 || 
+        window.location.search.includes('pure=true') ||
+        window.location.search.includes('mobile=true') ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      );
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('splash');
   const [subscriptions, setSubscriptions] = useState<Subscription[]>(initialSubscriptions);
   const [banks, setBanks] = useState<Bank[]>(initialBanks);
@@ -209,132 +225,253 @@ export default function App() {
           </div>
         )}
 
-        {/* The Premium Interactive Phone Simulator */}
-        <div className="shrink-0 flex flex-col">
-          <PhoneSimulator isOffline={isOffline} isLightMode={isLightMode} currentScreen={currentScreen}>
-            <div className="flex-1 flex flex-col overflow-hidden relative">
-              
-              {/* Global Ambient Lighting & Depth (Glassmorphism Base) */}
-              <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] pointer-events-none z-0">
-                <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] opacity-40 transition-colors duration-1000 ${isLightMode ? 'bg-sky-200' : 'bg-cyan-500/10'}`} />
-                <div className={`absolute bottom-0 left-0 w-80 h-80 rounded-full blur-[100px] opacity-30 transition-colors duration-1000 ${isLightMode ? 'bg-indigo-100' : 'bg-indigo-500/10'}`} />
-              </div>
-
-              {/* Dynamic Screen Content */}
-              <div className="flex-1 overflow-y-auto relative z-10">
-                <Screens
-                  currentScreen={currentScreen}
-                  navigate={navigate}
-                  subscriptions={subscriptions}
-                  setSubscriptions={setSubscriptions}
-                  banks={banks}
-                  setBanks={setBanks}
-                  notifications={notifications}
-                  setNotifications={setNotifications}
-                  activities={activities}
-                  setActivities={setActivities}
-                  selectedSub={selectedSub}
-                  setSelectedSub={setSelectedSub}
-                  profile={profile}
-                  setProfile={setProfile}
-                  isOffline={isOffline}
-                  setIsOffline={setIsOffline}
-                  isLightMode={isLightMode}
-                  setIsLightMode={setIsLightMode}
-                />
-              </div>
-
-              {/* Core bottom navigation inside home states */}
-              {showBottomBar && (
-                <div className="absolute bottom-6 left-0 right-0 px-6 z-50 pointer-events-none flex justify-center">
-                  <div className={`pointer-events-auto flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl transition-colors shadow-2xl w-full max-w-[320px] ${isLightMode ? 'bg-white/70 border-white/60 shadow-gray-300/50' : 'bg-slate-900/60 border-slate-700/50 shadow-black/80'}`}>
-                    
-                    <button
-                      onClick={() => navigate('home')}
-                      className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
-                    >
-                      {currentScreen === 'home' && (
-                        <motion.div
-                          layoutId="navTabBg"
-                          className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
-                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                        />
-                      )}
-                      <div className="relative flex flex-col items-center z-10">
-                        <Home className={`w-5 h-5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
-                        <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => navigate('subs-dashboard')}
-                      className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
-                    >
-                      {currentScreen === 'subs-dashboard' && (
-                        <motion.div
-                          layoutId="navTabBg"
-                          className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
-                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                        />
-                      )}
-                      <div className="relative flex flex-col items-center z-10">
-                        <CreditCard className={`w-5 h-5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
-                        <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
-                      </div>
-                    </button>
-
-                    {/* Integrated Cyber Scanner Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => navigate('scan-qr')}
-                      className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1 focus:outline-none"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
-                      <Scan className="w-5 h-5 text-white relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" strokeWidth={2.5} />
-                    </motion.button>
-
-                    <button
-                      onClick={() => navigate('vault')}
-                      className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
-                    >
-                      {currentScreen === 'vault' && (
-                        <motion.div
-                          layoutId="navTabBg"
-                          className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
-                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                        />
-                      )}
-                      <div className="relative flex flex-col items-center z-10">
-                        <ShieldCheck className={`w-5 h-5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
-                        <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => navigate('me-profile')}
-                      className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
-                    >
-                      {currentScreen === 'me-profile' && (
-                        <motion.div
-                          layoutId="navTabBg"
-                          className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
-                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                        />
-                      )}
-                      <div className="relative flex flex-col items-center z-10">
-                        <User className={`w-5 h-5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
-                        <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              )}
-
+        {/* The Premium Interactive Phone Simulator / Dynamic Fullscreen Mobile View */}
+        {isMobileDevice ? (
+          <div className="w-full h-full min-h-screen bg-slate-950 flex flex-col relative overflow-hidden">
+            {/* Global Ambient Lighting & Depth (Glassmorphism Base) */}
+            <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] pointer-events-none z-0">
+              <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] opacity-40 transition-colors duration-1000 ${isLightMode ? 'bg-sky-200' : 'bg-cyan-500/10'}`} />
+              <div className={`absolute bottom-0 left-0 w-80 h-80 rounded-full blur-[100px] opacity-30 transition-colors duration-1000 ${isLightMode ? 'bg-indigo-100' : 'bg-indigo-500/10'}`} />
             </div>
-          </PhoneSimulator>
-        </div>
+
+            {/* Dynamic Screen Content */}
+            <div className="flex-1 overflow-y-auto relative z-10">
+              <Screens
+                currentScreen={currentScreen}
+                navigate={navigate}
+                subscriptions={subscriptions}
+                setSubscriptions={setSubscriptions}
+                banks={banks}
+                setBanks={setBanks}
+                notifications={notifications}
+                setNotifications={setNotifications}
+                activities={activities}
+                setActivities={setActivities}
+                selectedSub={selectedSub}
+                setSelectedSub={setSelectedSub}
+                profile={profile}
+                setProfile={setProfile}
+                isOffline={isOffline}
+                setIsOffline={setIsOffline}
+                isLightMode={isLightMode}
+                setIsLightMode={setIsLightMode}
+              />
+            </div>
+
+            {/* Core bottom navigation inside home states */}
+            {showBottomBar && (
+              <div className="absolute bottom-6 left-0 right-0 px-6 z-50 pointer-events-none flex justify-center">
+                <div className={`pointer-events-auto flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl transition-colors shadow-2xl w-full max-w-[320px] ${isLightMode ? 'bg-white/70 border-white/60 shadow-gray-300/50' : 'bg-slate-900/60 border-slate-700/50 shadow-black/80'}`}>
+                  
+                  <button
+                    onClick={() => navigate('home')}
+                    className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                  >
+                    {currentScreen === 'home' && (
+                      <motion.div
+                        layoutId="navTabBg"
+                        className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      />
+                    )}
+                    <div className="relative flex flex-col items-center z-10">
+                      <Home className={`w-5 h-5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
+                      <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => navigate('subs-dashboard')}
+                    className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                  >
+                    {currentScreen === 'subs-dashboard' && (
+                      <motion.div
+                        layoutId="navTabBg"
+                        className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      />
+                    )}
+                    <div className="relative flex flex-col items-center z-10">
+                      <CreditCard className={`w-5 h-5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
+                      <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
+                    </div>
+                  </button>
+
+                  {/* Integrated Cyber Scanner Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate('scan-qr')}
+                    className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1 focus:outline-none"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
+                    <Scan className="w-5 h-5 text-white relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" strokeWidth={2.5} />
+                  </motion.button>
+
+                  <button
+                    onClick={() => navigate('vault')}
+                    className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                  >
+                    {currentScreen === 'vault' && (
+                      <motion.div
+                        layoutId="navTabBg"
+                        className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      />
+                    )}
+                    <div className="relative flex flex-col items-center z-10">
+                      <ShieldCheck className={`w-5 h-5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
+                      <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => navigate('me-profile')}
+                    className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                  >
+                    {currentScreen === 'me-profile' && (
+                      <motion.div
+                        layoutId="navTabBg"
+                        className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      />
+                    )}
+                    <div className="relative flex flex-col items-center z-10">
+                      <User className={`w-5 h-5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
+                      <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="shrink-0 flex flex-col">
+            <PhoneSimulator isOffline={isOffline} isLightMode={isLightMode} currentScreen={currentScreen}>
+              <div className="flex-1 flex flex-col overflow-hidden relative">
+                
+                {/* Global Ambient Lighting & Depth (Glassmorphism Base) */}
+                <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] pointer-events-none z-0">
+                  <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] opacity-40 transition-colors duration-1000 ${isLightMode ? 'bg-sky-200' : 'bg-cyan-500/10'}`} />
+                  <div className={`absolute bottom-0 left-0 w-80 h-80 rounded-full blur-[100px] opacity-30 transition-colors duration-1000 ${isLightMode ? 'bg-indigo-100' : 'bg-indigo-500/10'}`} />
+                </div>
+
+                {/* Dynamic Screen Content */}
+                <div className="flex-1 overflow-y-auto relative z-10">
+                  <Screens
+                    currentScreen={currentScreen}
+                    navigate={navigate}
+                    subscriptions={subscriptions}
+                    setSubscriptions={setSubscriptions}
+                    banks={banks}
+                    setBanks={setBanks}
+                    notifications={notifications}
+                    setNotifications={setNotifications}
+                    activities={activities}
+                    setActivities={setActivities}
+                    selectedSub={selectedSub}
+                    setSelectedSub={setSelectedSub}
+                    profile={profile}
+                    setProfile={setProfile}
+                    isOffline={isOffline}
+                    setIsOffline={setIsOffline}
+                    isLightMode={isLightMode}
+                    setIsLightMode={setIsLightMode}
+                  />
+                </div>
+
+                {/* Core bottom navigation inside home states */}
+                {showBottomBar && (
+                  <div className="absolute bottom-6 left-0 right-0 px-6 z-50 pointer-events-none flex justify-center">
+                    <div className={`pointer-events-auto flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl transition-colors shadow-2xl w-full max-w-[320px] ${isLightMode ? 'bg-white/70 border-white/60 shadow-gray-300/50' : 'bg-slate-900/60 border-slate-700/50 shadow-black/80'}`}>
+                      
+                      <button
+                        onClick={() => navigate('home')}
+                        className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                      >
+                        {currentScreen === 'home' && (
+                          <motion.div
+                            layoutId="navTabBg"
+                            className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                          />
+                        )}
+                        <div className="relative flex flex-col items-center z-10">
+                          <Home className={`w-5 h-5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
+                          <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => navigate('subs-dashboard')}
+                        className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                      >
+                        {currentScreen === 'subs-dashboard' && (
+                          <motion.div
+                            layoutId="navTabBg"
+                            className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                          />
+                        )}
+                        <div className="relative flex flex-col items-center z-10">
+                          <CreditCard className={`w-5 h-5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
+                          <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
+                        </div>
+                      </button>
+
+                      {/* Integrated Cyber Scanner Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate('scan-qr')}
+                        className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1 focus:outline-none"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
+                        <Scan className="w-5 h-5 text-white relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" strokeWidth={2.5} />
+                      </motion.button>
+
+                      <button
+                        onClick={() => navigate('vault')}
+                        className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                      >
+                        {currentScreen === 'vault' && (
+                          <motion.div
+                            layoutId="navTabBg"
+                            className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                          />
+                        )}
+                        <div className="relative flex flex-col items-center z-10">
+                          <ShieldCheck className={`w-5 h-5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
+                          <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => navigate('me-profile')}
+                        className="relative group flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all focus:outline-none"
+                      >
+                        {currentScreen === 'me-profile' && (
+                          <motion.div
+                            layoutId="navTabBg"
+                            className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                          />
+                        )}
+                        <div className="relative flex flex-col items-center z-10">
+                          <User className={`w-5 h-5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : 'text-slate-400 hover:text-slate-300'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
+                          <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 transition-colors ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </PhoneSimulator>
+          </div>
+        )}
 
         {/* 3. Empty div to maintain layout balance if needed, or just removed */}
         <div className="hidden md:flex flex-col text-left max-w-sm space-y-4">
