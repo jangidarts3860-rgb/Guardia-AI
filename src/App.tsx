@@ -37,6 +37,7 @@ export default function App() {
   const [selectedSub, setSelectedSub] = useState<Subscription | null>(initialSubscriptions[0]);
   const [isOffline, setIsOffline] = useState(false);
   const [isLightMode, setIsLightMode] = useState(false);
+  const [scanOutcome, setScanOutcome] = useState<'safe' | 'scam'>('safe');
 
   const [profile, setProfile] = useState({
     name: 'Rohan Sharma',
@@ -190,6 +191,8 @@ export default function App() {
             setIsOffline={setIsOffline}
             isLightMode={isLightMode}
             setIsLightMode={setIsLightMode}
+            scanOutcome={scanOutcome}
+            setScanOutcome={setScanOutcome}
           />
         </div>
 
@@ -382,6 +385,8 @@ export default function App() {
                   setIsOffline={setIsOffline}
                   isLightMode={isLightMode}
                   setIsLightMode={setIsLightMode}
+                  scanOutcome={scanOutcome}
+                  setScanOutcome={setScanOutcome}
                 />
               </div>
 

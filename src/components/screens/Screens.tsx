@@ -29,6 +29,8 @@ interface ScreensProps {
   setIsOffline: (offline: boolean) => void;
   isLightMode: boolean;
   setIsLightMode: (light: boolean) => void;
+  scanOutcome: 'safe' | 'scam';
+  setScanOutcome: (outcome: 'safe' | 'scam') => void;
 }
 
 export function getSubscriptionLogo(subId: string, name: string, sizeClass = 'w-12 h-12 rounded-xl') {
@@ -262,6 +264,8 @@ export default function Screens({
   setIsOffline,
   isLightMode,
   setIsLightMode,
+  scanOutcome,
+  setScanOutcome,
 }: ScreensProps) {
   const [showBiometric, setShowBiometric] = useState(false);
   const [biometricState, setBiometricState] = useState<'idle' | 'scanning' | 'success'>('idle');
@@ -359,15 +363,7 @@ export default function Screens({
 
   // Keep camera permission persistent once granted, similar to standard mobile OS permission storage
 
-  // Simulate auto-scanning success after 2.5 seconds once permission is granted
-  useEffect(() => {
-    if (currentScreen === 'scan-qr' && hasCameraPermission) {
-      const scanTimer = setTimeout(() => {
-        navigate('analyzing-merchant');
-      }, 2500);
-      return () => clearTimeout(scanTimer);
-    }
-  }, [currentScreen, hasCameraPermission, navigate]);
+  // Simulate auto-scanning success after 2.5 seconds is disabled to give the user manual control
 
   // Triggering merchant scan sequence in screen 8
   useEffect(() => {
@@ -377,9 +373,9 @@ export default function Screens({
         setAnalyzingProgress((prev) => {
           if (prev >= 100) {
             clearInterval(timer);
-            // Randomly navigate to verified or scam detected for demo feel
+            // Navigate based on user-controlled scanOutcome
             setTimeout(() => {
-              navigate(Math.random() > 0.45 ? 'merchant-verified' : 'scam-detected');
+              navigate(scanOutcome === 'safe' ? 'merchant-verified' : 'scam-detected');
             }, 800);
             return 100;
           }
@@ -2867,7 +2863,10 @@ export default function Screens({
               {/* Viewfinder box with brackets */}
               <div 
                 className="z-10 flex-1 flex items-center justify-center my-4 relative cursor-pointer"
-                onClick={() => navigate('analyzing-merchant')}
+                onClick={() => {
+                  setScanOutcome(Math.random() > 0.45 ? 'safe' : 'scam');
+                  navigate('analyzing-merchant');
+                }}
               >
                 <div className="absolute inset-0 bg-transparent z-20" /> {/* Large hit area */}
                 <div 
@@ -2902,10 +2901,37 @@ export default function Screens({
                 </div>
               </div>
 
-              {/* Viewfinder helper note */}
-              <div className="z-10 text-center pb-2">
-                <p className="text-[11px] font-medium text-slate-300">Align QR code inside the brackets</p>
-                <p className="text-[9px] text-slate-500 font-mono mt-0.5 uppercase tracking-wide">Or tap to scan immediately</p>
+              {/* Viewfinder helper note & Simulation Selector */}
+              <div className="z-10 text-center pb-4 space-y-4">
+                <div>
+                  <p className="text-[11px] font-medium text-slate-300">Align QR code inside the brackets</p>
+                  <p className="text-[9px] text-slate-500 font-mono mt-0.5 uppercase tracking-wide">Select simulation scan path below</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 max-w-[280px] mx-auto">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setScanOutcome('safe');
+                      navigate('analyzing-merchant');
+                    }}
+                    className="py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-wider transition active:scale-95 flex items-center justify-center space-x-1"
+                  >
+                    <span>🟢</span>
+                    <span>Scan Safe QR</span>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setScanOutcome('scam');
+                      navigate('analyzing-merchant');
+                    }}
+                    className="py-2.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-[10px] font-black uppercase tracking-wider transition active:scale-95 flex items-center justify-center space-x-1"
+                  >
+                    <span>🔴</span>
+                    <span>Scan Scam QR</span>
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
