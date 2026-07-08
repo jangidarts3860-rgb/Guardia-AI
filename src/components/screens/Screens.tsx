@@ -631,13 +631,16 @@ export default function Screens({
 
     case 'onboarding':
       return (
-        <div className="flex flex-col justify-between h-full bg-slate-950 text-white p-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-950/10 via-transparent to-slate-950" />
-          <div className="absolute -top-12 -right-12 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex flex-col justify-between h-full bg-transparent text-white p-6 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-sky-950/20 via-transparent to-slate-950" />
+          <div className="absolute -top-16 -right-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" />
           
           <div className="flex justify-between items-center pt-2 z-10">
             <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP 1 OF 3</span>
-            <button onClick={() => navigate('create-account')} className="text-xs text-slate-400 hover:text-white transition font-medium p-3 -m-3">Skip</button>
+            <button onClick={() => {
+              setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.sharma@gmail.com', language: 'English', photo: '' });
+              navigate('welcome-back');
+            }} className="text-xs text-sky-400 hover:text-sky-300 transition font-extrabold tracking-wide uppercase p-3 -m-3">Skip</button>
           </div>
           
           <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-2 space-y-6">
@@ -774,15 +777,26 @@ export default function Screens({
 
     case 'create-account':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col h-full bg-transparent text-white p-6 justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-radial-[circle_at_bottom,rgba(99,102,241,0.05)_0%,transparent_60%] pointer-events-none" />
           
           <div className="space-y-6 z-10 flex-1 flex flex-col">
-            <div className="flex items-center space-x-2 pt-2">
-              <button onClick={() => navigate('permissions')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition">
-                <ArrowLeft className="w-4 h-4 text-slate-300" />
+            <div className="flex items-center justify-between pt-2">
+              <div className="flex items-center space-x-2">
+                <button onClick={() => navigate('permissions')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition">
+                  <ArrowLeft className="w-4 h-4 text-slate-300" />
+                </button>
+                <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP 3 OF 3</span>
+              </div>
+              <button 
+                onClick={() => {
+                  setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.sharma@gmail.com', language: 'English', photo: '' });
+                  navigate('welcome-back');
+                }} 
+                className="text-xs text-sky-400 hover:text-sky-300 transition font-extrabold tracking-wide uppercase p-3 -mr-3"
+              >
+                Skip
               </button>
-              <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP 3 OF 3</span>
             </div>
             
             <div className="space-y-2 text-left">
@@ -901,7 +915,7 @@ export default function Screens({
 
     case 'verify-otp':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col h-full bg-transparent text-white p-6 justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(14,165,233,0.05)_0%,transparent_60%] pointer-events-none" />
           <div className="space-y-6 z-10">
             <div className="flex items-center space-x-2 pt-2">
@@ -995,6 +1009,9 @@ export default function Screens({
           <div className="pb-6 z-10">
             <button
               onClick={() => {
+                if (!profile.name.trim()) {
+                  setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.sharma@gmail.com', language: 'English', photo: '' });
+                }
                 if (otpVal.length === 6) {
                   navigate('welcome-back');
                 } else {
@@ -1371,7 +1388,7 @@ export default function Screens({
               <button onClick={() => navigate('activity-log')} className="text-xs text-sky-400 hover:underline">View all</button>
             </div>
             <div className="space-y-2 flex-1 overflow-y-auto">
-              {activities.slice(0, 2).map((act) => (
+              {activities.slice(0, 4).map((act) => (
                 <div key={act.id} className={`p-3 rounded-xl border flex items-center justify-between ${cardBg}`}>
                   <div className="flex items-center space-x-3">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
