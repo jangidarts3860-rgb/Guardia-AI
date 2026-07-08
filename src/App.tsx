@@ -227,7 +227,7 @@ export default function App() {
 
         {/* The Premium Interactive Phone Simulator / Dynamic Fullscreen Mobile View */}
         {isMobileDevice ? (
-          <div className="w-full h-full min-h-screen bg-slate-950 flex flex-col relative overflow-hidden">
+          <div className="w-full h-[100dvh] bg-slate-950 flex flex-col relative overflow-hidden">
             {/* Global Ambient Lighting & Depth (Glassmorphism Base) */}
             <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] pointer-events-none z-0">
               <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] opacity-40 transition-colors duration-1000 ${isLightMode ? 'bg-sky-200' : 'bg-cyan-500/10'}`} />
