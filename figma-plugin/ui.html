@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: #0a0f1e;
+    color: #e2e8f0;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 24px;
+    gap: 16px;
+  }
+
+  .header {
+    text-align: center;
+  }
+  .header .icon { font-size: 36px; margin-bottom: 6px; }
+  .header h1 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+  .header p  { font-size: 11px; color: #64748b; margin-top: 4px; }
+
+  .drop-zone {
+    width: 100%;
+    border: 2px dashed #1e3a5f;
+    border-radius: 14px;
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(14, 165, 233, 0.03);
+  }
+  .drop-zone:hover, .drop-zone.over {
+    border-color: #06b6d4;
+    background: rgba(6, 182, 212, 0.06);
+  }
+  .drop-zone input { display: none; }
+  .drop-zone .dz-icon { font-size: 28px; margin-bottom: 6px; }
+  .drop-zone .dz-title { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+  .drop-zone .dz-sub   { font-size: 11px; color: #475569; margin-top: 3px; }
+
+  .selected-info {
+    font-size: 12px;
+    font-weight: 600;
+    color: #22d3ee;
+    min-height: 18px;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.25);
+  }
+  .btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(14, 165, 233, 0.35);
+  }
+  .btn-primary:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Progress section */
+  .progress-wrap {
+    display: none;
+    width: 100%;
+    text-align: center;
+    gap: 8px;
+    flex-direction: column;
+  }
+  .progress-wrap.visible { display: flex; }
+  .progress-label { font-size: 11px; color: #94a3b8; }
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #1e293b;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0ea5e9, #6366f1);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-name {
+    font-size: 11px;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="icon">🛡️</div>
+  <h1>Guardia AI Screen Importer</h1>
+  <p>Imports all 28 screens from your <code>figma-screenshots/</code> folder</p>
+</div>
+
+<div class="drop-zone" id="dropZone">
+  <input type="file" id="fileInput" multiple accept="image/png,image/jpeg,image/webp" />
+  <div class="dz-icon">📂</div>
+  <div class="dz-title">Click to select screenshots</div>
+  <div class="dz-sub">Or drag &amp; drop all PNG files here</div>
+</div>
+
+<div class="selected-info" id="selectedInfo"></div>
+
+<button class="btn btn-primary" id="importBtn" disabled>
+  Select screenshots first
+</button>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-label" id="progressLabel">Processing...</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-name" id="progressName"></div>
+</div>
+
+<script>
+  let files = [];
+
+  const dropZone    = document.getElementById('dropZone');
+  const fileInput   = document.getElementById('fileInput');
+  const importBtn   = document.getElementById('importBtn');
+  const selectedInfo= document.getElementById('selectedInfo');
+  const progressWrap= document.getElementById('progressWrap');
+  const progressFill= document.getElementById('progressFill');
+  const progressLabel=document.getElementById('progressLabel');
+  const progressName= document.getElementById('progressName');
+
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('over');
+    setFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+  });
+
+  fileInput.addEventListener('change', e => setFiles(Array.from(e.target.files)));
+
+  function setFiles(f) {
+    files = f.sort((a, b) => a.name.localeCompare(b.name));
+    selectedInfo.textContent = files.length
+      ? `✅ ${files.length} screenshot${files.length > 1 ? 's' : ''} selected and ready`
+      : '';
+    importBtn.disabled = files.length === 0;
+    importBtn.textContent = files.length
+      ? `🚀 Create ${files.length} Screens in Figma`
+      : 'Select screenshots first';
+  }
+
+  importBtn.addEventListener('click', async () => {
+    if (!files.length) return;
+
+    importBtn.disabled = true;
+    progressWrap.classList.add('visible');
+
+    const screens = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      progressLabel.textContent = `Reading file ${i + 1} of ${files.length}…`;
+      progressFill.style.width  = `${Math.round(((i + 1) / files.length) * 50)}%`;
+
+      const buf = await readFile(f);
+      // strip number prefix + extension → "01_splash.png" → "Splash"
+      const rawName = f.name.replace(/\.\w+$/, '').replace(/^\d+_/, '');
+      const screenName = rawName
+        .split(/[-_]/)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+
+      screens.push({
+        name: screenName,
+        data: Array.from(new Uint8Array(buf))
+      });
+    }
+
+    progressLabel.textContent = 'Sending to Figma…';
+    progressFill.style.width  = '60%';
+
+    parent.postMessage({ pluginMessage: { type: 'create-screens', screens } }, '*');
+  });
+
+  function readFile(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = e => res(e.target.result);
+      r.onerror = rej;
+      r.readAsArrayBuffer(file);
+    });
+  }
+
+  // Receive progress from code.js
+  window.onmessage = event => {
+    const msg = event.data.pluginMessage;
+    if (!msg) return;
+    if (msg.type === 'progress') {
+      const pct = Math.round((msg.current / msg.total) * 100);
+      progressFill.style.width  = `${60 + pct * 0.4}%`;
+      progressLabel.textContent = `Creating frame ${msg.current} of ${msg.total}…`;
+      progressName.textContent  = msg.name;
+    }
+  };
+</script>
+</body>
+</html>

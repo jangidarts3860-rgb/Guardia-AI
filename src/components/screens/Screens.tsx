@@ -4,7 +4,7 @@ import {
   Share2, Eye, EyeOff, RotateCw, Lock, Radio, KeyRound, WifiOff, PhoneCall,
   Check, Play, Pause, CreditCard, ChevronRight, Download, RefreshCw, Send,
   Camera, Plus, Trash2, Sliders, Smartphone, AlertTriangle, ShieldAlert,
-  User, Mail, Globe
+  User, Mail, Globe, Home, Scan
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ScreenId, Subscription, Bank, NotificationItem, ActivityItem } from '../../types';
@@ -36,59 +36,95 @@ export function getSubscriptionLogo(subId: string, name: string, sizeClass = 'w-
   
   if (id.includes('netflix')) {
     return (
-      <div className={`${sizeClass} bg-black border border-neutral-900 flex items-center justify-center relative overflow-hidden shrink-0 shadow-md`}>
-        <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent pointer-events-none" />
-        <span className="text-red-600 font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-sans select-none">N</span>
-        <div className="absolute bottom-1 w-5 h-[1px] bg-red-600/40 blur-[1px]" />
+      <div className={`${sizeClass} bg-[#141414] border border-neutral-900 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <div className="absolute inset-0 bg-gradient-to-t from-red-950/10 to-transparent pointer-events-none" />
+        <svg className="w-7 h-7 relative z-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="netRed1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ff0a12" />
+              <stop offset="100%" stopColor="#a80000" />
+            </linearGradient>
+            <linearGradient id="netRed2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#e50914" />
+              <stop offset="100%" stopColor="#960004" />
+            </linearGradient>
+          </defs>
+          <path d="M22 10 H38 V90 H22 Z" fill="url(#netRed1)" />
+          <path d="M62 10 H78 V90 H62 Z" fill="url(#netRed1)" />
+          <path d="M22 10 H38 L62 90 H78 Z" fill="url(#netRed2)" filter="drop-shadow(-4px 0px 6px rgba(0,0,0,0.6))" />
+        </svg>
       </div>
     );
   }
   
   if (id.includes('spotify')) {
     return (
-      <div className={`${sizeClass} bg-[#0c0c0c] border border-neutral-900 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-8 h-8 rounded-full bg-[#1DB954] flex flex-col items-center justify-center relative shadow-sm">
-          <div className="absolute top-[9px] w-4.5 h-[2px] bg-black rounded-full rotate-[-8deg] opacity-90" />
-          <div className="absolute top-[13px] w-3.5 h-[2px] bg-black rounded-full rotate-[-8deg] opacity-90" />
-          <div className="absolute top-[17px] w-2.5 h-[1.5px] bg-black rounded-full rotate-[-8deg] opacity-90" />
-        </div>
+      <div className={`${sizeClass} bg-[#121212] border border-neutral-900 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="#1DB954" />
+          <path d="M72.2 39.8 C 65.5 35.8 54.5 34.5 41.8 38.3 C 39.8 39 37.6 37.8 37 35.8 C 36.3 33.8 37.5 31.6 39.5 31 C 53.6 26.8 65.8 28.3 73.5 32.9 C 75.3 34 75.9 36.3 74.8 38.1 C 73.7 39.9 71.4 40.5 69.6 39.8 Z" fill="#000000" />
+          <path d="M66.5 48.7 C 60.9 45.4 51.1 44.2 41.8 47.1 C 39.9 47.7 37.9 46.6 37.3 44.7 C 36.7 42.8 37.8 40.8 39.7 40.2 C 50.4 37 61.2 38.3 67.7 42.2 C 69.4 43.2 69.9 45.4 68.9 47.1 C 67.9 48.7 65.7 49.3 64 48.3 Z" fill="#000000" />
+          <path d="M60.8 57.2 C 56.1 54.4 48.2 53.5 41.8 55.5 C 40 56.1 38.1 55.1 37.5 53.3 C 36.9 51.5 37.9 49.6 39.7 49 C 47.2 46.7 56 47.7 61.5 51 C 63.1 52 63.6 54.1 62.6 55.7 C 61.6 57.3 59.5 57.8 57.9 56.8 Z" fill="#000000" />
+        </svg>
       </div>
     );
   }
   
   if (id.includes('adobe')) {
     return (
-      <div className={`${sizeClass} bg-[#FF0000] border border-red-700 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-6 h-6 flex items-center justify-center text-white font-extrabold text-base tracking-tighter italic select-none">
-          A
-        </div>
-        <div className="absolute inset-x-2 bottom-2 h-0.5 bg-white/20" />
+      <div className={`${sizeClass} bg-[#FF0000] border border-red-700 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 18 L80 81 H63.5 L58.5 70 H41.5 L36.5 81 H20 L50 18 Z M50 39.5 L45 52 H55 L50 39.5 Z" fill="#ffffff" />
+        </svg>
+      </div>
+    );
+  }
+  
+  if (id.includes('icloud')) {
+    return (
+      <div className={`${sizeClass} bg-gradient-to-br from-[#5ac8fa] via-[#34aadc] to-[#007aff] border border-sky-400/20 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 66 A 11 11 0 0 1 28 44 A 15 15 0 0 1 58 35 A 13 13 0 0 1 72 47 A 10 10 0 0 1 72 67 Z" fill="#ffffff" />
+        </svg>
       </div>
     );
   }
 
   if (id.includes('hotstar') || id.includes('disney')) {
     return (
-      <div className={`${sizeClass} bg-gradient-to-b from-[#0c111b] to-[#141b29] border border-slate-800 flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <span className="text-[10px] text-white font-extrabold font-sans leading-none tracking-tight">Disney+</span>
-        <span className="text-[7px] text-amber-400 font-black tracking-widest leading-none mt-0.5 uppercase">hotstar</span>
+      <div className={`${sizeClass} bg-[#0c111b] border border-slate-800 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hotstarGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#172e59" />
+              <stop offset="100%" stopColor="#0a0e17" />
+            </linearGradient>
+            <linearGradient id="starGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#ffdf73" />
+              <stop offset="100%" stopColor="#d19c00" />
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="20" fill="url(#hotstarGrad)" />
+          <path d="M50 18 L59 38 L81 41 L65 56 L69 78 L50 67 L31 78 L35 56 L19 41 L41 38 Z" fill="url(#starGold)" />
+        </svg>
       </div>
     );
   }
 
   if (id.includes('youtube')) {
     return (
-      <div className={`${sizeClass} bg-[#FF0000] border border-red-600 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-6 h-4 bg-white rounded-md flex items-center justify-center">
-          <div className="w-0 h-0 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent border-l-[6px] border-l-red-600 ml-0.5" />
-        </div>
+      <div className={`${sizeClass} bg-white border border-neutral-200 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M92 27 C92 27 91.1 20.7 88.4 18 C84.9 14.3 80.9 14.3 79.1 14.1 C66.1 13.1 50 13.1 50 13.1 C50 13.1 33.9 13.1 20.9 14.1 C19.1 14.3 15.1 14.3 11.6 18 C8.9 20.7 8 27 8 27 C8 27 7.1 34.3 7.1 41.6 V49.5 C7.1 56.8 8 64.1 8 64.1 C8 64.1 8.9 70.4 11.6 73.1 C15.1 76.8 19.8 76.7 21.9 77.1 C29.4 77.8 50 78 50 78 C50 78 66.1 77.9 79.1 77 C80.9 76.8 84.9 76.8 88.4 73.1 C91.1 70.4 92 64.1 92 64.1 C92 64.1 92.9 56.8 92.9 49.5 V41.6 C92.9 34.3 92 27 92 27 Z" fill="#FF0000" />
+          <path d="M42 34 L66 49.5 L42 65 Z" fill="#ffffff" />
+        </svg>
       </div>
     );
   }
 
   if (id.includes('amazon') || id.includes('prime')) {
     return (
-      <div className={`${sizeClass} bg-[#1A237E] border border-indigo-900 flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
+      <div className={`${sizeClass} bg-[#1A237E] border border-indigo-900 flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
         <span className="text-white font-black text-xs italic tracking-tighter">prime</span>
         <div className="w-6 h-1.5 border-b border-amber-400 rounded-full rotate-[-4deg] -mt-0.5" />
       </div>
@@ -96,9 +132,14 @@ export function getSubscriptionLogo(subId: string, name: string, sizeClass = 'w-
   }
 
   return (
-    <div className={`${sizeClass} bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.1)_0%,transparent_60%] pointer-events-none" />
-      <span className="text-slate-400 font-extrabold text-sm">{name.substring(0, 2).toUpperCase()}</span>
+    <div className={`${sizeClass} bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(245,158,11,0.08)_0%,transparent_60%] pointer-events-none" />
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <circle cx="12" cy="12" r="3" fill="#f59e0b" opacity="0.3" />
+        <path d="M12 10.5v3" />
+        <path d="M12 15.5h.01" />
+      </svg>
     </div>
   );
 }
@@ -311,6 +352,8 @@ export default function Screens({
   const [undoSeconds, setUndoSeconds] = useState(8);
   const [activeSpendsTab, setActiveSpendsTab] = useState<'my' | 'family'>('my');
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
+  const [phoneBlurred, setPhoneBlurred] = useState(false);
+  const [emailBlurred, setEmailBlurred] = useState(false);
 
   // Keep camera permission persistent once granted, similar to standard mobile OS permission storage
 
@@ -520,12 +563,31 @@ export default function Screens({
           
           <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full">
             {/* Pulsing shield check icon with cosmic subtle rings */}
-            <div className="relative mb-6 flex items-center justify-center">
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.04, 1],
+                filter: ["drop-shadow(0 0 15px rgba(6,182,212,0.25))", "drop-shadow(0 0 25px rgba(6,182,212,0.5))", "drop-shadow(0 0 15px rgba(6,182,212,0.25))"]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="relative mb-6 flex items-center justify-center"
+            >
               {/* Glow rings behind logo */}
-              <div className="absolute w-36 h-36 rounded-full bg-cyan-500/10 blur-2xl animate-pulse pointer-events-none" />
-              <div className="absolute w-28 h-28 rounded-full border border-cyan-500/20 animate-ping opacity-30 pointer-events-none" />
-              <GuardiaLogo size={96} variant="icon" animated={false} />
-            </div>
+              <motion.div 
+                animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.25, 0.12] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute w-44 h-44 rounded-full bg-cyan-500/10 blur-2xl pointer-events-none" 
+              />
+              <motion.div 
+                animate={{ scale: [1, 1.35, 1.7], opacity: [0.35, 0.15, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
+                className="absolute w-36 h-36 rounded-full border border-cyan-500/25 pointer-events-none" 
+              />
+              <GuardiaLogo size={140} variant="icon" animated={false} />
+            </motion.div>
             
             <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-transparent">
               Guardia AI
@@ -548,8 +610,7 @@ export default function Screens({
                 transition={{
                   duration: 2.2,
                   ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatType: "loop"
+                  repeat: 0
                 }}
               />
             </div>
@@ -619,7 +680,7 @@ export default function Screens({
           </div>
           
           <div className="space-y-4 z-10 pb-6">
-            <button onClick={() => navigate('permissions')} className="w-full bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98]">
+            <button onClick={() => navigate('permissions')} className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98]">
               Continue →
             </button>
           </div>
@@ -634,7 +695,7 @@ export default function Screens({
           <div className="space-y-5 z-10">
             <div className="flex justify-between items-center pt-2">
               <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP 2 OF 3</span>
-              <button onClick={() => navigate('create-account')} className="text-xs text-slate-400 hover:text-white transition font-medium">Skip</button>
+              <button onClick={() => navigate('create-account')} className="text-xs text-slate-400 hover:text-white transition font-medium p-3 -m-3">Skip</button>
             </div>
             
             <div className="space-y-2 text-left">
@@ -701,7 +762,7 @@ export default function Screens({
                 }
                 navigate('create-account');
               }} 
-              className="w-full bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]"
+              className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]"
             >
               Grant & Activate Shield →
             </button>
@@ -763,12 +824,14 @@ export default function Screens({
                       const num = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
                       setProfile({ ...profile, phone: '+91 ' + num });
                     }}
+                    onBlur={() => setPhoneBlurred(true)}
+                    onFocus={() => setPhoneBlurred(false)}
                     placeholder="98765 43210"
                     className="w-full pl-17 pr-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition font-mono font-bold tracking-wider"
                   />
                 </div>
                 <div className="min-h-[16px] mt-1">
-                  {profile.phone.replace('+91 ', '').trim() && profile.phone.replace('+91 ', '').trim().length !== 10 && (
+                  {phoneBlurred && profile.phone.replace('+91 ', '').trim() && profile.phone.replace('+91 ', '').trim().length !== 10 && (
                     <p className="text-[10px] text-red-400 font-semibold">⚠️ Mobile number must be exactly 10 digits</p>
                   )}
                   {profile.phone.replace('+91 ', '').trim().length === 10 && (
@@ -784,15 +847,17 @@ export default function Screens({
                     type="email"
                     value={profile.email}
                     onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                    onBlur={() => setEmailBlurred(true)}
+                    onFocus={() => setEmailBlurred(false)}
                     placeholder="e.g. rohan.sharma@gmail.com"
                     className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition font-medium"
                   />
                 </div>
                 <div className="min-h-[16px] mt-1">
-                  {profile.email.trim() && !(profile.email.includes('@') && profile.email.split('@')[1]?.includes('.')) && (
+                  {emailBlurred && profile.email.trim() && !(profile.email.includes('@') && profile.email.split('@')[1]?.includes('.')) && (
                     <p className="text-[10px] text-red-400 font-semibold">⚠️ Enter a valid email address</p>
                   )}
-                  {profile.email.trim() && profile.email.includes('@') && profile.email.split('@')[1]?.includes('.') && (
+                  {emailBlurred && profile.email.trim() && profile.email.includes('@') && profile.email.split('@')[1]?.includes('.') && (
                     <p className="text-[10px] text-emerald-400 font-semibold">✓ Email registered for security backup</p>
                   )}
                 </div>
@@ -912,9 +977,7 @@ export default function Screens({
                   {resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend Now'}
                 </button>
               </div>
-              <div className="text-center mt-3">
-                <span className="text-[9px] text-sky-400/80 font-mono bg-sky-950/20 border border-sky-500/10 px-2.5 py-1 rounded-full">💡 Simulation Key: Type any 6 digits (e.g. 123456)</span>
-              </div>
+
             </div>
 
             <div className="p-3.5 bg-slate-900/40 border border-slate-800/60 rounded-2xl flex space-x-3 items-center">
@@ -938,7 +1001,7 @@ export default function Screens({
                   setTimeout(() => navigate('welcome-back'), 200);
                 }
               }}
-              className="w-full bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]"
+              className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]"
             >
               Verify & Proceed →
             </button>
@@ -955,8 +1018,10 @@ export default function Screens({
             {/* Top Area */}
             <div className="space-y-4">
               <div className="flex justify-center pt-2">
-                <div className="p-4 bg-slate-900/60 rounded-2xl border border-slate-800">
-                  <Lock className="w-8 h-8 text-sky-400" />
+                <div className="relative flex items-center justify-center">
+                  {/* Subtle cosmic glow like splash screen */}
+                  <div className="absolute w-20 h-20 rounded-full bg-cyan-500/10 blur-xl animate-pulse pointer-events-none" />
+                  <GuardiaLogo size={64} variant="icon" animated={true} />
                 </div>
               </div>
               <div className="space-y-1 text-center">
@@ -970,7 +1035,7 @@ export default function Screens({
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   <span className="text-[10px] text-slate-400 font-bold font-mono">SECURED: {profile.phone || '+91 98765 43210'}</span>
                 </div>
-                <button onClick={() => navigate('create-account')} className="text-[9px] text-sky-400 font-bold uppercase hover:underline">Switch</button>
+                <button onClick={() => navigate('create-account')} className="text-[9px] text-sky-400 font-bold uppercase hover:underline p-2 -mr-2 -my-2">Switch</button>
               </div>
 
               {/* Passcode dots display */}
@@ -1020,9 +1085,9 @@ export default function Screens({
                   onClick={() => {
                     setPinVal(pinVal.slice(0, -1));
                   }}
-                  className="w-14 h-14 rounded-full bg-transparent text-slate-500 text-xs font-bold transition-all flex items-center justify-center active:bg-slate-800/50 active:scale-90"
+                  className="w-14 h-14 rounded-full bg-transparent text-slate-500 text-xl font-bold transition-all flex items-center justify-center active:bg-slate-800/50 active:scale-90"
                 >
-                  DELETE
+                  ⌫
                 </button>
 
                 {/* 0 */}
@@ -1166,17 +1231,24 @@ export default function Screens({
           <div className="flex justify-between items-center">
             <div className="text-left">
               <p className={`text-xs ${textMuted}`}>Good morning, {profile.name ? profile.name.split(' ')[0] : 'Rohan'} 👋</p>
-              <h2 className="text-xl font-bold tracking-tight">Your Shield</h2>
+              <div className="flex items-center space-x-1.5 mt-0.5">
+                <GuardiaLogo size={20} variant="icon" animated={isShieldActive} />
+                <h2 className="text-xl font-bold tracking-tight">Your Shield</h2>
+              </div>
             </div>
             <div className="flex items-center space-x-2">
               <button onClick={() => navigate('notifications')} className={`p-2.5 rounded-xl border relative ${isLightMode ? 'bg-white border-gray-200' : 'bg-slate-900 border-slate-800'}`}>
                 <Bell className="w-5 h-5 text-sky-400" />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
               </button>
-              <button onClick={() => navigate('me-profile')} className="w-10 h-10 rounded-full bg-sky-950 border border-sky-800 flex items-center justify-center overflow-hidden">
-                <span className="text-sky-400 text-sm font-bold">
-                  {profile.name ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'RS'}
-                </span>
+              <button onClick={() => navigate('me-profile')} className="w-10 h-10 rounded-full bg-sky-950 border border-sky-800 flex items-center justify-center overflow-hidden cursor-pointer">
+                {profile.photo ? (
+                  <img src={profile.photo} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-sky-400 text-sm font-bold">
+                    {profile.name ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'RS'}
+                  </span>
+                )}
               </button>
             </div>
           </div>
@@ -1245,13 +1317,16 @@ export default function Screens({
           <div className={`p-4 rounded-2xl border text-left ${cardBg}`}>
             <span className={`text-[9px] font-bold tracking-wider uppercase ${textMuted}`}>Monthly Waste Tracker</span>
             <div className="flex justify-between items-end mt-1.5 mb-1">
-              <span className="text-3xl font-extrabold text-red-500">₹850</span>
+              <div>
+                <span className="text-3xl font-extrabold text-red-500">₹850</span>
+                <span className={`text-[10px] font-semibold ml-1.5 ${textMuted}`}>this month</span>
+              </div>
               <button onClick={() => navigate('subs-dashboard')} className="flex items-center space-x-1 text-xs text-sky-400 font-semibold hover:underline">
                 <span>Fix now</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
-            <span className={`text-xs ${textMuted}`}>wasted this month on 3 unused subscriptions</span>
+            <span className={`text-xs ${textMuted}`}>wasted on 3 unused subscriptions</span>
             <div className="w-full bg-slate-800/40 border border-slate-800/10 rounded-full h-2 mt-3 overflow-hidden">
               <div className="bg-gradient-to-r from-red-500 to-amber-500 h-2 rounded-full" style={{ width: '45%' }} />
             </div>
@@ -1264,22 +1339,24 @@ export default function Screens({
               <span className="text-[10px] bg-sky-500/10 text-sky-400 font-semibold px-2 py-0.5 rounded-full">3 new</span>
             </div>
             <div className="flex space-x-3 overflow-x-auto pb-1 scrollbar-none">
-              <div onClick={() => { setSelectedSub(subscriptions[0]); navigate('sub-detail'); }} className={`p-4 rounded-2xl border shrink-0 w-44 cursor-pointer hover:border-sky-500/40 transition text-left ${cardBg}`}>
+              {/* Priority 1 — Danger: left red border */}
+              <div onClick={() => { setSelectedSub(subscriptions[0]); navigate('sub-detail'); }} className={`p-4 rounded-2xl border border-l-4 border-l-red-500 shrink-0 w-44 cursor-pointer hover:border-sky-500/40 transition text-left ${cardBg}`}>
                 <span className="text-2xl">🎬</span>
                 <h4 className="font-bold text-sm mt-2">Netflix Alert</h4>
                 <p className={`text-[10px] ${textMuted} mt-0.5`}>Not used in 47 days</p>
                 <div className="flex items-center justify-between mt-3">
                   <span className="text-[10px] text-emerald-500 font-semibold">Save ₹649/mo</span>
-                  <span className="text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">Cancel?</span>
+                  <span className="text-[9px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-semibold">Cancel?</span>
                 </div>
               </div>
-              <div onClick={() => navigate('scan-qr')} className={`p-4 rounded-2xl border shrink-0 w-44 cursor-pointer hover:border-sky-500/40 transition text-left ${cardBg}`}>
+              {/* Priority 2 — Warning: left amber border */}
+              <div onClick={() => navigate('scan-qr')} className={`p-4 rounded-2xl border border-l-4 border-l-amber-500 shrink-0 w-44 cursor-pointer hover:border-sky-500/40 transition text-left ${cardBg}`}>
                 <span className="text-2xl">⚠️</span>
                 <h4 className="font-bold text-sm mt-2">Scam SMS</h4>
                 <p className={`text-[10px] ${textMuted} mt-0.5`}>Urgency phrase detected</p>
                 <div className="flex items-center justify-between mt-3">
                   <span className="text-[10px] text-red-500 font-semibold">High Risk</span>
-                  <span className="text-[9px] bg-slate-800 text-sky-400 px-1.5 py-0.5 rounded">Check</span>
+                  <span className="text-[9px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-semibold">Check →</span>
                 </div>
               </div>
             </div>
@@ -1558,12 +1635,14 @@ export default function Screens({
             {/* Header */}
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-850 transition">
-                <ArrowLeft className="w-4 h-4" />
+                <Home className="w-4 h-4 text-slate-400" />
               </button>
               <span className="text-[10px] font-mono text-red-400 bg-red-500/10 border border-red-500/20 px-3 py-1 rounded-full uppercase font-black tracking-widest animate-pulse">
                 ⚠️ BLOCK RISK CRITICAL
               </span>
-              <div className="w-8" />
+              <button onClick={() => navigate('scan-qr')} className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-850 transition">
+                <Scan className="w-4 h-4 text-slate-400" />
+              </button>
             </div>
 
             {/* Completely unique Crimson Octagon Hazard Badge (No Circles!) */}
@@ -1705,7 +1784,7 @@ export default function Screens({
             </button>
             <button 
               onClick={() => navigate('merchant-verified')} 
-              className="w-full py-3 bg-transparent text-slate-500 hover:text-slate-400 text-xs font-bold transition"
+              className="w-full py-3 bg-transparent text-slate-400 hover:text-slate-300 text-xs font-bold transition"
             >
               Bypass Security (Highly Unsafe)
             </button>
@@ -1871,7 +1950,7 @@ export default function Screens({
         <div className="flex flex-col h-full p-4 space-y-4 bg-slate-950 text-white">
           <div className="flex justify-between items-center text-left">
             <div>
-              <span className="text-[9px] font-extrabold tracking-widest text-slate-500 uppercase font-mono">AUTOPAY WATCHDOG</span>
+              <span className="text-[9px] font-extrabold tracking-widest text-slate-500 uppercase font-mono">SUBSCRIPTION GUARD</span>
               <h2 className="text-xl font-black tracking-tight mt-0.5">Subscriptions</h2>
             </div>
             <div className="text-right">
@@ -2616,7 +2695,7 @@ export default function Screens({
               disabled={!selectedBankId}
               className={`w-full py-4 text-white font-bold rounded-2xl transition shadow-lg ${selectedBankId ? 'bg-sky-500 hover:bg-sky-400 cursor-pointer shadow-sky-500/10' : 'bg-slate-800 cursor-not-allowed text-slate-500'}`}
             >
-              Select a bank
+              {selectedBankId ? 'Link Selected Bank' : 'Select a bank'}
             </button>
             <p className="text-[9px] text-slate-600 font-mono tracking-wider">
               🔒 256-BIT SSL • RBI LICENSED ACCOUNT AGGREGATOR
@@ -2647,8 +2726,12 @@ export default function Screens({
             className="relative w-20 h-20 flex items-center justify-center z-10"
           >
             <div className="absolute inset-0 bg-sky-500/15 rounded-full blur-xl animate-pulse" />
-            <div className="w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.2)]">
-              <RotateCw className="w-8 h-8 text-sky-400 animate-spin" />
+            <div className="w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.2)] relative">
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="28" stroke="rgba(14,165,233,0.15)" strokeWidth="3" fill="none" />
+                <motion.circle cx="32" cy="32" r="28" stroke="#38bdf8" strokeWidth="3" fill="none" strokeLinecap="round" strokeDasharray="176" initial={{ strokeDashoffset: 176 }} animate={{ strokeDashoffset: 0 }} transition={{ duration: 1.5, ease: "easeInOut", repeat: Infinity }} />
+              </svg>
+              <ShieldCheck className="w-7 h-7 text-sky-400" />
             </div>
           </motion.div>
           <div className="space-y-2 text-center z-10">
@@ -2833,15 +2916,15 @@ export default function Screens({
             <div className="space-y-2">
               <span className={`text-[10px] font-bold tracking-wider uppercase ${textMuted}`}>Recent Scans</span>
               <div className="space-y-2 max-h-[140px] overflow-y-auto">
-                <div onClick={() => navigate('merchant-verified')} className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
+                <div onClick={() => navigate('merchant-verified')} className={`p-3 rounded-xl border border-l-2 border-l-emerald-500 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
                   <span className="font-semibold">Swiggy Instacart QR</span>
                   <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">96/100 Safe</span>
                 </div>
-                <div onClick={() => navigate('scam-detected')} className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
+                <div onClick={() => navigate('scam-detected')} className={`p-3 rounded-xl border border-l-2 border-l-red-500 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
                   <span className="font-semibold">Unknown UPI request</span>
                   <span className="text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded text-[10px]">12/100 Blocked</span>
                 </div>
-                <div onClick={() => navigate('merchant-verified')} className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
+                <div onClick={() => navigate('merchant-verified')} className={`p-3 rounded-xl border border-l-2 border-l-emerald-500 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg}`}>
                   <span className="font-semibold">Amazon Pay QR</span>
                   <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">91/100 Safe</span>
                 </div>
@@ -2922,7 +3005,7 @@ export default function Screens({
                 <button
                   key={cat}
                   onClick={() => setNotifFilter(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${notifFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${notifFilter === cat ? 'border-sky-400 text-white' : isLightMode ? 'bg-white border-gray-250 text-gray-650 hover:bg-gray-205 hover:text-gray-900 shadow-sm' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
                 >
                   <span className="relative z-10">{cat}</span>
                   {notifFilter === cat && (
@@ -2953,7 +3036,7 @@ export default function Screens({
                       className={`p-4 rounded-2xl border relative flex space-x-3 items-start transition hover:border-slate-700 cursor-pointer ${getRiskStyle()}`}
                     >
                       {notif.unread && (
-                        <span className="absolute top-4 right-4 w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                        <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
                       )}
                       <div className="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800/40 flex items-center justify-center shrink-0">
                         {notif.type === 'Fraud' && <AlertTriangle className="w-4 h-4 text-red-400" />}
@@ -3040,7 +3123,7 @@ export default function Screens({
                 <button
                   key={cat}
                   onClick={() => setActivityFilter(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${activityFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${activityFilter === cat ? 'border-sky-400 text-white' : isLightMode ? 'bg-white border-gray-250 text-gray-650 hover:bg-gray-205 hover:text-gray-900 shadow-sm' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
                 >
                   <span className="relative z-10">{cat}</span>
                   {activityFilter === cat && (
@@ -3074,11 +3157,14 @@ export default function Screens({
                         <p className="text-[10px] text-slate-400 mt-0.5">{act.description}</p>
                       </div>
                     </div>
-                    <div className="text-right shrink-0">
-                      <span className="text-[9px] text-slate-500 font-mono block">{act.time}</span>
-                      <span className={`inline-block text-[8px] font-bold px-2 py-0.5 rounded mt-1 uppercase ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
-                        {act.status}
-                      </span>
+                    <div className="flex items-center shrink-0">
+                      <div className="text-right">
+                        <span className="text-[9px] text-slate-500 font-mono block">{act.time}</span>
+                        <span className={`inline-block text-[8px] font-bold px-2 py-0.5 rounded mt-1 uppercase ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
+                          {act.status}
+                        </span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-slate-600 ml-2" />
                     </div>
                   </motion.div>
                 ))}
@@ -3120,23 +3206,26 @@ export default function Screens({
           </div>
 
           <div className="space-y-3 pt-6 z-10 pb-4">
+            <button 
+              onClick={() => { setIsOffline(false); navigate('home'); }} 
+              className="w-full py-4 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98] flex items-center justify-center space-x-1.5"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Retry Connection</span>
+            </button>
+            <p className="text-[10px] text-slate-500 leading-snug px-6 pt-1">
+              Need immediate system block? Safe on-device emergency freeze works fully offline.
+            </p>
             <button
               onClick={() => {
                 setBanks(prev => prev.map(b => ({ ...b, isConnected: false })));
                 setActivities(prev => [{ id: 'off-freez-' + Date.now(), title: 'Offline Emergency Block', description: 'Webhooks queued locally', time: 'Just now', status: 'Blocked' }, ...prev]);
                 navigate('home');
               }}
-              className="w-full py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-2xl shadow-lg transition active:scale-[0.98] flex items-center justify-center space-x-2"
+              className="w-full py-3 bg-transparent border border-red-500/30 hover:border-red-500/50 text-red-500 text-xs font-bold rounded-2xl flex items-center justify-center space-x-2 transition"
             >
-              <Lock className="w-5 h-5 animate-pulse" />
+              <Lock className="w-4 h-4 animate-pulse" />
               <span>Freeze All Accounts</span>
-            </button>
-            <p className="text-[10px] text-slate-500 leading-snug px-6">
-              Your freeze request will be queued locally and sent to bank APIs immediately upon reconnection.
-            </p>
-            <button onClick={() => { setIsOffline(false); navigate('home'); }} className="w-full py-3.5 bg-slate-900 border border-slate-800 text-sky-400 text-xs font-semibold rounded-2xl flex items-center justify-center space-x-1.5 transition">
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Try Again</span>
             </button>
           </div>
         </div>
@@ -3178,7 +3267,7 @@ export default function Screens({
                   <p className="text-[10px] text-slate-500 mt-0.5">Get immediate file log</p>
                 </div>
               </div>
-              <div onClick={() => navigate('freeze-accounts-confirm')} className="p-4 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-between h-28 cursor-pointer hover:border-slate-700">
+              <div onClick={() => navigate('freeze-accounts-confirm')} className="p-4 bg-red-950/30 border border-red-500/40 ring-1 ring-red-500/20 rounded-2xl flex flex-col justify-between h-28 cursor-pointer hover:border-red-400/50 transition">
                 <span className="text-2xl">❄️</span>
                 <div>
                   <p className="font-bold text-xs text-white">Freeze Accounts</p>
@@ -3292,7 +3381,7 @@ export default function Screens({
           </div>
 
           <div className="pt-2 pb-4">
-            <button onClick={() => navigate('home')} className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-2xl transition active:scale-[0.98] shadow-lg shadow-emerald-500/10">
+            <button onClick={() => navigate('home')} className="w-full py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-2xl transition active:scale-[0.98] shadow-lg shadow-sky-500/10">
               Return to Safety Dashboard
             </button>
           </div>
@@ -3326,15 +3415,12 @@ export default function Screens({
               className="p-6 bg-gradient-to-br from-slate-900 via-sky-950/20 to-slate-900 border border-sky-500/20 rounded-3xl relative overflow-hidden text-center space-y-4 shadow-[0_15px_35px_rgba(14,165,233,0.1)]"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-3xl" />
-              <div className="w-16 h-16 rounded-2xl bg-sky-950/60 border border-sky-500/20 flex items-center justify-center mx-auto shadow-md">
-                <ShieldCheck className="w-8 h-8 text-sky-400" />
-              </div>
               <p className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Guardia AI saved me</p>
               <motion.h2 
                 initial={{ scale: 0.5 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.3 }}
-                className="text-4xl font-black text-emerald-400 tracking-tight font-mono"
+                className="text-5xl font-black text-emerald-400 tracking-tight font-mono"
               >
                 {isAnonymized ? '₹XX,XXX' : '₹12,400'}
               </motion.h2>
@@ -3409,7 +3495,13 @@ export default function Screens({
           {/* USER INFO BLOCK */}
           <div className={`p-4 rounded-2xl border text-left flex items-center space-x-4 ${cardBg}`}>
             <div className="w-14 h-14 rounded-full bg-sky-950 border border-sky-800 flex items-center justify-center overflow-hidden shrink-0">
-              <span className="text-sky-400 text-lg font-bold">RS</span>
+              {profile.photo ? (
+                <img src={profile.photo} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-sky-400 text-lg font-bold">
+                  {profile.name ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'RS'}
+                </span>
+              )}
             </div>
             <div>
               <h3 className="font-extrabold text-base leading-tight">{profile.name}</h3>
@@ -3483,16 +3575,39 @@ export default function Screens({
               <div className="w-8" />
             </div>
 
-            {/* AVATAR SELECTOR */}
-            <div className="flex flex-col items-center space-y-2 py-1">
-              <motion.div 
+            {/* PHOTO EDITOR BLOCK */}
+            <div className="flex flex-col items-center space-y-2 py-2">
+              <input
+                id="profile-photo-input"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setProfile({ ...profile, photo: reader.result as string });
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+              />
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative w-24 h-24 rounded-full bg-gradient-to-br from-sky-950 to-indigo-950 border-2 border-sky-500/80 flex items-center justify-center cursor-pointer group shadow-lg shadow-sky-500/10 hover:border-sky-400 transition-all duration-300"
+                onClick={() => document.getElementById('profile-photo-input')?.click()}
+                className="relative w-24 h-24 rounded-full bg-gradient-to-br from-sky-950 to-indigo-950 border-2 border-sky-500/80 flex items-center justify-center cursor-pointer group shadow-lg shadow-sky-500/10 hover:border-sky-400 transition-all duration-300 overflow-hidden"
               >
-                <span className="text-sky-300 text-3xl font-black tracking-tight font-sans">RS</span>
-                <div className="absolute right-0 bottom-0 w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center border-2 border-slate-950 group-hover:bg-sky-400 transition-all">
-                  <Camera className="w-4.5 h-4.5 text-white" />
+                {profile.photo ? (
+                  <img src={profile.photo} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-sky-300 text-3xl font-black tracking-tight font-sans">
+                    {profile.name ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'RS'}
+                  </span>
+                )}
+                <div className="absolute right-1.5 bottom-1.5 w-7 h-7 rounded-full bg-sky-500 flex items-center justify-center border-2 border-slate-950 group-hover:bg-sky-400 transition-all z-10">
+                  <Camera className="w-3.5 h-3.5 text-white" />
                 </div>
               </motion.div>
               <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Change Profile Photo</p>
@@ -3577,7 +3692,7 @@ export default function Screens({
           </div>
 
           <div className="space-y-2 pt-6 pb-4">
-            <button onClick={() => navigate('me-profile')} className="w-full py-3.5 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]">
+            <button onClick={() => navigate('me-profile')} className="w-full py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98]">
               Save Changes
             </button>
             <button onClick={() => navigate('me-profile')} className="w-full py-3.5 bg-transparent hover:bg-slate-900 text-slate-400 font-bold rounded-2xl transition">
@@ -3631,7 +3746,7 @@ export default function Screens({
                 setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: '', language: 'English', photo: '' });
                 navigate('splash');
               }}
-              className={`w-full py-4 text-white font-bold rounded-2xl transition ${deleteConfirmText === 'DELETE' ? 'bg-red-600 hover:bg-red-500 cursor-pointer shadow-lg shadow-red-500/20' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}`}
+              className={`w-full py-4 text-white font-bold rounded-2xl transition-all duration-300 ${deleteConfirmText === 'DELETE' ? 'bg-red-600 hover:bg-red-500 cursor-pointer shadow-lg shadow-red-500/20 border border-red-500/50 animate-pulse' : 'bg-slate-900/50 text-slate-600 cursor-not-allowed opacity-40 border border-slate-800/30'}`}
             >
               Delete My Account
             </button>
