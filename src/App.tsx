@@ -41,7 +41,7 @@ export default function App() {
   const [profile, setProfile] = useState({
     name: 'Rohan Sharma',
     phone: '+91 98765 43210',
-    email: '',
+    email: 'rohan.sharma@gmail.com',
     language: 'English',
     photo: ''
   });

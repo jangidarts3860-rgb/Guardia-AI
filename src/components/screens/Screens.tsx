@@ -847,10 +847,10 @@ export default function Screens({
                   />
                 </div>
                 <div className="min-h-[16px] mt-1">
-                  {phoneBlurred && profile.phone.replace('+91 ', '').trim() && profile.phone.replace('+91 ', '').trim().length !== 10 && (
+                  {phoneBlurred && profile.phone.replace('+91', '').replace(/\s/g, '') && profile.phone.replace('+91', '').replace(/\s/g, '').length !== 10 && (
                     <p className="text-[10px] text-red-400 font-semibold">⚠️ Mobile number must be exactly 10 digits</p>
                   )}
-                  {profile.phone.replace('+91 ', '').trim().length === 10 && (
+                  {profile.phone.replace('+91', '').replace(/\s/g, '').length === 10 && (
                     <p className="text-[10px] text-emerald-400 font-semibold">✓ Secure bank-linked number verified</p>
                   )}
                 </div>
@@ -886,7 +886,7 @@ export default function Screens({
               disabled={
                 !profile.name.trim() || 
                 profile.name.trim().length < 3 || 
-                profile.phone.replace('+91 ', '').trim().length !== 10 ||
+                profile.phone.replace('+91', '').replace(/\s/g, '').length !== 10 ||
                 !profile.email.trim() ||
                 !(profile.email.includes('@') && profile.email.split('@')[1]?.includes('.'))
               }
@@ -896,7 +896,7 @@ export default function Screens({
               className={`w-full font-bold py-4 rounded-2xl shadow-lg transition active:scale-[0.98] ${
                 profile.name.trim() && 
                 profile.name.trim().length >= 3 && 
-                profile.phone.replace('+91 ', '').trim().length === 10 &&
+                profile.phone.replace('+91', '').replace(/\s/g, '').length === 10 &&
                 profile.email.trim() &&
                 profile.email.includes('@') && 
                 profile.email.split('@')[1]?.includes('.')
