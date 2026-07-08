@@ -183,7 +183,7 @@ export default function App() {
       <div className="flex-1 flex flex-col md:flex-row items-center justify-center p-4 md:p-8 overflow-y-auto space-y-6 md:space-y-0 md:space-x-8">
         
         {/* Mobile quick header selector */}
-        {!isEmbed && (
+        {!isEmbed && !isMobileDevice && (
           <div className="lg:hidden w-full max-w-sm flex flex-col space-y-2 mb-2">
             <label className="text-[10px] uppercase font-bold tracking-wider text-slate-500 text-left">
               Select Screen to Simulate
