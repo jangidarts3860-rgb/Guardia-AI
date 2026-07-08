@@ -11,8 +11,8 @@ import PhoneSimulator from './components/layout/PhoneSimulator';
 import Screens from './components/screens/Screens';
 import { Home, CreditCard, ShieldCheck, User, Scan } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-
 export default function App() {
+  const isEmbed = typeof window !== 'undefined' && (window.location.search.includes('embed=true') || window.location.search.includes('fullscreen=true'));
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('splash');
   const [subscriptions, setSubscriptions] = useState<Subscription[]>(initialSubscriptions);
   const [banks, setBanks] = useState<Bank[]>(initialBanks);
@@ -146,64 +146,68 @@ export default function App() {
   return (
     <div className="flex h-screen bg-slate-950 text-white overflow-hidden font-sans">
       {/* 1. Left side - Developer Screen Explorer */}
-      <div className="hidden lg:block w-[400px] h-full shrink-0">
-        <FlowNavigator
-          currentScreen={currentScreen}
-          navigate={navigate}
-          isOffline={isOffline}
-          setIsOffline={(offline) => {
-            setIsOffline(offline);
-            if (offline) navigate('offline');
-            else navigate('home');
-          }}
-          isLightMode={isLightMode}
-          setIsLightMode={setIsLightMode}
-        />
-      </div>
+      {!isEmbed && (
+        <div className="hidden lg:block w-[400px] h-full shrink-0">
+          <FlowNavigator
+            currentScreen={currentScreen}
+            navigate={navigate}
+            isOffline={isOffline}
+            setIsOffline={(offline) => {
+              setIsOffline(offline);
+              if (offline) navigate('offline');
+              else navigate('home');
+            }}
+            isLightMode={isLightMode}
+            setIsLightMode={setIsLightMode}
+          />
+        </div>
+      )}
 
       {/* 2. Main content side - Phone Simulator & UX Audit details */}
       <div className="flex-1 flex flex-col md:flex-row items-center justify-center p-4 md:p-8 overflow-y-auto space-y-6 md:space-y-0 md:space-x-8">
         
         {/* Mobile quick header selector */}
-        <div className="lg:hidden w-full max-w-sm flex flex-col space-y-2 mb-2">
-          <label className="text-[10px] uppercase font-bold tracking-wider text-slate-500 text-left">
-            Select Screen to Simulate
-          </label>
-          <select
-            value={currentScreen}
-            onChange={(e) => navigate(e.target.value as ScreenId)}
-            className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-sky-500"
-          >
-            <option value="splash">Splash Screen</option>
-            <option value="onboarding">Intro Onboarding</option>
-            <option value="permissions">Device Permissions</option>
-            <option value="create-account">Create Account</option>
-            <option value="verify-otp">Verify OTP</option>
-            <option value="welcome-back">Welcome Back / Login</option>
-            <option value="home">Home (Your Shield)</option>
-            <option value="analyzing-merchant">Scanning Merchant</option>
-            <option value="merchant-verified">Merchant Verified Safe</option>
-            <option value="scam-detected">Scam Detected Alert</option>
-            <option value="receipt-dark">Success Receipt (Dark)</option>
-            <option value="subs-dashboard">Subscriptions List</option>
-            <option value="sub-detail">Subscription Details</option>
-            <option value="cancel-success">Cancellation Success</option>
-            <option value="vault">Vault Security Dashboard</option>
-            <option value="link-bank">RBI Link Bank List</option>
-            <option value="scan-qr">Scan QR Code</option>
-            <option value="notifications">Notifications Center</option>
-            <option value="activity-log">Security Activity Log</option>
-            <option value="offline">Offline Handler</option>
-            <option value="emergency">Emergency Helpdesk</option>
-            <option value="safe-report">Safe Protection Report</option>
-            <option value="your-win">Shareable Savings Card</option>
-            <option value="me-profile">Profile</option>
-            <option value="edit-profile">Edit Profile Settings</option>
-            <option value="delete-account-confirm">Delete Account Confirmation</option>
-            <option value="freeze-accounts-confirm">Freeze Accounts Confirmation</option>
-            <option value="link-bank-progress">Linking Bank Progress</option>
-          </select>
-        </div>
+        {!isEmbed && (
+          <div className="lg:hidden w-full max-w-sm flex flex-col space-y-2 mb-2">
+            <label className="text-[10px] uppercase font-bold tracking-wider text-slate-500 text-left">
+              Select Screen to Simulate
+            </label>
+            <select
+              value={currentScreen}
+              onChange={(e) => navigate(e.target.value as ScreenId)}
+              className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-sky-500"
+            >
+              <option value="splash">Splash Screen</option>
+              <option value="onboarding">Intro Onboarding</option>
+              <option value="permissions">Device Permissions</option>
+              <option value="create-account">Create Account</option>
+              <option value="verify-otp">Verify OTP</option>
+              <option value="welcome-back">Welcome Back / Login</option>
+              <option value="home">Home (Your Shield)</option>
+              <option value="analyzing-merchant">Scanning Merchant</option>
+              <option value="merchant-verified">Merchant Verified Safe</option>
+              <option value="scam-detected">Scam Detected Alert</option>
+              <option value="receipt-dark">Success Receipt (Dark)</option>
+              <option value="subs-dashboard">Subscriptions List</option>
+              <option value="sub-detail">Subscription Details</option>
+              <option value="cancel-success">Cancellation Success</option>
+              <option value="vault">Vault Security Dashboard</option>
+              <option value="link-bank">RBI Link Bank List</option>
+              <option value="scan-qr">Scan QR Code</option>
+              <option value="notifications">Notifications Center</option>
+              <option value="activity-log">Security Activity Log</option>
+              <option value="offline">Offline Handler</option>
+              <option value="emergency">Emergency Helpdesk</option>
+              <option value="safe-report">Safe Protection Report</option>
+              <option value="your-win">Shareable Savings Card</option>
+              <option value="me-profile">Profile</option>
+              <option value="edit-profile">Edit Profile Settings</option>
+              <option value="delete-account-confirm">Delete Account Confirmation</option>
+              <option value="freeze-accounts-confirm">Freeze Accounts Confirmation</option>
+              <option value="link-bank-progress">Linking Bank Progress</option>
+            </select>
+          </div>
+        )}
 
         {/* The Premium Interactive Phone Simulator */}
         <div className="shrink-0 flex flex-col">

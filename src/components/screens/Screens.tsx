@@ -149,10 +149,12 @@ export function getBankLogo(bankId: string, name: string, sizeClass = 'w-10 h-10
   
   if (id === 'sbi') {
     return (
-      <div className={`${sizeClass} bg-[#00a9e0] border border-[#0091be] flex items-center justify-center relative overflow-hidden shrink-0 shadow-md`}>
-        <div className="w-5 h-5 rounded-full border-[2.5px] border-white flex items-center justify-center relative">
-          <div className="absolute bottom-[-3px] w-1 h-2.5 bg-[#00a9e0]" />
-        </div>
+      <div className={`${sizeClass} bg-[#0054a6] border border-[#004385] flex items-center justify-center shrink-0 relative overflow-hidden shadow-md rounded-2xl`}>
+        <svg className="w-7 h-7" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="42" fill="#0054a6" />
+          <circle cx="50" cy="50" r="12" fill="#ffffff" />
+          <rect x="46.5" y="50" width="7" height="36" fill="#ffffff" />
+        </svg>
       </div>
     );
   }

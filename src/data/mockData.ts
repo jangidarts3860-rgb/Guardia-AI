@@ -113,6 +113,24 @@ export const initialNotifications: NotificationItem[] = [
     type: 'Subscriptions',
     risk: 'Warning',
     unread: false
+  },
+  {
+    id: 'notif-6',
+    title: '💳 Unknown card debit block',
+    description: 'Blocked ₹1,299 unverified overseas transaction',
+    time: '1d',
+    type: 'Fraud',
+    risk: 'High',
+    unread: false
+  },
+  {
+    id: 'notif-7',
+    title: '🎵 Spotify plan update',
+    description: 'Voted top active subscription this month',
+    time: '2d',
+    type: 'Subscriptions',
+    risk: 'Info',
+    unread: false
   }
 ];
 
@@ -158,5 +176,19 @@ export const initialActivities: ActivityItem[] = [
     description: 'Safe • Score 94/100',
     time: '4d ago',
     status: 'Verified'
+  },
+  {
+    id: 'act-7',
+    title: '💳 Paytm QR verified',
+    description: 'Safe • Score 98/100',
+    time: '5d ago',
+    status: 'Verified'
+  },
+  {
+    id: 'act-8',
+    title: '🍿 SonyLIV cancelled',
+    description: 'Saved ₹199/mo',
+    time: '1w ago',
+    status: 'Cancelled'
   }
 ];
