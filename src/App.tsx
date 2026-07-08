@@ -63,7 +63,7 @@ export default function App() {
   const isScreenshotMode = window.location.search.includes('screenshot=1');
   if (isScreenshotMode) {
     return (
-      <div style={{ width: 390, height: 844, overflow: 'hidden', background: '#020617', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+      <div id="pure-screen-container" style={{ width: 390, height: 844, overflow: 'hidden', background: '#020617', position: 'relative', display: 'flex', flexDirection: 'column' }}>
         {/* Hidden select for Playwright automation */}
         <select
           value={currentScreen}

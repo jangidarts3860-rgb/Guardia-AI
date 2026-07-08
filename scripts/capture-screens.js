@@ -53,8 +53,8 @@ async function capture() {
   // Set viewport size
   await page.setViewportSize({ width: 1280, height: 960 });
 
-  await page.goto('http://localhost:3000/?dev=true');
-  console.log('🔗 Connected to http://localhost:3000/?dev=true');
+  await page.goto('http://localhost:3000/?screenshot=1');
+  console.log('🔗 Connected to http://localhost:3000/?screenshot=1');
 
   // Wait for the app to initialize
   await page.waitForTimeout(2000);
@@ -76,15 +76,15 @@ async function capture() {
     // Wait for animations and state stabilization
     await page.waitForTimeout(800);
     
-    // Locate the phone viewport (excludes black outer phone bezels)
-    const frame = page.locator('#phone-viewport');
+    // Locate the pure screen container (excludes bezels, status bar overlays, battery wifi time, etc)
+    const frame = page.locator('#pure-screen-container');
     
     if (await frame.count() > 0) {
       const outputPath = path.join(outputDir, screen.file);
       await frame.screenshot({ path: outputPath });
       console.log(`   Saved screenshot to: ${screen.file}`);
     } else {
-      console.error(`   ❌ Failed to locate #phone-viewport on screen: ${screen.id}`);
+      console.error(`   ❌ Failed to locate #pure-screen-container on screen: ${screen.id}`);
     }
   }
 
