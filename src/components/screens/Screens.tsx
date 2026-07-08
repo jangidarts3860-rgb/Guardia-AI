@@ -554,7 +554,7 @@ export default function Screens({
     // ==========================================
     case 'splash':
       return (
-        <div className="flex flex-col items-center justify-between h-full bg-slate-950 text-white p-6 relative overflow-hidden">
+        <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-6 relative">
           {/* Neon cosmic background lights */}
           <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.18)_0%,transparent_65%]" />
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
@@ -627,7 +627,7 @@ export default function Screens({
 
     case 'onboarding':
       return (
-        <div className="flex flex-col justify-between h-full bg-transparent text-white p-6 relative overflow-hidden">
+        <div className="flex flex-col justify-between min-h-full bg-transparent text-white p-6 relative">
           <div className="absolute inset-0 bg-gradient-to-b from-sky-950/20 via-transparent to-slate-950" />
           <div className="absolute -top-16 -right-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" />
           
@@ -690,7 +690,7 @@ export default function Screens({
 
     case 'permissions':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_bottom,rgba(14,165,233,0.05)_0%,transparent_60%] pointer-events-none" />
           
           <div className="space-y-5 z-10">
@@ -773,7 +773,7 @@ export default function Screens({
 
     case 'create-account':
       return (
-        <div className="flex flex-col h-full bg-transparent text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_bottom,rgba(99,102,241,0.05)_0%,transparent_60%] pointer-events-none" />
           
           <div className="space-y-6 z-10 flex-1 flex flex-col">
@@ -911,7 +911,7 @@ export default function Screens({
 
     case 'verify-otp':
       return (
-        <div className="flex flex-col h-full bg-transparent text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(14,165,233,0.05)_0%,transparent_60%] pointer-events-none" />
           <div className="space-y-6 z-10">
             <div className="flex items-center space-x-2 pt-2">
@@ -1026,7 +1026,7 @@ export default function Screens({
 
     case 'welcome-back':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(99,102,241,0.05)_0%,transparent_60%] pointer-events-none" />
           
           <div className="space-y-6 z-10 flex-1 flex flex-col justify-between">
@@ -1157,7 +1157,7 @@ export default function Screens({
     case 'home':
       if (isHomeLoading) {
         return (
-          <div className={`flex flex-col h-full p-4 space-y-4 animate-pulse ${isLightMode ? 'bg-slate-50' : 'bg-slate-950'}`}>
+          <div className={`flex flex-col min-h-full p-4 space-y-4 animate-pulse ${isLightMode ? 'bg-slate-50' : 'bg-slate-950'}`}>
             {/* Header Skeleton */}
             <div className="flex justify-between items-center">
               <div className="space-y-2 text-left">
@@ -1242,7 +1242,7 @@ export default function Screens({
       }
 
       return (
-        <div className={`flex flex-col h-full p-4 space-y-4 ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
+        <div className={`flex flex-col min-h-full p-4 space-y-4 ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
           <div className="flex justify-between items-center">
             <div className="text-left">
               <p className={`text-xs ${textMuted}`}>Good morning, {profile.name ? profile.name.split(' ')[0] : 'Rohan'} 👋</p>
@@ -1416,7 +1416,7 @@ export default function Screens({
       };
 
       return (
-        <div className="flex flex-col items-center justify-between h-full bg-slate-950 text-white p-5 relative overflow-hidden">
+        <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-5 relative">
           <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.06)_0%,transparent_70%]" />
           
           {/* Top Header info */}
@@ -1507,7 +1507,7 @@ export default function Screens({
 
     case 'merchant-verified':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(16,185,129,0.05)_0%,transparent_60%] pointer-events-none" />
           
           <div className="space-y-5 z-10">
@@ -1641,7 +1641,7 @@ export default function Screens({
 
     case 'scam-detected':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
           {/* Intense red gradient and scanning grid patterns */}
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(239,68,68,0.15)_0%,transparent_60%] pointer-events-none" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
@@ -1811,7 +1811,7 @@ export default function Screens({
     case 'receipt-dark':
       const isReceiptLight = false;
       return (
-        <div className={`flex flex-col h-full justify-between p-6 relative overflow-hidden transition-all ${isReceiptLight ? 'bg-emerald-50/70 text-gray-900' : 'bg-slate-950 text-white'}`}>
+        <div className={`flex flex-col min-h-full justify-between p-6 relative transition-all ${isReceiptLight ? 'bg-emerald-50/70 text-gray-900' : 'bg-slate-950 text-white'}`}>
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(16,185,129,0.08)_0%,transparent_60%]" />
           <div className="flex-1 flex flex-col justify-center items-center space-y-6 z-10">
             <motion.div 
@@ -1882,7 +1882,7 @@ export default function Screens({
     case 'subs-dashboard':
       if (isSubsLoading) {
         return (
-          <div className="flex flex-col h-full p-4 space-y-4 bg-slate-950 text-white animate-pulse">
+          <div className="flex flex-col min-h-full p-4 space-y-4 bg-slate-950 text-white animate-pulse">
             {/* Header Skeleton */}
             <div className="flex justify-between items-center text-left">
               <div>
@@ -1962,7 +1962,7 @@ export default function Screens({
       const currentDisplayedSubs = activeSpendsTab === 'my' ? subscriptions : familySubscriptions;
 
       return (
-        <div className="flex flex-col h-full p-4 space-y-4 bg-slate-950 text-white">
+        <div className="flex flex-col min-h-full p-4 space-y-4 bg-slate-950 text-white">
           <div className="flex justify-between items-center text-left">
             <div>
               <span className="text-[9px] font-extrabold tracking-widest text-slate-500 uppercase font-mono">SUBSCRIPTION GUARD</span>
@@ -2187,7 +2187,7 @@ export default function Screens({
     case 'sub-detail':
       if (!selectedSub) return null;
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-4 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 justify-between relative">
           <div className="space-y-5">
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('subs-dashboard')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800">
@@ -2327,7 +2327,7 @@ export default function Screens({
 
     case 'cancel-success':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
           <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(16,185,129,0.1)_0%,transparent_60%]" />
           <div className="flex-1 flex flex-col justify-center items-center text-center space-y-6 z-10">
             <motion.div 
@@ -2420,7 +2420,7 @@ export default function Screens({
     case 'vault':
       if (isVaultLoading) {
         return (
-          <div className="flex flex-col h-full p-4 space-y-4 animate-pulse bg-slate-950">
+          <div className="flex flex-col min-h-full p-4 space-y-4 animate-pulse bg-slate-950">
             {/* Header Skeleton */}
             <div className="flex justify-between items-center">
               <div className="space-y-1.5 text-left">
@@ -2486,7 +2486,7 @@ export default function Screens({
       }
 
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white">
           {/* STICKY/FIXED HEADER (Never Scrolls Out of View) */}
           <div className="flex justify-between items-center text-left p-4 pb-2.5 shrink-0 border-b border-slate-900">
             <div>
@@ -2639,7 +2639,7 @@ export default function Screens({
 
     case 'link-bank':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
           <div className="space-y-5 flex-1 flex flex-col">
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('vault')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800">
@@ -2721,7 +2721,7 @@ export default function Screens({
 
     case 'link-bank-progress':
       return (
-        <div className="flex flex-col items-center justify-center h-full bg-slate-950 text-white p-6 space-y-6 overflow-hidden relative">
+        <div className="flex flex-col items-center justify-center min-h-full bg-slate-950 text-white p-6 space-y-6 relative">
           {/* Sweeping connection radar */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
             <motion.div 
@@ -2772,7 +2772,7 @@ export default function Screens({
 
     case 'scan-qr':
       return (
-        <div className={`flex flex-col h-full ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
+        <div className={`flex flex-col min-h-full ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
           <div className="p-4 flex justify-between items-center border-b border-slate-800/10 shrink-0">
             <h2 className="text-base font-bold">Scan QR Code</h2>
             <button onClick={() => navigate('home')} className="p-1.5 rounded-lg border border-slate-800/30 text-xs hover:bg-slate-900/30">Close</button>
@@ -2985,7 +2985,7 @@ export default function Screens({
     case 'notifications':
       if (isNotificationsLoading) {
         return (
-          <div className="flex flex-col h-full bg-slate-950 text-white p-4 justify-between animate-pulse">
+          <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 justify-between animate-pulse">
             <div className="space-y-4 flex-1 flex flex-col overflow-hidden">
               {/* Header Skeleton */}
               <div className="flex justify-between items-center pt-2">
@@ -3027,7 +3027,7 @@ export default function Screens({
       }
 
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-4 justify-between">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 justify-between">
           <div className="space-y-4 flex-1 flex flex-col overflow-hidden">
             <div className="flex justify-between items-center pt-2">
               <div className="flex items-center space-x-2">
@@ -3106,7 +3106,7 @@ export default function Screens({
     case 'activity-log':
       if (isActivityLoading) {
         return (
-          <div className="flex flex-col h-full bg-slate-950 text-white p-4 animate-pulse">
+          <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 animate-pulse">
             <div className="space-y-4 flex-1 flex flex-col overflow-hidden text-left">
               {/* Header Skeleton */}
               <div className="flex justify-between items-center pt-2 shrink-0">
@@ -3148,7 +3148,7 @@ export default function Screens({
       }
 
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-4">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-4">
           <div className="space-y-4 flex-1 flex flex-col overflow-hidden">
             <div className="flex justify-between items-center pt-2 shrink-0">
               <div className="flex items-center space-x-2">
@@ -3223,7 +3223,7 @@ export default function Screens({
     // ==========================================
     case 'offline':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-6 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
           <div className="space-y-6 z-10 text-center flex-1 flex flex-col justify-center">
             <div className="w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-slate-500 animate-pulse">
               <WifiOff className="w-10 h-10" />
@@ -3278,7 +3278,7 @@ export default function Screens({
 
     case 'emergency':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
           <div className="space-y-5">
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800">
@@ -3353,7 +3353,7 @@ export default function Screens({
 
     case 'safe-report':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between overflow-y-auto">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
           {/* Header */}
           <div className="flex justify-between items-center pt-2">
             <button onClick={() => navigate('home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-850 transition">
@@ -3438,7 +3438,7 @@ export default function Screens({
     // ==========================================
     case 'your-win':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
           <div className="space-y-5">
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800">
@@ -3531,7 +3531,7 @@ export default function Screens({
     // ==========================================
     case 'me-profile':
       return (
-        <div className={`flex flex-col h-full p-4 space-y-4 overflow-y-auto ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
+        <div className={`flex flex-col min-h-full p-4 space-y-4 ${isLightMode ? 'bg-slate-50 text-gray-900' : 'bg-slate-950 text-white'}`}>
           <div className="flex justify-between items-center text-left">
             <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
             <button onClick={() => navigate('home')} className="text-xs text-sky-400 hover:underline">Done</button>
@@ -3610,7 +3610,7 @@ export default function Screens({
 
     case 'edit-profile':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between overflow-y-auto">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
           <div className="space-y-6 text-left">
             <div className="flex justify-between items-center pt-2">
               <button onClick={() => navigate('me-profile')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-850 transition">
@@ -3749,7 +3749,7 @@ export default function Screens({
 
     case 'delete-account-confirm':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
           <div className="space-y-6 text-center flex-1 flex flex-col justify-center">
             <motion.div 
               animate={{ x: [-5, 5, -5, 5, 0] }}
@@ -3804,7 +3804,7 @@ export default function Screens({
 
     case 'freeze-accounts-confirm':
       return (
-        <div className="flex flex-col h-full bg-slate-950 text-white p-5 justify-between relative overflow-hidden">
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
           <div className="absolute inset-0 bg-gradient-to-b from-red-950/10 via-transparent to-transparent pointer-events-none" />
           <div className="space-y-5 z-10 text-left">
             <div className="flex justify-between items-center pt-2">

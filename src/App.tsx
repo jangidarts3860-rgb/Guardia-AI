@@ -134,7 +134,7 @@ export default function App() {
                   <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
                 </div>
               </button>
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => navigate('scan-qr')} className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1">
+              <motion.button id="scan-qr-nav-btn" whileTap={{ scale: 0.95 }} onClick={() => navigate('scan-qr')} className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1">
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
                 <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
@@ -237,6 +237,7 @@ export default function App() {
 
               {/* Integrated Cyber Scanner Button */}
               <motion.button
+                id="scan-qr-nav-btn"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate('scan-qr')}
@@ -431,6 +432,7 @@ export default function App() {
 
                     {/* Integrated Cyber Scanner Button */}
                     <motion.button
+                      id="scan-qr-nav-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => navigate('scan-qr')}
