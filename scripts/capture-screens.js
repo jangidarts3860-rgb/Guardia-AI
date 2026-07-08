@@ -53,8 +53,8 @@ async function capture() {
   // Set viewport size
   await page.setViewportSize({ width: 1280, height: 960 });
 
-  await page.goto('http://localhost:3000/');
-  console.log('🔗 Connected to http://localhost:3000/');
+  await page.goto('http://localhost:3000/?dev=true');
+  console.log('🔗 Connected to http://localhost:3000/?dev=true');
 
   // Wait for the app to initialize
   await page.waitForTimeout(2000);

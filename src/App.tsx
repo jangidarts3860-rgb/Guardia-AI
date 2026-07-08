@@ -12,7 +12,7 @@ import Screens from './components/screens/Screens';
 import { Home, CreditCard, ShieldCheck, User, Scan } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 export default function App() {
-  const isEmbed = typeof window !== 'undefined' && (window.location.search.includes('embed=true') || window.location.search.includes('fullscreen=true'));
+  const isDev = typeof window !== 'undefined' && (window.location.search.includes('dev=true') || window.location.search.includes('debug=true') || window.location.search.includes('explorer=true'));
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
@@ -162,7 +162,7 @@ export default function App() {
   return (
     <div className="flex h-screen bg-slate-950 text-white overflow-hidden font-sans">
       {/* 1. Left side - Developer Screen Explorer */}
-      {!isEmbed && (
+      {isDev && (
         <div className="hidden lg:block w-[400px] h-full shrink-0">
           <FlowNavigator
             currentScreen={currentScreen}
@@ -183,7 +183,7 @@ export default function App() {
       <div className="flex-1 flex flex-col md:flex-row items-center justify-center p-4 md:p-8 overflow-y-auto space-y-6 md:space-y-0 md:space-x-8">
         
         {/* Mobile quick header selector */}
-        {!isEmbed && !isMobileDevice && (
+        {isDev && !isMobileDevice && (
           <div className="lg:hidden w-full max-w-sm flex flex-col space-y-2 mb-2">
             <label className="text-[10px] uppercase font-bold tracking-wider text-slate-500 text-left">
               Select Screen to Simulate
