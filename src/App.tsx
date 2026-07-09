@@ -29,7 +29,22 @@ export default function App() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const [currentScreen, setCurrentScreen] = useState<ScreenId>('splash');
+  const [currentScreen, setCurrentScreen] = useState<ScreenId>(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.replace(/^\/+/, '');
+      if (path === 'login') return 'welcome-back';
+      if (path === 'vault') return 'vault';
+      if (path === 'subs' || path === 'subscriptions') return 'subs-dashboard';
+      if (path === 'settings' || path === 'profile') return 'me-profile';
+      if (path === 'dashboard' || path === 'home') return 'home';
+      // Add other explicit mappings as needed, otherwise fallback to splash
+      if (path && path !== 'index.html') {
+        // If it looks like a valid screen ID, try to use it
+        return path as ScreenId;
+      }
+    }
+    return 'splash';
+  });
   const [subscriptions, setSubscriptions] = useState<Subscription[]>(initialSubscriptions);
   const [banks, setBanks] = useState<Bank[]>(initialBanks);
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
@@ -52,8 +67,13 @@ export default function App() {
     // If the system is offline, restrict to certain pages or trigger offline block
     if (isOffline && screen !== 'offline' && screen !== 'splash' && screen !== 'emergency') {
       setCurrentScreen('offline');
+      if (typeof window !== 'undefined') window.history.pushState({}, '', '/offline');
     } else {
       setCurrentScreen(screen);
+      if (typeof window !== 'undefined') {
+        const path = screen === 'welcome-back' ? 'login' : screen;
+        window.history.pushState({}, '', `/${path}`);
+      }
     }
   };
 

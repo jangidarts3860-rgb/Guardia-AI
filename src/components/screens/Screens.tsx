@@ -982,12 +982,15 @@ export default function Screens({
               </div>
               <div className="flex justify-between items-center mt-4 px-1">
                 <span className="text-[10px] text-slate-500 font-medium">Didn&apos;t receive code?</span>
-                <button 
-                  disabled={resendTimer > 0} 
-                  className={`text-[10px] font-bold ${resendTimer > 0 ? 'text-slate-600 cursor-not-allowed' : 'text-sky-400 hover:underline'}`}
-                >
-                  {resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend Now'}
-                </button>
+                <div className="flex space-x-3">
+                  <button onClick={() => navigate('welcome-back')} className="text-[10px] font-bold text-emerald-500 hover:underline">Test Bypass</button>
+                  <button 
+                    disabled={resendTimer > 0} 
+                    className={`text-[10px] font-bold ${resendTimer > 0 ? 'text-slate-600 cursor-not-allowed' : 'text-sky-400 hover:underline'}`}
+                  >
+                    {resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend Now'}
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -1137,8 +1140,9 @@ export default function Screens({
             </div>
 
             <div className="pt-2 text-center space-y-3">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center space-x-3">
                 <button onClick={() => navigate('verify-otp')} className="text-[10px] text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase">Forgot Passcode? Reset Here</button>
+                <button onClick={() => navigate('home')} className="text-[10px] text-emerald-500 hover:text-emerald-400 font-semibold tracking-wide uppercase">Test Login (Bypass)</button>
               </div>
               <div>
                 <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-[9px] font-bold text-slate-500 font-mono">
@@ -1384,22 +1388,32 @@ export default function Screens({
               <button onClick={() => navigate('activity-log')} className="text-xs text-sky-400 hover:underline">View all</button>
             </div>
             <div className="space-y-2 flex-1 overflow-y-auto">
-              {activities.slice(0, 4).map((act) => (
-                <div key={act.id} className={`p-3 rounded-xl border flex items-center justify-between ${cardBg}`}>
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
-                      {act.status === 'Blocked' ? <XCircle className="w-4.5 h-4.5" /> : <CheckCircle2 className="w-4.5 h-4.5" />}
-                    </div>
-                    <div className="text-left">
-                      <p className="text-xs font-bold">{act.title}</p>
-                      <p className={`text-[10px] ${textMuted}`}>{act.description}</p>
-                    </div>
+              {activities.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-6 text-center space-y-2 opacity-70">
+                  <ShieldCheck className="w-8 h-8 text-slate-600" />
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-400">No recent activity</h3>
+                    <p className="text-xs text-slate-500">You're all clear.</p>
                   </div>
-                  <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
-                    {act.status}
-                  </span>
                 </div>
-              ))}
+              ) : (
+                activities.slice(0, 4).map((act) => (
+                  <div key={act.id} className={`p-3 rounded-xl border flex items-center justify-between ${cardBg}`}>
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                        {act.status === 'Blocked' ? <XCircle className="w-4.5 h-4.5" /> : <CheckCircle2 className="w-4.5 h-4.5" />}
+                      </div>
+                      <div className="text-left">
+                        <p className="text-xs font-bold">{act.title}</p>
+                        <p className={`text-[10px] ${textMuted}`}>{act.description}</p>
+                      </div>
+                    </div>
+                    <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                      {act.status}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -3157,9 +3171,14 @@ export default function Screens({
                 </button>
                 <h2 className="text-lg font-bold">Activity</h2>
               </div>
-              <button className="p-2 rounded-xl bg-slate-900 border border-slate-800">
-                <Share2 className="w-4 h-4 text-slate-400" />
-              </button>
+              <div className="flex items-center space-x-2">
+                <button onClick={() => setActivities([])} className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-bold hover:text-white transition">
+                  Clear
+                </button>
+                <button className="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                  <Share2 className="w-4 h-4 text-slate-400" />
+                </button>
+              </div>
             </div>
 
             {/* SELECTION FILTER PILLS */}
@@ -3180,23 +3199,32 @@ export default function Screens({
 
             {/* RECENT SECURE ACTIVITY LIST */}
             <div className="space-y-2.5 flex-1 overflow-y-auto text-left">
-              {activities
-                .filter(a => activityFilter === 'All' || a.status === activityFilter)
-                .map((act, index) => (
-                  <motion.div 
-                    key={act.id} 
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="p-4 bg-slate-900 border border-slate-800/80 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-700 transition"
-                  >
-                    <div className="flex items-center space-x-3 text-left">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}`}>
-                        {act.status === 'Blocked' && <XCircle className="w-5 h-5" />}
-                        {act.status === 'Verified' && <CheckCircle2 className="w-5 h-5" />}
-                        {act.status === 'Cancelled' && <Trash2 className="w-5 h-5" />}
-                      </div>
+              {activities.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-3 opacity-70 mt-20">
+                  <ShieldCheck className="w-12 h-12 text-slate-600" />
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-400">No recent activity</h3>
+                    <p className="text-sm text-slate-500">You're all clear.</p>
+                  </div>
+                </div>
+              ) : (
+                activities
+                  .filter(a => activityFilter === 'All' || a.status === activityFilter)
+                  .map((act, index) => (
+                    <motion.div 
+                      key={act.id} 
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="p-4 bg-slate-900 border border-slate-800/80 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-700 transition"
+                    >
+                      <div className="flex items-center space-x-3 text-left">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}`}>
+                          {act.status === 'Blocked' && <XCircle className="w-5 h-5" />}
+                          {act.status === 'Verified' && <CheckCircle2 className="w-5 h-5" />}
+                          {act.status === 'Cancelled' && <Trash2 className="w-5 h-5" />}
+                        </div>
                       <div>
                         <p className="text-xs font-bold text-white">{act.title}</p>
                         <p className="text-[10px] text-slate-400 mt-0.5">{act.description}</p>
@@ -3212,7 +3240,8 @@ export default function Screens({
                       <ChevronRight className="w-4 h-4 text-slate-600 ml-2" />
                     </div>
                   </motion.div>
-                ))}
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -3788,8 +3817,8 @@ export default function Screens({
             <button
               disabled={deleteConfirmText !== 'DELETE'}
               onClick={() => {
-                setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: '', language: 'English', photo: '' });
-                navigate('splash');
+                setProfile({ name: '', phone: '', email: '', language: '', photo: '' });
+                navigate('account-deleted');
               }}
               className={`w-full py-4 text-white font-bold rounded-2xl transition-all duration-300 ${deleteConfirmText === 'DELETE' ? 'bg-red-600 hover:bg-red-500 cursor-pointer shadow-lg shadow-red-500/20 border border-red-500/50 animate-pulse' : 'bg-slate-900/50 text-slate-600 cursor-not-allowed opacity-40 border border-slate-800/30'}`}
             >
@@ -3799,6 +3828,29 @@ export default function Screens({
               Cancel
             </button>
           </div>
+        </div>
+      );
+
+    case 'account-deleted':
+      return (
+        <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-center items-center">
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mb-6"
+          >
+            <Check className="w-8 h-8 text-emerald-500" />
+          </motion.div>
+          <h2 className="text-2xl font-black text-white mb-2">Account Deleted</h2>
+          <p className="text-sm text-slate-400 text-center px-4 mb-8">
+            Your account and all associated data have been permanently removed. We're sorry to see you go.
+          </p>
+          <button 
+            onClick={() => navigate('splash')} 
+            className="w-full max-w-xs py-4 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-2xl transition"
+          >
+            Return to Home
+          </button>
         </div>
       );
 
