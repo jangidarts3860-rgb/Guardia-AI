@@ -9,17 +9,13 @@ interface FlowNavigatorProps {
   navigate: (screen: ScreenId) => void;
   isOffline: boolean;
   setIsOffline: (offline: boolean) => void;
-  isLightMode: boolean;
-  setIsLightMode: (light: boolean) => void;
 }
 
 export default function FlowNavigator({
   currentScreen,
   navigate,
   isOffline,
-  setIsOffline,
-  isLightMode,
-  setIsLightMode
+  setIsOffline
 }: FlowNavigatorProps) {
   return (
     <div className="flex flex-col h-full bg-slate-900 border-r border-slate-800 p-5 space-y-6 overflow-y-auto text-left">

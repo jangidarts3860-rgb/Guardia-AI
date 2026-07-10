@@ -1,10 +1,11 @@
 export type ScreenId =
   | 'splash'
+  | 'login'
   | 'onboarding'
   | 'permissions'
   | 'create-account'
   | 'verify-otp'
-  | 'welcome-back'
+
   | 'home'
   | 'analyzing-merchant'
   | 'merchant-verified'
@@ -27,7 +28,11 @@ export type ScreenId =
   | 'edit-profile'
   | 'delete-account-confirm'
   | 'freeze-accounts-confirm'
-  | 'link-bank-progress';
+  | 'link-bank-progress'
+  | 'account-deleted'
+  | 'create-pin'
+  | 'reset-pin'
+  | 'family-spend-hub';
 
 export interface Subscription {
   id: string;

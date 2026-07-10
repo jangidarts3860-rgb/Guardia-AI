@@ -53,27 +53,10 @@ async function capture() {
   // Set viewport size
   await page.setViewportSize({ width: 1280, height: 960 });
 
-  await page.goto('http://localhost:3000/?screenshot=1');
-  console.log('🔗 Connected to http://localhost:3000/?screenshot=1');
-
-  // Wait for the app to initialize
-  await page.waitForTimeout(2000);
-
   for (let i = 0; i < screens.length; i++) {
     const screen = screens[i];
     console.log(`📸 [${i + 1}/${screens.length}] Navigating to: ${screen.id}`);
-    
-    // Change the select option value directly via DOM evaluation to bypass Playwright's visibility checks
-    await page.evaluate((screenId) => {
-      // Target the hidden select first
-      const selects = document.querySelectorAll('select');
-      for (const select of selects) {
-        select.value = screenId;
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    }, screen.id);
-    
-    // Wait for animations and state stabilization
+    await page.goto(`http://localhost:3000/${screen.id}?screenshot=1`);
     await page.waitForTimeout(800);
     
     // Locate the pure screen container (excludes bezels, status bar overlays, battery wifi time, etc)

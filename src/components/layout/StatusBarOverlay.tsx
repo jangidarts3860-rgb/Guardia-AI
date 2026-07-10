@@ -1,46 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Wifi, Battery, Signal, Shield, ShieldAlert, Lock, AlertTriangle, EyeOff } from 'lucide-react';
+import React from 'react';
+import { Shield, ShieldAlert, Lock, AlertTriangle } from 'lucide-react';
 import { ScreenId } from '../../types';
 
 interface StatusBarOverlayProps {
   currentScreen: ScreenId;
   isOffline: boolean;
-  isLightMode: boolean;
 }
 
-export default function StatusBarOverlay({ currentScreen, isOffline, isLightMode }: StatusBarOverlayProps) {
-  const [time, setTime] = useState('09:41');
-
-  useEffect(() => {
-    // Keep local time formatted nicely
-    const updateTime = () => {
-      const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      const formattedHours = hours < 10 ? `0${hours}` : hours;
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-      setTime(`${formattedHours}:${formattedMinutes}`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Determine styles and configurations based on active screen state
+export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBarOverlayProps) {
   let opacityClass = 'opacity-100';
   let backgroundClass = 'bg-slate-950/40 backdrop-blur-sm';
   let textClass = 'text-slate-300';
   let accentIcon: React.ReactNode = null;
   let customBadge: React.ReactNode = null;
 
-  // Immersive screens with transparent status bars
   const isImmersive = [
     'splash',
     'onboarding',
     'permissions',
     'create-account',
     'verify-otp',
-    'welcome-back',
+
     'analyzing-merchant',
     'merchant-verified',
     'scam-detected',
@@ -57,7 +37,6 @@ export default function StatusBarOverlay({ currentScreen, isOffline, isLightMode
     backgroundClass = 'bg-slate-950/85 border-b border-slate-900/40 backdrop-blur-md';
   }
 
-  // Handle specific screen configurations
   switch (currentScreen) {
     case 'splash':
       opacityClass = 'opacity-50';
@@ -102,7 +81,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline, isLightMode
       break;
 
     case 'receipt-light':
-      textClass = 'text-emerald-950';
+      textClass = 'text-emerald-400';
       backgroundClass = 'bg-transparent';
       break;
 
@@ -124,42 +103,22 @@ export default function StatusBarOverlay({ currentScreen, isOffline, isLightMode
       break;
   }
 
-  // Force strict light/dark override for receipts
-  if (isLightMode || (currentScreen as string) === 'receipt-light') {
-    textClass = 'text-gray-900';
-  } else if (!isLightMode && (currentScreen as string) !== 'receipt-light') {
-    if (textClass === 'text-slate-300') {
-      textClass = 'text-white/90';
-    }
+  if (textClass === 'text-slate-300') {
+    textClass = 'text-white/90';
   }
 
   return (
-    <div 
-      className={`absolute top-0 inset-x-0 h-10 px-6 pt-1.5 flex justify-between items-center z-40 text-[11px] font-bold select-none transition-all duration-300 ${opacityClass} ${backgroundClass} ${textClass}`}
-    >
-      <div className="flex items-center space-x-2">
-        <span className="font-sans font-black tracking-tight">{time}</span>
-        {accentIcon}
-      </div>
-
-      {/* Center notch spacing buffer */}
-      <div className="w-16 h-3" />
-
-      <div className="flex items-center space-x-1.5">
-        {customBadge}
-        <Signal className="w-3.5 h-3.5" />
-        {isOffline ? (
-          <span className="text-[8px] bg-red-500/20 text-red-500 px-1 py-0.5 rounded font-bold uppercase tracking-wide border border-red-500/20">
-            Offline
-          </span>
-        ) : (
-          <Wifi className="w-3.5 h-3.5" />
-        )}
-        <div className="flex items-center space-x-0.5">
-          <Battery className="w-4 h-4 rotate-180 opacity-90" />
-          <span className="text-[9px] font-sans font-bold">94%</span>
+    <div className={`shrink-0 w-full h-11 flex items-center justify-center select-none transition-all duration-300 ${opacityClass} ${backgroundClass} ${textClass}`}>
+      {accentIcon && (
+        <div className="flex items-center justify-center">
+          {accentIcon}
         </div>
-      </div>
+      )}
+      {customBadge && (
+        <div className="absolute right-4 top-0 h-11 flex items-center">
+          {customBadge}
+        </div>
+      )}
     </div>
   );
 }

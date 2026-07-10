@@ -54,6 +54,32 @@ export const initialSubscriptions: Subscription[] = [
     isUnused: true,
     alert: 'Review Needed — Source is unclear and has had 0 activity.',
     icon: '❓'
+  },
+  {
+    id: 'hotstar',
+    name: 'Hotstar',
+    category: 'OTT',
+    cost: 1499,
+    billingCycle: 'yearly',
+    renewDate: 'Cancelled',
+    usedDaysAgo: 120,
+    usagePercentage: 0,
+    status: 'Cancelled',
+    isUnused: true,
+    icon: '📺'
+  },
+  {
+    id: 'sonyliv',
+    name: 'SonyLIV',
+    category: 'OTT',
+    cost: 999,
+    billingCycle: 'yearly',
+    renewDate: 'Cancelled',
+    usedDaysAgo: 90,
+    usagePercentage: 0,
+    status: 'Cancelled',
+    isUnused: true,
+    icon: '🍿'
   }
 ];
 
@@ -126,7 +152,7 @@ export const initialNotifications: NotificationItem[] = [
   {
     id: 'notif-7',
     title: '🎵 Spotify plan update',
-    description: 'Voted top active subscription this month',
+    description: 'Renewing ₹119 on 22 Jul',
     time: '2d',
     type: 'Subscriptions',
     risk: 'Info',

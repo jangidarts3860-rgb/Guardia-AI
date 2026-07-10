@@ -1,0 +1,232 @@
+import { useNavigate } from 'react-router-dom';
+import { useStore } from '../../../store';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import React from 'react';
+import { ArrowLeft, Share2, XCircle, CheckCircle2, Trash2, ChevronRight, ShieldCheck, Calendar, X, ChevronLeft, ChevronRight as ChevronRightIcon } from 'lucide-react';
+import { showToast } from '../../ui/shared/Toast';
+import { ActivityItem } from '../../../types';
+import EmptyState from '../../ui/shared/EmptyState';
+
+
+
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.04 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
+};
+
+export default function ActivityLogScreen() {
+  const navigate = useNavigate();
+  const { 
+    profile, setProfile, 
+    subscriptions, setSubscriptions, 
+    banks, setBanks, 
+    notifications, setNotifications, 
+    activities, setActivities, 
+    selectedSub, setSelectedSub, 
+    isOffline, setIsOffline, 
+    scanOutcome, setScanOutcome 
+  } = useStore();
+
+  const [activityFilter, setActivityFilter] = useState<'All' | 'Blocked' | 'Verified' | 'Cancelled'>('All');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dateRange, setDateRange] = useState<{ start: Date | null; end: Date | null }>({ start: null, end: null });
+  const [calendarMonth, setCalendarMonth] = useState(() => new Date().getMonth());
+  const [calendarYear, setCalendarYear] = useState(() => new Date().getFullYear());
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(calendarYear, calendarMonth, 1).getDay();
+
+  const handleDateSelect = (day: number) => {
+    const selected = new Date(calendarYear, calendarMonth, day);
+    if (!dateRange.start || (dateRange.start && dateRange.end)) {
+      setDateRange({ start: selected, end: null });
+    } else if (selected >= dateRange.start) {
+      setDateRange({ start: dateRange.start, end: selected });
+    } else {
+      setDateRange({ start: selected, end: dateRange.start });
+    }
+  };
+
+  const isInRange = (day: number) => {
+    const d = new Date(calendarYear, calendarMonth, day).getTime();
+    if (dateRange.start && dateRange.end) {
+      return d >= dateRange.start.getTime() && d <= dateRange.end.getTime();
+    }
+    if (dateRange.start) {
+      return d === dateRange.start.getTime();
+    }
+    return false;
+  };
+
+  const handleApplyFilter = () => {
+    setShowDatePicker(false);
+    showToast('success', `Filter applied: ${dateRange.start ? dateRange.start.toLocaleDateString() : '...'} → ${dateRange.end ? dateRange.end.toLocaleDateString() : '...'}`);
+  };
+
+  const formatDate = (d: Date) => `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Guardia AI Activity Log', text: 'View my security activity on Guardia AI.' });
+      } else {
+        await navigator.clipboard.writeText('View my security activity on Guardia AI.');
+        showToast('success', 'Link copied to clipboard!');
+      }
+    } catch { /* user cancelled */ }
+  };
+
+  return (
+    <div className="flex flex-col min-h-full bg-slate-950 text-white p-4">
+      <div className="space-y-4 flex-1 flex flex-col">
+        {/* Header + Filter Tabs */}
+        <div className="pb-3">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <button onClick={() => navigate('/home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+            <h2 className="text-lg font-bold">Activity</h2>
+          </div>
+          <div className="flex items-center space-x-2">
+            <button onClick={() => setShowDatePicker(true)} className={`p-2 rounded-xl border transition ${dateRange.start ? 'bg-sky-500/10 border-sky-500/30 text-sky-400' : 'bg-slate-900 border-slate-800 text-slate-400'} hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500`} aria-label="Filter by date">
+              <Calendar className="w-4 h-4" />
+            </button>
+            <button onClick={() => { setActivities([]); setDateRange({ start: null, end: null }); }} className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-bold hover:text-white transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Clear activity log">
+              Clear
+            </button>
+            <button onClick={handleShare} className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Share activity log">
+              <Share2 className="w-4 h-4 text-slate-400" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-none shrink-0 relative">
+          {(['All', 'Blocked', 'Verified', 'Cancelled'] as const).map((cat) => (
+            <button key={cat} onClick={() => setActivityFilter(cat)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${activityFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
+              aria-pressed={activityFilter === cat}
+            >
+              <span className="relative z-10">{cat}</span>
+              {activityFilter === cat && <motion.div layoutId="activityTab" className="absolute inset-0 bg-sky-500 rounded-full shadow-md shadow-sky-500/10" />}
+            </button>
+          ))}
+        </div>
+        </div>
+
+        <motion.div className="space-y-2.5 flex-1 overflow-y-auto text-left" variants={containerVariants} initial="hidden" animate="show" role="list" aria-label="Activity list">
+          {activities.filter(a => activityFilter === 'All' || a.status === activityFilter).length === 0 ? (
+            <motion.div variants={itemVariants}><EmptyState icon="shield" title="No recent activity" description="You're all clear." /></motion.div>
+          ) : (
+            activities.filter(a => activityFilter === 'All' || a.status === activityFilter).map((act) => (
+              <motion.div key={act.id} variants={itemVariants} layout whileTap={{ scale: 0.98 }}
+                onClick={() => navigate('/receipt-dark')}
+                className="p-4 bg-slate-900 border border-slate-800/80 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-700 transition"
+                role="listitem"
+              >
+                <div className="flex items-center space-x-3 text-left flex-1 min-w-0">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}`}>
+                    {act.status === 'Blocked' && <XCircle className="w-5 h-5" />}
+                    {act.status === 'Verified' && <CheckCircle2 className="w-5 h-5" />}
+                    {act.status === 'Cancelled' && <Trash2 className="w-5 h-5" />}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-white truncate">{act.title}</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5 truncate">{act.description}</p>
+                  </div>
+                </div>
+                <div className="flex items-center shrink-0 ml-2">
+                  <div className="text-right">
+                    <span className="text-[9px] text-slate-500 font-mono block">{act.time}</span>
+                    <span className={`inline-block text-[8px] font-bold px-2 py-0.5 rounded mt-1 uppercase ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
+                      {act.status}
+                    </span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-600 ml-2" />
+                </div>
+              </motion.div>
+            ))
+          )}
+        </motion.div>
+      </div>
+
+      {/* Date Picker Overlay (Screen 21) */}
+      <AnimatePresence>
+        {showDatePicker && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4"
+            onClick={() => setShowDatePicker(false)}>
+            <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }} transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="flex items-center justify-between p-4 border-b border-slate-800">
+                <h3 className="text-sm font-bold text-white">Select Date Range</h3>
+                <button onClick={() => setShowDatePicker(false)} className="p-1.5 rounded-lg hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Close date picker">
+                  <X className="w-4 h-4 text-slate-400" />
+                </button>
+              </div>
+
+              <div className="p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <button onClick={() => { if (calendarMonth === 0) { setCalendarMonth(11); setCalendarYear(cy => cy - 1); } else setCalendarMonth(m => m - 1); }} className="p-1.5 rounded-lg hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Previous month">
+                    <ChevronLeft className="w-4 h-4 text-slate-400" />
+                  </button>
+                  <span className="text-xs font-bold text-white">{months[calendarMonth]} {calendarYear}</span>
+                  <button onClick={() => { if (calendarMonth === 11) { setCalendarMonth(0); setCalendarYear(cy => cy + 1); } else setCalendarMonth(m => m + 1); }} className="p-1.5 rounded-lg hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Next month">
+                    <ChevronRightIcon className="w-4 h-4 text-slate-400" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-7 gap-1 text-center">
+                  {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
+                    <span key={d} className="text-[9px] font-bold text-slate-500 py-1">{d}</span>
+                  ))}
+                  {Array.from({ length: firstDayOfMonth }).map((_, i) => (
+                    <div key={`empty-${i}`} />
+                  ))}
+                  {Array.from({ length: daysInMonth }).map((_, i) => {
+                    const day = i + 1;
+                    const selected = isInRange(day);
+                    const isStart = dateRange.start && dateRange.start.getTime() === new Date(calendarYear, calendarMonth, day).getTime();
+                    const isEnd = dateRange.end && dateRange.end.getTime() === new Date(calendarYear, calendarMonth, day).getTime();
+                    const isToday = new Date().toDateString() === new Date(calendarYear, calendarMonth, day).toDateString();
+                    return (
+                      <button key={day} onClick={() => handleDateSelect(day)}
+                        className={`w-8 h-8 rounded-full text-[10px] font-bold transition flex items-center justify-center focus-visible:ring-2 focus-visible:ring-sky-500 ${selected ? 'bg-sky-500 text-white' : isToday ? 'border border-sky-500/30 text-sky-400' : 'text-slate-300 hover:bg-slate-800'}`}
+                        aria-label={`${day} ${months[calendarMonth]} ${calendarYear}${isStart ? ', start date' : ''}${isEnd ? ', end date' : ''}`}>
+                        {day}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center justify-between text-[10px] text-slate-400 bg-slate-950/50 rounded-xl px-3 py-2 border border-slate-800/60">
+                  <span>{dateRange.start ? formatDate(dateRange.start) : 'Start date'}</span>
+                  <span className="text-slate-600">→</span>
+                  <span>{dateRange.end ? formatDate(dateRange.end) : 'End date'}</span>
+                </div>
+              </div>
+
+              <div className="p-4 pt-0 space-y-2">
+                <button onClick={handleApplyFilter} disabled={!dateRange.start || !dateRange.end}
+                  className={`w-full py-3 rounded-xl text-xs font-bold transition ${dateRange.start && dateRange.end ? 'bg-sky-500 hover:bg-sky-400 text-white' : 'bg-slate-800 text-slate-600 cursor-not-allowed'}`}>
+                  Apply Filter
+                </button>
+                <button onClick={() => { setDateRange({ start: null, end: null }); setShowDatePicker(false); }} className="w-full py-2.5 text-[10px] text-slate-400 hover:text-white transition font-semibold focus-visible:ring-2 focus-visible:ring-sky-500 rounded-xl">
+                  Reset & Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
