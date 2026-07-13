@@ -4,7 +4,6 @@ import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import React from 'react';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slides = [
   {
@@ -78,190 +77,80 @@ export default function OnboardingScreen() {
   }, [step]);
 
   return (
-    <div className="flex flex-col justify-between min-h-full bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 text-white p-6 relative overflow-hidden">
-      {/* Animated background */}
-      <motion.div
-        className="absolute inset-0 opacity-20"
-        animate={{ 
-          background: [
-            'radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)',
-          ]
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        aria-hidden="true"
-      />
-      
+    <div className="flex flex-col justify-between min-h-full bg-slate-950 text-white p-6 relative">
+      <div className="absolute inset-0 bg-slate-950" aria-hidden="true" />
       <div className="pt-2 z-10">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center justify-between"
-        >
-          <span className="text-xs font-black tracking-widest text-cyan-400/70 font-mono">STEP {step + 1} / 3</span>
-          <motion.div 
-            className="w-32 h-1.5 bg-slate-800/60 rounded-full overflow-hidden border border-slate-700/40"
-            layout
-          >
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${((step + 1) / 3) * 100}%` }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
-            />
-          </motion.div>
-        </motion.div>
+        <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP {step + 1} OF 3</span>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-2 space-y-8">
-        {/* Card Carousel */}
-        <div className="w-full max-w-sm relative min-h-[240px]">
+      <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-2 space-y-6">
+      <div className="w-full max-w-xs relative min-h-[200px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
-              initial={reduced ? { opacity: 1 } : { opacity: 0, x: 100, rotateZ: 5 }}
-              animate={{ opacity: 1, x: 0, rotateZ: 0 }}
-              exit={reduced ? { opacity: 1 } : { opacity: 0, x: -100, rotateZ: -5 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="w-full p-6 bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-slate-800/60 backdrop-blur-xl rounded-3xl text-center relative flex flex-col items-center shadow-2xl shadow-slate-950/50 overflow-hidden"
+              initial={reduced ? { opacity: 1 } : { opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={reduced ? { opacity: 1 } : { opacity: 0, x: -40 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="w-full p-5 bg-slate-900 border border-slate-800 rounded-2xl text-left relative flex flex-col items-center text-center"
             >
-              {/* Card background gradient */}
-              <div className="absolute inset-0 opacity-50 bg-gradient-to-br from-slate-900 to-slate-950" aria-hidden="true" />
-              
-              <div className="relative z-10 w-full space-y-5">
-                {/* Badge */}
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <span className={`inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider font-mono border ${slide.badge.color}`}>
-                    {slide.badge.text}
-                  </span>
-                </motion.div>
-
-                {/* Icon */}
-                <motion.div 
-                  initial={{ scale: 0, rotateZ: -20 }}
-                  animate={{ scale: 1, rotateZ: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                  className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900 border border-slate-700/60 flex items-center justify-center mx-auto shadow-lg" 
-                  aria-hidden="true"
-                >
-                  {slide.icon}
-                </motion.div>
-
-                {/* Card Title & Desc */}
-                <div className="space-y-1.5">
-                  <motion.h3 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 }}
-                    className="font-black text-2xl text-white tracking-tight"
-                  >
-                    {slide.title}
-                  </motion.h3>
-                  <motion.p 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-sm text-cyan-300/90 leading-relaxed font-medium"
-                  >
-                    {slide.cardDesc}
-                  </motion.p>
-                </div>
+              <div className="flex justify-between items-center w-full mb-4">
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${slide.badge.color}`}>
+                  {slide.badge.text}
+                </span>
               </div>
+              <div className="w-16 h-16 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center mb-4" aria-hidden="true">
+                {slide.icon}
+              </div>
+              <h3 className="font-black text-lg text-white tracking-tight">{slide.title}</h3>
+              <p className="text-xs text-slate-400 mt-0.5 leading-normal">{slide.cardDesc}</p>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Headline & Description */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`text-${step}`}
-            initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduced ? { opacity: 1 } : { opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-3.5 max-w-md"
-          >
-            <h2 className="text-3xl font-black tracking-tight text-white leading-tight">
-              {slide.headline}
-            </h2>
-            <p className="text-sm text-slate-300/90 leading-relaxed">
-              {slide.desc}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+        <div className="space-y-2.5 px-1">
+          <h2 className="text-2xl font-black tracking-tight text-white leading-tight">
+            {slide.headline}
+          </h2>
+          <p className="text-xs text-slate-400 leading-relaxed px-2">
+            {slide.desc}
+          </p>
+        </div>
 
-        {/* Progress Indicator Dots */}
-        <motion.div 
-          className="flex items-center justify-center gap-2.5 pt-4" 
-          role="tablist" 
-          aria-label="Progress steps"
-        >
+        <div className="flex items-center space-x-2.5 pt-1" role="tablist" aria-label="Progress steps">
           {slides.map((_, idx) => (
-            <motion.button
+            <button
               key={idx}
               onClick={() => setStep(idx)}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
               role="tab"
               aria-selected={step === idx}
               aria-label={`Step ${idx + 1} of 3`}
-              className={`rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-500 ${
-                step === idx 
-                  ? 'h-2.5 w-8 bg-gradient-to-r from-cyan-500 to-blue-500 shadow-lg shadow-cyan-500/30' 
-                  : 'h-2 w-2 bg-slate-700 hover:bg-slate-600'
+              className={`h-1.5 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-sky-500 ${
+                step === idx ? 'w-6 bg-sky-500' : 'w-2 bg-slate-700 hover:bg-slate-600'
               }`}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Action Buttons */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="space-y-3 z-10 pb-2"
-      >
-        <div className="flex gap-3">
+      <div className="space-y-4 z-10 pb-6">
+        <div className="flex space-x-3">
           {step > 0 && (
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               onClick={goPrev}
-              className="flex-1 bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 hover:bg-slate-900/80 hover:border-cyan-500/30 text-white font-bold py-3.5 rounded-xl transition-all duration-300 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-cyan-500 flex items-center justify-center gap-2"
+              className="flex-1 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white font-bold py-4 rounded-2xl transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500"
             >
-              <ChevronLeft className="w-4 h-4" />
-              Back
-            </motion.button>
+              ← Back
+            </button>
           )}
-          
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             onClick={goNext}
-            className={`${
-              step > 0 ? 'flex-[1.5]' : 'flex-1'
-            } bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-500/20 transition-all duration-300 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-cyan-500 flex items-center justify-center gap-2`}
+            className={`${step > 0 ? 'flex-[2]' : 'w-full'} bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
           >
-            {slide.cta.includes('Link') ? (
-              <>
-                Link My Bank
-                <ChevronRight className="w-4 h-4" />
-              </>
-            ) : (
-              <>
-                {slide.cta.split('→')[0].trim()}
-                <ChevronRight className="w-4 h-4" />
-              </>
-            )}
-          </motion.button>
+            {slide.cta}
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
