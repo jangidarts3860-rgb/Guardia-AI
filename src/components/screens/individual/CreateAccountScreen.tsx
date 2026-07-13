@@ -37,12 +37,12 @@ export default function CreateAccountScreen() {
             <button onClick={() => navigate('/login')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
               <ArrowLeft className="w-4 h-4 text-slate-300" />
             </button>
-            <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 1 OF 3</span>
+            <span className="text-xs font-black tracking-widest text-slate-400 font-mono">STEP 1 OF 3</span>
           </div>
         </div>
 
         <div className="space-y-2 text-left">
-          <h2 className="text-2xl font-black tracking-tight text-white">Create Your Profile</h2>
+          <h2 className="text-2xl font-black tracking-tight leading-tight text-white">Create Your Profile</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
             Enter your details to set up your Guardia AI account.
           </p>
@@ -157,7 +157,7 @@ export default function CreateAccountScreen() {
             <span>Send OTP Verification →</span>
           )}
         </button>
-        <p className="text-xs text-slate-500 leading-relaxed text-center px-4">
+        <p className="text-xs text-slate-400 leading-relaxed text-center px-4">
           By proceeding, you consent to secure OTP verification in compliance with RBI guidelines.{' '}
           <button onClick={() => showToast('info', 'Opening Privacy Policy...')} className="text-sky-400 hover:underline font-semibold focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Privacy Policy</button>
         </p>
