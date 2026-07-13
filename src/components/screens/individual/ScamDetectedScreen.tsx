@@ -56,39 +56,24 @@ export default function ScamDetectedScreen() {
         </p>
 
         <div className={`w-full max-w-sm ${!reduced ? 'animate-[fadeIn_0.7s_ease-out]' : ''}`}>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 text-left">
-            <div>
-              <span className="block text-[9px] font-black uppercase tracking-widest text-slate-500 font-mono mb-1">Merchant</span>
-              <span className="text-xs font-bold text-white">Unknown Seller</span>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+            <div className="flex justify-between items-start gap-4">
+              <span className="text-xs text-slate-400 shrink-0">Merchant</span>
+              <span className="text-xs text-white font-bold text-right flex-1 break-words">Unknown Seller</span>
             </div>
-            
-            <div className="h-px bg-slate-800/40" />
-
-            <div>
-              <span className="block text-[9px] font-black uppercase tracking-widest text-slate-500 font-mono mb-1">Threat Evidence</span>
-              <span className="text-xs font-bold text-red-400 leading-relaxed block">
+            <div className="flex justify-between items-start gap-4">
+              <span className="text-xs text-slate-400 shrink-0">Evidence</span>
+              <span className="text-xs text-red-400 font-bold text-right flex-1 break-words leading-relaxed">
                 Urgency phrases & spoofed domain detected
               </span>
             </div>
-
-            <div className="h-px bg-slate-800/40" />
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <span className="block text-[9px] font-black uppercase tracking-widest text-slate-500 font-mono mb-1">Domain Age</span>
-                <span className="text-xs font-bold text-red-300 block">&lt; 7 days</span>
-              </div>
-              <div>
-                <span className="block text-[9px] font-black uppercase tracking-widest text-slate-500 font-mono mb-1">Threat Category</span>
-                <span className="text-xs font-bold text-red-300 block">Phishing Risk</span>
-              </div>
+            <div className="flex justify-between items-start gap-4">
+              <span className="text-xs text-slate-400 shrink-0">Domain Age</span>
+              <span className="text-xs text-red-300 font-bold text-right flex-1 break-words">&lt; 7 days</span>
             </div>
-
-            <div className="h-px bg-slate-800/40" />
-
-            <div>
-              <span className="block text-[9px] font-black uppercase tracking-widest text-slate-500 font-mono mb-1">Details (विवरण)</span>
-              <span className="text-xs font-bold text-red-400 leading-relaxed block">
+            <div className="flex justify-between items-start gap-4">
+              <span className="text-xs text-slate-400 shrink-0">Threat Type</span>
+              <span className="text-xs text-red-400 font-bold text-right flex-1 break-words leading-relaxed">
                 Phishing + Identity Theft (नकली वेबसाइट + पहचान चोरी)
               </span>
             </div>
