@@ -30,7 +30,7 @@ Auth Focus: Seamless standard patterns with bypass for recruiters
 [/login] LOGIN PAGE
 ├── Header: "Welcome back"
 ├── Input: Mobile Number (+91)
-├── Input: Security PIN (6-digit)
+├── Input: Security PIN (4-digit)
 ├── CTA: "Login" (Primary button) → /home
 ├── Bottom Links:
 │   ├── "Forgot PIN?" → /welcome-back
@@ -51,8 +51,8 @@ Auth Focus: Seamless standard patterns with bypass for recruiters
 └── → /create-pin
 
 [/create-pin] SIGNUP — Security PIN Setup
-├── Title: "Create your 6-digit Guardian PIN"
-├── PIN: 6 dot inputs
+├── Title: "Create your 4-digit Guardian PIN"
+├── PIN: 4 dot inputs
 ├── Confirm PIN: Re-enter
 └── → /onboarding (For new users only)
 

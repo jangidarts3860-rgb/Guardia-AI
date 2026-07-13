@@ -43,11 +43,9 @@ export default function ScanQRScreen() {
 
   const bracketColor = scanPhase === 'result'
     ? (scanResult === 'safe' ? 'border-emerald-400' : 'border-red-500')
-    : 'border-cyan-400';
+    : 'border-slate-700';
 
-  const bracketShadow = scanPhase === 'result'
-    ? (scanResult === 'safe' ? 'shadow-[0_0_40px_rgba(52,211,153,0.3)]' : 'shadow-[0_0_40px_rgba(239,68,68,0.3)]')
-    : 'shadow-[0_0_60px_rgba(6,182,212,0.08)]';
+  const bracketShadow = 'shadow-none';
 
   return (
     <div className="flex flex-col min-h-full bg-slate-950 text-white">
@@ -151,13 +149,16 @@ export default function ScanQRScreen() {
           <span className={`text-xs font-bold tracking-wider uppercase ${textMuted}`}>Recent Scans</span>
           <div className="space-y-2 max-h-36 overflow-y-auto">
             {[
-              { name: 'Swiggy Instacart QR', score: '96/100 Safe', path: '/merchant-verified', color: 'text-emerald-500' },
-              { name: 'Unknown UPI request', score: '12/100 Blocked', path: '/scam-detected', color: 'text-red-500' },
-              { name: 'Amazon Pay QR', score: '91/100 Safe', path: '/merchant-verified', color: 'text-emerald-500' },
+              { name: 'Swiggy Instacart QR', status: 'No risks found', path: '/merchant-verified', type: 'safe' },
+              { name: 'Unknown UPI request', status: 'Scam detected', path: '/scam-detected', type: 'scam' },
+              { name: 'Amazon Pay QR', status: 'No risks found', path: '/merchant-verified', type: 'safe' },
             ].map((item, i) => (
-              <div key={i} onClick={() => navigate(item.path as '/merchant-verified' | '/scam-detected')} className={`p-3 rounded-xl border border-l-2 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg} ${item.color === 'text-emerald-500' ? 'border-l-emerald-500' : 'border-l-red-500'}`}>
-                <span className="font-semibold">{item.name}</span>
-                <span className={`${item.color} font-bold px-2 py-0.5 rounded text-xs ${item.color === 'text-emerald-500' ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>{item.score}</span>
+              <div key={i} onClick={() => navigate(item.path as '/merchant-verified' | '/scam-detected')} className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition border-slate-800/80 hover:border-slate-700 text-xs ${cardBg}`}>
+                <div className="flex items-center space-x-2.5">
+                  <span className={`w-1.5 h-1.5 rounded-full ${item.type === 'safe' ? 'bg-emerald-400 animate-pulse' : 'bg-red-500'}`} />
+                  <span className="font-semibold text-slate-200">{item.name}</span>
+                </div>
+                <span className={`font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider ${item.type === 'safe' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>{item.status}</span>
               </div>
             ))}
           </div>

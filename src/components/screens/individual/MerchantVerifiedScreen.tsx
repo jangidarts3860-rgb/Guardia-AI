@@ -81,7 +81,7 @@ export default function MerchantVerifiedScreen() {
             <span className="w-5 h-5 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
               <Info className="w-3 h-3" aria-hidden="true" />
             </span>
-            <span>Why this score?</span>
+            <span>Why is it verified?</span>
           </span>
           <motion.span initial={{ rotate: 0 }} animate={{ rotate: showDetails ? 180 : 0 }} transition={{ duration: 0.2 }} className="text-slate-500">
             <ChevronDown className="w-4 h-4" aria-hidden="true" />
