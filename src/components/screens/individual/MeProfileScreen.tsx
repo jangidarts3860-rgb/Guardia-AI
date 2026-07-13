@@ -110,6 +110,7 @@ export default function MeProfileScreen() {
             );
           })}
         </div>
+      </div>
 
       <div className="space-y-6 px-4 pb-4">
         <motion.div 
