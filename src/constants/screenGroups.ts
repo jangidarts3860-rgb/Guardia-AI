@@ -21,7 +21,7 @@ export const screenGroups: ScreenGroup[] = [
     icon: Users,
     color: 'border-sky-500/20 text-sky-400 bg-sky-500/5',
     screens: [
-      { id: 'splash', label: 'Splash Screen', desc: 'Secure branding card with premium radial glowing shield.' },
+      { id: 'splash', label: 'Splash Screen', desc: 'Secure branding card showing active shield protection.' },
       { id: 'login', label: 'Login', desc: 'Phone entry with returning-user detection.' },
       { id: 'onboarding', label: 'Intro Onboarding', desc: 'Real-time threat detection value carousel.' },
       { id: 'permissions', label: 'Permissions Granter', desc: 'Clean on-device consent checklist with security seal.' },

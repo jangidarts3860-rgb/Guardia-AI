@@ -35,12 +35,7 @@ export default function SplashScreen() {
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full">
         <motion.div
           animate={reduced ? {} : {
-            scale: [1, 1.04, 1],
-            filter: [
-              'drop-shadow(0 0 15px rgba(6,182,212,0.25))',
-              'drop-shadow(0 0 25px rgba(6,182,212,0.5))',
-              'drop-shadow(0 0 15px rgba(6,182,212,0.25))',
-            ],
+            scale: [1, 1.02, 1],
           }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           className="relative mb-6 flex items-center justify-center"
