@@ -63,7 +63,7 @@ export default function ScanQRScreen() {
           </div>
           <div className="space-y-1.5 max-w-[240px]">
             <h3 className="font-bold text-sm">Camera Permission Required</h3>
-            <p className={`text-xs ${textMuted} leading-relaxed`}>Scan UPI QR codes to decrypt merchant risk status instantly.</p>
+            <p className={`text-xs ${textMuted} leading-relaxed`}>Scan QR codes to check if a merchant is safe.</p>
           </div>
           <button onClick={() => setHasCameraPermission(true)} className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition active:scale-95 focus-visible:ring-2 focus-visible:ring-cyan-500">
             Allow Access
@@ -73,13 +73,13 @@ export default function ScanQRScreen() {
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex-1 relative bg-black overflow-hidden flex flex-col justify-between p-4 min-h-[300px]">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.04)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" aria-hidden="true" />
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
-            <div className="absolute w-[320px] h-[320px] rounded-full border border-cyan-500/5" />
-            <div className="absolute w-[220px] h-[220px] rounded-full border border-cyan-500/10" />
-            <div className="absolute w-[120px] h-[120px] rounded-full border border-cyan-500/15" />
-            <div className="absolute w-[40px] h-[40px] rounded-full border border-cyan-500/20" />
-            <div className="absolute w-[360px] h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent" />
-            <div className="absolute h-[360px] w-[1px] bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent" />
-            <motion.div className="absolute w-[400px] h-[400px] rounded-full origin-center opacity-40 mix-blend-screen" style={{ background: "conic-gradient(from 0deg, rgba(6,182,212,0.3) 0deg, rgba(6,182,212,0.01) 60deg, transparent 180deg)" }} animate={{ rotate: 360 }} transition={{ duration: 3.5, ease: "linear", repeat: Infinity }} />
+            <div className="absolute rounded-full border border-cyan-500/5" style={{ width: 320, height: 320 }} />
+            <div className="absolute rounded-full border border-cyan-500/10" style={{ width: 220, height: 220 }} />
+            <div className="absolute rounded-full border border-cyan-500/15" style={{ width: 120, height: 120 }} />
+            <div className="absolute rounded-full border border-cyan-500/20" style={{ width: 40, height: 40 }} />
+            <div className="absolute h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent" style={{ width: 360 }} />
+            <div className="absolute w-[1px] bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent" style={{ height: 360 }} />
+            <motion.div className="absolute rounded-full origin-center opacity-40 mix-blend-screen" style={{ width: 400, height: 400, background: "conic-gradient(from 0deg, rgba(6,182,212,0.3) 0deg, rgba(6,182,212,0.01) 60deg, transparent 180deg)" }} animate={{ rotate: 360 }} transition={{ duration: 3.5, ease: "linear", repeat: Infinity }} />
           </div>
           <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_35%,rgba(0,0,0,0.9)_100%] pointer-events-none" aria-hidden="true" />
 
@@ -108,12 +108,12 @@ export default function ScanQRScreen() {
                   ? (scanResult === 'safe' ? 'bg-emerald-400' : 'bg-red-500')
                   : 'bg-cyan-400'
               }`} aria-hidden="true" />
-              <span className={`text-[10px] font-black tracking-widest font-mono uppercase transition-colors ${
+              <span className={`text-xs font-black tracking-widest font-mono uppercase transition-colors ${
                 scanPhase === 'result'
                   ? (scanResult === 'safe' ? 'text-emerald-400' : 'text-red-500')
                   : 'text-cyan-400'
               }`}>
-                {scanPhase === 'result' ? (scanResult === 'safe' ? 'SAFE • NO THREAT DETECTED' : 'SCAM • FRAUD FLAGGED') : 'LIVE FEED • ENCRYPTED SHIELD'}
+                {scanPhase === 'result' ? (scanResult === 'safe' ? 'SAFE • NO THREAT DETECTED' : 'SCAM • FRAUD FLAGGED') : 'SCANNING...'}
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function ScanQRScreen() {
               <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-br-md transition-colors duration-300 border-b-4 border-r-4 ${bracketColor}`} />
               <div className="w-2.5 h-2.5 rounded-full opacity-75 absolute" aria-hidden="true" />
               <motion.div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_rgba(6,182,212,0.9)]" initial={{ top: "0%" }} animate={{ top: "100%" }} transition={{ duration: 2.0, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }} />
-              <span className="text-[9px] font-mono font-bold tracking-widest text-cyan-400/35 uppercase select-none mt-10">ALIGN QR CODE HERE</span>
+              <span className="text-xs font-mono font-bold tracking-widest text-cyan-400/35 uppercase select-none mt-10">ALIGN QR CODE HERE</span>
             </div>
           </div>
 
@@ -141,14 +141,14 @@ export default function ScanQRScreen() {
           </div>
 
           <div className="z-10 text-center pb-4">
-            <p className="text-[11px] font-medium text-slate-300">Align QR code inside the brackets</p>
+            <p className="text-xs font-medium text-slate-300">Align QR code inside the brackets</p>
           </div>
         </motion.div>
       )}
 
       <div className={`p-4 border-t rounded-t-3xl space-y-4 text-left shrink-0 ${cardBg}`}>
         <div className="w-12 h-1 bg-slate-800 rounded-full mx-auto -mt-1.5 mb-2" />
-        <span className={`text-[10px] font-bold tracking-wider uppercase ${textMuted}`}>Or verify a link / SMS</span>
+        <span className={`text-xs font-bold tracking-wider uppercase ${textMuted}`}>Or verify a link / SMS</span>
         <div className="flex space-x-2">
           <input type="text" placeholder="Paste link or SMS content..." value={pasteText} onChange={(e) => setPasteText(e.target.value)}
             className={`flex-1 px-4 py-3 text-xs border rounded-xl focus:outline-none focus:border-sky-500 transition ${inputBg}`} aria-label="Paste link or SMS content"
@@ -159,16 +159,16 @@ export default function ScanQRScreen() {
         </div>
 
         <div className="space-y-2">
-          <span className={`text-[10px] font-bold tracking-wider uppercase ${textMuted}`}>Recent Scans</span>
-          <div className="space-y-2 max-h-[140px] overflow-y-auto">
+          <span className={`text-xs font-bold tracking-wider uppercase ${textMuted}`}>Recent Scans</span>
+          <div className="space-y-2 max-h-36 overflow-y-auto">
             {[
-              { name: 'Swiggy Instacart QR', score: '96/100 Safe', path: 'merchant-verified', color: 'text-emerald-500' },
-              { name: 'Unknown UPI request', score: '12/100 Blocked', path: 'scam-detected', color: 'text-red-500' },
-              { name: 'Amazon Pay QR', score: '91/100 Safe', path: 'merchant-verified', color: 'text-emerald-500' },
+              { name: 'Swiggy Instacart QR', score: '96/100 Safe', path: '/merchant-verified', color: 'text-emerald-500' },
+              { name: 'Unknown UPI request', score: '12/100 Blocked', path: '/scam-detected', color: 'text-red-500' },
+              { name: 'Amazon Pay QR', score: '91/100 Safe', path: '/merchant-verified', color: 'text-emerald-500' },
             ].map((item, i) => (
-              <div key={i} onClick={() => navigate(item.path as 'merchant-verified' | 'scam-detected')} className={`p-3 rounded-xl border border-l-2 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg} ${item.color === 'text-emerald-500' ? 'border-l-emerald-500' : 'border-l-red-500'}`}>
+              <div key={i} onClick={() => navigate(item.path as '/merchant-verified' | '/scam-detected')} className={`p-3 rounded-xl border border-l-2 flex items-center justify-between cursor-pointer hover:border-slate-700 text-xs ${cardBg} ${item.color === 'text-emerald-500' ? 'border-l-emerald-500' : 'border-l-red-500'}`}>
                 <span className="font-semibold">{item.name}</span>
-                <span className={`${item.color} font-bold px-2 py-0.5 rounded text-[10px] ${item.color === 'text-emerald-500' ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>{item.score}</span>
+                <span className={`${item.color} font-bold px-2 py-0.5 rounded text-xs ${item.color === 'text-emerald-500' ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>{item.score}</span>
               </div>
             ))}
           </div>

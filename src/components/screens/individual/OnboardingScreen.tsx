@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import React from 'react';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
 
-
 const slides = [
   {
     badge: { text: 'Feature 1 of 3', color: 'text-sky-400 bg-sky-400/10 border-sky-500/20' },
@@ -22,7 +21,7 @@ const slides = [
     cta: 'Next →',
   },
   {
-    badge: { text: 'Feature 2 of 3', color: 'text-amber-400 bg-amber-400/10 border-amber-500/20' },
+    badge: { text: 'Feature 2 of 3', color: 'text-amber-300 bg-amber-400/10 border-amber-500/20' },
     icon: (
       <svg className="w-12 h-12 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="2" x2="12" y2="22" />
@@ -44,9 +43,9 @@ const slides = [
       </svg>
     ),
     title: 'Your Privacy Promise',
-    cardDesc: '100% on-device privacy, RBI compliant',
-    headline: 'Your data stays on your phone',
-    desc: 'On-Device AI. RBI compliant. Zero data sold. Every scan, every analysis happens locally — nothing leaves your device, ever.',
+    cardDesc: 'Local analysis, secure bank-grade protection',
+    headline: 'Your data stays safe',
+    desc: 'Designed for privacy. Sensitive scanning happens on-device. Bank details are accessed only with your explicit consent through RBI-approved secure channels. Zero data sold.',
     cta: 'Link My Bank →',
   },
 ];
@@ -70,7 +69,7 @@ export default function OnboardingScreen() {
 
   const goNext = useCallback(() => {
     if (step < slides.length - 1) setStep(s => s + 1);
-    else navigate('/link-bank');
+    else navigate('/permissions');
   }, [step, navigate]);
 
   const goPrev = useCallback(() => {
@@ -79,15 +78,15 @@ export default function OnboardingScreen() {
 
   return (
     <div className="flex flex-col justify-between min-h-full bg-slate-950 text-white p-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-sky-950/20 via-transparent to-slate-950" aria-hidden="true" />
+      <div className="absolute inset-0 bg-slate-950" aria-hidden="true" />
       <div className="absolute -top-16 -right-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" aria-hidden="true" />
 
       <div className="flex justify-between items-center pt-2 z-10">
-        <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP {step + 1} OF 3</span>
+        <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP {step + 1} OF 3</span>
         <button
           onClick={() => {
             setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.sharma@gmail.com', language: 'English', photo: '' });
-            navigate('/link-bank');
+            navigate('/permissions');
           }}
           className="text-xs text-slate-400 hover:text-slate-300 transition font-extrabold tracking-wide uppercase p-3 -m-3 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
         >
@@ -108,7 +107,7 @@ export default function OnboardingScreen() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/5 rounded-full blur-2xl" />
               <div className="flex justify-between items-center w-full mb-4">
-                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${slide.badge.color}`}>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${slide.badge.color}`}>
                   {slide.badge.text}
                 </span>
               </div>
@@ -116,7 +115,7 @@ export default function OnboardingScreen() {
                 {slide.icon}
               </div>
               <h3 className="font-black text-lg text-white tracking-tight">{slide.title}</h3>
-              <p className="text-[10px] text-slate-400 mt-0.5 leading-normal">{slide.cardDesc}</p>
+              <p className="text-xs text-slate-400 mt-0.5 leading-normal">{slide.cardDesc}</p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -167,4 +166,3 @@ export default function OnboardingScreen() {
     </div>
   );
 }
-

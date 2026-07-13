@@ -22,13 +22,48 @@ export default function LinkBankProgressScreen() {
   const [phase, setPhase] = useState<'loading' | 'success'>('loading');
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase('success'), 1500);
+    const t = setTimeout(() => {
+      setPhase('success');
+      
+      const query = new URLSearchParams(window.location.search);
+      const bankId = query.get('bankId');
+      if (bankId) {
+        setBanks(prev => {
+          const bank = prev.find(b => b.id === bankId);
+          if (bank) {
+            setActivities(actPrev => [{ 
+              id: 'act-link-' + Date.now(), 
+              title: `${bank.name} linked`, 
+              description: 'Account Aggregator connected successfully', 
+              time: 'Just now', 
+              status: 'Verified' 
+            }, ...actPrev]);
+            setNotifications(notPrev => [{ 
+              id: 'not-link-' + Date.now(), 
+              title: `${bank.name} linked successfully`, 
+              description: 'Security monitoring initiated.', 
+              time: 'now', 
+              type: 'System' as const, 
+              risk: 'Success', 
+              unread: true 
+            }, ...notPrev]);
+          }
+          return prev.map(b => b.id === bankId ? { 
+            ...b, 
+            isConnected: true, 
+            balance: Math.floor(Math.random() * 50000) + 10000, 
+            accNumber: '•••• ' + Math.floor(Math.random() * 9000 + 1000), 
+            lastSynced: 'Just now' 
+          } : b);
+        });
+      }
+    }, 1500);
     return () => clearTimeout(t);
-  }, []);
+  }, [setBanks, setActivities, setNotifications]);
 
   useEffect(() => {
     if (phase === 'success') {
-      const t = setTimeout(() => navigate('/vault'), 1200);
+      const t = setTimeout(() => navigate('/security'), 1200);
       return () => clearTimeout(t);
     }
   }, [phase, navigate]);
@@ -41,15 +76,15 @@ export default function LinkBankProgressScreen() {
             <motion.div
               key="spinner"
               exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute w-[400px] h-[400px] rounded-full origin-center"
-              style={{ background: "conic-gradient(from 0deg, rgba(14,165,233,0.4) 0deg, transparent 60deg)" }}
+              className="absolute rounded-full origin-center"
+              style={{ width: 400, height: 400, background: "conic-gradient(from 0deg, rgba(14,165,233,0.4) 0deg, transparent 60deg)" }}
               animate={{ rotate: 360 }}
               transition={{ duration: 2, ease: "linear", repeat: Infinity }}
             />
           )}
         </AnimatePresence>
-        <div className="absolute w-[200px] h-[200px] rounded-full border border-sky-500/20" />
-        <div className="absolute w-[300px] h-[300px] rounded-full border border-sky-500/10" />
+        <div className="absolute rounded-full border border-sky-500/20" style={{ width: 200, height: 200 }} />
+        <div className="absolute rounded-full border border-sky-500/10" style={{ width: 300, height: 300 }} />
       </div>
 
       <motion.div
@@ -90,20 +125,20 @@ export default function LinkBankProgressScreen() {
         <AnimatePresence mode="wait">
           {phase === 'loading' && (
             <motion.div key="loading" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-              <h3 className="text-lg font-bold text-white tracking-wide">Securing RBI Sandbox...</h3>
-              <p className="text-xs text-slate-400 mt-1">Establishing 256-bit encrypted handshake</p>
+              <h3 className="text-lg font-bold text-white tracking-wide">Connecting to your bank...</h3>
+              <p className="text-xs text-slate-400 mt-1">Securing your connection...</p>
             </motion.div>
           )}
           {phase === 'success' && (
             <motion.div key="success" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
               <h3 className="text-lg font-bold text-emerald-400 tracking-wide">Bank linked successfully!</h3>
-              <p className="text-xs text-slate-400 mt-1">Account Aggregator connected</p>
+              <p className="text-xs text-slate-400 mt-1">Your bank is now connected</p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <button onClick={() => navigate('/vault')} className="text-[10px] text-slate-500 hover:text-slate-300 font-bold tracking-wider z-20 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
+      <button onClick={() => navigate('/security')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider z-20 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
         <X className="w-3 h-3" />
         <span>Cancel</span>
       </button>

@@ -128,12 +128,13 @@ export default function ResetPinScreen() {
                 <div className="flex justify-center space-x-3 py-6" role="group" aria-label="OTP input">
                   {otpVal.map((d, i) => (
                     <input key={i} id={`otp-${i}`} type="text" inputMode="numeric" maxLength={1} value={d}
+                      autoComplete={i === 0 ? "one-time-code" : undefined}
                       onChange={(e) => handleOtpDigit(i, e.target.value)} onKeyDown={(e) => handleOtpKeyDown(i, e)}
                       className={`w-11 h-14 rounded-xl text-center text-lg font-black font-mono bg-slate-900 border-2 focus:outline-none focus:border-sky-500 transition ${d ? 'border-sky-500 text-white' : 'border-slate-800 text-transparent'}`}
                       aria-label={`Digit ${i + 1}`} />
                   ))}
                 </div>
-                <p className="text-[10px] text-slate-500">
+                <p className="text-xs text-slate-500">
                   {otpTimer > 0 ? `Resend in 0:${otpTimer.toString().padStart(2, '0')}` : <button onClick={() => { setOtpVal(['', '', '', '', '', '']); startOtpTimer(); }} className="text-sky-400 font-bold hover:underline">Resend OTP</button>}
                 </p>
               </motion.div>
@@ -154,7 +155,7 @@ export default function ResetPinScreen() {
                       className={`w-4 h-4 rounded-full transition-all duration-200 ${val.length > idx ? 'bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.8)] scale-110' : 'border-2 border-slate-800 bg-slate-950'}`} />;
                   })}
                 </div>
-                {error && <p className="text-center text-[10px] text-red-400 font-bold">{error}</p>}
+                {error && <p className="text-center text-xs text-red-400 font-bold">{error}</p>}
               </motion.div>
             )}
 
@@ -173,7 +174,7 @@ export default function ResetPinScreen() {
         </div>
 
         {(step === 'pin' || step === 'confirm') && (
-          <div className="w-full max-w-[280px] mx-auto pb-4">
+          <div className="w-full max-w-xs mx-auto pb-4">
             <div className="grid grid-cols-3 gap-y-4 gap-x-5 text-center">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <button key={num} onClick={() => handlePinDigit(num.toString())}
@@ -188,9 +189,9 @@ export default function ResetPinScreen() {
         )}
 
         <div className="pt-2 text-center">
-          <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-[9px] font-bold text-slate-500 font-mono">
+          <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-xs font-bold text-slate-500 font-mono">
             <ShieldCheck className="w-3 h-3 text-emerald-500" />
-            <span>RBI & DPDP ACT 2023 COMPLIANT</span>
+            <span>RBI CERTIFIED</span>
           </span>
         </div>
       </div>

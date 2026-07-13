@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
 import { useState } from 'react';
-import { Lock, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { Lock, CheckCircle2, ArrowLeft, XCircle } from 'lucide-react';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 
 
@@ -45,7 +45,7 @@ export default function CreatePinScreen() {
               const existing = JSON.parse(localStorage.getItem('guardia_user') || '{}');
               localStorage.setItem('guardia_user', JSON.stringify({ ...existing, name: profile.name, phone: profile.phone, email: profile.email, pin }));
             }
-            setTimeout(() => navigate('/home'), 600);
+            setTimeout(() => navigate('/onboarding'), 600);
           } else {
             setError("PINs don't match. Try again.");
             setTimeout(() => { setConfirmPin(''); setPin(''); setStep('enter'); setError(''); }, 1200);
@@ -66,12 +66,13 @@ export default function CreatePinScreen() {
 
       <div className="space-y-6 z-10 flex-1 flex flex-col justify-between">
         <div className="space-y-4 pt-2">
-          <div className="flex justify-start">
-            {step !== 'done' && (
+          <div className="flex justify-between items-center">
+            {step !== 'done' ? (
               <button onClick={() => navigate('/verify-otp')} className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
                 <ArrowLeft className="w-4 h-4" />
               </button>
-            )}
+            ) : <div />}
+            <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 3 OF 3</span>
           </div>
           <div className="flex justify-center">
             <GuardiaLogo size={56} variant="icon" animated={false} />
@@ -100,7 +101,7 @@ export default function CreatePinScreen() {
             </div>
           )}
 
-          <div className="flex justify-center space-x-6 py-6">
+<div className="flex justify-center space-x-6 py-6" role="status" aria-live="polite" aria-label={`PIN code: ${(step === 'enter' ? pin : confirmPin).length} digits entered`}>
             {[...Array(4)].map((_, idx) => {
               const val = step === 'enter' ? pin : confirmPin;
               const filled = val.length > idx;
@@ -120,10 +121,13 @@ export default function CreatePinScreen() {
           </div>
 
           {error && (
-            <p className="text-center text-[10px] text-red-400 font-bold">{error}</p>
+            <p className="text-center text-xs font-bold flex items-center justify-center space-x-1" role="alert">
+              <XCircle className="w-3.5 h-3.5 text-red-400" aria-hidden="true" />
+              <span>{error}</span>
+            </p>
           )}
 
-          <div className="text-center text-[10px] text-slate-500">
+          <div className="text-center text-xs text-slate-500">
             <Lock className="w-3 h-3 inline mr-1" />
             {profile.phone || '+91 98765 43210'}
           </div>
@@ -131,12 +135,12 @@ export default function CreatePinScreen() {
 
         <div className="w-full max-w-[280px] mx-auto pb-4">
           <div className="grid grid-cols-3 gap-y-4 gap-x-5 text-center">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+{[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
               <button
                 key={num}
                 onClick={() => handleDigit(num.toString())}
                 className="w-14 h-14 rounded-full bg-slate-900/40 border border-slate-800/40 text-lg font-black transition-all flex items-center justify-center active:bg-slate-700 active:scale-90 active:border-sky-500 shadow-sm focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
-                aria-label={`${num}`}
+                aria-label={`Press ${num}`}
               >
                 {num}
               </button>

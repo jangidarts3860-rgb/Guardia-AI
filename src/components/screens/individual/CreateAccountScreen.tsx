@@ -49,10 +49,10 @@ export default function CreateAccountScreen() {
       <div className="space-y-6 z-10 flex-1 flex flex-col">
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center space-x-2">
-            <button onClick={() => navigate('/permissions')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
+            <button onClick={() => navigate('/login')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
               <ArrowLeft className="w-4 h-4 text-slate-300" />
             </button>
-            <span className="text-[10px] font-black tracking-widest text-slate-500 font-mono">STEP 3 OF 3</span>
+            <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 1 OF 3</span>
           </div>
           <button
             onClick={() => {
@@ -66,9 +66,9 @@ export default function CreateAccountScreen() {
         </div>
 
         <div className="space-y-2 text-left">
-          <h2 className="text-2xl font-black tracking-tight text-white">Create Security Profile</h2>
+          <h2 className="text-2xl font-black tracking-tight text-white">Create Your Profile</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Enter your details to bind your safe device tokens to Guardia Shield.
+            Enter your details to set up your Guardia AI account.
           </p>
         </div>
 
@@ -78,21 +78,22 @@ export default function CreateAccountScreen() {
             <input
               id="full-name"
               type="text"
+              autoFocus
               value={local.name}
               onChange={(e) => setLocal({ ...local, name: e.target.value })}
               placeholder="e.g. Rohan Sharma"
               className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500 transition font-medium"
               aria-describedby="name-error"
             />
-            <div className="min-h-[16px] mt-1" role="alert" aria-live="polite">
+            <div className="min-h-4 mt-1" role="alert" aria-live="polite">
               {local.name.trim() && !isValidName && (
-                <p id="name-error" className="text-[10px] text-red-400 font-semibold">Name must be at least 2 characters</p>
+                <p id="name-error" className="text-xs text-red-400 font-semibold">Name must be at least 2 characters</p>
               )}
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="create-phone" className="text-xs font-bold uppercase tracking-wider text-slate-300">Mobile Number (Secure Bank Link)</label>
+            <label htmlFor="create-phone" className="text-xs font-bold uppercase tracking-wider text-slate-300">Mobile Number</label>
             <div className="relative">
               <div className="absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true">
                 <span className="text-xs font-bold text-sky-400">+91</span>
@@ -113,18 +114,18 @@ export default function CreateAccountScreen() {
                 aria-describedby="create-phone-error"
               />
             </div>
-            <div className="min-h-[16px] mt-1" role="alert" aria-live="polite">
+            <div className="min-h-4 mt-1" role="alert" aria-live="polite">
               {phoneBlurred && phoneDigits.length > 0 && !isValidPhone && (
-                <p id="create-phone-error" className="text-[10px] text-red-400 font-semibold">Mobile number must be exactly 10 digits</p>
+                <p id="create-phone-error" className="text-xs text-red-400 font-semibold">Mobile number must be exactly 10 digits</p>
               )}
               {isValidPhone && (
-                <p className="text-[10px] text-emerald-400 font-semibold">Secure bank-linked number verified</p>
+                <p className="text-xs text-emerald-400 font-semibold">Phone number verified</p>
               )}
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="create-email" className="text-xs font-bold uppercase tracking-wider text-slate-300">Email Address (Security Reports & Alerts)</label>
+            <label htmlFor="create-email" className="text-xs font-bold uppercase tracking-wider text-slate-300">Email Address</label>
             <input
               id="create-email"
               type="email"
@@ -137,12 +138,12 @@ export default function CreateAccountScreen() {
               className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500 transition font-medium"
               aria-describedby="email-error"
             />
-            <div className="min-h-[16px] mt-1" role="alert" aria-live="polite">
+            <div className="min-h-4 mt-1" role="alert" aria-live="polite">
               {emailBlurred && local.email.trim() && !isValidEmail && (
-                <p id="email-error" className="text-[10px] text-red-400 font-semibold">Enter a valid email address</p>
+                <p id="email-error" className="text-xs text-red-400 font-semibold">Enter a valid email address</p>
               )}
               {emailBlurred && isValidEmail && (
-                <p className="text-[10px] text-emerald-400 font-semibold">Email registered for security backup</p>
+                <p className="text-xs text-emerald-400 font-semibold">Email added successfully</p>
               )}
             </div>
           </div>
@@ -169,7 +170,7 @@ export default function CreateAccountScreen() {
           )}
         </button>
         <p className="text-xs text-slate-500 leading-relaxed text-center px-4">
-          By proceeding, you consent to secure OTP binding in compliance with RBI Account Aggregator guidelines.{' '}
+          By proceeding, you consent to secure OTP verification in compliance with RBI guidelines.{' '}
           <button onClick={() => showToast('info', 'Opening Privacy Policy...')} className="text-sky-400 hover:underline font-semibold focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Privacy Policy</button>
         </p>
       </div>

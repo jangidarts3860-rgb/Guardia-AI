@@ -80,7 +80,7 @@ export default function NotificationsScreen() {
               <motion.div key={notif.id} variants={itemVariants} layout whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(target)}
                 className={`p-4 rounded-2xl border relative flex space-x-3 items-start transition hover:border-slate-700 cursor-pointer ${getRiskStyle(notif.risk)}`}
-                role="alert"
+                role="listitem"
               >
                 {notif.unread && <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-sky-400" aria-label="Unread" />}
                 <div className="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800/40 flex items-center justify-center shrink-0">
@@ -91,9 +91,9 @@ export default function NotificationsScreen() {
                 <div className="flex-1 space-y-0.5">
                   <div className="flex justify-between items-center">
                     <p className="font-extrabold text-xs">{notif.title}</p>
-                    <span className="text-[9px] text-slate-500 font-mono pr-2">{notif.time}</span>
+                    <span className="text-xs text-slate-500 font-mono pr-2">{notif.time}</span>
                   </div>
-                  <p className="text-[10px] text-slate-400 leading-relaxed font-medium">{notif.description}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed font-medium">{notif.description}</p>
                 </div>
               </motion.div>
               );

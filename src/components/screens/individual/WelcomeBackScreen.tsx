@@ -24,7 +24,7 @@ export default function WelcomeBackScreen() {
   const [wrongAttempts, setWrongAttempts] = useState(0);
   const [isPanicMode, setIsPanicMode] = useState(false);
   const reduced = useReducedMotion();
-  const STORED_PIN = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('guardia_user') || '{}').pin || '1234' : '1234';
+  const STORED_PIN = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('guardia_user') || '{}').pin || null : null;
   const MAX_ATTEMPTS = 3;
 
   const triggerBiometric = useCallback((label: string, onSuccess: () => void) => {
@@ -94,23 +94,24 @@ export default function WelcomeBackScreen() {
           <div className="bg-slate-900/60 border border-slate-800/80 p-3 rounded-2xl flex items-center justify-between max-w-xs px-2 mx-auto">
             <div className="flex items-center space-x-2 text-left">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span className="text-[10px] text-slate-400 font-bold font-mono">
+              <span className="text-xs text-slate-400 font-bold font-mono">
                 SECURED: {profile.phone || '+91 98765 43210'}
               </span>
             </div>
-            <button onClick={() => navigate('/login')} className="text-[9px] text-sky-400 font-bold uppercase hover:underline p-2 -mr-2 -my-2 focus-visible:ring-2 focus-visible:ring-sky-500 rounded">
+            <button onClick={() => navigate('/login')} className="text-xs text-sky-400 font-bold uppercase hover:underline p-2 -mr-2 -my-2 focus-visible:ring-2 focus-visible:ring-sky-500 rounded">
               Switch
             </button>
           </div>
 
           {wrongAttempts > 0 && !isPanicMode && (
-            <p className="text-center text-[10px] text-red-400 font-bold" role="alert">
+            <p className="text-center text-xs text-red-400 font-bold" role="alert">
               Incorrect PIN. {MAX_ATTEMPTS - wrongAttempts} attempt{MAX_ATTEMPTS - wrongAttempts !== 1 ? 's' : ''} remaining.
             </p>
           )}
           {isPanicMode && (
-            <motion.p initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center text-xs text-red-500 font-black uppercase tracking-wider" role="alert">
-              🚨 Multiple failed attempts — Freezing all accounts...
+            <motion.p initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center text-xs text-red-500 font-black uppercase tracking-wider flex items-center justify-center space-x-1" role="alert">
+              <span aria-hidden="true">⚠</span>
+              <span>Multiple failed attempts — Account temporarily locked for your safety.</span>
             </motion.p>
           )}
           <div
@@ -176,14 +177,14 @@ export default function WelcomeBackScreen() {
 
         <div className="pt-2 text-center space-y-3">
           <div className="flex justify-center items-center space-x-3">
-            <button onClick={() => navigate('/login')} className="text-[10px] text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
-              Forgot PIN? Login Again
+            <button onClick={() => navigate('/login')} className="text-xs text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
+              Forgot PIN?
             </button>
           </div>
           <div>
-            <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-[9px] font-bold text-slate-500 font-mono">
+            <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-xs font-bold text-slate-500 font-mono">
               <span className={`w-1 h-1 rounded-full bg-emerald-500 inline-block ${reduced ? '' : 'animate-pulse'}`} aria-hidden="true" />
-              <span>SECURED - RBI CERTIFIED VAULT LAYER</span>
+              <span>SECURED · RBI CERTIFIED</span>
             </span>
           </div>
         </div>

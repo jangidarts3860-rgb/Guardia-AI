@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Sparkles, Eye, EyeOff } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-
 
 
 export default function CancelSuccessScreen() {
@@ -23,6 +22,7 @@ export default function CancelSuccessScreen() {
 
   const reduced = useReducedMotion();
   const savedAmount = selectedSub?.cost ?? 649;
+  const [isAnonymized, setIsAnonymized] = useState(true);
 
   useEffect(() => {
     if (reduced) return;
@@ -75,7 +75,7 @@ export default function CancelSuccessScreen() {
             transition={reduced ? {} : { type: "spring", stiffness: 150, delay: 0.3 }}
             className="text-5xl font-black text-emerald-400"
           >
-            ₹{savedAmount}
+            ₹{isAnonymized ? 'X,XXX' : savedAmount}
           </motion.h2>
           <motion.p
             initial={reduced ? {} : { opacity: 0 }}
@@ -92,8 +92,18 @@ export default function CancelSuccessScreen() {
           transition={reduced ? {} : { delay: 0.6 }}
           className="text-lg font-bold text-slate-200"
         >
-          ₹{savedAmount * 12} saved this year
+          ₹{isAnonymized ? 'XX,XXX' : savedAmount * 12} saved this year
         </motion.h3>
+
+        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl flex justify-between items-center w-full max-w-xs">
+          <div className="text-left">
+            <p className="text-xs font-bold text-white">Hide exact amount</p>
+            <p className="text-xs text-slate-500 mt-0.5">Hide the exact amount when sharing</p>
+          </div>
+          <button onClick={() => setIsAnonymized(!isAnonymized)} className={`w-11 h-6 rounded-full transition relative ${isAnonymized ? 'bg-sky-500' : 'bg-slate-800'}`} role="switch" aria-checked={isAnonymized} aria-label="Hide savings amount">
+            <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${isAnonymized ? 'left-[22px]' : 'left-0.5'}`} />
+          </button>
+        </div>
 
         <button
           onClick={() => navigate('/your-win')}
@@ -112,4 +122,3 @@ export default function CancelSuccessScreen() {
     </div>
   );
 }
-

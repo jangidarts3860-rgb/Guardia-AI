@@ -64,21 +64,21 @@ export default function FamilySpendHubScreen() {
               <ArrowLeft className="w-4 h-4" />
             </button>
             <div>
-              <span className="text-[9px] font-extrabold tracking-widest text-slate-500 uppercase font-mono">FAMILY GUARD</span>
+              <span className="text-xs font-extrabold tracking-widest text-slate-500 uppercase font-mono">FAMILY GUARD</span>
               <h2 className="text-xl font-black tracking-tight mt-0.5">Family Spends</h2>
             </div>
           </div>
           <div className="text-right">
-            <span className="text-[9px] font-extrabold tracking-widest text-slate-500 uppercase font-mono block">FAMILY TOTAL</span>
+            <span className="text-xs font-extrabold tracking-widest text-slate-500 uppercase font-mono block">FAMILY TOTAL</span>
             <span className="text-sm bg-red-950/40 text-red-400 border border-red-500/15 px-2.5 py-0.5 rounded-full font-black font-mono inline-block mt-0.5">
               ₹{totalFamilySpend.toLocaleString('en-IN')}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 text-[10px] text-slate-400 bg-slate-900/50 rounded-2xl px-3 py-2 border border-slate-800/60">
+        <div className="flex items-center space-x-2 text-xs text-slate-400 bg-slate-900/50 rounded-2xl px-3 py-2 border border-slate-800/60">
           <Users className="w-4 h-4 text-sky-400 shrink-0" aria-hidden="true" />
-          <span>{familyMembers.length} members tracked • Tap a member to see their subscriptions</span>
+          <span>{familyMembers.length} family profiles • Tap a member to see their subscriptions</span>
         </div>
       </div>
 
@@ -93,10 +93,10 @@ export default function FamilySpendHubScreen() {
                 className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-800/20 transition focus-visible:ring-2 focus-visible:ring-sky-500"
                 aria-expanded={isExpanded} aria-controls={`member-${member.id}-subs`}>
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg" aria-hidden="true">{member.emoji}</div>
+                  <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg" role="img" aria-label={`${member.name}'s profile avatar`}>{member.emoji}</div>
                   <div>
                     <p className="font-extrabold text-sm text-white">{member.name}</p>
-                    <p className="text-[10px] text-slate-500">{member.relation} • {member.subscriptions.length} subscription{member.subscriptions.length !== 1 ? 's' : ''}</p>
+                    <p className="text-xs text-slate-500">{member.relation} • {member.subscriptions.length} subscription{member.subscriptions.length !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -123,7 +123,7 @@ export default function FamilySpendHubScreen() {
                           {getSubscriptionLogo(sub.id, sub.name, 'w-8 h-8')}
                           <div className="min-w-0">
                             <p className="text-xs font-bold text-white truncate">{sub.name}</p>
-                            <p className="text-[9px] text-slate-500">Renews {sub.renewDate}</p>
+                            <p className="text-xs text-slate-500">Renews {sub.renewDate}</p>
                           </div>
                         </div>
                         <div className="text-right flex items-center space-x-2">
@@ -133,7 +133,7 @@ export default function FamilySpendHubScreen() {
                       </div>
                     );
                   })}
-                  <div className="flex items-center space-x-1.5 pt-1 text-[9px] text-sky-400">
+                  <div className="flex items-center space-x-1.5 pt-1 text-xs text-sky-400">
                     <ShieldCheck className="w-3 h-3" aria-hidden="true" />
                     <span>Protected by Guardia AI</span>
                   </div>

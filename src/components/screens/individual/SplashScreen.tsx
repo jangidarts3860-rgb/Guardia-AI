@@ -5,8 +5,7 @@ import { motion } from 'motion/react';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 import { APP_VERSION } from '../../../utils/appConfig';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-
-
+import React from 'react';
 
 export default function SplashScreen() {
   const navigate = useNavigate();
@@ -24,20 +23,16 @@ export default function SplashScreen() {
   const reduced = useReducedMotion();
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const duration = 3000;
+  const duration = 1500;
 
   const onComplete = useCallback(() => {
     if (typeof window !== 'undefined') {
       const stored = JSON.parse(localStorage.getItem('guardia_user') || '{}');
       if (stored.pin) {
         setProfile({ name: stored.name || '', phone: stored.phone || '', email: stored.email || '', language: stored.language || '', photo: stored.photo || '' });
-        navigate('/login');
-      } else {
-        navigate('/onboarding');
       }
-    } else {
-      navigate('/onboarding');
     }
+    navigate('/login');
   }, [navigate, setProfile]);
 
   useEffect(() => {
@@ -45,18 +40,11 @@ export default function SplashScreen() {
     return () => clearTimeout(timerRef.current);
   }, [onComplete, duration]);
 
-  const handleSkip = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    onComplete();
-  };
-
   return (
     <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-6 relative overflow-hidden">
       <div className={`absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-sky-500/5 via-transparent to-emerald-500/5 ${reduced ? '' : 'animate-[ambientShift_30s_linear_infinite]'}`} aria-hidden="true" />
       <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.18)_0%,transparent_65%]" aria-hidden="true" />
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" aria-hidden="true" />
-
-      {/* Removed Skip button — loading screen */}
 
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full">
         <motion.div
@@ -93,28 +81,28 @@ export default function SplashScreen() {
         </h1>
 
         <div className="mt-3 px-3 py-1 bg-sky-950/40 border border-sky-500/15 rounded-full">
-          <p className="text-[9px] text-sky-400 font-bold font-mono tracking-wider uppercase">
-            Active Shield Protocol
+          <p className="text-xs text-sky-400 font-bold font-mono tracking-wider uppercase">
+            Protection Active
           </p>
         </div>
       </div>
 
       <div className="w-full max-w-xs px-2 flex flex-col items-center space-y-4 z-10 pb-8">
-        <div className="w-full bg-slate-900/80 h-1.5 rounded-full overflow-hidden border border-slate-800/80 p-[1px] relative" role="progressbar" aria-label="Loading" aria-hidden="true">
+        <div className="w-full bg-slate-900/80 h-1.5 rounded-full overflow-hidden border border-slate-800/80 p-[1px] relative" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={100}>
           <motion.div
             className="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-full rounded-full"
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
-            transition={{ duration: 2.5, ease: 'easeInOut' }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
           />
         </div>
 
-        <div className="text-center space-y-1">
-          <span className="text-[9px] text-slate-500 font-extrabold tracking-widest block font-mono">
-            BANK-GRADE SECURITY - RBI AA CERTIFIED
+<div className="text-center space-y-1">
+          <span className="text-xs text-sky-400 font-bold font-mono tracking-widest block font-mono">
+            SECURE CONNECT · SUPPORTED BY RBI FRAMEWORK
           </span>
           <span className="text-[8px] text-slate-600 block">
-            MILITARY-GRADE AES-256 ENCRYPTION
+            ON-DEVICE PROCESSING
           </span>
         </div>
 
@@ -123,4 +111,3 @@ export default function SplashScreen() {
     </div>
   );
 }
-

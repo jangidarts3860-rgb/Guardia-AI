@@ -34,10 +34,30 @@ export default function ToastContainer() {
   const dismiss = (id: string) => setToasts(prev => prev.filter(t => t.id !== id));
 
   const iconMap = {
-    success: <CheckCircle2 className="w-4 h-4 text-emerald-400" />,
-    error: <XCircle className="w-4 h-4 text-red-400" />,
-    warning: <AlertTriangle className="w-4 h-4 text-amber-400" />,
-    info: <Info className="w-4 h-4 text-sky-400" />,
+    success: (
+      <>
+        <CheckCircle2 className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+        <span className="sr-only">Success</span>
+      </>
+    ),
+    error: (
+      <>
+        <XCircle className="w-4 h-4 text-red-400" aria-hidden="true" />
+        <span className="sr-only">Error</span>
+      </>
+    ),
+    warning: (
+      <>
+        <AlertTriangle className="w-4 h-4 text-amber-400" aria-hidden="true" />
+        <span className="sr-only">Warning</span>
+      </>
+    ),
+    info: (
+      <>
+        <Info className="w-4 h-4 text-sky-400" aria-hidden="true" />
+        <span className="sr-only">Info</span>
+      </>
+    ),
   };
 
   const borderMap = {

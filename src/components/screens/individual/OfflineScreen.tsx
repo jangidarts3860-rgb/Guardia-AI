@@ -48,18 +48,18 @@ export default function OfflineScreen() {
         </div>
       </div>
 
-      <div className="space-y-3 pt-6 z-10 pb-4">
+<div className="space-y-3 pt-6 z-10 pb-4">
         <button onClick={() => { setIsOffline(false); navigate('/home'); }} className="w-full py-4 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-2xl shadow-lg shadow-sky-500/10 transition active:scale-[0.98] flex items-center justify-center space-x-1.5 focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Retry connection">
           <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" />
           <span>Retry Connection</span>
         </button>
-        <p className="text-[10px] text-slate-500 leading-snug px-6 pt-1">
-          Need immediate system block? Safe on-device emergency freeze works fully offline.
+        <p className="text-xs text-slate-500 leading-snug px-6 pt-1">
+          Emergency freeze will be queued and executed when you're back online.
         </p>
-        <button onClick={() => { setIsOffline(false); setBanks(prev => prev.map(b => ({ ...b, isConnected: false }))); setActivities(prev => [{ id: 'off-freez-' + Date.now(), title: 'Offline Emergency Block', description: 'Webhooks queued locally', time: 'Just now', status: 'Blocked' }, ...prev]); navigate('/home'); }}
+        <button onClick={() => { setIsOffline(false); setBanks(prev => prev.map(b => ({ ...b, isConnected: false }))); setActivities(prev => [{ id: 'off-freez-' + Date.now(), title: 'Offline Emergency Block', description: 'Queued for execution when online', time: 'Just now', status: 'Blocked' }, ...prev]); navigate('/home'); }}
           className="w-full py-3 bg-transparent border border-red-500/30 hover:border-red-500/50 text-red-500 text-xs font-bold rounded-2xl flex items-center justify-center space-x-2 transition focus-visible:ring-2 focus-visible:ring-red-500">
           <Lock className="w-4 h-4" aria-hidden="true" />
-          <span>Freeze All Accounts</span>
+          <span>Queue Emergency Freeze</span>
         </button>
       </div>
     </div>

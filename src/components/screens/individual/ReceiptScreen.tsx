@@ -65,7 +65,7 @@ export default function ReceiptScreen() {
             </div>
           </div>
           <h2 className="text-lg font-black tracking-tight">{receiptType === 'safe' ? 'Safe Transaction Report' : 'Scam Detection Report'}</h2>
-          <p className="text-[10px] text-slate-400">Verified by Guardia AI Shield • RBI Certified</p>
+          <p className="text-xs text-slate-400">Merchant verified before payment</p>
         </div>
 
         <div className="rounded-2xl p-4 space-y-3 text-left bg-slate-950/60">
@@ -80,24 +80,24 @@ export default function ReceiptScreen() {
           </div>
           <div className="border-t border-slate-800/40" />
           <div className="flex justify-between">
-            <span className="text-xs text-slate-500">Risk Score</span>
-            <span className={`text-xs font-bold ${receiptType === 'safe' ? 'text-emerald-400' : 'text-red-400'}`}>{receiptType === 'safe' ? '12/100 ✓ Safe' : '92/100 ✗ Critical'}</span>
+            <span className="text-xs text-slate-500">Trust Score</span>
+            <span className={`text-xs font-bold ${receiptType === 'safe' ? 'text-emerald-400' : 'text-red-400'}`}>{receiptType === 'safe' ? '96/100 ✓ Safe' : '12/100 ✗ Critical'}</span>
           </div>
           <div className="border-t border-slate-800/40" />
           <div className="flex justify-between">
             <span className="text-xs text-slate-500">Payment ID</span>
-            <span className="text-[9px] font-mono text-slate-400 truncate max-w-[160px]">TXN_GUARDIA_8F3A2C1B</span>
+            <span className="text-xs font-mono text-slate-400 truncate" style={{ maxWidth: 160 }}>TXN_GUARDIA_8F3A2C1B</span>
           </div>
           <div className="border-t border-slate-800/40" />
           <div className="flex justify-between">
             <span className="text-xs text-slate-500">Timestamp</span>
-            <span className="text-[10px] text-slate-400">12 Jan 2025, 10:42 AM</span>
+            <span className="text-xs text-slate-400">{new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center space-x-2 justify-center">
+<div className="mt-4 flex items-center space-x-2 justify-center">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-[9px] text-slate-500 font-bold">Secured by Guardia AI Shield • RBI Certified</span>
+          <span className="text-xs text-slate-500 font-bold">Merchant verified before payment</span>
         </div>
       </div>
     </div>

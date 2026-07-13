@@ -65,12 +65,12 @@ export default function EditProfileScreen() {
               <Camera className="w-3.5 h-3.5 text-white" />
             </div>
           </motion.div>
-          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Change Profile Photo</p>
+          <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Change Profile Photo</p>
         </div>
 
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <label htmlFor="name-input" className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Full Name</label>
+            <label htmlFor="name-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
             <div className="relative flex items-center">
               <span className="absolute left-4 text-slate-500"><User className="w-4 h-4" aria-hidden="true" /></span>
               <input id="name-input" type="text" value={local.name} onChange={(e) => setLocal({ ...local, name: e.target.value })}
@@ -81,31 +81,31 @@ export default function EditProfileScreen() {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="email-input" className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Email Address</label>
+            <label htmlFor="email-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
             <div className="relative flex items-center">
               <span className="absolute left-4 text-slate-500"><Mail className="w-4 h-4" aria-hidden="true" /></span>
               <input id="email-input" type="email" value={local.email} onChange={(e) => setLocal({ ...local, email: e.target.value })}
                 className="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-800/80 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:bg-slate-900 transition-all"
-                placeholder="rohan.sharma@gmail.com" aria-label="Email address"
+                placeholder="your.email@example.com" aria-label="Email address"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
             <div className="flex justify-between">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Mobile Number</label>
+              <label htmlFor="phone-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Mobile Number</label>
               <span className="text-[8px] bg-emerald-500/10 text-emerald-400 font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/10">Verified SIM 1</span>
             </div>
             <div className="relative flex items-center">
               <span className="absolute left-4 text-slate-500"><Smartphone className="w-4 h-4" aria-hidden="true" /></span>
-              <input type="tel" disabled value={local.phone || '+91 98765 43210'}
+              <input id="phone-input" type="tel" disabled value={local.phone || '+91 98765 43210'}
                 className="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-900 rounded-xl text-xs text-slate-400 cursor-not-allowed font-mono" aria-label="Mobile number (verified)"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="lang-select" className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Language preference</label>
+            <label htmlFor="lang-select" className="text-xs font-bold uppercase tracking-wider text-slate-500">Language preference</label>
             <div className="relative flex items-center">
               <span className="absolute left-4 text-slate-500"><Globe className="w-4 h-4" aria-hidden="true" /></span>
               <select id="lang-select" value={local.language} onChange={(e) => setLocal({ ...local, language: e.target.value })}

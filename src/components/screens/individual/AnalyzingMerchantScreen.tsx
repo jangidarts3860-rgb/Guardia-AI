@@ -8,13 +8,13 @@ import React from 'react';
 
 
 function getScanLog(prog: number): string {
-  if (prog === 0) return "Initializing secure shield handshake...";
-  if (prog <= 15) return "Establishing sandboxed intercept environment...";
-  if (prog <= 35) return "Querying offline local fraud database...";
-  if (prog <= 55) return "Evaluating dynamic merchant threat metrics...";
+  if (prog === 0) return "Initializing security scan...";
+  if (prog <= 15) return "Setting up secure environment...";
+  if (prog <= 35) return "Checking fraud database...";
+  if (prog <= 55) return "Analyzing merchant risk factors...";
   if (prog <= 75) return "Verifying merchant behavioral patterns...";
   if (prog <= 95) return "Cross-referencing known scam signatures...";
-  return "Finalizing security Threat Assessment report...";
+  return "Finalizing security report...";
 }
 
 export default function AnalyzingMerchantScreen() {
@@ -67,7 +67,7 @@ export default function AnalyzingMerchantScreen() {
       <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.06)_0%,transparent_70%] pointer-events-none" aria-hidden="true" />
       
       <div className="pt-6 text-center z-10 w-full">
-        <div className="inline-flex items-center space-x-1.5 bg-slate-900 border border-slate-800/80 px-3 py-1 rounded-full text-[10px] font-bold font-mono">
+        <div className="inline-flex items-center space-x-1.5 bg-slate-900 border border-slate-800/80 px-3 py-1 rounded-full text-xs font-bold font-mono">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
           <span className="text-emerald-400">ACTIVE</span>
           <span className="text-slate-600">|</span>
@@ -89,13 +89,13 @@ export default function AnalyzingMerchantScreen() {
         </div>
 
         <h2 className="text-lg font-black tracking-tight mb-2">Analyzing Merchant</h2>
-        <p className={`text-xs ${!reduced ? 'animate-pulse' : ''} text-slate-400 font-medium max-w-[200px]`}>{getScanLog(analyzeProgress)}</p>
+        <p className={`text-xs ${!reduced ? 'animate-pulse' : ''} text-slate-400 font-medium`} style={{ maxWidth: 200 }}>{getScanLog(analyzeProgress)}</p>
 
         <div className="w-full max-w-xs mt-8 space-y-2" role="progressbar" aria-valuenow={analyzeProgress} aria-valuemin={0} aria-valuemax={100} aria-label={`Scan progress: ${analyzeProgress}%`}>
           <div className="w-full h-1.5 bg-slate-800/40 rounded-full overflow-hidden border border-slate-800/20">
             <div className="h-full bg-gradient-to-r from-sky-500 via-indigo-500 to-sky-400 rounded-full transition-all duration-300 ease-out" style={{ width: `${analyzeProgress}%` }} />
           </div>
-          <div className="flex justify-between text-[10px] font-mono">
+          <div className="flex justify-between text-xs font-mono">
             <span className="text-sky-400">{analyzeProgress}%</span>
             <span className="text-slate-500">verifying 7/7 checkpoints</span>
           </div>

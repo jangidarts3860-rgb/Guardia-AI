@@ -38,7 +38,7 @@ export default function VaultScreen() {
       <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md p-4 pb-2.5 border-b border-slate-900">
       <div className="flex justify-between items-center text-left">
         <div>
-          <h2 className="text-xl font-extrabold tracking-tight">Vault</h2>
+          <h2 className="text-xl font-extrabold tracking-tight">Security</h2>
           <p className={`text-xs ${textMuted}`}>Security & privacy controls</p>
         </div>
         <button onClick={() => navigate('/link-bank')} className="p-2 bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-xl flex items-center space-x-1 hover:bg-sky-500/20 transition text-xs font-semibold focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Add bank">
@@ -69,7 +69,7 @@ export default function VaultScreen() {
         <div className="text-left space-y-2">
           <div className="flex justify-between items-center">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Linked Bank Accounts</h3>
-            <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/10">RBI Sandbox</span>
+            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/10">Secure Connection</span>
           </div>
           <div className="space-y-2">
             {banks.filter(b => b.isConnected).length === 0 ? (
@@ -79,12 +79,12 @@ export default function VaultScreen() {
                 </div>
                 <div className="space-y-1">
                   <h4 className="font-bold text-xs text-slate-200">No bank account linked</h4>
-                  <p className="text-[10px] text-slate-500 max-w-[210px] mx-auto mt-0.5 leading-relaxed">
-                    Link your bank via RBI's Account Aggregator to enable AI protection, balance tracking & instant freeze.
+                  <p className="text-xs text-slate-500 mx-auto mt-0.5 leading-relaxed" style={{ maxWidth: 210 }}>
+                    Link your bank to enable AI protection, balance tracking & instant freeze.
                   </p>
                 </div>
-                <button onClick={() => navigate('/link-bank')} className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-[10px] font-black uppercase tracking-wider rounded-xl transition active:scale-95 shadow-lg shadow-cyan-500/10 focus-visible:ring-2 focus-visible:ring-cyan-500">
-                  Connect via secure AA
+                <button onClick={() => navigate('/link-bank')} className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl transition active:scale-95 shadow-lg shadow-cyan-500/10 focus-visible:ring-2 focus-visible:ring-cyan-500">
+                  Connect Bank
                 </button>
               </div>
             ) : (
@@ -94,7 +94,7 @@ export default function VaultScreen() {
                     {getBankLogo(bank.id, bank.name, "w-10 h-10")}
                     <div>
                       <p className="text-xs font-bold">{bank.name}</p>
-                      <p className={`text-[10px] ${textMuted} mt-0.5`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
+                      <p className={`text-xs ${textMuted} mt-0.5`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -121,7 +121,7 @@ export default function VaultScreen() {
               <div key={i} className="p-4 flex justify-between items-center">
                 <div className="text-left pr-4">
                   <p className="text-xs font-bold">{item.label}</p>
-                  <p className={`text-[10px] ${textMuted} mt-0.5`}>{item.desc}</p>
+                  <p className={`text-xs ${textMuted} mt-0.5`}>{item.desc}</p>
                 </div>
                 <button onClick={() => item.set(!item.val)} className={`w-11 h-6 p-0.5 rounded-full transition-colors flex items-center ${item.val ? 'bg-sky-500 justify-end' : 'bg-slate-800 justify-start'}`} role="switch" aria-checked={item.val} aria-label={item.label}>
                   <motion.div layout transition={{ type: "spring", stiffness: 700, damping: 30 }} className="w-5 h-5 rounded-full bg-white shadow-sm" />
@@ -140,33 +140,33 @@ export default function VaultScreen() {
                 <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />
                 <span className="text-xs font-bold text-white">On-Device AI Status</span>
               </div>
-              <span className="flex items-center space-x-1 text-[9px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+              <span className="flex items-center space-x-1 text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" aria-hidden="true" />
                 <span>Active</span>
               </span>
             </div>
             <div className="space-y-2.5">
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400">Data sent to cloud</span>
                 <span className="font-mono font-bold text-emerald-400 flex items-center space-x-1">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" aria-hidden="true" />
                   <span>0 bytes</span>
                 </span>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400">Fraud patterns processed</span>
                 <span className="font-mono font-bold text-white">100% on-device</span>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400">Last privacy audit</span>
-                <span className="font-mono font-bold text-white">Today, 10:32 AM</span>
+                <span className="font-mono font-bold text-white">{new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
               <div className="mt-2 pt-2 border-t border-slate-800/40">
                 <button onClick={() => showToast('success', 'Your data never leaves your device. All AI processing happens locally.')}
-                  className="w-full py-2 text-[9px] font-bold text-sky-400 hover:text-sky-300 transition flex items-center justify-center space-x-1 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
+                  className="w-full py-2 text-xs font-bold text-sky-400 hover:text-sky-300 transition flex items-center justify-center space-x-1 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
                   aria-label="View privacy proof">
                   <ShieldCheck className="w-3 h-3" aria-hidden="true" />
-                  <span>Tap for proof → Zero data shared</span>
+                  <span>View privacy details → Zero data shared</span>
                 </button>
               </div>
             </div>

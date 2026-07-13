@@ -34,7 +34,7 @@ export default function App() {
 
   const { isOffline, setIsOffline } = useStore();
 
-  const showBottomBar = ['home', 'subs-dashboard', 'vault', 'me-profile'].includes(currentScreen);
+  const showBottomBar = ['home', 'subs-dashboard', 'security', 'me-profile'].includes(currentScreen);
   const isScreenshotMode = window.location.search.includes('screenshot=1');
 
   if (isScreenshotMode) {
@@ -66,11 +66,11 @@ export default function App() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
                 <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
               </motion.button>
-              <button onClick={() => navigate('/vault')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'vault' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
+              <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
+                {currentScreen === 'security' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
                 <div className="relative flex flex-col items-center z-10">
-                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
+                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
+                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
                 </div>
               </button>
               <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
@@ -120,11 +120,11 @@ export default function App() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
                 <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
               </motion.button>
-              <button onClick={() => navigate('/vault')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'vault' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
+              <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
+                {currentScreen === 'security' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
                 <div className="relative flex flex-col items-center z-10">
-                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
+                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
+                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
                 </div>
               </button>
               <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
@@ -171,11 +171,11 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
                   <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
                 </motion.button>
-                <button onClick={() => navigate('/vault')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                  {currentScreen === 'vault' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
+                <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
+                  {currentScreen === 'security' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
                   <div className="relative flex flex-col items-center z-10">
-                    <ShieldCheck className={`w-5 h-5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'vault' ? 2.5 : 2} />
-                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'vault' ? 'text-cyan-400' : 'text-slate-500'}`}>Vault</span>
+                    <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
+                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
                   </div>
                 </button>
                 <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">

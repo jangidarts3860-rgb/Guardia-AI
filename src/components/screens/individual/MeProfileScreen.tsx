@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import ConfirmationDialog from '../../ui/shared/ConfirmationDialog';
 
-
 export default function MeProfileScreen() {
   const navigate = useNavigate();
   const { 
@@ -37,10 +36,10 @@ export default function MeProfileScreen() {
     <div className="flex flex-col min-h-full pb-24 space-y-4 bg-slate-950 text-white">
       {/* Sticky Nav Row */}
       <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md px-4 pt-4">
-      <div className="flex justify-between items-center text-left">
-        <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
-        <button onClick={() => navigate('/home')} className="text-xs text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Done</button>
-      </div>
+        <div className="flex justify-between items-center text-left">
+          <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
+          <button onClick={() => navigate('/home')} className="text-xs text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Done</button>
+        </div>
       </div>
 
       <div className={`p-4 rounded-2xl border text-left flex items-center space-x-4 mx-4 ${cardBg}`}>
@@ -54,8 +53,8 @@ export default function MeProfileScreen() {
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-extrabold text-base leading-tight truncate max-w-[150px]">{profile.name || 'Rohan Sharma'}</h3>
-          <p className={`text-xs ${textMuted} font-mono mt-0.5 truncate max-w-[150px]`}>{profile.phone || '+91 98765 43210'}</p>
+          <h3 className="font-extrabold text-base leading-tight truncate" style={{ maxWidth: 150 }}>{profile.name || 'Your Name'}</h3>
+          <p className={`text-xs ${textMuted} font-mono mt-0.5 truncate`} style={{ maxWidth: 150 }}>{profile.phone || '+91 XXXXX XXXXX'}</p>
           <div className="flex space-x-1.5 mt-2">
             <span className="bg-emerald-500/10 text-emerald-500 text-[8px] font-bold px-1.5 py-0.5 rounded font-mono uppercase border border-emerald-500/20">Verified ✓</span>
             <span className="bg-slate-800 text-slate-400 text-[8px] font-bold px-1.5 py-0.5 rounded font-mono uppercase">RBI</span>
@@ -66,7 +65,7 @@ export default function MeProfileScreen() {
       <div className="grid grid-cols-3 gap-2 px-4 text-center">
         <div className={`p-3 rounded-xl border ${cardBg}`}>
           <p className="text-emerald-500 font-extrabold text-xs font-mono">₹{lifetimeSaved.toLocaleString('en-IN')}</p>
-          <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Saved (Lifetime)</p>
+          <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Lifetime Saved</p>
         </div>
         <div className={`p-3 rounded-xl border ${cardBg}`}>
           <p className="text-sky-400 font-extrabold text-xs font-mono">{scamsBlocked}</p>
@@ -74,17 +73,17 @@ export default function MeProfileScreen() {
         </div>
         <div className={`p-3 rounded-xl border ${cardBg}`}>
           <p className="text-amber-500 font-extrabold text-xs font-mono">{subsCut}</p>
-          <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Subs Cut</p>
+          <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Cancelled Subscriptions</p>
         </div>
-        </div>
+      </div>
 
       <div className="border rounded-2xl divide-y text-left overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40 mx-4">
         {[
           { label: 'Notifications', count: 3, action: () => navigate('/notifications') },
           { label: 'Edit Profile', action: () => navigate('/edit-profile') },
           { label: 'Reset Security PIN', action: () => navigate('/reset-pin') },
-          { label: 'Manage Banks', action: () => navigate('/vault') },
-          { label: 'Privacy Controls', action: () => navigate('/vault') },
+          { label: 'Manage Banks', action: () => navigate('/security') },
+          { label: 'Privacy Controls', action: () => navigate('/security') },
           { label: 'Activity Log', action: () => navigate('/activity-log') },
           { label: 'Emergency Help', action: () => navigate('/emergency') },
           { label: 'Log Out', action: () => setShowLogoutConfirm(true) },
@@ -94,7 +93,7 @@ export default function MeProfileScreen() {
             onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
             <span className={opt.danger ? 'text-red-500' : 'text-white'}>{opt.label}</span>
             <div className="flex items-center space-x-2">
-              {opt.count && <span className="w-5 h-5 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center" aria-label={`${opt.count} new`}>{opt.count}</span>}
+              {opt.count && <span className="w-5 h-5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center" aria-label={`${opt.count} new`}>{opt.count}</span>}
               <ChevronRight className="w-4 h-4 text-slate-600" />
             </div>
           </motion.button>
@@ -116,4 +115,3 @@ export default function MeProfileScreen() {
     </div>
   );
 }
-

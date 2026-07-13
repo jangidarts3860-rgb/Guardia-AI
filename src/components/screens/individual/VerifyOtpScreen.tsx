@@ -61,10 +61,10 @@ export default function VerifyOtpScreen() {
       <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(14,165,233,0.05)_0%,transparent_60%] pointer-events-none" aria-hidden="true" />
       <div className="space-y-6 z-10">
         <div className="flex items-center space-x-2 pt-2">
-          <button onClick={() => navigate('/login')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
+          <button onClick={() => navigate('/create-account')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
             <ArrowLeft className="w-4 h-4 text-slate-300" />
           </button>
-          <span className="font-bold text-xs tracking-wide uppercase text-slate-400">Security Guard</span>
+          <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 2 OF 3</span>
         </div>
 
         <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden flex">
@@ -85,6 +85,7 @@ export default function VerifyOtpScreen() {
               ref={inputRef}
               type="text"
               inputMode="numeric"
+              autoComplete="one-time-code"
               maxLength={6}
               value={otpVal}
               disabled={otpSuccess}
@@ -97,6 +98,7 @@ export default function VerifyOtpScreen() {
               autoFocus
               aria-label="OTP code, 6 digits"
             />
+
             <div className="grid grid-cols-6 gap-2.5 justify-center relative z-10">
               {[...Array(6)].map((_, idx) => {
                 const digit = otpVal[idx] || '';
@@ -117,18 +119,19 @@ export default function VerifyOtpScreen() {
                     {digit ? (
                       <span className={reduced ? '' : 'animate-[scaleIn_0.15s_ease-out]'}>{digit}</span>
                     ) : (
-                      <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-sky-400 animate-pulse' : 'bg-slate-700'}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-sky-400 animate-pulse' : 'bg-slate-700'}`} aria-hidden="true" />
                     )}
+                    <span className="sr-only">{digit ? `Digit ${idx + 1}: ${digit}` : isActive ? 'Active, waiting for input' : 'Empty'}</span>
                   </div>
                 );
               })}
             </div>
 
-            <div className="flex justify-between items-center mt-4 px-1">
+            <div className="flex justify-between items-center mt-4 px-1" role="status" aria-live="polite" aria-label={`OTP: ${otpVal.length} of 6 digits entered`}>
               <div className="flex space-x-3">
                 <button
                   onClick={handlePaste}
-                  className="text-[10px] font-bold text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded px-1"
+                  className="text-xs font-bold text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded px-1"
                   aria-label="Paste OTP from clipboard"
                 >
                   Paste from SMS
@@ -139,13 +142,17 @@ export default function VerifyOtpScreen() {
                     setResendTimer(30);
                     setOtpVal('');
                   }}
-                  className={`text-[10px] font-bold focus-visible:ring-2 focus-visible:ring-sky-500 rounded px-1 ${
+                  className={`text-xs font-bold focus-visible:ring-2 focus-visible:ring-sky-500 rounded px-1 ${
                     resendTimer > 0 ? 'text-slate-600 cursor-not-allowed' : 'text-sky-400 hover:underline'
                   }`}
                 >
                   {resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend Now'}
                 </button>
               </div>
+            </div>
+
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+              {resendTimer > 0 ? `Resend available in ${resendTimer} seconds` : 'Resend available'}
             </div>
           </div>
 
@@ -154,7 +161,7 @@ export default function VerifyOtpScreen() {
             <Lock className="w-4 h-4" />
           </div>
           <p className="text-xs text-slate-400 text-left leading-normal">
-            This verification secures on-device biometric tokens. Guardia AI{' '}
+            This verification helps secure your account. Guardia AI{' '}
             <strong className="text-white font-medium">never accesses</strong> or requests your bank password.
           </p>
         </div>

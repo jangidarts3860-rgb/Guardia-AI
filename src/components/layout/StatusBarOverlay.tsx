@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, ShieldAlert, Lock, AlertTriangle } from 'lucide-react';
+import { Shield, ShieldAlert, Lock, AlertTriangle, Scan } from 'lucide-react';
 import { ScreenId } from '../../types';
 
 interface StatusBarOverlayProps {
@@ -20,7 +20,6 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
     'permissions',
     'create-account',
     'verify-otp',
-
     'analyzing-merchant',
     'merchant-verified',
     'scam-detected',
@@ -34,7 +33,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
     backgroundClass = 'bg-transparent';
     opacityClass = 'opacity-90';
   } else {
-    backgroundClass = 'bg-slate-950/85 border-b border-slate-900/40 backdrop-blur-md';
+    backgroundClass = 'bg-slate-950/85 border-b border-slate-800/30 backdrop-blur-md';
   }
 
   switch (currentScreen) {
@@ -45,7 +44,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'home':
       accentIcon = (
-        <span className="flex items-center space-x-1 text-[8px] text-emerald-400 font-extrabold font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded-full border border-emerald-500/10">
+        <span className="flex items-center space-x-1 text-[8px] text-emerald-400 font-extrabold font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded-full border border-emerald-500/15">
           <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
           <span>SHIELD ON</span>
         </span>
@@ -54,10 +53,10 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'scam-detected':
       textClass = 'text-red-100';
-      backgroundClass = 'bg-red-950/30 backdrop-blur-sm';
+      backgroundClass = 'bg-red-950/40 backdrop-blur-sm border-b border-red-900/30';
       accentIcon = <ShieldAlert className="w-3 h-3 text-red-500 animate-ping" />;
       customBadge = (
-        <span className="text-[7px] bg-red-500 text-white font-extrabold px-1 rounded animate-pulse">
+        <span className="text-[7px] bg-red-500 text-white font-extrabold px-1.5 py-0.5 rounded animate-pulse">
           RISK
         </span>
       );
@@ -65,15 +64,24 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'analyzing-merchant':
       accentIcon = (
-        <span className="flex items-center space-x-1 text-[7px] text-sky-400 font-extrabold bg-sky-500/10 px-1.5 py-0.5 rounded-full animate-pulse">
+        <span className="flex items-center space-x-1 text-[7px] text-sky-400 font-extrabold bg-sky-500/10 px-1.5 py-0.5 rounded-full border border-sky-500/15 animate-pulse">
+          <Scan className="w-2.5 h-2.5" />
           <span>SCANNING</span>
+        </span>
+      );
+      break;
+
+    case 'merchant-verified':
+      accentIcon = (
+        <span className="flex items-center space-x-1 text-[8px] text-emerald-400 font-extrabold font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded-full border border-emerald-500/15">
+          <span>VERIFIED</span>
         </span>
       );
       break;
 
     case 'vault':
       accentIcon = (
-        <span className="flex items-center space-x-0.5 text-[8px] text-purple-400 font-bold bg-purple-500/10 px-1 py-0.5 rounded">
+        <span className="flex items-center space-x-0.5 text-[8px] text-purple-400 font-bold bg-purple-500/10 px-1.5 py-0.5 rounded border border-purple-500/15">
           <Lock className="w-2.5 h-2.5 text-purple-400" />
           <span>SECURE</span>
         </span>
@@ -92,12 +100,21 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'offline':
       textClass = 'text-amber-100';
-      backgroundClass = 'bg-amber-950/30 backdrop-blur-sm';
+      backgroundClass = 'bg-amber-950/40 backdrop-blur-sm border-b border-amber-900/30';
       accentIcon = <AlertTriangle className="w-3 h-3 text-amber-500" />;
       break;
-      
-    case 'delete-account-confirm':
+
+    case 'emergency':
+      textClass = 'text-red-100';
+      backgroundClass = 'bg-red-950/30 backdrop-blur-sm border-b border-red-900/20';
+      break;
+
     case 'freeze-accounts-confirm':
+      textClass = 'text-red-200';
+      backgroundClass = 'bg-red-950/30 backdrop-blur-sm border-b border-red-900/20';
+      break;
+
+    case 'delete-account-confirm':
       textClass = 'text-slate-400';
       opacityClass = 'opacity-60';
       break;

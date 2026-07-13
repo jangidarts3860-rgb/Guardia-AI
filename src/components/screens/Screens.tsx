@@ -37,6 +37,7 @@ const FreezeAccountsConfirmScreen = React.lazy(() => import('./individual/Freeze
 const CreatePinScreen = React.lazy(() => import('./individual/CreatePinScreen'));
 const ResetPinScreen = React.lazy(() => import('./individual/ResetPinScreen'));
 const FamilySpendHubScreen = React.lazy(() => import('./individual/FamilySpendHubScreen'));
+const WelcomeBackScreen = React.lazy(() => import('./individual/WelcomeBackScreen'));
 
 export function getSubscriptionLogo(subId: string, name: string, sizeClass = 'w-12 h-12 rounded-xl') {
   const id = subId.toLowerCase();
@@ -159,7 +160,7 @@ export function getBankLogo(bankId: string, name: string, sizeClass = 'w-10 h-10
   if (id === 'hdfc') {
     return (
       <div className={`${sizeClass} bg-[#003366] border border-[#002244] flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-5.5 h-5.5 border border-white/60 bg-white flex items-center justify-center relative p-[1px] rounded-sm">
+        <div className="w-5.5 h-5.5 border border-white/60 bg-white flex items-center justify-center relative p-0.5 rounded-sm">
           <div className="w-full h-full bg-[#003366] flex items-center justify-center">
             <span className="text-[6px] text-white font-black scale-95 leading-none">HDFC</span>
           </div>
@@ -195,7 +196,7 @@ export function getBankLogo(bankId: string, name: string, sizeClass = 'w-10 h-10
   if (id === 'idfc') {
     return (
       <div className={`${sizeClass} bg-gradient-to-r from-[#990033] to-[#cc3333] border border-red-800 flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-5 h-5 border border-amber-400/40 flex flex-wrap items-center justify-center p-[1px] rounded-sm">
+        <div className="w-5 h-5 border border-amber-400/40 flex flex-wrap items-center justify-center p-0.5 rounded-sm">
           <div className="w-full h-full bg-[#1e1e1e]/20 flex items-center justify-center">
             <span className="text-[7px] text-amber-400 font-extrabold leading-none">1st</span>
           </div>
@@ -207,14 +208,14 @@ export function getBankLogo(bankId: string, name: string, sizeClass = 'w-10 h-10
     return (
       <div className={`${sizeClass} bg-[#004B87] border border-[#003865] flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
         <span className="text-white font-black text-xs italic tracking-tighter leading-none">YES</span>
-        <div className="w-3 h-[1px] bg-red-500 mt-0.5" />
+        <div className="w-3 mt-0.5 bg-red-500" style={{ height: 1 }} />
       </div>
     );
   }
   if (id === 'pnb') {
     return (
       <div className={`${sizeClass} bg-[#A6192E] border border-red-800 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md`}>
-        <div className="w-5 h-5 rounded-full bg-yellow-500 border border-yellow-600 flex items-center justify-center p-[1.5px]">
+        <div className="w-5 h-5 rounded-full bg-yellow-500 border border-yellow-600 flex items-center justify-center p-0.5">
           <div className="w-full h-full rounded-full bg-[#A6192E] flex items-center justify-center text-[5px] text-white font-black leading-none">PNB</div>
         </div>
       </div>
@@ -260,7 +261,7 @@ export default function Screens() {
           <Route path="/subs-dashboard" element={<SubsDashboardScreen />} />
           <Route path="/sub-detail" element={<SubDetailScreen />} />
           <Route path="/cancel-success" element={<CancelSuccessScreen />} />
-          <Route path="/vault" element={<VaultScreen />} />
+          <Route path="/security" element={<VaultScreen />} />
           <Route path="/link-bank" element={<LinkBankScreen />} />
           <Route path="/link-bank-progress" element={<LinkBankProgressScreen />} />
           <Route path="/scan-qr" element={<ScanQRScreen />} />
@@ -278,6 +279,7 @@ export default function Screens() {
           <Route path="/create-pin" element={<CreatePinScreen />} />
           <Route path="/reset-pin" element={<ResetPinScreen />} />
           <Route path="/family-spend-hub" element={<FamilySpendHubScreen />} />
+          <Route path="/welcome-back" element={<WelcomeBackScreen />} />
           <Route path="/" element={<SplashScreen />} />
           <Route path="*" element={<SplashScreen />} />
 

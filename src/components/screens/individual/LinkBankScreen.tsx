@@ -34,16 +34,7 @@ export default function LinkBankScreen() {
 
   const handleLinkBankSubmit = () => {
     if (!selectedBankId) return;
-    navigate('/link-bank-progress');
-    linkTimeout.current = setTimeout(() => {
-      setBanks(prev => prev.map(b => b.id === selectedBankId ? { ...b, isConnected: true, balance: Math.floor(Math.random() * 50000) + 10000, accNumber: '•••• ' + Math.floor(Math.random() * 9000 + 1000), lastSynced: 'Just now' } : b));
-      const selectedBank = banks.find(b => b.id === selectedBankId);
-      if (selectedBank) {
-        setActivities(prev => [{ id: 'act-link-' + Date.now(), title: `${selectedBank.name} linked`, description: 'Account Aggregator connected successfully', time: 'Just now', status: 'Verified' }, ...prev]);
-        setNotifications(prev => [{ id: 'not-link-' + Date.now(), title: `${selectedBank.name} linked successfully`, description: 'Security monitoring initiated.', time: 'now', type: 'System' as const, risk: 'Success', unread: true }, ...prev]);
-      }
-      navigate('/vault');
-    }, 1500);
+    navigate(`/link-bank-progress?bankId=${selectedBankId}`);
   };
 
   return (
@@ -57,10 +48,10 @@ export default function LinkBankScreen() {
           <div className="w-8" />
         </div>
 
-        <div className="text-left space-y-1">
+<div className="text-left space-y-1">
           <h2 className="text-2xl font-bold tracking-tight">Select your bank</h2>
           <p className="text-xs text-slate-500 leading-normal">
-            Secured via RBI's Account Aggregator sandbox protocol.
+            We use RBI-approved secure channels to connect your bank.
           </p>
         </div>
 
@@ -72,11 +63,29 @@ export default function LinkBankScreen() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-2 flex-1 overflow-y-auto max-h-[300px] pt-1">
-          {banks.filter(b => b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
+<div className="grid grid-cols-2 gap-2 flex-1 overflow-y-auto max-h-[300px] pt-1">
+          {/* Linked Accounts Section */}
+          {banks.filter(b => b.isConnected).map((bank) => (
+            <motion.div key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+              className="p-4 rounded-xl border border-slate-700 bg-emerald-500/5 flex flex-col justify-between items-start text-left relative"
+              aria-label={`${bank.name} - Already linked`}
+            >
+              <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
+              <div>
+                <p className="text-xs font-bold text-white">{bank.name}</p>
+                <p className="text-xs text-emerald-400 mt-0.5 flex items-center space-x-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                  <span>Linked • {bank.lastSynced}</span>
+                </p>
+              </div>
+            </motion.div>
+          ))}
+          
+          {/* Available Banks Section */}
+          {banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
             <div className="col-span-2 text-center py-8 text-slate-500 text-xs">No banks found matching your search.</div>
           ) : (
-            banks.filter(b => b.name.toLowerCase().includes(bankSearch.toLowerCase())).map((bank) => {
+            banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).map((bank) => {
               const isSelected = selectedBankId === bank.id;
               return (
                 <motion.button key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
@@ -87,7 +96,7 @@ export default function LinkBankScreen() {
                   <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
                   <div>
                     <p className="text-xs font-bold text-white">{bank.name}</p>
-                    <p className="text-[9px] text-slate-500 mt-0.5">{bank.isConnected ? 'Already linked' : 'Tap to connect'}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">Tap to connect</p>
                   </div>
                   {isSelected && (
                     <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-2 right-2 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
@@ -101,14 +110,17 @@ export default function LinkBankScreen() {
         </div>
       </div>
 
-      <div className="space-y-4 pt-4 z-10">
+      <div className="space-y-3 pt-4 z-10">
         <button onClick={handleLinkBankSubmit} disabled={!selectedBankId}
           className={`w-full py-4 text-white font-bold rounded-2xl transition shadow-lg ${selectedBankId ? 'bg-sky-500 hover:bg-sky-400 cursor-pointer shadow-sky-500/10 focus-visible:ring-2 focus-visible:ring-sky-500' : 'bg-slate-800 cursor-not-allowed text-slate-500'}`}
         >
           {selectedBankId ? 'Link Selected Bank' : 'Select a bank'}
         </button>
-        <p className="text-[9px] text-slate-600 font-mono tracking-wider text-center">
-          256-BIT SSL • RBI LICENSED ACCOUNT AGGREGATOR
+        <button onClick={() => navigate('/home')} className="w-full py-3 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500">
+          Do this later / Skip
+        </button>
+        <p className="text-xs text-slate-600 font-mono tracking-wider text-center">
+          SECURE CONNECT · SUPPORTED BY RBI FRAMEWORK
         </p>
       </div>
     </div>

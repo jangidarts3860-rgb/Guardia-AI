@@ -1,11 +1,13 @@
 import { Subscription, Bank, NotificationItem, ActivityItem } from '../types';
 
+export const NETFLIX_COST = 649;
+
 export const initialSubscriptions: Subscription[] = [
   {
     id: 'netflix',
     name: 'Netflix',
     category: 'OTT',
-    cost: 649,
+    cost: NETFLIX_COST,
     billingCycle: 'monthly',
     renewDate: '15 Jul',
     usedDaysAgo: 47,
@@ -97,7 +99,7 @@ export const initialBanks: Bank[] = [
 export const initialNotifications: NotificationItem[] = [
   {
     id: 'notif-1',
-    title: '🚨 HIGH RISK: Scam link detected',
+    title: '🚨 High risk: Scam link detected',
     description: 'Fake HDFC bank link in SMS',
     time: 'now',
     type: 'Fraud',

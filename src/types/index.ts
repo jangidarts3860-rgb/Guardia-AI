@@ -32,7 +32,8 @@ export type ScreenId =
   | 'account-deleted'
   | 'create-pin'
   | 'reset-pin'
-  | 'family-spend-hub';
+  | 'family-spend-hub'
+  | 'security';
 
 export interface Subscription {
   id: string;

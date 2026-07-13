@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
-import { CheckCircle2, ArrowLeft, ExternalLink, Receipt } from 'lucide-react';
+import { CheckCircle2, ArrowLeft, ExternalLink, Receipt, ChevronDown, Info, Globe, Shield, Clock, Check } from 'lucide-react';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-
+import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
 
 
 export default function MerchantVerifiedScreen() {
@@ -19,8 +20,16 @@ export default function MerchantVerifiedScreen() {
   } = useStore();
 
   const reduced = useReducedMotion();
+  const [showDetails, setShowDetails] = useState(false);
 
   const onScanAgain = () => navigate('/scan-qr');
+
+  const safeDetails = [
+    { icon: Globe, label: 'Domain Age', value: 'Verified (> 5 years)', color: 'text-emerald-400' },
+    { icon: Shield, label: 'UPI ID Match', value: 'Verified — NPCI registered', color: 'text-emerald-400' },
+    { icon: Check, label: 'Historical Reports', value: '0 reports in last 90 days', color: 'text-emerald-400' },
+    { icon: Clock, label: 'Scan Timestamp', value: new Date().toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' }), color: 'text-slate-300' },
+  ];
 
   return (
     <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-5 relative">
@@ -52,8 +61,8 @@ export default function MerchantVerifiedScreen() {
             <span className="text-xs text-white font-bold">Flipkart</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-xs text-slate-500">Risk Score</span>
-            <span className="text-xs bg-emerald-500/10 text-emerald-400 font-bold px-2 py-0.5 rounded-full">12/100 — Safe</span>
+            <span className="text-xs text-slate-500">Trust Score</span>
+            <span className="text-xs bg-emerald-500/10 text-emerald-400 font-bold px-2 py-0.5 rounded-full">96/100 — Safe</span>
           </div>
           <div className="flex justify-between">
             <span className="text-xs text-slate-500">Registered</span>
@@ -64,6 +73,41 @@ export default function MerchantVerifiedScreen() {
             <span className="text-xs text-emerald-400 font-bold">Yes ✓</span>
           </div>
         </div>
+
+        {/* Why this score? Expandable Panel */}
+        <button onClick={() => setShowDetails(!showDetails)} className="w-full mt-4 flex items-center justify-between p-3 bg-slate-900/40 border border-slate-800/60 rounded-2xl text-left transition hover:bg-slate-900/60 focus-visible:ring-2 focus-visible:ring-sky-500" aria-expanded={showDetails}>
+          <span className="flex items-center space-x-2 text-xs font-medium text-sky-400">
+            <span className="w-5 h-5 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+              <Info className="w-3 h-3" aria-hidden="true" />
+            </span>
+            <span>Why this score?</span>
+          </span>
+          <motion.span initial={{ rotate: 0 }} animate={{ rotate: showDetails ? 180 : 0 }} transition={{ duration: 0.2 }} className="text-slate-500">
+            <ChevronDown className="w-4 h-4" aria-hidden="true" />
+          </motion.span>
+        </button>
+        <AnimatePresence>
+          {showDetails && (
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }} className="mt-2 overflow-hidden">
+              <div className="bg-slate-950/60 border border-slate-800/60 rounded-2xl p-4 space-y-3">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">Evidence Details</p>
+                <div className="space-y-2.5">
+                  {safeDetails.map((detail, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.08 }} className="flex items-center space-x-3 p-2 bg-slate-900/50 rounded-xl">
+                      <span className={`w-6 h-6 rounded-full bg-slate-800/50 flex items-center justify-center shrink-0 ${detail.color}`}>
+                        <detail.icon className="w-3.5 h-3.5" aria-hidden="true" />
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-slate-400 font-medium">{detail.label}</p>
+                        <p className="text-xs font-medium truncate">{detail.value}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="pb-6 w-full z-10 space-y-3">
@@ -77,7 +121,7 @@ export default function MerchantVerifiedScreen() {
           <Receipt className="w-4 h-4" aria-hidden="true" />
           <span>View Receipt</span>
         </button>
-        <button onClick={() => navigate('/safe-report')} className="text-[10px] text-center text-slate-500 flex items-center justify-center space-x-1 mx-auto focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
+        <button onClick={() => navigate('/safe-report')} className="text-xs text-center text-slate-500 flex items-center justify-center space-x-1 mx-auto focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
           <ExternalLink className="w-3 h-3" aria-hidden="true" />
           <span>Report an issue with this merchant</span>
         </button>
@@ -85,4 +129,3 @@ export default function MerchantVerifiedScreen() {
     </div>
   );
 }
-
