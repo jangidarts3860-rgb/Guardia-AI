@@ -40,9 +40,9 @@ export const screenGroups: ScreenGroup[] = [
     screens: [
       { id: 'home', label: 'Your Shield (Home)', desc: 'Central command dashboard featuring waste meter & nudges.' },
       { id: 'analyzing-merchant', label: 'Merchant Scanning Loader', desc: 'Dynamic circular progress checking heuristics.' },
-      { id: 'merchant-verified', label: 'Merchant Verified Safe', desc: 'Score meter 96/100 showing verified status.' },
+      { id: 'merchant-verified', label: 'Merchant Verified Safe', desc: 'Verified status showing no known security risks.' },
       { id: 'scam-detected', label: 'High Risk Scam Detected', desc: 'Bright red urgency warning with protective advice.' },
-      { id: 'receipt-dark', label: 'Success Receipt (Dark)', desc: 'Sleek, dark-mode variant with trust scores.' },
+      { id: 'receipt-dark', label: 'Success Receipt (Dark)', desc: 'Sleek, dark-mode variant receipt details.' },
     ]
   },
   {

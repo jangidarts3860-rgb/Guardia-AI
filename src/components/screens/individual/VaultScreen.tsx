@@ -102,10 +102,10 @@ export default function VaultScreen() {
             </div>
             <div className="space-y-2.5">
               <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-400">Data sent to cloud</span>
+                <span className="text-slate-400">Cloud Transmission</span>
                 <span className="font-mono font-bold text-emerald-400 flex items-center space-x-1">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" aria-hidden="true" />
-                  <span>0 bytes</span>
+                  <span>None (On-device only)</span>
                 </span>
               </div>
               <div className="flex justify-between items-center text-xs">
@@ -121,7 +121,7 @@ export default function VaultScreen() {
                   className="w-full py-2 text-xs font-bold text-sky-400 hover:text-sky-300 transition flex items-center justify-center space-x-1 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
                   aria-label="View privacy proof">
                   <ShieldCheck className="w-3 h-3" aria-hidden="true" />
-                  <span>View privacy details → Zero data shared</span>
+                  <span>View privacy details → Local processing only</span>
                 </button>
               </div>
             </div>
