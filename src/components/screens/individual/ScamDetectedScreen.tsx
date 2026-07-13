@@ -55,35 +55,37 @@ export default function ScamDetectedScreen() {
           This merchant exhibits <strong className="text-red-300">fraudulent patterns.</strong> Please avoid entering payment or identity details.
         </p>
 
-        <div className={`w-full ${!reduced ? 'animate-[fadeIn_0.7s_ease-out]' : ''}`}>
-
+        <div className={`w-full max-w-sm ${!reduced ? 'animate-[fadeIn_0.7s_ease-out]' : ''}`}>
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-            <div className="flex justify-between">
-              <span className="text-xs text-slate-400">Merchant</span>
-              <span className="text-xs text-white font-bold">Unknown Seller</span>
+            <div className="grid grid-cols-3 gap-2">
+              <span className="text-xs text-slate-400 col-span-1">Merchant</span>
+              <span className="text-xs text-white font-bold col-span-2 text-right">Unknown Seller</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-xs text-slate-400">Evidence</span>
-              <span className="text-xs text-red-400 font-bold">Urgency phrases and spoofed domain detected.</span>
+            <div className="grid grid-cols-3 gap-2">
+              <span className="text-xs text-slate-400 col-span-1">Evidence</span>
+              <span className="text-xs text-red-400 font-bold col-span-2 text-right leading-relaxed">
+                Urgency phrases & spoofed domain detected
+              </span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-xs text-slate-400">Domain Age</span>
-              <span className="text-xs text-red-300 font-bold">&lt; 7 days</span>
+            <div className="grid grid-cols-3 gap-2">
+              <span className="text-xs text-slate-400 col-span-1">Domain Age</span>
+              <span className="text-xs text-red-300 font-bold col-span-2 text-right">&lt; 7 days</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-xs text-slate-400">Threat Type</span>
-              <span className="text-xs text-red-400 font-bold">Phishing + Identity Theft (नकली वेबसाइट + पहचान चोरी)</span>
+            <div className="grid grid-cols-3 gap-2">
+              <span className="text-xs text-slate-400 col-span-1">Threat Type</span>
+              <span className="text-xs text-red-400 font-bold col-span-2 text-right leading-normal">
+                Phishing + Identity Theft (नकली वेबसाइट + पहचान चोरी)
+              </span>
             </div>
           </div>
 
-
-          {/* Why this score? Expandable Panel */}
+          {/* Why this flagged? Expandable Panel */}
           <button onClick={() => setShowDetails(!showDetails)} className="w-full mt-3 flex items-center justify-between p-3 bg-slate-900/40 border border-slate-800/60 rounded-2xl text-left transition hover:bg-slate-900/60 focus-visible:ring-2 focus-visible:ring-sky-500" aria-expanded={showDetails}>
             <span className="flex items-center space-x-2 text-xs font-medium text-sky-400">
               <span className="w-5 h-5 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
                 <Info className="w-3 h-3" aria-hidden="true" />
               </span>
-              <span>Why this score?</span>
+              <span>Why was this flagged?</span>
             </span>
             <motion.span initial={{ rotate: 0 }} animate={{ rotate: showDetails ? 180 : 0 }} transition={{ duration: 0.2 }} className="text-slate-500">
               <ChevronDown className="w-4 h-4" aria-hidden="true" />
