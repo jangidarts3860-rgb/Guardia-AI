@@ -61,10 +61,17 @@ export default function ToastContainer() {
   };
 
   const borderMap = {
-    success: 'border-emerald-500/20',
-    error: 'border-red-500/20',
-    warning: 'border-amber-500/20',
-    info: 'border-sky-500/20',
+    success: 'border-emerald-500/30 bg-emerald-500/10 shadow-[0_0_20px_-8px_rgba(16,185,129,0.3)]',
+    error: 'border-red-500/30 bg-red-500/10 shadow-[0_0_20px_-8px_rgba(239,68,68,0.3)]',
+    warning: 'border-amber-500/30 bg-amber-500/10 shadow-[0_0_20px_-8px_rgba(245,158,11,0.3)]',
+    info: 'border-cyan-500/30 bg-cyan-500/10 shadow-[0_0_20px_-8px_rgba(6,182,212,0.3)]',
+  };
+
+  const textColorMap = {
+    success: 'text-emerald-300',
+    error: 'text-red-300',
+    warning: 'text-amber-300',
+    info: 'text-cyan-300',
   };
 
   return (
@@ -77,12 +84,12 @@ export default function ToastContainer() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            className={`pointer-events-auto flex items-center space-x-2.5 px-4 py-3 rounded-2xl border bg-slate-900/95 backdrop-blur-md shadow-xl ${borderMap[t.type]}`}
+            className={`pointer-events-auto flex items-center space-x-3 px-5 py-3.5 rounded-2xl border backdrop-blur-lg transition-all duration-300 ${borderMap[t.type]}`}
           >
             {iconMap[t.type]}
-            <span className="text-xs text-slate-200 font-medium flex-1">{t.message}</span>
-            <button onClick={() => dismiss(t.id)} className="p-0.5 rounded hover:bg-slate-800 transition" aria-label="Dismiss">
-              <X className="w-3.5 h-3.5 text-slate-500" />
+            <span className={`text-sm font-semibold flex-1 ${textColorMap[t.type]}`}>{t.message}</span>
+            <button onClick={() => dismiss(t.id)} className="p-1 rounded-lg hover:bg-slate-800/50 transition-colors ml-2" aria-label="Dismiss">
+              <X className="w-4 h-4 text-slate-400 hover:text-slate-300" />
             </button>
           </motion.div>
         ))}

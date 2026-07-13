@@ -35,39 +35,58 @@ export default function VaultScreen() {
   return (
     <div className="flex flex-col min-h-full pb-24 bg-slate-950 text-white">
       {/* Sticky Nav Row */}
-      <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md p-4 pb-2.5 border-b border-slate-900">
-      <div className="flex justify-between items-center text-left">
-        <div>
-          <h2 className="text-xl font-extrabold tracking-tight">Security</h2>
-          <p className={`text-xs ${textMuted}`}>Security & privacy controls</p>
+      <div className="sticky top-0 z-30 bg-slate-950/90 backdrop-blur-md p-4 pb-3 border-b border-slate-800/50">
+        <div className="flex justify-between items-center text-left">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+            <h2 className="text-xl font-extrabold tracking-tight">Security</h2>
+            <p className={`text-xs ${textMuted} mt-0.5`}>Security & privacy controls</p>
+          </motion.div>
+          <motion.button 
+            onClick={() => navigate('/link-bank')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="p-2.5 bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 rounded-xl flex items-center space-x-1.5 hover:bg-cyan-500/25 hover:border-cyan-500/50 transition-all duration-200 text-xs font-semibold focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950" 
+            aria-label="Add bank"
+          >
+            <Plus className="w-4 h-4" aria-hidden="true" />
+            <span>Add</span>
+          </motion.button>
         </div>
-        <button onClick={() => navigate('/link-bank')} className="p-2 bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-xl flex items-center space-x-1 hover:bg-sky-500/20 transition text-xs font-semibold focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Add bank">
-          <Plus className="w-4.5 h-4.5" aria-hidden="true" />
-          <span>Add</span>
-        </button>
-      </div>
       </div>
 
-      <div className="p-4 pt-3.5 space-y-6">
+      <div className="p-4 pt-4 space-y-6">
 
         {/* ── Security Center ── */}
         <div className="text-left space-y-3">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-0.5">Security Center</h3>
 
           {/* Emergency Freeze */}
-          <div className="p-4 rounded-2xl bg-red-600/10 border border-red-500/20 text-left relative overflow-hidden">
-            <div className="flex items-center space-x-2.5 mb-3">
-              <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" aria-hidden="true" />
-              <span className="text-red-500 font-bold text-xs uppercase tracking-wider">Emergency Freeze Mode</span>
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.3 }}
+            className="p-5 rounded-2xl bg-red-500/15 backdrop-blur-md border border-red-500/30 shadow-[0_0_20px_-8px_rgba(239,68,68,0.25)] text-left relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative z-10">
+              <div className="flex items-center space-x-2.5 mb-3">
+                <motion.span 
+                  className="w-2.5 h-2.5 bg-red-500 rounded-full"
+                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  aria-hidden="true" 
+                />
+                <span className="text-red-400 font-bold text-xs uppercase tracking-widest">Emergency Freeze</span>
+              </div>
+              <p className="text-xs text-slate-300 mb-4 leading-normal font-medium">
+                Tap to instantly freeze all connected accounts.
+              </p>
+              <SlideToAction
+                onComplete={() => navigate('/freeze-accounts-confirm')}
+                label="Slide to freeze"
+              />
             </div>
-            <p className="text-xs text-slate-400 mb-4 leading-normal">
-              Suspicious billing or phone theft? Slide to freeze all connected accounts instantly.
-            </p>
-            <SlideToAction
-              onComplete={() => navigate('/freeze-accounts-confirm')}
-              label="Slide to freeze everything"
-            />
-          </div>
+          </motion.div>
 
           {/* AI & Privacy Controls */}
           <div className="border rounded-2xl divide-y bg-slate-900 border-slate-800/80 divide-slate-800/40">
@@ -89,16 +108,32 @@ export default function VaultScreen() {
           </div>
 
           {/* Privacy Dashboard */}
-          <div className="p-4 rounded-2xl border border-slate-800 bg-slate-900/30">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />
-                <span className="text-xs font-bold text-white">On-Device AI Status</span>
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.3 }}
+            className="p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/8 backdrop-blur-md shadow-[0_0_20px_-8px_rgba(16,185,129,0.2)]"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+                </div>
+                <span className="text-xs font-semibold text-white">On-Device AI</span>
               </div>
-              <span className="flex items-center space-x-1 text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" aria-hidden="true" />
+              <motion.span 
+                className="flex items-center space-x-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/15 px-2.5 py-1 rounded-full border border-emerald-500/30"
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <motion.span 
+                  className="w-1.5 h-1.5 bg-emerald-400 rounded-full"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  aria-hidden="true" 
+                />
                 <span>Active</span>
-              </span>
+              </motion.span>
             </div>
             <div className="space-y-2.5">
               <div className="flex justify-between items-center text-xs">
