@@ -59,6 +59,7 @@ export default function CreateAccountScreen() {
                 autoFocus
                 value={local.name}
                 onChange={(e) => setLocal({ ...local, name: e.target.value })}
+                onKeyDown={(e) => { if (e.key === 'Enter' && canSubmit) handleSubmit(); }}
                 placeholder="e.g. Rohan Sharma"
                 className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500 transition font-medium"
                 aria-describedby="name-error"
@@ -66,6 +67,9 @@ export default function CreateAccountScreen() {
               <div className="min-h-4 mt-1" role="alert" aria-live="polite">
                 {local.name.trim() && !isValidName && (
                   <p id="name-error" className="text-xs text-red-400 font-semibold">Name must be at least 2 characters</p>
+                )}
+                {isValidName && (
+                  <p className="text-xs text-emerald-400 font-semibold">Name validated</p>
                 )}
               </div>
             </div>
@@ -87,6 +91,7 @@ export default function CreateAccountScreen() {
                   }}
                   onBlur={() => setPhoneBlurred(true)}
                   onFocus={() => setPhoneBlurred(false)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && canSubmit) handleSubmit(); }}
                   placeholder="99999 99999"
                   className="w-full pl-14 pr-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500 transition font-mono font-bold tracking-wider"
                   aria-describedby="create-phone-error"
@@ -115,6 +120,7 @@ export default function CreateAccountScreen() {
                 onChange={(e) => setLocal({ ...local, email: e.target.value })}
                 onBlur={() => setEmailBlurred(true)}
                 onFocus={() => setEmailBlurred(false)}
+                onKeyDown={(e) => { if (e.key === 'Enter' && canSubmit) handleSubmit(); }}
                 placeholder="e.g. rohan.sharma@gmail.com"
                 className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500 transition font-medium"
                 aria-describedby="email-error"
