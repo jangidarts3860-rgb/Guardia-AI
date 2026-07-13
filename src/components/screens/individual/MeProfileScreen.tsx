@@ -198,15 +198,15 @@ export default function MeProfileScreen() {
                 transition={{ delay: i * 0.05 }} 
                 whileHover={{ x: 4 }}
                 onClick={opt.action} 
-                className={`w-full px-4 py-3 flex justify-between items-center hover:bg-${opt.danger ? 'red' : 'slate'}-500/10 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-${opt.danger ? 'red' : 'cyan'}-500 group`}
+                className={opt.danger ? 'w-full px-4 py-3 flex justify-between items-center hover:bg-red-500/10 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-red-500 group' : 'w-full px-4 py-3 flex justify-between items-center hover:bg-slate-800/40 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-cyan-500 group'}
               >
                 <div className="flex items-center gap-2">
-                  {Icon && <Icon className={`w-4 h-4 ${opt.danger ? 'text-red-400' : 'text-slate-400'} group-hover:${opt.danger ? 'text-red-300' : 'text-slate-300'} transition-colors`} />}
-                  <span className={opt.danger ? 'text-red-400 group-hover:text-red-300' : 'text-slate-200 group-hover:text-white'} >
+                  {Icon && <Icon className={opt.danger ? 'w-4 h-4 text-red-400 group-hover:text-red-300 transition-colors' : 'w-4 h-4 text-slate-400 group-hover:text-slate-300 transition-colors'} />}
+                  <span className={opt.danger ? 'text-red-400 group-hover:text-red-300 transition-colors' : 'text-slate-200 group-hover:text-white transition-colors'}>
                     {opt.label}
                   </span>
                 </div>
-                <ChevronRight className={`w-4 h-4 ${opt.danger ? 'text-red-600 group-hover:text-red-500' : 'text-slate-600 group-hover:text-slate-400'} transition-colors`} />
+                <ChevronRight className={opt.danger ? 'w-4 h-4 text-red-600 group-hover:text-red-500 transition-colors' : 'w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors'} />
               </motion.button>
             );
           })}
