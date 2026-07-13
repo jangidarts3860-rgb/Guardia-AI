@@ -76,7 +76,7 @@ export default function LinkBankProgressScreen() {
 
   useEffect(() => {
     if (phase === 'success') {
-      const t = setTimeout(() => navigate('/security'), 1200);
+      const t = setTimeout(() => navigate('/home'), 1200);
       return () => clearTimeout(t);
     }
   }, [phase, navigate]);
@@ -150,7 +150,7 @@ export default function LinkBankProgressScreen() {
         </AnimatePresence>
       </div>
 
-      <button onClick={() => navigate('/security')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
+      <button onClick={() => navigate('/home')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
         <X className="w-3 h-3" />
         <span>Cancel</span>
       </button>
