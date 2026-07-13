@@ -8,6 +8,7 @@ import GuardiaLogo from '../../ui/GuardiaLogo';
 import PullToRefresh from '../../ui/shared/PullToRefresh';
 import Skeleton from '../../ui/shared/Skeleton';
 import { getSubscriptionLogo } from '../Screens';
+import AnimatedNumber from '../../ui/shared/AnimatedNumber';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -101,24 +102,55 @@ export default function HomeScreen() {
               </div>
             </div>
 
-            <div onClick={() => setIsShieldActive(!isShieldActive)} className="p-5 rounded-[24px] border bg-slate-900 border-slate-800 text-left cursor-pointer select-none" role="switch" aria-checked={isShieldActive} tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsShieldActive(!isShieldActive); }}>
-              <span className="text-xs font-bold tracking-wider uppercase text-slate-300">Today's Status</span>
-              <div className="flex items-center space-x-4 mt-3">
-                <div className={`w-14 h-14 rounded-full flex items-center justify-center ${isShieldActive ? 'bg-emerald-900/30 border border-emerald-800/50' : 'bg-slate-800 border border-slate-700'}`}>
-                  {isShieldActive ? (
+            {/* Today's Status Card */}
+            <div onClick={() => setIsShieldActive(!isShieldActive)} className={`p-5 rounded-[24px] border transition-all duration-200 flex items-center space-x-5 text-left cursor-pointer select-none ${isShieldActive ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/55 border-slate-800/80 opacity-90'}`} role="switch" aria-checked={isShieldActive} tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsShieldActive(!isShieldActive); }}>
+              <div className="relative shrink-0 flex items-center justify-center w-14 h-14">
+                {isShieldActive ? (
+                  <div className="w-14 h-14 rounded-full bg-emerald-950/40 border border-emerald-500/20 flex items-center justify-center">
                     <ShieldCheck className="w-7 h-7 text-emerald-400" />
-                  ) : (
+                  </div>
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
                     <ShieldAlert className="w-7 h-7 text-slate-500" />
-                  )}
-                </div>
-                <div>
-                  <p className="text-lg font-bold">{isShieldActive ? 'AI Shield Active' : 'Shield is Paused'}</p>
-                  <p className="text-xs text-slate-400">{isShieldActive ? `${blockedCount} scam${blockedCount !== 1 ? 's' : ''} blocked today` : 'Tap to resume active defense.'}</p>
-                </div>
+                  </div>
+                )}
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-800">
-                <p className="text-xs text-slate-400">Potential Monthly Savings</p>
-                <p className="text-2xl font-extrabold text-sky-400">₹{wastedAmount.toLocaleString('en-IN')}</p>
+              <div className="flex-1 space-y-1.5 min-w-0">
+                <div className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full border ${isShieldActive ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : 'border-slate-700 bg-slate-800 text-slate-400'} text-[10px] font-bold`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${isShieldActive ? 'bg-emerald-400' : 'bg-slate-500'}`} aria-hidden="true" />
+                  <span className="tracking-wide uppercase">{isShieldActive ? 'Protected' : 'Paused'}</span>
+                </div>
+                <h3 className="text-base font-extrabold tracking-tight text-white leading-none mt-0.5">{isShieldActive ? 'AI Shield Active' : 'Shield is Paused'}</h3>
+                <p className="text-xs text-slate-400 leading-tight">{isShieldActive ? `${blockedCount} scam${blockedCount !== 1 ? 's' : ''} blocked • No threats detected` : 'Tap to resume active defense.'}</p>
+              </div>
+            </div>
+
+            {/* Potential Monthly Savings Card */}
+            <div className="p-4 rounded-2xl border bg-slate-900 border-slate-800 text-left">
+              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">Potential Monthly Savings</span>
+              <div className="flex justify-between items-end mt-1.5 mb-1">
+                <div>
+                  <AnimatedNumber value={wastedAmount} prefix="₹" className={`text-2xl font-extrabold ${wastedAmount > 0 ? 'text-sky-400' : 'text-emerald-500'}`} format />
+                  <span className="text-xs font-semibold ml-1.5 text-slate-400">possible savings</span>
+                </div>
+                {wastedAmount > 0 ? (
+                  <button onClick={() => navigate('/subs-dashboard')} className="flex items-center space-x-1 text-xs text-sky-400 font-semibold hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">
+                    <span>Review subscriptions</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <span className="inline-flex items-center space-x-1 text-xs text-emerald-500 font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                    <span>All Good!</span>
+                  </span>
+                )}
+              </div>
+              <span className="text-xs text-slate-400">
+                {wastedAmount > 0 ? `can be saved on ${subscriptions.filter(s => s.isUnused && s.status === 'Active').length} unused subscription${subscriptions.filter(s => s.isUnused && s.status === 'Active').length > 1 ? 's' : ''}` : 'No unused subscriptions detected'}
+              </span>
+              <div className="w-full bg-slate-800/40 rounded-full h-1.5 mt-3 overflow-hidden border border-slate-800/10" role="progressbar" aria-valuenow={wastedAmount > 0 ? 45 : 0} aria-valuemin={0} aria-valuemax={100} aria-label="Potential savings progress">
+                <div className={`h-1.5 rounded-full ${wastedAmount > 0 ? 'bg-gradient-to-r from-red-500 to-amber-500' : 'bg-emerald-500'}`} style={{ width: wastedAmount > 0 ? '45%' : '0%' }} />
+                <span className="sr-only">{wastedAmount > 0 ? '45% potential savings identified' : 'No unused subscriptions'}</span>
               </div>
             </div>
 
