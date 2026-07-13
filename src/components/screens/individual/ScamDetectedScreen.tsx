@@ -50,7 +50,9 @@ export default function ScamDetectedScreen() {
           <div className={`absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-500 ${!reduced ? 'animate-ping' : ''}`} aria-hidden="true" />
         </div>
 
-        <h2 className={`text-2xl font-black tracking-tight text-red-300 ${!reduced ? 'animate-[fadeIn_0.5s_ease-out]' : ''}`}>Verified Scam URL Detected</h2>
+        <h2 className={`text-2xl font-black tracking-tight text-center leading-tight text-red-400 ${!reduced ? 'animate-[fadeIn_0.5s_ease-out]' : ''}`}>
+          Verified Scam URL Detected
+        </h2>
         <p className={`text-sm text-slate-400 mt-2 text-center max-w-xs px-2 ${!reduced ? 'animate-[fadeIn_0.6s_ease-out]' : ''}`}>
           This merchant exhibits <strong className="text-red-300">fraudulent patterns.</strong> Please avoid entering payment or identity details.
         </p>
