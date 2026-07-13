@@ -24,7 +24,7 @@ export default function SubDetailScreen() {
     <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 justify-between relative">
       <div className="space-y-5">
         {/* Sticky Nav Row */}
-        <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md -mx-4 px-4 pt-2 pb-2">
+        <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md -mx-4 -mt-4 px-4 pt-4 pb-2">
           <div className="flex justify-between items-center">
             <button onClick={() => navigate('/subs-dashboard')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
               <ArrowLeft className="w-4 h-4" />

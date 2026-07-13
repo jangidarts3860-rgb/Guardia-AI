@@ -2,11 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
 import { useState, useCallback, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Bell, WifiOff, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { Bell, WifiOff, ShieldCheck, ShieldAlert, ChevronRight } from 'lucide-react';
 import { Subscription, Bank, NotificationItem, ActivityItem } from '../../../types';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 import PullToRefresh from '../../ui/shared/PullToRefresh';
 import Skeleton from '../../ui/shared/Skeleton';
+import { getSubscriptionLogo } from '../Screens';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -78,8 +79,8 @@ export default function HomeScreen() {
             ))}
           </div>
         ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="space-y-4">
-            <div className="sticky top-0 z-30 bg-slate-950 -mx-4 px-4 pt-4 pb-2">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="space-y-5">
+            <div className="sticky top-0 z-30 bg-slate-950 -mx-4 -mt-4 px-4 pt-4 pb-2">
               <div className="flex justify-between items-center">
                 <div className="text-left">
                   <p className="text-xs text-slate-300">{(function() { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; })()}, {profile.name ? profile.name.split(' ')[0] : 'Rohan'}</p>
@@ -121,17 +122,55 @@ export default function HomeScreen() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-sm font-semibold tracking-wide mb-2 text-left text-slate-300">Quick Actions</h3>
-              <div className="grid grid-cols-2 gap-3">
-                <button onClick={() => navigate('/subs-dashboard')} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 text-left hover:border-sky-500/40 transition">
-                  <p className="text-xs font-bold text-white">Review Subscriptions</p>
-                  <p className="text-xs text-slate-500 mt-1">Check your spending</p>
-                </button>
-                <button onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 text-left hover:border-sky-500/40 transition">
-                  <p className="text-xs font-bold text-white">Scan Message</p>
-                  <p className="text-xs text-slate-500 mt-1">Check for scams</p>
-                </button>
+            {/* Smart Nudges */}
+            <div className="text-left">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Smart Nudges</h3>
+                <span className="text-[10px] font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full">New Alerts</span>
+              </div>
+              <div className="flex space-x-3 overflow-x-auto pb-1 scrollbar-none">
+                {subscriptions.length > 0 && (
+                  <div onClick={() => { setSelectedSub(subscriptions[0]); navigate('/sub-detail'); }} className="p-4 rounded-2xl border border-slate-800 bg-slate-900/50 shrink-0 w-44 text-left cursor-pointer hover:border-sky-500/40 transition">
+                    <div className="mb-2">
+                      {getSubscriptionLogo(subscriptions[0].id, subscriptions[0].name, "w-8 h-8 rounded-lg")}
+                    </div>
+                    <h4 className="font-bold text-xs text-white">{subscriptions[0].name} Alert</h4>
+                    <p className="text-[10px] text-slate-400 mt-0.5">Not used in 47 days</p>
+                    <p className="text-[10px] text-emerald-400 font-extrabold mt-3">Save ₹{subscriptions[0].cost}/mo</p>
+                  </div>
+                )}
+                <div onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl border border-slate-800 bg-slate-900/50 shrink-0 w-44 text-left cursor-pointer hover:border-sky-500/40 transition">
+                  <div className="mb-2 w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
+                    <ShieldAlert className="w-4.5 h-4.5 text-red-500" />
+                  </div>
+                  <h4 className="font-bold text-xs text-white">Scam SMS</h4>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Urgency phrase detected</p>
+                  <p className="text-[10px] text-red-400 font-extrabold mt-3">High Risk Alert</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="text-left">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Recent Activity</h3>
+                <button onClick={() => navigate('/activity-log')} className="text-xs text-sky-400 hover:underline">View all</button>
+              </div>
+              <div className="space-y-2">
+                {activities.slice(0, 3).map((act) => (
+                  <div key={act.id} onClick={() => navigate('/receipt-dark')} className="p-3.5 rounded-2xl border border-slate-800 bg-slate-900/30 flex items-center justify-between cursor-pointer hover:border-sky-500/40 transition">
+                    <div className="flex items-center space-x-3 text-left">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-900 border border-slate-800">
+                        <span className={`w-2 h-2 rounded-full ${act.status === 'Blocked' ? 'bg-red-500 shadow-[0_0_8px_#ef4444]' : 'bg-emerald-500 shadow-[0_0_8px_#10b981]'}`} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-white">{act.title}</p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">{act.description} • {act.time}</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
