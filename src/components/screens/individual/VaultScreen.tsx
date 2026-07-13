@@ -48,70 +48,28 @@ export default function VaultScreen() {
       </div>
       </div>
 
-      {/* Emergency Freeze */}
-      <div className="p-4 pt-3.5 space-y-4">
-        <div className="p-4 rounded-2xl bg-red-600/10 border border-red-500/20 text-left relative overflow-hidden group">
-          <div className="flex items-center space-x-2.5 mb-3">
-            <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" aria-hidden="true" />
-            <span className="text-red-500 font-bold text-xs uppercase tracking-wider">Emergency Freeze Mode</span>
-          </div>
-          <p className="text-xs text-slate-400 mb-4 leading-normal">
-            Suspicious billing or phone theft? Slide to freeze all connected accounts instantly.
-          </p>
-          <SlideToAction
-            onComplete={() => navigate('/freeze-accounts-confirm')}
-            label="Slide to freeze everything"
-          />
-        </div>
-      </div>
+      <div className="p-4 pt-3.5 space-y-6">
 
-      <div className="p-4 pt-2 space-y-4">
-        <div className="text-left space-y-2">
-          <div className="flex justify-between items-center">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Linked Bank Accounts</h3>
-            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/10">Secure Connection</span>
-          </div>
-          <div className="space-y-2">
-            {banks.filter(b => b.isConnected).length === 0 ? (
-              <div className="p-6 text-center border border-dashed border-slate-800 rounded-2xl bg-slate-900/10 space-y-3.5 relative overflow-hidden group">
-                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mx-auto">
-                  <Plus className="w-5 h-5 text-cyan-400" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-xs text-slate-200">No bank account linked</h4>
-                  <p className="text-xs text-slate-500 mx-auto mt-0.5 leading-relaxed" style={{ maxWidth: 210 }}>
-                    Link your bank to enable AI protection, balance tracking & instant freeze.
-                  </p>
-                </div>
-                <button onClick={() => navigate('/link-bank')} className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl transition active:scale-95 shadow-lg shadow-cyan-500/10 focus-visible:ring-2 focus-visible:ring-cyan-500">
-                  Connect Bank
-                </button>
-              </div>
-            ) : (
-              banks.filter(b => b.isConnected).map((bank) => (
-                <div key={bank.id} className={`p-4 rounded-2xl border flex items-center justify-between transition hover:border-slate-800 ${cardBg}`}>
-                  <div className="flex items-center space-x-3">
-                    {getBankLogo(bank.id, bank.name, "w-10 h-10")}
-                    <div>
-                      <p className="text-xs font-bold">{bank.name}</p>
-                      <p className={`text-xs ${textMuted} mt-0.5`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <AnimatedNumber value={bank.balance ?? 0} prefix="₹" className="text-xs font-extrabold font-mono text-emerald-400" format />
-                    <span className="inline-flex items-center space-x-1 text-[8px] uppercase bg-emerald-500/10 text-emerald-500 px-1.5 py-0.5 rounded-full font-bold mt-1">
-                      <span className="w-1 h-1 bg-emerald-500 rounded-full" aria-hidden="true" />
-                      <span>Active</span>
-                    </span>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
+        {/* ── Security Center ── */}
+        <div className="text-left space-y-3">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-0.5">Security Center</h3>
 
-        <div className="text-left space-y-2 pb-6">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">AI & Privacy Controls</h3>
+          {/* Emergency Freeze */}
+          <div className="p-4 rounded-2xl bg-red-600/10 border border-red-500/20 text-left relative overflow-hidden">
+            <div className="flex items-center space-x-2.5 mb-3">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" aria-hidden="true" />
+              <span className="text-red-500 font-bold text-xs uppercase tracking-wider">Emergency Freeze Mode</span>
+            </div>
+            <p className="text-xs text-slate-400 mb-4 leading-normal">
+              Suspicious billing or phone theft? Slide to freeze all connected accounts instantly.
+            </p>
+            <SlideToAction
+              onComplete={() => navigate('/freeze-accounts-confirm')}
+              label="Slide to freeze everything"
+            />
+          </div>
+
+          {/* AI & Privacy Controls */}
           <div className="border rounded-2xl divide-y bg-slate-900 border-slate-800/80 divide-slate-800/40">
             {[
               { label: 'SMS Scanning', desc: 'Scans local text alerts for security threats', val: smsScan, set: setSmsScan },
@@ -129,11 +87,8 @@ export default function VaultScreen() {
               </div>
             ))}
           </div>
-        </div>
 
-        {/* Privacy Dashboard */}
-        <div className="text-left space-y-2 pb-6">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Privacy Dashboard</h3>
+          {/* Privacy Dashboard */}
           <div className="p-4 rounded-2xl border border-slate-800 bg-slate-900/30">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
@@ -172,6 +127,52 @@ export default function VaultScreen() {
             </div>
           </div>
         </div>
+
+        {/* ── Connected Accounts ── */}
+        <div className="text-left space-y-3">
+          <div className="flex justify-between items-center px-0.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Connected Accounts</h3>
+            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/10">Secure Connection</span>
+          </div>
+          <div className="space-y-2">
+            {banks.filter(b => b.isConnected).length === 0 ? (
+              <div className="p-6 text-center border border-dashed border-slate-800 rounded-2xl bg-slate-900/10 space-y-3.5">
+                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mx-auto">
+                  <Plus className="w-5 h-5 text-cyan-400" />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="font-bold text-xs text-slate-200">No bank account linked</h4>
+                  <p className="text-xs text-slate-500 mx-auto mt-0.5 leading-relaxed" style={{ maxWidth: 210 }}>
+                    Link your bank to enable AI protection, balance tracking & instant freeze.
+                  </p>
+                </div>
+                <button onClick={() => navigate('/link-bank')} className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl transition active:scale-95 shadow-lg shadow-cyan-500/10 focus-visible:ring-2 focus-visible:ring-cyan-500">
+                  Connect Bank
+                </button>
+              </div>
+            ) : (
+              banks.filter(b => b.isConnected).map((bank) => (
+                <div key={bank.id} className={`p-4 rounded-2xl border flex items-center justify-between transition hover:border-slate-800 ${cardBg}`}>
+                  <div className="flex items-center space-x-3">
+                    {getBankLogo(bank.id, bank.name, "w-10 h-10")}
+                    <div>
+                      <p className="text-xs font-bold">{bank.name}</p>
+                      <p className={`text-xs ${textMuted} mt-0.5`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <AnimatedNumber value={bank.balance ?? 0} prefix="₹" className="text-xs font-extrabold font-mono text-emerald-400" format />
+                    <span className="inline-flex items-center space-x-1 text-[8px] uppercase bg-emerald-500/10 text-emerald-500 px-1.5 py-0.5 rounded-full font-bold mt-1">
+                      <span className="w-1 h-1 bg-emerald-500 rounded-full" aria-hidden="true" />
+                      <span>Active</span>
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
       </div>
     </div>
   );

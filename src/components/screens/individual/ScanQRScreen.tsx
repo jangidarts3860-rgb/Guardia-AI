@@ -108,7 +108,7 @@ export default function ScanQRScreen() {
             </div>
           </div>
 
-          <div className="z-10 flex-1 flex items-center justify-center my-4 relative cursor-pointer" onClick={() => { if (scanPhase === 'idle') handleScan(Math.random() > 0.45 ? 'safe' : 'scam'); }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' && scanPhase === 'idle') handleScan(Math.random() > 0.45 ? 'safe' : 'scam'); }} aria-label="Tap to scan QR code">
+          <div className="z-10 flex-1 flex items-center justify-center my-4 relative cursor-pointer" onClick={() => { if (scanPhase === 'idle') handleScan('safe'); }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' && scanPhase === 'idle') handleScan('safe'); }} aria-label="Tap to scan QR code">
             <div className={`w-52 h-52 relative border flex items-center justify-center rounded-lg transition-all duration-300 ${bracketShadow} ${
               scanPhase === 'result'
                 ? (scanResult === 'safe' ? 'bg-emerald-500/[0.04] border-emerald-500/30' : 'bg-red-500/[0.04] border-red-500/30')
@@ -124,7 +124,7 @@ export default function ScanQRScreen() {
           </div>
 
           <div className="flex justify-center z-10 mb-4 mt-2">
-            <button onClick={() => { if (scanPhase === 'idle') handleScan(Math.random() > 0.45 ? 'safe' : 'scam'); }} className="w-16 h-16 rounded-full bg-cyan-500 hover:bg-cyan-400 border-[4px] border-slate-900 shadow-[0_0_0_2px_rgba(6,182,212,0.5)] flex items-center justify-center transition active:scale-90 focus-visible:ring-2 focus-visible:ring-cyan-500 disabled:opacity-50" disabled={scanPhase !== 'idle'} aria-label="Start scan">
+            <button onClick={() => { if (scanPhase === 'idle') handleScan('safe'); }} className="w-16 h-16 rounded-full bg-cyan-500 hover:bg-cyan-400 border-[4px] border-slate-900 shadow-[0_0_0_2px_rgba(6,182,212,0.5)] flex items-center justify-center transition active:scale-90 focus-visible:ring-2 focus-visible:ring-cyan-500 disabled:opacity-50" disabled={scanPhase !== 'idle'} aria-label="Start scan">
               <div className="w-12 h-12 rounded-full border-2 border-white/50" />
             </button>
           </div>

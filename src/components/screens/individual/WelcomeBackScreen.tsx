@@ -42,15 +42,13 @@ export default function WelcomeBackScreen() {
           navigate('/home');
           setPinVal('');
           setWrongAttempts(0);
+          setIsPanicMode(false);
         }, 200);
       } else {
         const attempts = wrongAttempts + 1;
         setWrongAttempts(attempts);
         if (attempts >= MAX_ATTEMPTS) {
           setIsPanicMode(true);
-          setTimeout(() => {
-            navigate('/freeze-accounts-confirm');
-          }, 800);
         } else {
           setPinVal('');
         }
@@ -109,33 +107,44 @@ export default function WelcomeBackScreen() {
             </p>
           )}
           {isPanicMode && (
-            <motion.p initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center text-xs text-red-500 font-black uppercase tracking-wider flex items-center justify-center space-x-1" role="alert">
-              <span aria-hidden="true">⚠</span>
-              <span>Multiple failed attempts — Account temporarily locked for your safety.</span>
-            </motion.p>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3" role="alert">
+              <p className="text-center text-xs text-red-500 font-bold tracking-wider">
+                Too many attempts. Account temporarily locked for your safety.
+              </p>
+              <button onClick={() => navigate('/reset-pin')} className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
+                Reset PIN / Account Recovery
+              </button>
+              <button onClick={() => navigate('/freeze-accounts-confirm')} className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-4 rounded-2xl border border-slate-700 transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
+                Freeze All Accounts
+              </button>
+              <span className="block text-center text-[10px] text-slate-600 font-mono">Account locked for your safety</span>
+            </motion.div>
           )}
-          <div
-            className="flex justify-center space-x-6 py-4"
-            role="status"
-            aria-live="polite"
-            aria-label={`PIN code: ${pinVal.length} digits entered`}
-          >
-            {[...Array(4)].map((_, idx) => {
-              const filled = pinVal.length > idx;
-              return (
-                <div
-                  key={idx}
-                  className={`w-4 h-4 rounded-full transition-all duration-150 ${
-                    filled
-                        ? 'bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.8)] scale-110 border-sky-400'
-                        : 'border-2 border-slate-800 bg-slate-950'
-                  }`}
-                />
-              );
-            })}
-          </div>
+          {!isPanicMode && (
+            <div
+              className="flex justify-center space-x-6 py-4"
+              role="status"
+              aria-live="polite"
+              aria-label={`PIN code: ${pinVal.length} digits entered`}
+            >
+              {[...Array(4)].map((_, idx) => {
+                const filled = pinVal.length > idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`w-4 h-4 rounded-full transition-all duration-150 ${
+                      filled
+                          ? 'bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.8)] scale-110 border-sky-400'
+                          : 'border-2 border-slate-800 bg-slate-950'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
 
+        {!isPanicMode && (
         <div className="w-full max-w-xs px-2 mx-auto pb-4">
           <div className="grid grid-cols-3 gap-y-4 gap-x-5 text-center">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
@@ -174,12 +183,15 @@ export default function WelcomeBackScreen() {
             </button>
           </div>
         </div>
+        )}
 
         <div className="pt-2 text-center space-y-3">
           <div className="flex justify-center items-center space-x-3">
-            <button onClick={() => navigate('/login')} className="text-xs text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
-              Forgot PIN?
-            </button>
+            {!isPanicMode && (
+              <button onClick={() => navigate('/reset-pin')} className="text-xs text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
+                Forgot PIN?
+              </button>
+            )}
           </div>
           <div>
             <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-xs font-bold text-slate-500 font-mono">
