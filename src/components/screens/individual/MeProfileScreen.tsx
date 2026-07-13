@@ -86,29 +86,47 @@ export default function MeProfileScreen() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-3">
-          {[
-            { icon: TrendingUp, label: 'Saved', value: `₹${lifetimeSaved.toLocaleString('en-IN')}`, color: 'from-emerald-500/20 to-emerald-600/10', textColor: 'text-emerald-300' },
-            { icon: Shield, label: 'Blocked', value: scamsBlocked.toString(), color: 'from-cyan-500/20 to-blue-500/10', textColor: 'text-cyan-300' },
-            { icon: Zap, label: 'Cancelled', value: subsCut.toString(), color: 'from-amber-500/20 to-orange-500/10', textColor: 'text-amber-300' },
-          ].map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                className={`p-4 rounded-xl border border-slate-800/40 bg-gradient-to-br ${stat.color} backdrop-blur-sm hover:border-slate-700 transition-all duration-300`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon className={`w-4 h-4 ${stat.textColor}`} />
-                </div>
-                <p className={`font-black text-lg ${stat.textColor} leading-none`}>{stat.value}</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">{stat.label}</p>
-              </motion.div>
-            );
-          })}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            className="p-4 rounded-xl border border-slate-800/40 bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 backdrop-blur-sm hover:border-slate-700 transition-all duration-300"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="w-4 h-4 text-emerald-300" />
+            </div>
+            <p className="font-black text-lg text-emerald-300 leading-none">₹{lifetimeSaved.toLocaleString('en-IN')}</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">Saved</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            className="p-4 rounded-xl border border-slate-800/40 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 backdrop-blur-sm hover:border-slate-700 transition-all duration-300"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Shield className="w-4 h-4 text-cyan-300" />
+            </div>
+            <p className="font-black text-lg text-cyan-300 leading-none">{scamsBlocked}</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">Blocked</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            className="p-4 rounded-xl border border-slate-800/40 bg-gradient-to-br from-amber-500/20 to-orange-500/10 backdrop-blur-sm hover:border-slate-700 transition-all duration-300"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-4 h-4 text-amber-300" />
+            </div>
+            <p className="font-black text-lg text-amber-300 leading-none">{subsCut}</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">Cancelled</p>
+          </motion.div>
         </div>
       </div>
 
@@ -186,31 +204,35 @@ export default function MeProfileScreen() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="border rounded-xl overflow-hidden bg-slate-900/60 backdrop-blur-sm border-red-500/20 divide-y divide-red-500/10">
-          {[
-            { label: 'Log Out', action: () => setShowLogoutConfirm(true), icon: LogOut, danger: false },
-            { label: 'Delete Account', action: () => navigate('/delete-account-confirm'), icon: Trash2, danger: true as const },
-          ].map((opt: any, i) => {
-            const Icon = opt.icon;
-            return (
-              <motion.button 
-                key={i} 
-                initial={{ opacity: 0, x: -10 }} 
-                animate={{ opacity: 1, x: 0 }} 
-                transition={{ delay: i * 0.05 }} 
-                whileHover={{ x: 4 }}
-                onClick={opt.action} 
-                className={opt.danger ? 'w-full px-4 py-3 flex justify-between items-center hover:bg-red-500/10 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-red-500 group' : 'w-full px-4 py-3 flex justify-between items-center hover:bg-slate-800/40 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-cyan-500 group'}
-              >
-                <div className="flex items-center gap-2">
-                  {Icon && <Icon className={opt.danger ? 'w-4 h-4 text-red-400 group-hover:text-red-300 transition-colors' : 'w-4 h-4 text-slate-400 group-hover:text-slate-300 transition-colors'} />}
-                  <span className={opt.danger ? 'text-red-400 group-hover:text-red-300 transition-colors' : 'text-slate-200 group-hover:text-white transition-colors'}>
-                    {opt.label}
-                  </span>
-                </div>
-                <ChevronRight className={opt.danger ? 'w-4 h-4 text-red-600 group-hover:text-red-500 transition-colors' : 'w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors'} />
-              </motion.button>
-            );
-          })}
+          <motion.button 
+            initial={{ opacity: 0, x: -10 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ delay: 0 }} 
+            whileHover={{ x: 4 }}
+            onClick={() => setShowLogoutConfirm(true)} 
+            className="w-full px-4 py-3 flex justify-between items-center hover:bg-slate-800/40 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-cyan-500 group"
+          >
+            <div className="flex items-center gap-2">
+              <LogOut className="w-4 h-4 text-slate-400 group-hover:text-slate-300 transition-colors" />
+              <span className="text-slate-200 group-hover:text-white transition-colors">Log Out</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors" />
+          </motion.button>
+
+          <motion.button 
+            initial={{ opacity: 0, x: -10 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ delay: 0.05 }} 
+            whileHover={{ x: 4 }}
+            onClick={() => navigate('/delete-account-confirm')} 
+            className="w-full px-4 py-3 flex justify-between items-center hover:bg-red-500/10 transition-all text-xs font-semibold focus-visible:ring-2 focus-visible:ring-red-500 group"
+          >
+            <div className="flex items-center gap-2">
+              <Trash2 className="w-4 h-4 text-red-400 group-hover:text-red-300 transition-colors" />
+              <span className="text-red-400 group-hover:text-red-300 transition-colors">Delete Account</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-red-600 group-hover:text-red-500 transition-colors" />
+          </motion.button>
         </motion.div>
       </div>
 
