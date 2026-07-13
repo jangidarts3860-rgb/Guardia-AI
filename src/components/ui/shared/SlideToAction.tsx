@@ -41,16 +41,21 @@ export default function SlideToAction({
     if (!isSliding || disabled || completeCalled.current) return;
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const relativeX = clientX - rect.left;
-    const pct = Math.min(Math.max((relativeX / rect.width) * 100, 0), 100);
+
+    const thumbWidth = 44;
+    const padding = 12;
+    const maxTravel = rect.width - thumbWidth - padding;
+    const currentPos = clientX - rect.left - 22; // Offset center of thumb
+    const pct = Math.min(Math.max((currentPos / maxTravel) * 100, 0), 100);
+
     setProgress(pct);
-    thumbX.set(Math.max(0, pct * 2.8));
+    thumbX.set(Math.max(0, (pct * maxTravel) / 100));
 
     if (pct >= completeThreshold) {
       completeCalled.current = true;
       setIsSliding(false);
       setProgress(100);
-      thumbX.set(rect.width - 60);
+      thumbX.set(rect.width - 56);
       setShowGlow(true);
       setTimeout(() => setShowGlow(false), 500);
       setTimeout(() => {
