@@ -20,9 +20,11 @@ export default function SplashScreen() {
       const stored = JSON.parse(localStorage.getItem('guardia_user') || '{}');
       if (stored.pin) {
         setProfile({ name: stored.name || '', phone: stored.phone || '', email: stored.email || '', language: stored.language || '', photo: stored.photo || '' });
+        navigate('/login');
+        return;
       }
     }
-    navigate('/login');
+    navigate('/create-account');
   }, [navigate, setProfile]);
 
   useEffect(() => {

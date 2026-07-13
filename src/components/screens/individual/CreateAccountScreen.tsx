@@ -155,6 +155,11 @@ export default function CreateAccountScreen() {
           By proceeding, you consent to secure OTP verification in compliance with RBI guidelines.{' '}
           <button onClick={() => showToast('info', 'Opening Privacy Policy...')} className="text-sky-400 hover:underline font-semibold focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Privacy Policy</button>
         </p>
+        <div className="text-center pt-1">
+          <button onClick={() => navigate('/login')} className="text-xs text-sky-400 hover:underline font-bold focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1">
+            Already have an account? Sign In
+          </button>
+        </div>
       </div>
     </div>
   );
