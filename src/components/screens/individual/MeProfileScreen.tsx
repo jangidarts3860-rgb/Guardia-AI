@@ -35,7 +35,7 @@ export default function MeProfileScreen() {
   return (
     <div className="flex flex-col min-h-full pb-24 space-y-4 bg-slate-950 text-white">
       {/* Sticky Nav Row */}
-      <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md px-4 pt-4">
+      <div className="sticky top-0 z-30 bg-slate-950 px-4 pt-4">
         <div className="flex justify-between items-center text-left">
           <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
           <button onClick={() => navigate('/home')} className="text-xs text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Done</button>
@@ -77,27 +77,78 @@ export default function MeProfileScreen() {
         </div>
       </div>
 
-      <div className="border rounded-2xl divide-y text-left overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40 mx-4">
-        {[
-          { label: 'Notifications', count: 3, action: () => navigate('/notifications') },
-          { label: 'Edit Profile', action: () => navigate('/edit-profile') },
-          { label: 'Reset Security PIN', action: () => navigate('/reset-pin') },
-          { label: 'Manage Banks', action: () => navigate('/security') },
-          { label: 'Privacy Controls', action: () => navigate('/security') },
-          { label: 'Activity Log', action: () => navigate('/activity-log') },
-          { label: 'Emergency Help', action: () => navigate('/emergency') },
-          { label: 'Log Out', action: () => setShowLogoutConfirm(true) },
-          { label: 'Delete Account', action: () => navigate('/delete-account-confirm'), danger: true as const },
-        ].map((opt: { label: string; count?: number; action: () => void; danger?: boolean }, i) => (
-          <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-            onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
-            <span className={opt.danger ? 'text-red-500' : 'text-white'}>{opt.label}</span>
-            <div className="flex items-center space-x-2">
-              {opt.count && <span className="w-5 h-5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center" aria-label={`${opt.count} new`}>{opt.count}</span>}
+      <div className="space-y-6 mx-4">
+        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Account Settings</p>
+          {[
+            { label: 'Edit Profile', action: () => navigate('/edit-profile') },
+            { label: 'Notifications', count: 3, action: () => navigate('/notifications') },
+          ].map((opt: { label: string; count?: number; action: () => void; danger?: boolean }, i) => (
+            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+              <span className="text-white">{opt.label}</span>
+              <div className="flex items-center space-x-2">
+                {opt.count && <span className="w-5 h-5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center" aria-label={`${opt.count} new`}>{opt.count}</span>}
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </div>
+            </motion.button>
+          ))}
+        </div>
+
+        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Security &amp; PIN</p>
+          {[
+            { label: 'Reset Security PIN', action: () => navigate('/reset-pin') },
+          ].map((opt: { label: string; action: () => void }, i) => (
+            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+              <span className="text-white">{opt.label}</span>
               <ChevronRight className="w-4 h-4 text-slate-600" />
-            </div>
-          </motion.button>
-        ))}
+            </motion.button>
+          ))}
+        </div>
+
+        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Data &amp; Connected Banks</p>
+          {[
+            { label: 'Manage Banks', action: () => navigate('/security') },
+            { label: 'Privacy Controls', action: () => navigate('/security') },
+            { label: 'Activity Log', action: () => navigate('/activity-log') },
+          ].map((opt: { label: string; action: () => void }, i) => (
+            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+              <span className="text-white">{opt.label}</span>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
+            </motion.button>
+          ))}
+        </div>
+
+        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Help &amp; Support</p>
+          {[
+            { label: 'Emergency Help', action: () => navigate('/emergency') },
+          ].map((opt: { label: string; action: () => void }, i) => (
+            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+              <span className="text-white">{opt.label}</span>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
+            </motion.button>
+          ))}
+        </div>
+
+        <hr className="border-slate-800" />
+        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
+          {[
+            { label: 'Log Out', action: () => setShowLogoutConfirm(true) },
+            { label: 'Delete Account', action: () => navigate('/delete-account-confirm'), danger: true as const },
+          ].map((opt: { label: string; action: () => void; danger?: boolean }, i) => (
+            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+              <span className={opt.danger ? 'text-red-500' : 'text-white'}>{opt.label}</span>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
+            </motion.button>
+          ))}
+        </div>
       </div>
 
       {showLogoutConfirm && (

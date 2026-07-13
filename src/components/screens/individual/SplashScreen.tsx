@@ -5,20 +5,10 @@ import { motion } from 'motion/react';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 import { APP_VERSION } from '../../../utils/appConfig';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-import React from 'react';
 
 export default function SplashScreen() {
   const navigate = useNavigate();
-  const { 
-    profile, setProfile, 
-    subscriptions, setSubscriptions, 
-    banks, setBanks, 
-    notifications, setNotifications, 
-    activities, setActivities, 
-    selectedSub, setSelectedSub, 
-    isOffline, setIsOffline, 
-    scanOutcome, setScanOutcome 
-  } = useStore();
+  const { profile, setProfile } = useStore();
 
   const reduced = useReducedMotion();
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -42,10 +32,6 @@ export default function SplashScreen() {
 
   return (
     <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-6 relative overflow-hidden">
-      <div className={`absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-sky-500/5 via-transparent to-emerald-500/5 ${reduced ? '' : 'animate-[ambientShift_30s_linear_infinite]'}`} aria-hidden="true" />
-      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(14,165,233,0.18)_0%,transparent_65%]" aria-hidden="true" />
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" aria-hidden="true" />
-
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full">
         <motion.div
           animate={reduced ? {} : {
@@ -59,20 +45,6 @@ export default function SplashScreen() {
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           className="relative mb-6 flex items-center justify-center"
         >
-          {!reduced && (
-            <>
-              <motion.div
-                animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.25, 0.12] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute w-44 h-44 rounded-full bg-cyan-500/10 blur-2xl pointer-events-none"
-              />
-              <motion.div
-                animate={{ scale: [1, 1.35, 1.7], opacity: [0.35, 0.15, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
-                className="absolute w-36 h-36 rounded-full border border-cyan-500/25 pointer-events-none"
-              />
-            </>
-          )}
           <GuardiaLogo size={140} variant="icon" animated={!reduced} />
         </motion.div>
 
@@ -90,21 +62,16 @@ export default function SplashScreen() {
       <div className="w-full max-w-xs px-2 flex flex-col items-center space-y-4 z-10 pb-8">
         <div className="w-full bg-slate-900/80 h-1.5 rounded-full overflow-hidden border border-slate-800/80 p-[1px] relative" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={100}>
           <motion.div
-            className="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-full rounded-full"
+            className="bg-sky-500 h-full rounded-full"
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
             transition={{ duration: 1.5, ease: 'easeInOut' }}
           />
         </div>
 
-<div className="text-center space-y-1">
-          <span className="text-xs text-sky-400 font-bold font-mono tracking-widest block font-mono">
-            SECURE CONNECT · SUPPORTED BY RBI FRAMEWORK
-          </span>
-          <span className="text-[8px] text-slate-600 block">
-            ON-DEVICE PROCESSING
-          </span>
-        </div>
+          <p className="text-xs text-slate-400 text-center font-medium leading-relaxed max-w-xs">
+            Your on-device cybersecurity shield. Active and private.
+          </p>
 
         <span className="text-[7px] text-slate-700 font-mono">v{APP_VERSION}</span>
       </div>

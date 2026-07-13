@@ -133,6 +133,11 @@ export default function FamilySpendHubScreen() {
                       </div>
                     );
                   })}
+                  {member.relation !== 'Wife' && (
+                    <div className="pt-2 pb-1 text-xs text-slate-500 leading-relaxed">
+                      Detailed transaction history is hidden according to privacy laws. Cost totals only.
+                    </div>
+                  )}
                   <div className="flex items-center space-x-1.5 pt-1 text-xs text-sky-400">
                     <ShieldCheck className="w-3 h-3" aria-hidden="true" />
                     <span>Protected by Guardia AI</span>

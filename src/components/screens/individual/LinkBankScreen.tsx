@@ -48,11 +48,28 @@ export default function LinkBankScreen() {
           <div className="w-8" />
         </div>
 
-<div className="text-left space-y-1">
+        <div className="text-left space-y-1">
           <h2 className="text-2xl font-bold tracking-tight">Select your bank</h2>
           <p className="text-xs text-slate-500 leading-normal">
             We use RBI-approved secure channels to connect your bank.
           </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          <div className="p-3 rounded-xl bg-sky-900/20 border border-sky-800/30 flex items-start space-x-2">
+            <ShieldCheck className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-semibold text-sky-300">Data Shared:</p>
+              <p className="text-xs text-slate-400">Read-only access to subscription bills.</p>
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-sky-900/20 border border-sky-800/30 flex items-start space-x-2">
+            <ShieldCheck className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-semibold text-sky-300">Consent Period:</p>
+              <p className="text-xs text-slate-400">12 months (Revocable anytime in Settings).</p>
+            </div>
+          </div>
         </div>
 
         <div className="relative">
@@ -119,8 +136,8 @@ export default function LinkBankScreen() {
         <button onClick={() => navigate('/home')} className="w-full py-3 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500">
           Do this later / Skip
         </button>
-        <p className="text-xs text-slate-600 font-mono tracking-wider text-center">
-          SECURE CONNECT · SUPPORTED BY RBI FRAMEWORK
+        <p className="text-xs text-slate-500 text-center">
+          Bank-grade encryption • Regulated by RBI
         </p>
       </div>
     </div>

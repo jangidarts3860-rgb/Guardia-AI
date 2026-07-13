@@ -9,7 +9,7 @@ interface StatusBarOverlayProps {
 
 export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBarOverlayProps) {
   let opacityClass = 'opacity-100';
-  let backgroundClass = 'bg-slate-950/40 backdrop-blur-sm';
+  let backgroundClass = 'bg-slate-950/40';
   let textClass = 'text-slate-300';
   let accentIcon: React.ReactNode = null;
   let customBadge: React.ReactNode = null;
@@ -33,7 +33,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
     backgroundClass = 'bg-transparent';
     opacityClass = 'opacity-90';
   } else {
-    backgroundClass = 'bg-slate-950/85 border-b border-slate-800/30 backdrop-blur-md';
+    backgroundClass = 'bg-slate-950/85 border-b border-slate-800/30';
   }
 
   switch (currentScreen) {
@@ -53,7 +53,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'scam-detected':
       textClass = 'text-red-100';
-      backgroundClass = 'bg-red-950/40 backdrop-blur-sm border-b border-red-900/30';
+      backgroundClass = 'bg-red-950/40 border-b border-red-900/30';
       accentIcon = <ShieldAlert className="w-3 h-3 text-red-500 animate-ping" />;
       customBadge = (
         <span className="text-[7px] bg-red-500 text-white font-extrabold px-1.5 py-0.5 rounded animate-pulse">
@@ -100,18 +100,18 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'offline':
       textClass = 'text-amber-100';
-      backgroundClass = 'bg-amber-950/40 backdrop-blur-sm border-b border-amber-900/30';
+      backgroundClass = 'bg-amber-950/40 border-b border-amber-900/30';
       accentIcon = <AlertTriangle className="w-3 h-3 text-amber-500" />;
       break;
 
     case 'emergency':
       textClass = 'text-red-100';
-      backgroundClass = 'bg-red-950/30 backdrop-blur-sm border-b border-red-900/20';
+      backgroundClass = 'bg-red-950/30 border-b border-red-900/20';
       break;
 
     case 'freeze-accounts-confirm':
       textClass = 'text-red-200';
-      backgroundClass = 'bg-red-950/30 backdrop-blur-sm border-b border-red-900/20';
+      backgroundClass = 'bg-red-950/30 border-b border-red-900/20';
       break;
 
     case 'delete-account-confirm':

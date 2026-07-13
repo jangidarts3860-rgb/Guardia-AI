@@ -30,7 +30,16 @@ export default function EditProfileScreen() {
     <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
       <div className="space-y-6 text-left">
         <div className="flex justify-between items-center pt-2">
-          <button onClick={() => navigate('/me-profile')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
+          <button onClick={() => {
+            const changed = local.name !== profile.name || local.email !== profile.email || local.language !== profile.language || local.photo !== profile.photo;
+            if (changed) {
+              if (window.confirm('You have unsaved changes. Are you sure you want to go back?')) {
+                navigate('/me-profile');
+              }
+            } else {
+              navigate('/me-profile');
+            }
+          }} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
             <ArrowLeft className="w-4 h-4" aria-hidden="true" />
           </button>
           <span className="text-sm font-bold tracking-tight text-white">Edit Profile</span>

@@ -24,8 +24,8 @@ export default function GlassCard({
   glow = 'none', as: Tag = 'div', onClick,
 }: GlassCardProps) {
   const base = variant === 'dark'
-    ? 'bg-slate-900/70 backdrop-blur-xl border border-slate-800/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_2px_8px_-2px_rgba(0,0,0,0.3)]'
-    : 'bg-white/70 backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_2px_8px_-2px_rgba(0,0,0,0.1)]';
+    ? 'bg-slate-900 border-slate-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_2px_8px_-2px_rgba(0,0,0,0.3)]'
+    : 'bg-white border-white/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_2px_8px_-2px_rgba(0,0,0,0.1)]';
 
   const hoverEffect = hover
     ? 'hover:border-slate-700/60 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_-2px_rgba(0,0,0,0.4)] hover:bg-slate-900/80 transition-all duration-300 cursor-pointer'

@@ -29,7 +29,7 @@ export default function OfflineScreen() {
         <div className="space-y-2">
           <h2 className="text-3xl font-extrabold tracking-tight">You're offline</h2>
           <p className="text-sm text-slate-400 leading-relaxed px-4">
-            Some features need internet. Safe on-device emergency freeze works fully offline.
+            Scanning is paused. Scan requests will be securely queued and verified as soon as you are back online.
           </p>
         </div>
 

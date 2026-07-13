@@ -4,7 +4,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ShieldCheck, X, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-
+const steps = [
+  "Consent Established",
+  "RBI Sandbox Handshake",
+  "Accounts Discovered",
+  "Secure Connection Complete",
+];
 
 export default function LinkBankProgressScreen() {
   const navigate = useNavigate();
@@ -20,11 +25,20 @@ export default function LinkBankProgressScreen() {
   } = useStore();
 
   const [phase, setPhase] = useState<'loading' | 'success'>('loading');
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const t = setTimeout(() => {
+    if (phase === 'loading' && step < steps.length) {
+      const t = setTimeout(() => setStep(s => s + 1), 400);
+      return () => clearTimeout(t);
+    }
+    if (step === steps.length && phase === 'loading') {
       setPhase('success');
-      
+    }
+  }, [phase, step]);
+
+  useEffect(() => {
+    if (phase === 'success') {
       const query = new URLSearchParams(window.location.search);
       const bankId = query.get('bankId');
       if (bankId) {
@@ -57,9 +71,8 @@ export default function LinkBankProgressScreen() {
           } : b);
         });
       }
-    }, 1500);
-    return () => clearTimeout(t);
-  }, [setBanks, setActivities, setNotifications]);
+    }
+  }, [phase, setBanks, setActivities, setNotifications]);
 
   useEffect(() => {
     if (phase === 'success') {
@@ -69,45 +82,21 @@ export default function LinkBankProgressScreen() {
   }, [phase, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full bg-slate-950 text-white p-6 space-y-6 relative">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30" aria-hidden="true">
-        <AnimatePresence>
-          {phase === 'loading' && (
-            <motion.div
-              key="spinner"
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute rounded-full origin-center"
-              style={{ width: 400, height: 400, background: "conic-gradient(from 0deg, rgba(14,165,233,0.4) 0deg, transparent 60deg)" }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, ease: "linear", repeat: Infinity }}
-            />
-          )}
-        </AnimatePresence>
-        <div className="absolute rounded-full border border-sky-500/20" style={{ width: 200, height: 200 }} />
-        <div className="absolute rounded-full border border-sky-500/10" style={{ width: 300, height: 300 }} />
-      </div>
-
+    <div className="flex flex-col items-center justify-center min-h-full bg-slate-950 text-white p-6 space-y-6">
       <motion.div
         key={phase}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={phase === 'success' ? { type: "spring", stiffness: 300, damping: 15 } : { duration: 0.3 }}
-        className="relative w-20 h-20 flex items-center justify-center z-10"
+        className="relative w-20 h-20 flex items-center justify-center"
       >
-        <div className={`absolute inset-0 rounded-full blur-xl ${phase === 'success' ? 'bg-emerald-500/25' : 'bg-sky-500/15'}`} aria-hidden="true" />
-        <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center relative ${
+        <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center ${
           phase === 'success'
             ? 'bg-emerald-900/40 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.3)]'
-            : 'bg-slate-900 border-slate-800 shadow-[0_0_20px_rgba(14,165,233,0.2)]'
+            : 'bg-slate-900 border-slate-800'
         }`}>
           {phase === 'loading' && (
-            <>
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 64 64">
-                <circle cx="32" cy="32" r="28" stroke="rgba(14,165,233,0.15)" strokeWidth="3" fill="none" />
-                <motion.circle cx="32" cy="32" r="28" stroke="#38bdf8" strokeWidth="3" fill="none" strokeLinecap="round" strokeDasharray="176" initial={{ strokeDashoffset: 176 }} animate={{ strokeDashoffset: 0 }} transition={{ duration: 1.5, ease: "easeInOut", repeat: Infinity }} />
-              </svg>
-              <ShieldCheck className="w-7 h-7 text-sky-400" />
-            </>
+            <ShieldCheck className="w-7 h-7 text-sky-400" />
           )}
           {phase === 'success' && (
             <motion.div
@@ -121,7 +110,30 @@ export default function LinkBankProgressScreen() {
         </div>
       </motion.div>
 
-      <div className="space-y-2 text-center z-10">
+      {phase === 'loading' && (
+        <div className="space-y-3 w-full max-w-xs">
+          {steps.map((label, i) => (
+            <div key={i} className={`flex items-center space-x-3 p-3 rounded-xl border transition-all duration-300 ${
+              i < step 
+                ? 'bg-emerald-900/20 border-emerald-800/30 text-emerald-400' 
+                : i === step 
+                ? 'bg-sky-900/20 border-sky-800/30 text-sky-400' 
+                : 'bg-slate-900/50 border-slate-800/50 text-slate-500'
+            }`}>
+              {i < step ? (
+                <Check className="w-4 h-4 shrink-0" />
+              ) : i === step ? (
+                <div className="w-4 h-4 shrink-0 border-2 border-current rounded-full animate-pulse" />
+              ) : (
+                <div className="w-4 h-4 shrink-0 border-2 border-slate-600 rounded-full" />
+              )}
+              <span className="text-sm font-semibold">{label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="space-y-2 text-center">
         <AnimatePresence mode="wait">
           {phase === 'loading' && (
             <motion.div key="loading" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
@@ -138,11 +150,10 @@ export default function LinkBankProgressScreen() {
         </AnimatePresence>
       </div>
 
-      <button onClick={() => navigate('/security')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider z-20 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
+      <button onClick={() => navigate('/security')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
         <X className="w-3 h-3" />
         <span>Cancel</span>
       </button>
     </div>
   );
 }
-

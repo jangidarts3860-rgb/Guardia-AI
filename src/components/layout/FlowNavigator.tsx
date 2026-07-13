@@ -18,7 +18,7 @@ export default function FlowNavigator({
   setIsOffline
 }: FlowNavigatorProps) {
   return (
-    <div className="flex flex-col h-full bg-slate-950/80 backdrop-blur-xl border-r border-slate-800/40 p-5 space-y-6 overflow-y-auto text-left">
+    <div className="flex flex-col h-full bg-slate-950 border-r border-slate-800/40 p-5 space-y-6 overflow-y-auto text-left">
 
       {/* Header */}
       <div>
@@ -39,7 +39,7 @@ export default function FlowNavigator({
       </div>
 
       {/* Quick Simulation Controls */}
-      <div className="p-3.5 bg-slate-900/50 border border-slate-800/50 rounded-xl space-y-3 backdrop-blur-sm">
+      <div className="p-3.5 bg-slate-900/50 border border-slate-800/50 rounded-xl space-y-3">
         <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-1">
           <Settings className="w-3 h-3 text-cyan-400" />
           <span>Interactive Preview Controls</span>

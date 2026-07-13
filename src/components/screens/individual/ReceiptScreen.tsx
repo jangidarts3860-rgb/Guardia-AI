@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
 import { useState } from 'react';
-import { ArrowLeft, Download, Share2, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Download, Share2, CheckCircle2 } from 'lucide-react';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
 import { showToast } from '../../ui/shared/Toast';
@@ -80,11 +80,6 @@ export default function ReceiptScreen() {
           </div>
           <div className="border-t border-slate-800/40" />
           <div className="flex justify-between">
-            <span className="text-xs text-slate-500">Trust Score</span>
-            <span className={`text-xs font-bold ${receiptType === 'safe' ? 'text-emerald-400' : 'text-red-400'}`}>{receiptType === 'safe' ? '96/100 ✓ Safe' : '12/100 ✗ Critical'}</span>
-          </div>
-          <div className="border-t border-slate-800/40" />
-          <div className="flex justify-between">
             <span className="text-xs text-slate-500">Payment ID</span>
             <span className="text-xs font-mono text-slate-400 truncate" style={{ maxWidth: 160 }}>TXN_GUARDIA_8F3A2C1B</span>
           </div>
@@ -95,10 +90,7 @@ export default function ReceiptScreen() {
           </div>
         </div>
 
-<div className="mt-4 flex items-center space-x-2 justify-center">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-xs text-slate-500 font-bold">Merchant verified before payment</span>
-        </div>
+
       </div>
     </div>
   );

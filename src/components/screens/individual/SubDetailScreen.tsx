@@ -1,14 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useRef, useEffect } from 'react';
+import { motion } from 'motion/react';
+import { useState } from 'react';
 import React from 'react';
-import { ArrowLeft, ShieldCheck, AlertTriangle, Fingerprint, X } from 'lucide-react';
-import { showToast } from '../../ui/shared/Toast';
+import { ArrowLeft, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { getSubscriptionLogo } from '../Screens';
 import { Subscription } from '../../../types';
-import ConfirmationDialog from '../../ui/shared/ConfirmationDialog';
-import SlideToAction from '../../ui/shared/SlideToAction';
 import AnimatedNumber from '../../ui/shared/AnimatedNumber';
 
 export default function SubDetailScreen() {
@@ -18,33 +15,10 @@ export default function SubDetailScreen() {
     selectedSub, setSelectedSub
   } = useStore();
 
-  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
-  const [showBiometric, setShowBiometric] = useState(false);
-  const biometricTimerRef = useRef<ReturnType<typeof setTimeout>>();
-
   if (!selectedSub) {
     navigate('/home');
     return null;
   }
-
-  const handleBiometricConfirm = () => {
-    setShowBiometric(true);
-    biometricTimerRef.current = setTimeout(() => {
-      setShowBiometric(false);
-      setShowCancelConfirm(true);
-    }, 800);
-  };
-
-  const handleBiometricCancel = () => {
-    if (biometricTimerRef.current) clearTimeout(biometricTimerRef.current);
-    setShowBiometric(false);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (biometricTimerRef.current) clearTimeout(biometricTimerRef.current);
-    };
-  }, []);
 
   return (
     <div className="flex flex-col min-h-full bg-slate-950 text-white p-4 justify-between relative">
@@ -125,30 +99,20 @@ export default function SubDetailScreen() {
               <p className="text-xs text-slate-400">You&apos;ll be charged ₹{selectedSub.cost || 0} on {selectedSub.renewDate || 'soon'}. Cancel now to avoid this charge.</p>
             </div>
 
-            <div className="space-y-2">
-              <SlideToAction
-                onComplete={() => setShowCancelConfirm(true)}
-                label={`Slide to cancel ${selectedSub.name}`}
-                variant="danger"
-              />
-              <button
-                onClick={handleBiometricConfirm}
-                className="w-full py-3 bg-slate-900 border border-slate-800 hover:border-sky-500/50 text-slate-300 text-xs font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500 flex items-center justify-center space-x-2"
-              >
-                <Fingerprint className="w-4 h-4 text-sky-400" aria-hidden="true" />
-                <span>Confirm with Biometric / FaceID</span>
-              </button>
-            </div>
-
             <button
               onClick={() => {
-                setSubscriptions(prev => prev.map(s => s.id === selectedSub.id ? { ...s, status: 'Paused' } : s));
-                showToast('success', `Alert snoozed for ${selectedSub.name}`);
-                setTimeout(() => navigate('/subs-dashboard'), 500);
+                setSubscriptions(prev => prev.map(s => s.id === selectedSub.id ? { ...s, status: 'Cancelled' } : s));
+                navigate('/cancel-success');
               }}
-              className="w-full py-4 bg-slate-900/60 border border-slate-800 hover:bg-slate-900 text-white font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500"
+              className="w-full py-4 bg-red-500 hover:bg-red-400 text-white font-bold rounded-2xl transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-red-500"
             >
-              Snooze Alert for 30 Days
+              Cancel {selectedSub.name}
+            </button>
+            <button
+              onClick={() => navigate('/subs-dashboard')}
+              className="w-full py-4 bg-slate-900/60 border border-slate-800 hover:bg-slate-800 text-slate-300 font-bold rounded-2xl transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500"
+            >
+              Keep My Plan
             </button>
           </>
         ) : (
@@ -164,85 +128,7 @@ export default function SubDetailScreen() {
         )}
       </div>
 
-      {/* Biometric Simulation Modal */}
-      <AnimatePresence>
-        {showBiometric && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm"
-            onClick={handleBiometricCancel}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="biometric-title-sub"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="w-full max-w-sm mx-4 bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={handleBiometricCancel}
-                className="absolute top-4 right-4 p-1 rounded-xl bg-slate-800/50 hover:bg-slate-800 text-slate-400 transition"
-                aria-label="Cancel biometric simulation"
-              >
-                <X className="w-4 h-4" />
-              </button>
-              
-              <div className="space-y-4">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-24 h-24 rounded-full bg-sky-500/15 border-2 border-sky-500/30 flex items-center justify-center mx-auto"
-                >
-                  <Fingerprint className="w-12 h-12 text-sky-400" aria-hidden="true" />
-                </motion.div>
-                
-                <div className="space-y-2">
-                  <h3 id="biometric-title-sub" className="text-lg font-bold text-white">Biometric Verification</h3>
-                  <p className="text-xs text-slate-400">Place finger on sensor or look at screen for FaceID</p>
-                </div>
-                
-                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    transition={{ duration: 1.2, ease: "easeInOut" }}
-                    className="h-full bg-gradient-to-r from-sky-500 to-emerald-500 rounded-full"
-                  />
-                </div>
-                
-                <p className="text-xs text-slate-500 font-mono">Verifying identity...</p>
-              </div>
-              
-              <p className="mt-4 text-xs text-slate-600 leading-snug px-2">
-                Biometric authentication prevents accidental triggers. To restore access after cancellation, OTP verification will be required.
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {showCancelConfirm && (
-        <ConfirmationDialog
-          open={showCancelConfirm}
-          title="Cancel Subscription?"
-          message={`This will cancel ${selectedSub.name} and stop future charges of ₹${selectedSub.cost}/month.`}
-          confirmLabel="Yes, Cancel"
-          cancelLabel="Keep Subscription"
-          variant="danger"
-          onConfirm={() => {
-            setSubscriptions(prev => prev.map(s => s.id === selectedSub.id ? { ...s, status: 'Cancelled' } : s));
-            setShowCancelConfirm(false);
-            navigate('/cancel-success');
-          }}
-          onCancel={() => setShowCancelConfirm(false)}
-        />
-      )}
     </div>
   );
 }

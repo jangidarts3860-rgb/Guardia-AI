@@ -71,17 +71,7 @@ export default function ScanQRScreen() {
         </div>
       ) : (
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex-1 relative bg-black overflow-hidden flex flex-col justify-between p-4 min-h-[300px]">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.04)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" aria-hidden="true" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
-            <div className="absolute rounded-full border border-cyan-500/5" style={{ width: 320, height: 320 }} />
-            <div className="absolute rounded-full border border-cyan-500/10" style={{ width: 220, height: 220 }} />
-            <div className="absolute rounded-full border border-cyan-500/15" style={{ width: 120, height: 120 }} />
-            <div className="absolute rounded-full border border-cyan-500/20" style={{ width: 40, height: 40 }} />
-            <div className="absolute h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent" style={{ width: 360 }} />
-            <div className="absolute w-[1px] bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent" style={{ height: 360 }} />
-            <motion.div className="absolute rounded-full origin-center opacity-40 mix-blend-screen" style={{ width: 400, height: 400, background: "conic-gradient(from 0deg, rgba(6,182,212,0.3) 0deg, rgba(6,182,212,0.01) 60deg, transparent 180deg)" }} animate={{ rotate: 360 }} transition={{ duration: 3.5, ease: "linear", repeat: Infinity }} />
-          </div>
-          <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_35%,rgba(0,0,0,0.9)_100%] pointer-events-none" aria-hidden="true" />
+
 
           <AnimatePresence>
             {scanPhase === 'flash' && (
@@ -129,7 +119,6 @@ export default function ScanQRScreen() {
               <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-bl-md transition-colors duration-300 border-b-4 border-l-4 ${bracketColor}`} />
               <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-br-md transition-colors duration-300 border-b-4 border-r-4 ${bracketColor}`} />
               <div className="w-2.5 h-2.5 rounded-full opacity-75 absolute" aria-hidden="true" />
-              <motion.div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_rgba(6,182,212,0.9)]" initial={{ top: "0%" }} animate={{ top: "100%" }} transition={{ duration: 2.0, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }} />
               <span className="text-xs font-mono font-bold tracking-widest text-cyan-400/35 uppercase select-none mt-10">ALIGN QR CODE HERE</span>
             </div>
           </div>

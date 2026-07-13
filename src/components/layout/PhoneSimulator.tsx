@@ -11,19 +11,9 @@ interface PhoneSimulatorProps {
 }
 
 const screenGlowMap: Record<string, string> = {
-  home: 'shadow-[0_0_80px_-20px_rgba(14,165,233,0.15)]',
-  'scan-qr': 'shadow-[0_0_80px_-20px_rgba(14,165,233,0.2)]',
-  'analyzing-merchant': 'shadow-[0_0_80px_-20px_rgba(99,102,241,0.2)]',
-  'merchant-verified': 'shadow-[0_0_80px_-20px_rgba(34,197,94,0.15)]',
-  'scam-detected': 'shadow-[0_0_80px_-20px_rgba(239,68,68,0.25)]',
-  vault: 'shadow-[0_0_80px_-20px_rgba(168,85,247,0.15)]',
-  emergency: 'shadow-[0_0_80px_-20px_rgba(239,68,68,0.2)]',
-  'cancel-success': 'shadow-[0_0_80px_-20px_rgba(34,197,94,0.15)]',
-  'receipt-light': 'shadow-[0_0_80px_-20px_rgba(16,185,129,0.12)]',
-  'receipt-dark': 'shadow-[0_0_80px_-20px_rgba(16,185,129,0.12)]',
-  'freeze-accounts-confirm': 'shadow-[0_0_80px_-20px_rgba(239,68,68,0.2)]',
-  splash: 'shadow-[0_0_100px_-20px_rgba(14,165,233,0.25)]',
-  onboarding: 'shadow-[0_0_80px_-20px_rgba(99,102,241,0.15)]',
+  'merchant-verified': 'shadow-[0_0_60px_-20px_rgba(34,197,94,0.1)]',
+  'scam-detected': 'shadow-[0_0_60px_-20px_rgba(239,68,68,0.15)]',
+  'cancel-success': 'shadow-[0_0_60px_-20px_rgba(34,197,94,0.1)]',
 };
 
 export default function PhoneSimulator({ children, bottomNav, isOffline, currentScreen = 'splash' }: PhoneSimulatorProps) {

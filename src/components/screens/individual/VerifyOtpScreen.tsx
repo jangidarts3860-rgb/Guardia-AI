@@ -58,7 +58,6 @@ export default function VerifyOtpScreen() {
 
   return (
     <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
-      <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(14,165,233,0.05)_0%,transparent_60%] pointer-events-none" aria-hidden="true" />
       <div className="space-y-6 z-10">
         <div className="flex items-center space-x-2 pt-2">
           <button onClick={() => navigate('/create-account')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
@@ -67,10 +66,10 @@ export default function VerifyOtpScreen() {
           <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 2 OF 3</span>
         </div>
 
-        <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden flex">
-          <div className="bg-gradient-to-r from-sky-500 to-indigo-500 h-full w-2/3 rounded-full" />
-          <div className="bg-slate-800 h-full flex-1" />
-        </div>
+          <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden flex">
+            <div className="bg-sky-500 h-full w-2/3 rounded-full" />
+            <div className="bg-slate-800 h-full flex-1" />
+          </div>
 
         <div className="space-y-2 text-left">
           <h2 className="text-2xl font-black tracking-tight text-white">Enter OTP Code</h2>
@@ -119,7 +118,7 @@ export default function VerifyOtpScreen() {
                     {digit ? (
                       <span className={reduced ? '' : 'animate-[scaleIn_0.15s_ease-out]'}>{digit}</span>
                     ) : (
-                      <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-sky-400 animate-pulse' : 'bg-slate-700'}`} aria-hidden="true" />
+                      <span className={`${isActive ? 'w-0.5 h-6 bg-sky-400 animate-[blink_1s_step-end_infinite]' : 'w-1.5 h-1.5 rounded-full bg-slate-700'}`} aria-hidden="true" />
                     )}
                     <span className="sr-only">{digit ? `Digit ${idx + 1}: ${digit}` : isActive ? 'Active, waiting for input' : 'Empty'}</span>
                   </div>

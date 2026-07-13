@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../store';
 import { useState } from 'react';
-import { Lock, CheckCircle2, ArrowLeft, XCircle } from 'lucide-react';
+import { Lock, CheckCircle2, ArrowLeft, XCircle, Eye, EyeOff } from 'lucide-react';
 import GuardiaLogo from '../../ui/GuardiaLogo';
 
 
@@ -22,6 +22,7 @@ export default function CreatePinScreen() {
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
   const [error, setError] = useState('');
+  const [showPin, setShowPin] = useState(false);
 
   const handleDigit = (num: string) => {
     if (step === 'done' || error) return;
@@ -101,23 +102,33 @@ export default function CreatePinScreen() {
             </div>
           )}
 
-<div className="flex justify-center space-x-6 py-6" role="status" aria-live="polite" aria-label={`PIN code: ${(step === 'enter' ? pin : confirmPin).length} digits entered`}>
+<div className="flex items-center justify-center space-x-3 py-6" role="status" aria-live="polite" aria-label={`PIN code: ${(step === 'enter' ? pin : confirmPin).length} digits entered`}>
             {[...Array(4)].map((_, idx) => {
               const val = step === 'enter' ? pin : confirmPin;
               const filled = val.length > idx;
+              const digitChar = val[idx] || '';
               return (
                 <div
                   key={idx}
-                  className={`w-4 h-4 rounded-full transition-all duration-200 ${
+                  className={`w-10 h-12 flex items-center justify-center text-lg font-mono font-black transition-all duration-200 rounded-xl border-2 ${
                     step === 'done'
-                      ? 'bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]'
+                      ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.4)]'
                       : filled
-                        ? 'bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.8)] scale-110'
-                        : 'border-2 border-slate-800 bg-slate-950'
+                        ? 'bg-sky-500/10 border-sky-500 text-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.35)] scale-110'
+                        : 'border-slate-800 bg-slate-950 text-slate-600'
                   }`}
-                />
+                >
+                  {filled ? (showPin ? digitChar : '●') : ''}
+                </div>
               );
             })}
+            <button
+              onClick={() => setShowPin(prev => !prev)}
+              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500 ml-2"
+              aria-label={showPin ? 'Hide PIN' : 'Show PIN'}
+            >
+              {showPin ? <EyeOff className="w-4 h-4 text-slate-400" /> : <Eye className="w-4 h-4 text-slate-400" />}
+            </button>
           </div>
 
           {error && (
@@ -126,6 +137,10 @@ export default function CreatePinScreen() {
               <span>{error}</span>
             </p>
           )}
+
+          <p className="text-center text-xs text-slate-500 px-4 leading-relaxed">
+            Avoid using common sequences like 1234 or your birth year.
+          </p>
 
           <div className="text-center text-xs text-slate-500">
             <Lock className="w-3 h-3 inline mr-1" />

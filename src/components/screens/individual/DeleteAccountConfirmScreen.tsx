@@ -87,7 +87,7 @@ export default function DeleteAccountConfirmScreen() {
             <span>Download My Security Audit Log</span>
           </button>
           <p className="text-xs text-slate-600 text-center leading-snug px-2">
-            Your profile details will be scheduled for permanent deletion after a 30-day safety retention period.
+            Your data is permanently deleted from servers after a 30-day recovery grace period.
           </p>
         </div>
       </div>

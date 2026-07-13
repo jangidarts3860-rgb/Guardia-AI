@@ -14,10 +14,10 @@ const slides = [
         <path d="M9 12l2 2 4-4" />
       </svg>
     ),
-    title: 'The AI Shield',
-    cardDesc: 'Real-time fraud detection powered by on-device AI',
-    headline: 'We stop fraud before it happens',
-    desc: 'AI analyzes every QR code and payment link before you pay. Real-time trust scores block scams in milliseconds — all on your device.',
+    title: 'Scam Defense',
+    cardDesc: 'Real merchant check results',
+    headline: 'Know who you\'re paying',
+    desc: 'Real-time merchant verification before you scan any QR or UPI ID.',
     cta: 'Next →',
   },
   {
@@ -28,10 +28,10 @@ const slides = [
         <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
       </svg>
     ),
-    title: 'The Subscription Map',
-    cardDesc: 'Track and cancel subscriptions in one tap',
-    headline: 'See where every rupee goes',
-    desc: 'All your hidden subscriptions in one place. Cancel unwanted OTT, SaaS, and fitness plans instantly — no more zombie subscriptions bleeding your wallet.',
+    title: 'Subscription Control',
+    cardDesc: 'Renews-today timeline mapping',
+    headline: 'Track every subscription',
+    desc: 'See what renews today, this week, or this month. Cancel unused plans in one tap — no more forgotten payments.',
     cta: 'Next →',
   },
   {
@@ -43,9 +43,9 @@ const slides = [
       </svg>
     ),
     title: 'Your Privacy Promise',
-    cardDesc: 'Local analysis, secure bank-grade protection',
-    headline: 'Your data stays safe',
-    desc: 'Designed for privacy. Sensitive scanning happens on-device. Bank details are accessed only with your explicit consent through RBI-approved secure channels. Zero data sold.',
+    cardDesc: 'RBI Account Aggregator privacy promise',
+    headline: 'Your data stays yours',
+    desc: 'Read-only access through RBI-regulated channels. You control what you share, and you can revoke access anytime from Settings.',
     cta: 'Link My Bank →',
   },
 ];
@@ -79,19 +79,8 @@ export default function OnboardingScreen() {
   return (
     <div className="flex flex-col justify-between min-h-full bg-slate-950 text-white p-6 relative">
       <div className="absolute inset-0 bg-slate-950" aria-hidden="true" />
-      <div className="absolute -top-16 -right-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" aria-hidden="true" />
-
-      <div className="flex justify-between items-center pt-2 z-10">
+      <div className="pt-2 z-10">
         <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP {step + 1} OF 3</span>
-        <button
-          onClick={() => {
-            setProfile({ name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.sharma@gmail.com', language: 'English', photo: '' });
-            navigate('/permissions');
-          }}
-          className="text-xs text-slate-400 hover:text-slate-300 transition font-extrabold tracking-wide uppercase p-3 -m-3 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
-        >
-          Skip
-        </button>
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-2 space-y-6">
@@ -103,9 +92,8 @@ export default function OnboardingScreen() {
               animate={{ opacity: 1, x: 0 }}
               exit={reduced ? { opacity: 1 } : { opacity: 0, x: -40 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="w-full p-5 bg-slate-900/80 border border-slate-800/80 rounded-2xl text-left relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col items-center text-center"
+              className="w-full p-5 bg-slate-900 border border-slate-800 rounded-2xl text-left relative flex flex-col items-center text-center"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/5 rounded-full blur-2xl" />
               <div className="flex justify-between items-center w-full mb-4">
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono ${slide.badge.color}`}>
                   {slide.badge.text}
