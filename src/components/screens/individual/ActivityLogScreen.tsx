@@ -75,89 +75,171 @@ export default function ActivityLogScreen() {
   const filteredActivities = activities.filter(a => activityFilter === 'All' || a.status === activityFilter);
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white">
-      {/* Header */}
-      <div className="px-4 pt-4 pb-3 space-y-3">
+    <div className="flex flex-col min-h-full bg-slate-950 text-white pb-24">
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-30 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950/80 backdrop-blur-xl px-4 pt-4 pb-4 border-b border-slate-800/30 space-y-4">
+        {/* Top Row */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <button onClick={() => navigate('/home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-            <h2 className="text-lg font-bold">Activity Log</h2>
+          <div className="flex items-center gap-3">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/home')} 
+              className="p-2.5 rounded-lg bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 hover:bg-slate-900/80 hover:border-cyan-500/30 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-500" 
+              aria-label="Go back"
+            >
+              <ArrowLeft className="w-4 h-4 text-slate-400" />
+            </motion.button>
+            <div>
+              <h2 className="text-xl font-black tracking-tight">Activity Log</h2>
+              <p className="text-xs text-slate-400 mt-0.5">{filteredActivities.length} events</p>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <button onClick={() => setShowDatePicker(true)} className={`p-2 rounded-xl border transition ${dateRange.start ? 'bg-sky-500/10 border-sky-500/30 text-sky-400' : 'bg-slate-900 border-slate-800 text-slate-400'} hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500`} aria-label="Filter by date">
+          
+          <div className="flex items-center gap-1.5">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowDatePicker(true)} 
+              className={`p-2.5 rounded-lg border backdrop-blur-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                dateRange.start 
+                  ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-400' 
+                  : 'bg-slate-900/60 border-slate-800/60 text-slate-400 hover:border-cyan-500/30'
+              }`} 
+              aria-label="Filter by date"
+            >
               <Calendar className="w-4 h-4" />
-            </button>
-            <button onClick={() => { setActivities([]); setDateRange({ start: null, end: null }); }} className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-bold hover:text-white transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Clear activity log">
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleShare} 
+              className="p-2.5 rounded-lg bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 hover:bg-slate-900/80 hover:border-cyan-500/30 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-500" 
+              aria-label="Share activity log"
+            >
+              <Share2 className="w-4 h-4 text-slate-400 hover:text-cyan-400 transition-colors" />
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => { setActivities([]); setDateRange({ start: null, end: null }); }} 
+              className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-400 font-bold hover:bg-red-500/15 hover:border-red-500/50 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-red-500" 
+              aria-label="Clear activity log"
+            >
               Clear
-            </button>
-            <button onClick={handleShare} className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Share activity log">
-              <Share2 className="w-4 h-4 text-slate-400" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex space-x-2 overflow-x-auto scrollbar-none">
+        <div className="flex gap-2 overflow-x-auto pb-1.5 scrollbar-none">
           {(['All', 'Blocked', 'Verified', 'Cancelled'] as const).map((cat) => (
-            <button key={cat} onClick={() => setActivityFilter(cat)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative whitespace-nowrap ${activityFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
+            <motion.button 
+              key={cat} 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setActivityFilter(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold border transition-all duration-300 whitespace-nowrap relative focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                activityFilter === cat 
+                  ? 'border-cyan-500/50 text-cyan-300 bg-cyan-500/10' 
+                  : 'bg-slate-900/60 border-slate-800/60 text-slate-400 hover:text-slate-200'
+              }`}
               aria-pressed={activityFilter === cat}
             >
               <span className="relative z-10">{cat}</span>
-              {activityFilter === cat && <motion.div layoutId="activityTab" className="absolute inset-0 bg-sky-500 rounded-full shadow-md shadow-sky-500/10" />}
-            </button>
+              {activityFilter === cat && <motion.div layoutId="activityTab" className="absolute inset-0 bg-cyan-500/5 rounded-full" />}
+            </motion.button>
           ))}
         </div>
       </div>
 
       {/* Activity List */}
-      <motion.div
-        className="flex-1 overflow-y-auto px-4 pb-4"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        role="list"
-        aria-label="Activity list"
-      >
+      <div className="flex-1 px-4 pt-4">
         {filteredActivities.length === 0 ? (
-          <motion.div variants={itemVariants}>
-            <EmptyState icon="shield" title="No recent activity" description="You're all clear." />
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center justify-center min-h-[300px]"
+          >
+            <EmptyState icon="shield" title="No activity found" description={dateRange.start ? 'No events in this date range' : 'You're all clear.'} />
           </motion.div>
         ) : (
-          <div className="space-y-2">
-            {filteredActivities.map((act) => (
-              <motion.div key={act.id} variants={itemVariants} layout whileTap={{ scale: 0.98 }}
+          <motion.div
+            className="space-y-3 pb-4"
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            role="list"
+            aria-label="Activity list"
+          >
+            {filteredActivities.map((act, idx) => (
+              <motion.div 
+                key={act.id} 
+                variants={itemVariants} 
+                layout 
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/receipt-dark')}
-                className="p-3.5 bg-slate-900 border border-slate-800/80 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-700 transition"
+                className="group p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 cursor-pointer flex items-center justify-between hover:border-cyan-500/30 overflow-hidden relative"
                 role="listitem"
               >
-                <div className="flex items-center space-x-3 text-left flex-1 min-w-0">
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}`}>
-                    {act.status === 'Blocked' && <XCircle className="w-4 h-4" />}
-                    {act.status === 'Verified' && <CheckCircle2 className="w-4 h-4" />}
-                    {act.status === 'Cancelled' && <Trash2 className="w-4 h-4" />}
-                  </div>
+                {/* Status-based border */}
+                <div className={`absolute inset-0 border-l-2 transition-colors duration-300 ${
+                  act.status === 'Blocked' 
+                    ? 'border-l-red-500' 
+                    : act.status === 'Verified' 
+                    ? 'border-l-emerald-500' 
+                    : 'border-l-slate-600'
+                }`} />
+                
+                <div className="flex items-center gap-3 text-left flex-1 min-w-0 relative z-10">
+                  <motion.div 
+                    whileHover={{ scale: 1.1 }}
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 border transition-all duration-300 ${
+                      act.status === 'Blocked' 
+                        ? 'bg-red-500/20 border-red-500/30 text-red-300' 
+                        : act.status === 'Verified' 
+                        ? 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300'
+                        : 'bg-slate-800/60 border-slate-700/60 text-slate-300'
+                    }`}
+                  >
+                    {act.status === 'Blocked' && <XCircle className="w-5 h-5" />}
+                    {act.status === 'Verified' && <CheckCircle2 className="w-5 h-5" />}
+                    {act.status === 'Cancelled' && <Trash2 className="w-5 h-5" />}
+                  </motion.div>
+                  
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-bold text-white truncate">{act.title}</p>
-                    <p className="text-[11px] text-slate-400 mt-0.5 truncate">{act.description}</p>
+                    <p className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors truncate">{act.title}</p>
+                    <p className="text-xs text-slate-400 mt-1 truncate">{act.description}</p>
                   </div>
                 </div>
-                <div className="flex items-center shrink-0 ml-2">
+                
+                <div className="flex items-center gap-3 flex-shrink-0 ml-3 relative z-10">
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-500 font-mono block">{act.time}</span>
-                    <span className={`inline-block text-[8px] font-bold px-1.5 py-0.5 rounded mt-1 uppercase ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
+                    <span className="text-xs text-slate-500 font-mono block">{act.time}</span>
+                    <motion.span 
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: 1 }}
+                      className={`inline-block text-[10px] font-bold px-2 py-1 rounded-full mt-1 uppercase ${
+                        act.status === 'Blocked' 
+                          ? 'bg-red-500/15 text-red-300 border border-red-500/30' 
+                          : act.status === 'Verified' 
+                          ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                          : 'bg-slate-800/60 text-slate-300 border border-slate-700/40'
+                      }`}
+                    >
                       {act.status}
-                    </span>
+                    </motion.span>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 text-slate-600 ml-1.5" />
+                  <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors" />
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
-      </motion.div>
+      </div>
 
       {/* Date Picker Overlay */}
       <AnimatePresence>
