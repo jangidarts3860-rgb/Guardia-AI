@@ -51,7 +51,7 @@ export default function MerchantVerifiedScreen() {
           <strong className="text-slate-200">review merchant history.</strong>
         </p>
 
-        <div className={`w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 mt-8 space-y-3 ${!reduced ? 'animate-[fadeIn_0.7s_ease-out]' : ''}`}>
+        <div className={`w-full rounded-2xl p-4 mt-8 space-y-3 premium-card-green ${!reduced ? 'animate-[fadeIn_0.7s_ease-out]' : ''}`}>
           <div className="flex justify-between">
             <span className="text-xs text-slate-500">Merchant</span>
             <span className="text-xs text-white font-bold">Flipkart</span>
@@ -76,7 +76,7 @@ export default function MerchantVerifiedScreen() {
         </div>
 
         {/* Why this score? Expandable Panel */}
-        <button onClick={() => setShowDetails(!showDetails)} className="w-full mt-4 flex items-center justify-between p-3 bg-slate-900/40 border border-slate-800/60 rounded-2xl text-left transition hover:bg-slate-900/60 focus-visible:ring-2 focus-visible:ring-sky-500" aria-expanded={showDetails}>
+        <button onClick={() => setShowDetails(!showDetails)} className="w-full mt-4 flex items-center justify-between p-3 premium-card text-left transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-expanded={showDetails}>
           <span className="flex items-center space-x-2 text-xs font-medium text-sky-400">
             <span className="w-5 h-5 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
               <Info className="w-3 h-3" aria-hidden="true" />
@@ -112,7 +112,7 @@ export default function MerchantVerifiedScreen() {
       </div>
 
       <div className="pb-6 w-full z-10 space-y-3">
-        <button onClick={() => navigate('/scan-qr')} className="w-full text-white font-bold py-4 rounded-2xl bg-sky-500 hover:bg-sky-400 transition active:scale-[0.98] shadow-lg focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
+        <button onClick={() => navigate('/scan-qr')} className="w-full text-white font-bold py-4 rounded-2xl btn-premium transition focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
           Proceed to Pay →
         </button>
         <button onClick={onScanAgain} className="w-full text-slate-300 font-bold py-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:bg-slate-800 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500">

@@ -61,3 +61,44 @@ button:focus-visible, a:focus-visible {
 @keyframes blink {
   50% { opacity: 0; }
 }
+
+.premium-card {
+  background: rgba(16, 22, 34, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.premium-card-green {
+  background: rgba(6, 78, 59, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.premium-card-red {
+  background: rgba(153, 27, 27, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(239, 68, 68, 0.15) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-premium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4) !important;
+  filter: brightness(1.1);
+}
+
+.btn-premium:active {
+  transform: translateY(1px);
+}

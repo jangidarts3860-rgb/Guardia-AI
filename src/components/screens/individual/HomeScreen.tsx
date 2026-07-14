@@ -103,7 +103,7 @@ export default function HomeScreen() {
             </div>
 
             {/* Today's Status Card */}
-            <div onClick={() => setIsShieldActive(!isShieldActive)} className={`p-5 rounded-[24px] border transition-all duration-200 flex items-center space-x-5 text-left cursor-pointer select-none ${isShieldActive ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/55 border-slate-800/80 opacity-90'}`} role="switch" aria-checked={isShieldActive} tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsShieldActive(!isShieldActive); }}>
+            <div onClick={() => setIsShieldActive(!isShieldActive)} className={`p-5 rounded-2xl border transition-all duration-300 flex items-center space-x-5 text-left cursor-pointer select-none premium-card hover:scale-[1.01] ${isShieldActive ? 'border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.05)]' : 'opacity-70 border-slate-800/80'}`} role="switch" aria-checked={isShieldActive} tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsShieldActive(!isShieldActive); }}>
               <div className="relative shrink-0 flex items-center justify-center w-14 h-14">
                 {isShieldActive ? (
                   <div className="w-14 h-14 rounded-full bg-emerald-950/40 border border-emerald-500/20 flex items-center justify-center">
@@ -126,7 +126,7 @@ export default function HomeScreen() {
             </div>
 
             {/* Potential Monthly Savings Card */}
-            <div className="p-4 rounded-2xl border bg-slate-900 border-slate-800 text-left">
+            <div className="p-4 rounded-2xl border text-left premium-card transition-all duration-300 hover:scale-[1.01]">
               <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">Potential Monthly Savings</span>
               <div className="flex justify-between items-end mt-1.5 mb-1">
                 <div>
@@ -162,7 +162,7 @@ export default function HomeScreen() {
               </div>
               <div className="flex space-x-3 overflow-x-auto pb-1 scrollbar-none">
                 {subscriptions.length > 0 && (
-                  <div onClick={() => { setSelectedSub(subscriptions[0]); navigate('/sub-detail'); }} className="p-4 rounded-2xl border border-slate-800 bg-slate-900/50 shrink-0 w-44 text-left cursor-pointer hover:border-sky-500/40 transition">
+                  <div onClick={() => { setSelectedSub(subscriptions[0]); navigate('/sub-detail'); }} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer premium-card transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/40">
                     <div className="mb-2">
                       {getSubscriptionLogo(subscriptions[0].id, subscriptions[0].name, "w-8 h-8 rounded-lg")}
                     </div>
@@ -171,7 +171,7 @@ export default function HomeScreen() {
                     <p className="text-[10px] text-emerald-400 font-extrabold mt-3">Save ₹{subscriptions[0].cost}/mo</p>
                   </div>
                 )}
-                <div onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl border border-slate-800 bg-slate-900/50 shrink-0 w-44 text-left cursor-pointer hover:border-sky-500/40 transition">
+                <div onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer premium-card transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/40">
                   <div className="mb-2 w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
                     <ShieldAlert className="w-4.5 h-4.5 text-red-500" />
                   </div>
@@ -190,7 +190,7 @@ export default function HomeScreen() {
               </div>
               <div className="space-y-2">
                 {activities.slice(0, 3).map((act) => (
-                  <div key={act.id} onClick={() => navigate('/receipt-dark')} className="p-3.5 rounded-2xl border border-slate-800 bg-slate-900/30 flex items-center justify-between cursor-pointer hover:border-sky-500/40 transition">
+                  <div key={act.id} onClick={() => navigate('/receipt-dark')} className="p-3.5 rounded-2xl border flex items-center justify-between cursor-pointer premium-card transition-all duration-300 hover:scale-[1.01] hover:border-sky-500/40">
                     <div className="flex items-center space-x-3 text-left">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-900 border border-slate-800">
                         <span className={`w-2 h-2 rounded-full ${act.status === 'Blocked' ? 'bg-red-500 shadow-[0_0_8px_#ef4444]' : 'bg-emerald-500 shadow-[0_0_8px_#10b981]'}`} />

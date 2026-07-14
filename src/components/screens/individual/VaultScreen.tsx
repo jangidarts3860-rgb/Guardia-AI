@@ -55,7 +55,7 @@ export default function VaultScreen() {
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-0.5">Security Center</h3>
 
           {/* Emergency Freeze */}
-          <div className="p-4 rounded-2xl bg-red-600/10 border border-red-500/20 text-left relative overflow-hidden">
+          <div className="p-4 rounded-2xl text-left relative overflow-hidden premium-card-red">
             <div className="flex items-center space-x-2.5 mb-3">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" aria-hidden="true" />
               <span className="text-red-500 font-bold text-xs uppercase tracking-wider">Emergency Freeze Mode</span>
@@ -70,7 +70,7 @@ export default function VaultScreen() {
           </div>
 
           {/* AI & Privacy Controls */}
-          <div className="border rounded-2xl divide-y bg-slate-900 border-slate-800/80 divide-slate-800/40">
+          <div className="border rounded-2xl divide-y divide-slate-800/40 premium-card">
             {[
               { label: 'SMS Scanning', desc: 'Scans local text alerts for security threats', val: smsScan, set: setSmsScan },
               { label: 'Call Protection', desc: 'Detects potential AI-voice scams', val: callProtection, set: setCallProtection },
@@ -89,7 +89,7 @@ export default function VaultScreen() {
           </div>
 
           {/* Privacy Dashboard */}
-          <div className="p-4 rounded-2xl border border-slate-800 bg-slate-900/30">
+          <div className="p-4 rounded-2xl border premium-card">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />

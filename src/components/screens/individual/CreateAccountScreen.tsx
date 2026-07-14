@@ -142,9 +142,9 @@ export default function CreateAccountScreen() {
         <button
           disabled={!canSubmit}
           onClick={handleSubmit}
-          className={`w-full font-bold py-4 rounded-2xl shadow-lg transition flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+          className={`w-full font-bold py-4 rounded-2xl transition flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
             canSubmit
-              ? 'bg-sky-500 hover:bg-sky-400 text-white cursor-pointer shadow-sky-500/10 active:scale-[0.98]'
+              ? 'text-white cursor-pointer btn-premium'
               : 'bg-slate-700/50 text-slate-400 cursor-not-allowed shadow-none border border-slate-700'
           }`}
         >

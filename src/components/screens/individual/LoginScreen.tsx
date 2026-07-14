@@ -92,7 +92,7 @@ export default function LoginScreen() {
               <p className="text-center text-xs text-red-500 font-bold tracking-wider" role="alert">
                 Too many attempts. Account temporarily locked for your safety.
               </p>
-              <button onClick={() => navigate('/reset-pin')} className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
+              <button onClick={() => navigate('/reset-pin')} className="w-full text-white font-bold py-4 rounded-2xl btn-premium transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
                 Reset PIN / Account Recovery
               </button>
               <button onClick={() => navigate('/freeze-accounts-confirm')} className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-4 rounded-2xl border border-slate-700 transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
@@ -114,14 +114,14 @@ export default function LoginScreen() {
               <div className="w-full max-w-xs px-2 mx-auto pb-4">
                 <div className="grid grid-cols-3 gap-y-4 gap-x-5 text-center">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <button key={num} onClick={() => handleNumPress(num.toString())} className="w-14 h-14 rounded-full bg-slate-900 border border-slate-800 text-lg font-black transition-all flex items-center justify-center active:bg-slate-700 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none" aria-label={`Press ${num}`}>
+                    <button key={num} onClick={() => handleNumPress(num.toString())} className="w-14 h-14 rounded-full premium-card text-lg font-black transition-all flex items-center justify-center active:bg-slate-700 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none" aria-label={`Press ${num}`}>
                       {num}
                     </button>
                   ))}
                   <button onClick={handleBackspace} className="w-14 h-14 rounded-full bg-transparent text-slate-500 text-xl font-bold transition-all flex items-center justify-center active:bg-slate-800/50 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none" aria-label="Delete last digit">
                     ⌫
                   </button>
-                  <button onClick={() => handleNumPress('0')} className="w-14 h-14 rounded-full bg-slate-900 border border-slate-800 text-lg font-black transition-all flex items-center justify-center active:bg-slate-700 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none" aria-label="Press 0">
+                  <button onClick={() => handleNumPress('0')} className="w-14 h-14 rounded-full premium-card text-lg font-black transition-all flex items-center justify-center active:bg-slate-700 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none" aria-label="Press 0">
                     0
                   </button>
                   <button onClick={triggerBiometric} className="w-14 h-14 rounded-full bg-transparent text-emerald-400 transition-all flex items-center justify-center active:scale-90 active:bg-emerald-500/10 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none" aria-label="Login with Face ID">
