@@ -123,7 +123,7 @@ export default function ActivityLogScreen() {
       >
         {filteredActivities.length === 0 ? (
           <motion.div variants={itemVariants}>
-            <EmptyState icon="shield" title="No recent activity" description="You're all clear." />
+            <EmptyState icon="shield" title="No security events yet" description="Scan a QR code or link a bank account to log security activities." />
           </motion.div>
         ) : (
           <div className="space-y-2">

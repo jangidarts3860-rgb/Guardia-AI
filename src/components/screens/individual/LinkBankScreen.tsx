@@ -100,7 +100,9 @@ export default function LinkBankScreen() {
           
           {/* Available Banks Section */}
           {banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
-            <div className="col-span-2 text-center py-8 text-slate-500 text-xs">No banks found matching your search.</div>
+            <div className="col-span-2 text-center py-8 text-slate-500 text-xs">
+              No banks found matching "{bankSearch}". Try searching for major banks like SBI, HDFC, or ICICI.
+            </div>
           ) : (
             banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).map((bank) => {
               const isSelected = selectedBankId === bank.id;

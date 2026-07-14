@@ -151,10 +151,10 @@ export default function CreateAccountScreen() {
           {authLoading ? (
             <>
               <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" aria-hidden="true" />
-              <span>Processing...</span>
+              <span>Sending OTP...</span>
             </>
           ) : (
-            <span>Send OTP Verification →</span>
+            <span>Send OTP to Mobile →</span>
           )}
         </button>
         <p className="text-xs text-slate-400 leading-relaxed text-center px-4">

@@ -89,16 +89,16 @@ export default function LoginScreen() {
 
           {isPanicMode ? (
             <div className="space-y-3 pt-2">
-              <p className="text-center text-xs text-red-500 font-bold tracking-wider" role="alert">
-                Too many attempts. Account temporarily locked for your safety.
+              <p className="text-center text-xs text-red-500 font-bold tracking-wider leading-relaxed" role="alert">
+                PIN locked. 3 incorrect attempts made. Reset PIN to unlock account.
               </p>
               <button onClick={() => navigate('/reset-pin')} className="w-full text-white font-bold py-4 rounded-2xl btn-premium transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
-                Reset PIN / Account Recovery
+                Reset PIN & Verify ID
               </button>
               <button onClick={() => navigate('/freeze-accounts-confirm')} className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-4 rounded-2xl border border-slate-700 transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
-                Freeze All Accounts
+                Freeze Connected Accounts
               </button>
-              <span className="block text-center text-[10px] text-slate-600 font-mono pt-1">Account locked for your safety</span>
+              <span className="block text-center text-[10px] text-slate-600 font-mono pt-1">Locked for your security</span>
             </div>
           ) : (
             <>

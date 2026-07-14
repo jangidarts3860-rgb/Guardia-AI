@@ -72,7 +72,7 @@ export default function NotificationsScreen() {
 
         <motion.div className="space-y-2.5 flex-1 overflow-y-auto text-left" variants={containerVariants} initial="hidden" animate="show">
           {notifications.filter(n => notifFilter === 'All' || n.type === notifFilter).length === 0 ? (
-            <motion.div variants={itemVariants}><EmptyState icon="bell" title="No notifications" description="You're all caught up!" /></motion.div>
+            <motion.div variants={itemVariants}><EmptyState icon="bell" title="All caught up!" description="We'll notify you here if any suspicious payments or threat alerts are intercepted." /></motion.div>
           ) : (
             notifications.filter(n => notifFilter === 'All' || n.type === notifFilter).map((notif) => {
               const target = notif.type === 'Fraud' ? 'safe-report' : notif.type === 'Subscriptions' ? 'subs-dashboard' : 'home';
