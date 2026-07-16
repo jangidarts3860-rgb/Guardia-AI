@@ -1,9 +1,0 @@
-{
-  "name": "Guardia AI Screen Importer",
-  "id": "guardia-ai-screen-importer-v1",
-  "api": "1.0.0",
-  "main": "code.js",
-  "ui": "ui.html",
-  "editorType": ["figma"],
-  "documentAccess": "dynamic-page"
-}
