@@ -79,7 +79,7 @@ export default function NotificationsScreen() {
               return (
               <motion.div key={notif.id} variants={itemVariants} layout whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(target)}
-                className={`p-4 rounded-2xl relative flex space-x-3 items-start transition cursor-pointer card-surface`}
+                className={`p-4 rounded-2xl relative flex space-x-3 items-start transition cursor-pointer bg-[#0f1422]/80 backdrop-blur-xl border border-white/[0.03] shadow-sm shadow-black/20 hover:bg-[#0f1422]`}
                 role="listitem"
               >
                 {notif.unread && <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-sky-400" aria-label="Unread" />}
