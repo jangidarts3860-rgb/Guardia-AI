@@ -52,12 +52,12 @@ export default function NotificationsScreen() {
             </button>
             <h2 className="text-lg font-bold">Notifications</h2>
           </div>
-          <button onClick={() => setNotifications(prev => prev.map(n => ({ ...n, unread: false })))} className="text-xs text-sky-400 font-bold hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">
-            Mark all read
+          <button onClick={() => setNotifications([])} className="text-xs text-red-400 font-bold hover:underline focus-visible:ring-2 focus-visible:ring-red-500 rounded">
+            Clear all
           </button>
         </div>
 
-        <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-none shrink-0 relative">
+        <div className="flex flex-wrap gap-2 pb-1 shrink-0 relative">
           {(['All', 'Fraud', 'Subscriptions', 'System'] as const).map((cat) => (
             <button key={cat} onClick={() => setNotifFilter(cat)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${notifFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
@@ -92,7 +92,12 @@ export default function NotificationsScreen() {
                 <div className="flex-1 space-y-0.5">
                   <div className="flex justify-between items-center">
                     <p className="font-extrabold text-xs">{notif.title}</p>
-                    <span className="text-xs text-slate-400 font-mono pr-2">{notif.time}</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[10px] text-slate-400 font-mono">{notif.time}</span>
+                      <button onClick={(e) => { e.stopPropagation(); setNotifications(prev => prev.filter(n => n.id !== notif.id)); }} className="text-slate-500 hover:text-red-400 transition" aria-label="Delete">
+                        ✕
+                      </button>
+                    </div>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-medium">{notif.description}</p>
                 </div>
