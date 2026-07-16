@@ -110,7 +110,7 @@ export default function FreezeAccountsConfirmScreen() {
         </div>
       </div>
 
-      <div className="space-y-4 z-10 pb-4">
+      <div className="space-y-4 z-10 pb-4 mt-6">
         <div className="space-y-2">
           <SlideToAction onComplete={handleSlideComplete} label="Slide to confirm freeze" variant="danger" />
           <button
