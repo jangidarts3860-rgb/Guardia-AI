@@ -78,7 +78,7 @@ export default function ActivityLogScreen() {
   return (
     <div className="flex flex-col min-h-full bg-transparent text-white">
       {/* Header */}
-      <div className="px-4 pt-4 pb-3 space-y-3">
+      <div className="sticky top-0 z-50 px-4 pt-4 pb-3 space-y-3 bg-transparent backdrop-blur-md border-b border-white/5">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <button onClick={() => navigate('/home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
