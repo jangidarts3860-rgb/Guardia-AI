@@ -57,7 +57,7 @@ export default function NotificationsScreen() {
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 pb-1 shrink-0 relative">
+        <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-none shrink-0 relative">
           {(['All', 'Fraud', 'Subscriptions', 'System'] as const).map((cat) => (
             <button key={cat} onClick={() => setNotifFilter(cat)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative ${notifFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
