@@ -7,11 +7,11 @@
 ## Overview
 
 ```
-Total Screens: 28
-Architecture: React Router + Zustand (Global State)
+Total Screens: 33
+Architecture: React Router + Zustand (Global State) + Framer Motion (Animations)
 Target Persona for MVP: UI/UX Interviewers & Recruiters
-Core Tabs: Home | Subs | [VERIFY FAB] | Vault
-Auth Focus: Seamless standard patterns with bypass for recruiters
+Core Tabs: Home | Subs | [VERIFY FAB] | Security | Profile
+Auth Focus: Seamless standard patterns with biometric integration and PIN recovery.
 ```
 
 ---
@@ -74,7 +74,12 @@ Auth Focus: Seamless standard patterns with bypass for recruiters
 ├── Title: "Securely connecting via RBI's AA Framework"
 ├── Search popular banks
 ├── Recruiter Bypass: "Do this later" button available
-└── → /home
+└── → /link-bank-progress
+
+[/link-bank-progress] BANK LINKING SUCCESS
+├── Premium radar sweep animation
+├── Dynamically fetches Bank Logo
+└── Auto-redirects to → /home
 ```
 
 ---
@@ -104,11 +109,20 @@ Auth Focus: Seamless standard patterns with bypass for recruiters
 ├── Bottom sheet: "Or paste a link / SMS"
 └── Action: Scan triggers → /analyzing-merchant
 
-[/vault] VAULT (Bank & Security)
-├── Top: "🚨 FREEZE EVERYTHING" (Big red button)
+[/vault] VAULT (Security Controls)
+├── Top: "🚨 FREEZE EVERYTHING" (Big red button) → /freeze-accounts-confirm
 ├── Linked Accounts list
 ├── Privacy & AI Controls (Toggles)
 └── Privacy Dashboard stats
+
+[/freeze-accounts-confirm] EMERGENCY FREEZE
+├── Danger UI with slide-to-action
+├── Biometric confirmation step
+└── Securely locks account
+
+[/family-spend-hub] FAMILY SPEND
+├── Tracks subscription usage across family members
+└── Accessible from Subs Dashboard
 ```
 
 ---

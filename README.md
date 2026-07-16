@@ -23,7 +23,7 @@ When deploying this app on Vercel or running locally, you can use the following 
 
 ### 3. Developer/Debug Explorer Mode (`?dev=true` or `?debug=true`)
 * **URL:** `https://guardia-ai.vercel.app/?dev=true`
-* **Layout:** Displays the left **Screen Explorer (Flow Navigator)** panel alongside the phone simulator, allowing you to instantly force-switch between all 28 simulated screen states.
+* **Layout:** Displays the left **Screen Explorer (Flow Navigator)** panel alongside the phone simulator, allowing you to instantly force-switch between all 33 simulated screen states.
 
 ---
 
@@ -45,7 +45,7 @@ When deploying this app on Vercel or running locally, you can use the following 
 
 ## 📸 Automated Screenshot Capture Script
 
-To export retina-quality screenshots of all 28 screen views without status bar overlays, battery icons, or camera notches:
+To export retina-quality screenshots of all 33 screen views without status bar overlays, battery icons, or camera notches:
 
 1. Ensure the dev server is active (`npm run dev` running on port 3000).
 2. Execute the Playwright export script:
