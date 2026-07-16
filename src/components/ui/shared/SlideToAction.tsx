@@ -110,12 +110,15 @@ export default function SlideToAction({
       aria-valuemax={100}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-      onMouseUp={handleEnd}
-      onTouchEnd={handleEnd}
-      onMouseLeave={handleEnd}
-      className={`relative h-14 rounded-2xl flex items-center justify-center overflow-hidden cursor-pointer select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+      onPointerMove={(e) => {
+        if (e.buttons > 0 || e.pointerType === 'touch') {
+          handleMove(e.clientX);
+        }
+      }}
+      onPointerUp={handleEnd}
+      onPointerLeave={handleEnd}
+      onPointerCancel={handleEnd}
+      className={`relative h-14 rounded-2xl flex items-center justify-center overflow-hidden cursor-pointer select-none touch-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
         variant === 'danger' ? 'focus-visible:ring-red-500' : 'focus-visible:ring-sky-500'
       } ${
         variant === 'danger'
@@ -159,8 +162,13 @@ export default function SlideToAction({
       </span>
 
       <motion.div
-        onMouseDown={() => { if (!disabled && !completeCalled.current) setIsSliding(true); }}
-        onTouchStart={() => { if (!disabled && !completeCalled.current) setIsSliding(true); }}
+        onPointerDown={(e) => {
+          e.preventDefault(); // Stop pointer capture issues
+          if (!disabled && !completeCalled.current) {
+            setIsSliding(true);
+            (e.target as HTMLElement).setPointerCapture(e.pointerId);
+          }
+        }}
         style={{ x: springX }}
         className={`absolute left-1.5 top-1.5 w-11 h-11 rounded-xl flex items-center justify-center shadow-md z-20 ${
           variant === 'danger'
