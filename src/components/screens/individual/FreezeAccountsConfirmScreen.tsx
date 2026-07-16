@@ -71,40 +71,41 @@ export default function FreezeAccountsConfirmScreen() {
           <div className="w-8" />
         </div>
 
-        <div className="text-center py-2 space-y-2">
-          <motion.div animate={{ x: [-5, 5, -5, 5, 0] }} transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
-            className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto text-red-500">
+        <div className="text-center py-4 space-y-3 relative">
+          <div className="absolute inset-0 bg-red-500/20 blur-[50px] rounded-full w-32 h-32 mx-auto pointer-events-none" />
+          <motion.div animate={{ x: [-5, 5, -5, 5, 0], boxShadow: ["0px 0px 0px rgba(239,68,68,0)", "0px 0px 20px rgba(239,68,68,0.5)", "0px 0px 0px rgba(239,68,68,0)"] }} transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
+            className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/50 flex items-center justify-center mx-auto text-red-500 relative z-10 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
             <Lock className="w-8 h-8" aria-hidden="true" />
           </motion.div>
-          <h1 className="text-2xl font-extrabold text-red-500 tracking-tight">Confirm Freeze</h1>
+          <h1 className="text-2xl font-extrabold text-red-500 tracking-tight relative z-10 drop-shadow-md">Confirm Freeze</h1>
           <p className="text-xs text-slate-400 px-4 leading-normal">
             This will freeze all cards & disconnect active UPI mandates.
           </p>
         </div>
 
         <div className="space-y-2.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Accounts to lock</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 ml-1">Accounts to lock</span>
           {[
             { name: 'HDFC Bank savings (*4321)', desc: 'Blocks all ATM and NetBanking debits' },
             { name: 'ICICI Credit Card (*8823)', desc: 'Locks swipe & international e-com transactions' },
             { name: 'UPI Auto-Pay Mandates', desc: 'Revokes active mandates on Swiggy, Paytm, etc.' },
           ].map((item, idx) => (
             <motion.div key={idx} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.1 }}
-              className="p-3 bg-slate-900 border border-slate-800/80 rounded-xl flex items-start space-x-3 text-xs">
-              <div className="mt-0.5 w-4.5 h-4.5 rounded bg-red-600/10 border border-red-600/30 flex items-center justify-center text-red-500">
+              className="p-3.5 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-xl flex items-start space-x-3 text-xs shadow-lg shadow-black/20">
+              <div className="mt-0.5 w-4.5 h-4.5 rounded bg-red-600/20 border border-red-500/50 flex items-center justify-center text-red-400 shadow-[0_0_8px_rgba(239,68,68,0.3)]">
                 <Check className="w-3 h-3" strokeWidth={3} />
               </div>
               <div>
-                <p className="font-bold text-white">{item.name}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{item.desc}</p>
+                <p className="font-bold text-white tracking-wide">{item.name}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{item.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <div className="p-3.5 bg-amber-500/5 border border-amber-500/20 rounded-xl flex space-x-2.5 items-start text-left">
-          <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" aria-hidden="true" />
-          <p className="text-xs text-slate-400 leading-normal">
+        <div className="p-4 bg-amber-500/10 backdrop-blur-md border border-amber-500/30 rounded-xl flex space-x-3 items-start text-left shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+          <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" aria-hidden="true" />
+          <p className="text-xs text-slate-300 leading-relaxed">
             <strong className="text-white font-semibold">Warning:</strong> Biometric OTP required to restore access after freeze.
           </p>
         </div>
@@ -121,7 +122,7 @@ export default function FreezeAccountsConfirmScreen() {
             <span>Confirm with Biometric / FaceID</span>
           </button>
         </div>
-        <button onClick={() => navigate('/security')} className="w-full py-3.5 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500">
+        <button onClick={() => navigate('/security')} className="w-full py-3.5 text-slate-500 hover:text-slate-300 text-xs font-bold tracking-wide rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500">
           Cancel & Keep Active
         </button>
       </div>
