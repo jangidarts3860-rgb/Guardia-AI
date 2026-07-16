@@ -16,6 +16,7 @@ A robust and scalable design system is used to maintain visual consistency acros
 ### 2.1 Typography
 - **Primary Font:** `Plus Jakarta Sans` (Used for headers, body text, and UI labels for its highly legible, modern geometry)
 - **Secondary/Monospace Font:** `JetBrains Mono` (Used for sensitive technical data like account numbers `(*4321)`, IPs, error logs, and status chips to evoke a "cyber-secure" aesthetic)
+- **Contrast Rule (Phase 10 Audit):** For paragraph text in Dark Mode, always use `text-slate-400` or `text-slate-300`. Avoid `text-slate-500` or `text-slate-600` as they fail WCAG contrast checks against our deep slate backgrounds.
 
 ### 2.2 Color Palette & Theming
 The application supports both Light and Dark mode, utilizing semantic color mapping via Tailwind CSS. Dark mode uses deep slates to reduce eye strain, while Light mode relies on crisp whites and subtle grays.
@@ -29,12 +30,15 @@ The application supports both Light and Dark mode, utilizing semantic color mapp
 **Ambient Lighting & Depth:**
 - Instead of pure flat backgrounds, global radial gradients (`bg-cyan-500/10 blur-[100px]`) are placed at the root level to create ambient "glows" that react as users navigate, adding a premium 3D feel.
 
-### 2.3 Layout & Spacing
-- **Standard Padding:** Main screen containers use standard `p-4` or `p-5`.
+### 2.3 Layout, Spacing & CSS Utilities
+- **Standard Padding:** Main screen containers use standard `p-4` or `p-5`. Bottom padding on main routes must use `pb-[calc(6rem+env(safe-area-inset-bottom))]` to avoid overlapping with the absolute bottom navigation bar.
 - **Corner Radii:** We use extremely exaggerated radii for a modern "bubble" aesthetic:
   - Standard Cards: `rounded-2xl`
   - Primary Action Buttons: `rounded-xl`
   - Large Highlight Containers: `rounded-3xl` or `rounded-[24px]`
+- **Global CSS Utility Classes (`index.css`):**
+  - `.card-surface`: Applies our standard frosted glass backdrop (`bg-slate-900/60 backdrop-blur-xl border-slate-800/60`).
+  - `.btn-premium`: Applies standard active states, shadow, and glass styling to CTA buttons.
 
 ## 3. Motion & Animation (Framer Motion)
 
@@ -45,7 +49,7 @@ Animations are driven by physics-based `spring` transitions rather than linear C
 - **In/Out Flow:** Screens scale down slightly (`0.98`) and fade out, then the new screen scales up from `0.98` and fades in (`duration: 0.15`).
 
 ### Micro-Interactions (Universal Tactility)
-- **Buttons:** All interactive elements use `whileTap={{ scale: 0.95 }}`.
+- **Buttons:** All interactive elements use `whileTap={{ scale: 0.98 }}` or the native CSS utility `active:scale-[0.98]`. Avoid smaller scales like 0.95 which feel too aggressive on mobile.
 - **Destructive Actions:** Buttons that involve high risk (e.g., Freeze Accounts, Delete Account) utilize infinite "Warning Shakes" (`x: [-5, 5, -5, 5, 0]`) to convey urgency.
 - **Active Navigation:** The bottom navigation bar uses a fluid "Dynamic Pill" approach. The active tab's background uses `layoutId="navTabBg"` to seamlessly glide under the icon.
 
