@@ -127,7 +127,7 @@ export default function ScamDetectedScreen() {
         </div>
       </div>
 
-      <div className="pb-6 w-full z-10 space-y-3">
+      <div className="pb-6 w-full z-10 space-y-3 mt-6">
         <button onClick={() => navigate('/home')} className="w-full text-white font-bold py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 transition active:scale-[0.98] shadow-lg shadow-emerald-500/10 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]">
           ✓ Back to safety (Recommended)
         </button>
