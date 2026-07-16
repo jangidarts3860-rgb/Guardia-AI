@@ -4,6 +4,7 @@ import { useState } from 'react';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Camera, User, Mail, Smartphone, Globe } from 'lucide-react';
+import { showToast } from '../../ui/shared/Toast';
 
 
 export default function EditProfileScreen() {
@@ -27,7 +28,7 @@ export default function EditProfileScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-5 justify-between">
       <div className="space-y-6 text-left">
         <div className="flex justify-between items-center pt-2">
           <button onClick={() => {
@@ -51,6 +52,10 @@ export default function EditProfileScreen() {
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
+                  if (file.size > 2 * 1024 * 1024) {
+                    showToast('error', 'Image size must be less than 2MB');
+                    return;
+                  }
                   const reader = new FileReader();
                   reader.onloadend = () => setLocal({ ...local, photo: reader.result as string });
                   reader.readAsDataURL(file);
@@ -74,14 +79,14 @@ export default function EditProfileScreen() {
               <Camera className="w-3.5 h-3.5 text-white" />
             </div>
           </motion.div>
-          <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Change Profile Photo</p>
+          <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Change Profile Photo</p>
         </div>
 
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <label htmlFor="name-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
+            <label htmlFor="name-input" className="text-xs font-bold uppercase tracking-wider text-slate-400">Full Name</label>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-500"><User className="w-4 h-4" aria-hidden="true" /></span>
+              <span className="absolute left-4 text-slate-400"><User className="w-4 h-4" aria-hidden="true" /></span>
               <input id="name-input" type="text" value={local.name} onChange={(e) => setLocal({ ...local, name: e.target.value })}
                 className="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-800/80 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:bg-slate-900 transition-all"
                 placeholder="Enter full name" aria-label="Full name"
@@ -90,9 +95,9 @@ export default function EditProfileScreen() {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="email-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
+            <label htmlFor="email-input" className="text-xs font-bold uppercase tracking-wider text-slate-400">Email Address</label>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-500"><Mail className="w-4 h-4" aria-hidden="true" /></span>
+              <span className="absolute left-4 text-slate-400"><Mail className="w-4 h-4" aria-hidden="true" /></span>
               <input id="email-input" type="email" value={local.email} onChange={(e) => setLocal({ ...local, email: e.target.value })}
                 className="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-800/80 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:bg-slate-900 transition-all"
                 placeholder="your.email@example.com" aria-label="Email address"
@@ -102,21 +107,21 @@ export default function EditProfileScreen() {
 
           <div className="space-y-1.5">
             <div className="flex justify-between">
-              <label htmlFor="phone-input" className="text-xs font-bold uppercase tracking-wider text-slate-500">Mobile Number</label>
+              <label htmlFor="phone-input" className="text-xs font-bold uppercase tracking-wider text-slate-400">Mobile Number</label>
               <span className="text-[8px] bg-emerald-500/10 text-emerald-400 font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/10">Verified SIM 1</span>
             </div>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-500"><Smartphone className="w-4 h-4" aria-hidden="true" /></span>
+              <span className="absolute left-4 text-slate-400"><Smartphone className="w-4 h-4" aria-hidden="true" /></span>
               <input id="phone-input" type="tel" disabled value={local.phone || '+91 98765 43210'}
-                className="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-900 rounded-xl text-xs text-slate-400 cursor-not-allowed font-mono" aria-label="Mobile number (verified)"
+                className="w-full pl-11 pr-4 py-3 bg-transparent/40 border border-slate-900 rounded-xl text-xs text-slate-400 cursor-not-allowed font-mono" aria-label="Mobile number (verified)"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="lang-select" className="text-xs font-bold uppercase tracking-wider text-slate-500">Language preference</label>
+            <label htmlFor="lang-select" className="text-xs font-bold uppercase tracking-wider text-slate-400">Language preference</label>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-slate-500"><Globe className="w-4 h-4" aria-hidden="true" /></span>
+              <span className="absolute left-4 text-slate-400"><Globe className="w-4 h-4" aria-hidden="true" /></span>
               <select id="lang-select" value={local.language} onChange={(e) => setLocal({ ...local, language: e.target.value })}
                 className="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-800/80 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 focus:bg-slate-900 transition-all appearance-none" aria-label="Language preference"
               >
@@ -125,7 +130,7 @@ export default function EditProfileScreen() {
                 <option value="Marathi">Marathi (मराठी)</option>
                 <option value="Gujarati">Gujarati (ગુજરાતી)</option>
               </select>
-              <span className="absolute right-4 text-slate-500 pointer-events-none text-xs" aria-hidden="true">▼</span>
+              <span className="absolute right-4 text-slate-400 pointer-events-none text-xs" aria-hidden="true">▼</span>
             </div>
           </div>
         </div>

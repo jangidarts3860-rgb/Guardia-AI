@@ -3,6 +3,7 @@ import { useStore } from '../../../store';
 import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Lock } from 'lucide-react';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
+import { showToast } from '../../ui/shared/Toast';
 
 
 export default function VerifyOtpScreen() {
@@ -53,17 +54,19 @@ export default function VerifyOtpScreen() {
         setOtpVal(digits);
         proceedToNext();
       }
-    } catch { /* Clipboard access denied */ }
+    } catch {
+      showToast('error', 'Clipboard access denied. Please type it manually.');
+    }
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative">
       <div className="space-y-6 z-10">
         <div className="flex items-center space-x-2 pt-2">
           <button onClick={() => navigate('/create-account')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
             <ArrowLeft className="w-4 h-4 text-slate-300" />
           </button>
-          <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 2 OF 3</span>
+          <span className="text-[10px] font-bold tracking-widest text-slate-400 font-mono">STEP 2 OF 3</span>
         </div>
 
           <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden flex">
@@ -72,7 +75,7 @@ export default function VerifyOtpScreen() {
           </div>
 
         <div className="space-y-2 text-left">
-          <h2 className="text-2xl font-black tracking-tight text-white">Enter OTP Code</h2>
+          <h1 className="text-2xl font-extrabold tracking-tight text-white">Enter OTP Code</h1>
           <p className="text-xs text-slate-400 leading-relaxed">
             Enter the 6-digit confirmation code sent to{' '}
             <strong className="text-slate-200">{profile.phone || '+91 98765 43210'}</strong>
@@ -156,7 +159,7 @@ export default function VerifyOtpScreen() {
           </div>
 
         <div className="p-3.5 bg-slate-900/40 border border-slate-800/60 rounded-2xl flex space-x-3 items-center">
-          <div className="p-2 bg-slate-950 border border-slate-800 rounded-xl text-sky-400 shrink-0">
+          <div className="p-2 bg-transparent border border-slate-800 rounded-xl text-sky-400 shrink-0">
             <Lock className="w-4 h-4" />
           </div>
           <p className="text-xs text-slate-400 text-left leading-normal">
@@ -177,7 +180,7 @@ export default function VerifyOtpScreen() {
               proceedToNext();
             }, 600);
           }}
-          className={`w-full text-white font-bold py-4 rounded-2xl shadow-lg transition active:scale-[0.98] flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+          className={`w-full text-white font-bold py-4 rounded-2xl shadow-lg transition active:scale-[0.98] flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] ${
             authLoading ? 'bg-sky-500/80 cursor-not-allowed' : 'bg-sky-500 hover:bg-sky-400 shadow-sky-500/10'
           } disabled:opacity-40 disabled:cursor-not-allowed`}
         >

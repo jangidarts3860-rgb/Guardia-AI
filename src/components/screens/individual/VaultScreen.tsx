@@ -26,16 +26,16 @@ export default function VaultScreen() {
     scanOutcome, setScanOutcome
   } = useStore();
 
-  const cardBg = 'bg-slate-900/90 border-slate-800/80 text-white';
+  const cardBg = 'card-surface text-white';
   const textMuted = 'text-slate-400';
   const [smsScan, setSmsScan] = useState(true);
   const [callProtection, setCallProtection] = useState(true);
   const [autoCancel, setAutoCancel] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-full pb-24 bg-slate-950 text-white">
+    <div className="flex flex-col min-h-full pb-[calc(6rem+env(safe-area-inset-bottom))] bg-transparent text-white">
       {/* Sticky Nav Row */}
-      <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md p-4 pb-2.5 border-b border-slate-900">
+      <div className="sticky top-0 z-30 bg-transparent/95 backdrop-blur-md p-4 pb-2.5 border-b border-slate-900">
       <div className="flex justify-between items-center text-left">
         <div>
           <h2 className="text-xl font-extrabold tracking-tight">Security</h2>
@@ -52,10 +52,10 @@ export default function VaultScreen() {
 
         {/* ── Security Center ── */}
         <div className="text-left space-y-3">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-0.5">Security Center</h3>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 px-0.5">Security Center</h3>
 
           {/* Emergency Freeze */}
-          <div className="p-4 rounded-2xl text-left relative overflow-hidden premium-card-red">
+          <div className="p-4 rounded-2xl text-left relative overflow-hidden card-danger">
             <div className="flex items-center space-x-2.5 mb-3">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" aria-hidden="true" />
               <span className="text-red-500 font-bold text-xs uppercase tracking-wider">Emergency Freeze Mode</span>
@@ -70,18 +70,18 @@ export default function VaultScreen() {
           </div>
 
           {/* AI & Privacy Controls */}
-          <div className="border rounded-2xl divide-y divide-slate-800/40 premium-card">
+          <div className="rounded-2xl divide-y divide-slate-800/40 card-surface">
             {[
               { label: 'SMS Scanning', desc: 'Scans local text alerts for security threats', val: smsScan, set: setSmsScan },
               { label: 'Call Protection', desc: 'Detects potential AI-voice scams', val: callProtection, set: setCallProtection },
               { label: 'Auto-Cancel Trials', desc: 'Cancels unused trials before renewal hits', val: autoCancel, set: setAutoCancel },
             ].map((item, i) => (
-              <div key={i} className="p-4 flex justify-between items-center">
-                <div className="text-left pr-4">
+              <div key={i} onClick={() => item.set(!item.val)} className="p-4 flex justify-between items-center cursor-pointer hover:bg-slate-800/30 transition-colors" role="button" tabIndex={0} onKeyDown={(e) => { if(e.key === 'Enter' || e.key === ' ') item.set(!item.val); }}>
+                <div className="text-left pr-4 pointer-events-none">
                   <p className="text-xs font-bold">{item.label}</p>
                   <p className={`text-xs ${textMuted} mt-0.5`}>{item.desc}</p>
                 </div>
-                <button onClick={() => item.set(!item.val)} className={`w-11 h-6 p-0.5 rounded-full transition-colors flex items-center ${item.val ? 'bg-sky-500 justify-end' : 'bg-slate-800 justify-start'}`} role="switch" aria-checked={item.val} aria-label={item.label}>
+                <button tabIndex={-1} className={`w-11 h-6 p-0.5 rounded-full transition-colors flex items-center shrink-0 ${item.val ? 'bg-sky-500 justify-end' : 'bg-slate-800 justify-start'}`} role="switch" aria-checked={item.val} aria-label={item.label}>
                   <motion.div layout transition={{ type: "spring", stiffness: 700, damping: 30 }} className="w-5 h-5 rounded-full bg-white shadow-sm" />
                 </button>
               </div>
@@ -89,7 +89,7 @@ export default function VaultScreen() {
           </div>
 
           {/* Privacy Dashboard */}
-          <div className="p-4 rounded-2xl border premium-card">
+          <div className="p-4 rounded-2xl border card-success">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />
@@ -131,18 +131,18 @@ export default function VaultScreen() {
         {/* ── Connected Accounts ── */}
         <div className="text-left space-y-3">
           <div className="flex justify-between items-center px-0.5">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Connected Accounts</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Connected Accounts</h3>
             <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/10">Secure Connection</span>
           </div>
           <div className="space-y-2">
             {banks.filter(b => b.isConnected).length === 0 ? (
-              <div className="p-6 text-center border border-dashed border-slate-800 rounded-2xl bg-slate-900/10 space-y-3.5">
+              <div className="p-6 text-center rounded-2xl card-surface space-y-3.5">
                 <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mx-auto">
                   <Plus className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div className="space-y-1">
                   <h4 className="font-bold text-xs text-slate-200">No bank account linked</h4>
-                  <p className="text-xs text-slate-500 mx-auto mt-0.5 leading-relaxed" style={{ maxWidth: 210 }}>
+                  <p className="text-xs text-slate-400 mx-auto mt-0.5 leading-relaxed" style={{ maxWidth: 210 }}>
                     Link your bank to enable AI protection, balance tracking & instant freeze.
                   </p>
                 </div>
@@ -152,15 +152,15 @@ export default function VaultScreen() {
               </div>
             ) : (
               banks.filter(b => b.isConnected).map((bank) => (
-                <div key={bank.id} className={`p-4 rounded-2xl border flex items-center justify-between transition hover:border-slate-800 ${cardBg}`}>
-                  <div className="flex items-center space-x-3">
-                    {getBankLogo(bank.id, bank.name, "w-10 h-10")}
-                    <div>
-                      <p className="text-xs font-bold">{bank.name}</p>
-                      <p className={`text-xs ${textMuted} mt-0.5`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
+                <div key={bank.id} className={`p-4 rounded-2xl flex items-center justify-between transition ${cardBg}`}>
+                  <div className="flex items-center space-x-3 flex-1 min-w-0 pr-2">
+                    {getBankLogo(bank.id, bank.name, "w-10 h-10 shrink-0")}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold truncate">{bank.name}</p>
+                      <p className={`text-xs ${textMuted} mt-0.5 truncate`}>Savings {bank.accNumber || '****'} • Sync {bank.lastSynced || 'N/A'}</p>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <AnimatedNumber value={bank.balance ?? 0} prefix="₹" className="text-xs font-extrabold font-mono text-emerald-400" format />
                     <span className="inline-flex items-center space-x-1 text-[8px] uppercase bg-emerald-500/10 text-emerald-500 px-1.5 py-0.5 rounded-full font-bold mt-1">
                       <span className="w-1 h-1 bg-emerald-500 rounded-full" aria-hidden="true" />

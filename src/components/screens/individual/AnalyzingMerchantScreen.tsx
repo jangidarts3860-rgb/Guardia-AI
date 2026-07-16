@@ -57,7 +57,7 @@ export default function AnalyzingMerchantScreen() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-5">
+    <div className="flex flex-col items-center justify-between min-h-full bg-transparent text-white p-5">
       
       <div className="pt-6 text-center z-10 w-full">
         <div className="inline-flex items-center space-x-1.5 bg-slate-900 border border-slate-800/80 px-3 py-1 rounded-full text-xs font-bold font-mono">
@@ -71,7 +71,7 @@ export default function AnalyzingMerchantScreen() {
 
       <div className="flex-1 flex flex-col items-center justify-center z-10 w-full px-4">
         <div className="relative mb-8">
-          <div className="w-28 h-28 rounded-full bg-slate-800/60 border border-slate-700/60 flex items-center justify-center">
+          <div className="w-28 h-28 rounded-full bg-slate-800/60 border border-slate-700/60 flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.15)] animate-pulse">
             <svg className="w-12 h-12 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>

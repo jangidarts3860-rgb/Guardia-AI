@@ -56,20 +56,20 @@ export default function FamilySpendHubScreen() {
   const totalFamilySpend = familyMembers.reduce((sum, m) => sum + m.subscriptions.reduce((s, sub) => s + sub.cost, 0), 0);
 
   return (
-    <div className="flex flex-col min-h-full pb-24 bg-slate-950 text-white">
-      <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md px-4 pt-4 pb-2 space-y-3">
+    <div className="flex flex-col min-h-full pb-24 bg-transparent text-white">
+      <div className="sticky top-0 z-30 bg-transparent/95 backdrop-blur-md px-4 pt-4 pb-2 space-y-3">
         <div className="flex justify-between items-center text-left">
           <div className="flex items-center space-x-2">
             <button onClick={() => navigate('/subs-dashboard')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
               <ArrowLeft className="w-4 h-4" />
             </button>
             <div>
-              <span className="text-xs font-extrabold tracking-widest text-slate-500 uppercase font-mono">FAMILY GUARD</span>
-              <h2 className="text-xl font-black tracking-tight mt-0.5">Family Spends</h2>
+              <span className="text-xs font-extrabold tracking-widest text-slate-400 uppercase font-mono">FAMILY GUARD</span>
+              <h1 className="text-2xl font-extrabold tracking-tight mt-0.5">Family Spends</h1>
             </div>
           </div>
           <div className="text-right">
-            <span className="text-xs font-extrabold tracking-widest text-slate-500 uppercase font-mono block">FAMILY TOTAL</span>
+            <span className="text-xs font-extrabold tracking-widest text-slate-400 uppercase font-mono block">FAMILY TOTAL</span>
             <span className="text-sm bg-red-950/40 text-red-400 border border-red-500/15 px-2.5 py-0.5 rounded-full font-black font-mono inline-block mt-0.5">
               ₹{totalFamilySpend.toLocaleString('en-IN')}
             </span>
@@ -96,11 +96,11 @@ export default function FamilySpendHubScreen() {
                   <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg" role="img" aria-label={`${member.name}'s profile avatar`}>{member.emoji}</div>
                   <div>
                     <p className="font-extrabold text-sm text-white">{member.name}</p>
-                    <p className="text-xs text-slate-500">{member.relation} • {member.subscriptions.length} subscription{member.subscriptions.length !== 1 ? 's' : ''}</p>
+                    <p className="text-xs text-slate-400">{member.relation} • {member.subscriptions.length} subscription{member.subscriptions.length !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono font-extrabold text-white">₹{memberTotal.toLocaleString('en-IN')}<span className="text-[8px] text-slate-500 font-bold">/mo</span></span>
+                  <span className="text-xs font-mono font-extrabold text-white">₹{memberTotal.toLocaleString('en-IN')}<span className="text-[8px] text-slate-400 font-bold">/mo</span></span>
                   <motion.div animate={{ rotate: isExpanded ? 90 : 0 }} transition={{ duration: 0.2 }}>
                     <ChevronRight className="w-4 h-4 text-slate-600" />
                   </motion.div>
@@ -118,12 +118,12 @@ export default function FamilySpendHubScreen() {
                     const statusLabel = isCritical ? 'Low Usage' : isModerate ? 'Moderate' : 'Active';
 
                     return (
-                      <div key={sub.id} className="p-3 rounded-xl bg-slate-950/50 border border-slate-800/40 flex items-center justify-between">
+                      <div key={sub.id} className="p-3 rounded-xl bg-transparent/50 border border-slate-800/40 flex items-center justify-between">
                         <div className="flex items-center space-x-2.5 text-left flex-1 min-w-0">
                           {getSubscriptionLogo(sub.id, sub.name, 'w-8 h-8')}
                           <div className="min-w-0">
                             <p className="text-xs font-bold text-white truncate">{sub.name}</p>
-                            <p className="text-xs text-slate-500">Renews {sub.renewDate}</p>
+                            <p className="text-xs text-slate-400">Renews {sub.renewDate}</p>
                           </div>
                         </div>
                         <div className="text-right flex items-center space-x-2">
@@ -134,7 +134,7 @@ export default function FamilySpendHubScreen() {
                     );
                   })}
                   {member.relation !== 'Wife' && (
-                    <div className="pt-2 pb-1 text-xs text-slate-500 leading-relaxed">
+                    <div className="pt-2 pb-1 text-xs text-slate-400 leading-relaxed">
                       Detailed transaction history is hidden according to privacy laws. Cost totals only.
                     </div>
                   )}

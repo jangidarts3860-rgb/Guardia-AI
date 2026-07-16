@@ -77,10 +77,10 @@ export default function OnboardingScreen() {
   }, [step]);
 
   return (
-    <div className="flex flex-col justify-between min-h-full bg-slate-950 text-white p-6 relative">
-      <div className="absolute inset-0 bg-slate-950" aria-hidden="true" />
-      <div className="pt-2 z-10">
-        <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP {step + 1} OF 3</span>
+    <div className="flex flex-col justify-between min-h-full bg-transparent text-white p-6 relative overflow-y-auto">
+      <div className="pt-2 z-10 flex justify-between items-center w-full">
+        <span className="text-[10px] font-bold tracking-widest text-slate-400 font-mono">STEP {step + 1} OF 3</span>
+        <button onClick={() => navigate('/permissions')} className="text-xs text-sky-400 font-bold hover:text-sky-300 transition px-2 py-1 rounded focus-visible:ring-2 focus-visible:ring-sky-500">Skip</button>
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-2 space-y-6">
@@ -99,7 +99,7 @@ export default function OnboardingScreen() {
                   {slide.badge.text}
                 </span>
               </div>
-              <div className="w-16 h-16 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center mb-4" aria-hidden="true">
+              <div className="w-16 h-16 rounded-2xl bg-transparent border border-slate-800 flex items-center justify-center mb-4" aria-hidden="true">
                 {slide.icon}
               </div>
               <h3 className="font-black text-lg text-white tracking-tight">{slide.title}</h3>
@@ -109,9 +109,9 @@ export default function OnboardingScreen() {
         </div>
 
         <div className="space-y-2.5 px-1">
-          <h2 className="text-2xl font-black tracking-tight text-white leading-tight">
+          <h1 className="text-2xl font-extrabold tracking-tight text-white leading-tight">
             {slide.headline}
-          </h2>
+          </h1>
           <p className="text-xs text-slate-400 leading-relaxed px-2">
             {slide.desc}
           </p>
@@ -145,7 +145,7 @@ export default function OnboardingScreen() {
           )}
           <button
             onClick={goNext}
-            className={`${step > 0 ? 'flex-[2]' : 'w-full'} bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
+            className={`${step > 0 ? 'flex-[2]' : 'w-full'} bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]`}
           >
             {slide.cta}
           </button>

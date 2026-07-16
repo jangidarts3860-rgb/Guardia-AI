@@ -16,15 +16,15 @@ export default function PermissionsScreen() {
   } = useStore();
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative">
 
       <div className="space-y-5 z-10">
         <div className="pt-2">
-          <span className="text-xs font-black tracking-widest text-slate-500 font-mono">STEP 2 OF 3</span>
+          <span className="text-[10px] font-bold tracking-widest text-slate-400 font-mono">STEP 2 OF 3</span>
         </div>
 
         <div className="space-y-2 text-left">
-          <h2 className="text-2xl font-black tracking-tight text-white">Permissions We Need</h2>
+          <h1 className="text-2xl font-extrabold tracking-tight text-white">Permissions We Need</h1>
           <p className="text-xs text-slate-400 leading-relaxed">
             Guardia AI requests permissions only when you use a feature that needs them — nothing runs in the background.
           </p>
@@ -69,7 +69,7 @@ export default function PermissionsScreen() {
       <div className="pt-4 z-10 pb-6">
         <button
           onClick={() => navigate('/link-bank')}
-          className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-500/15 transition active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]"
         >
           Continue →
         </button>

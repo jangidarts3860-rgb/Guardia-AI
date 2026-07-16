@@ -30,19 +30,19 @@ export default function CreateAccountScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative overflow-y-auto">
       <div className="space-y-6 z-10 flex-1 flex flex-col">
         <div className="flex items-center pt-2">
           <div className="flex items-center space-x-2">
             <button onClick={() => navigate('/login')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
               <ArrowLeft className="w-4 h-4 text-slate-300" />
             </button>
-            <span className="text-xs font-black tracking-widest text-slate-400 font-mono">STEP 1 OF 3</span>
+            <span className="text-[10px] font-bold tracking-widest text-slate-400 font-mono">STEP 1 OF 3</span>
           </div>
         </div>
 
         <div className="space-y-2 text-left">
-          <h2 className="text-2xl font-black tracking-tight leading-tight text-white">Create Your Profile</h2>
+          <h1 className="text-2xl font-extrabold tracking-tight leading-tight text-white">Create Your Profile</h1>
           <p className="text-xs text-slate-400 leading-relaxed">
             Enter your details to set up your Guardia AI account.
           </p>
@@ -50,7 +50,7 @@ export default function CreateAccountScreen() {
 
         <div className="space-y-6 pt-3 text-left">
           <div className="space-y-3">
-            <h3 className="text-xs font-black tracking-widest text-sky-400 font-mono uppercase">Section 1 — Basic Details</h3>
+
             <div className="space-y-1.5">
               <label htmlFor="full-name" className="text-xs font-bold uppercase tracking-wider text-slate-300">Full Name</label>
               <input
@@ -109,7 +109,7 @@ export default function CreateAccountScreen() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="text-xs font-black tracking-widest text-sky-400 font-mono uppercase">Section 2 — Contact Details</h3>
+
             <div className="space-y-1.5">
               <label htmlFor="create-email" className="text-xs font-bold uppercase tracking-wider text-slate-300">Email Address (Optional)</label>
               <input
@@ -142,7 +142,7 @@ export default function CreateAccountScreen() {
         <button
           disabled={!canSubmit}
           onClick={handleSubmit}
-          className={`w-full font-bold py-4 rounded-2xl transition flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+          className={`w-full font-bold py-4 rounded-2xl transition flex items-center justify-center space-x-2 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] ${
             canSubmit
               ? 'text-white cursor-pointer btn-premium'
               : 'bg-slate-700/50 text-slate-400 cursor-not-allowed shadow-none border border-slate-700'

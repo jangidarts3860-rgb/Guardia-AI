@@ -20,10 +20,11 @@ export default function MeProfileScreen() {
   } = useStore();
 
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const cardBg = 'bg-slate-900/90 border-slate-800/80 text-white';
+  const cardBg = 'card-surface text-white';
   const textMuted = 'text-slate-400';
 
-  const lifetimeSaved = subscriptions.filter(s => s.status === 'Cancelled').reduce((sum, s) => sum + s.cost * 6, 0);
+  const rawLifetimeSaved = subscriptions.filter(s => s.status === 'Cancelled').reduce((sum, s) => sum + s.cost * 6, 0);
+  const lifetimeSaved = Math.max(0, rawLifetimeSaved);
   const scamsBlocked = activities.filter(a => a.status === 'Blocked').length;
   const subsCut = subscriptions.filter(s => s.status === 'Cancelled').length;
 
@@ -33,12 +34,12 @@ export default function MeProfileScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full pb-24 space-y-4 bg-slate-950 text-white">
+    <div className="flex flex-col min-h-full pb-24 space-y-4 bg-transparent text-white">
       {/* Sticky Nav Row */}
-      <div className="sticky top-0 z-30 bg-slate-950 px-4 pt-4">
+      <div className="sticky top-0 z-30 bg-transparent px-4 pt-4">
         <div className="flex justify-between items-center text-left">
           <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
-          <button onClick={() => navigate('/home')} className="text-xs text-sky-400 hover:underline focus-visible:ring-2 focus-visible:ring-sky-500 rounded">Done</button>
+          <button onClick={() => navigate('/home')} className="text-sm font-bold bg-sky-500/10 text-sky-400 px-4 py-2 rounded-xl transition hover:bg-sky-500/20 focus-visible:ring-2 focus-visible:ring-sky-500">Done</button>
         </div>
       </div>
 
@@ -63,23 +64,23 @@ export default function MeProfileScreen() {
       </div>
 
       <div className="grid grid-cols-3 gap-2 px-4 text-center">
-        <div className={`p-3 rounded-xl border ${cardBg}`}>
+        <div className={`p-3 rounded-xl ${cardBg}`}>
           <p className="text-emerald-500 font-extrabold text-xs font-mono">₹{lifetimeSaved.toLocaleString('en-IN')}</p>
           <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Lifetime Saved</p>
         </div>
-        <div className={`p-3 rounded-xl border ${cardBg}`}>
+        <div className={`p-3 rounded-xl ${cardBg}`}>
           <p className="text-sky-400 font-extrabold text-xs font-mono">{scamsBlocked}</p>
           <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Scams Blocked</p>
         </div>
-        <div className={`p-3 rounded-xl border ${cardBg}`}>
+        <div className={`p-3 rounded-xl ${cardBg}`}>
           <p className="text-amber-500 font-extrabold text-xs font-mono">{subsCut}</p>
           <p className={`text-[8px] uppercase font-bold tracking-wider mt-0.5 ${textMuted}`}>Cancelled Subscriptions</p>
         </div>
       </div>
 
       <div className="space-y-6 mx-4">
-        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
-          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Account Settings</p>
+        <div className="rounded-2xl divide-y overflow-hidden card-surface divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-400 text-xs font-bold uppercase tracking-wider">Account Settings</p>
           {[
             { label: 'Edit Profile', action: () => navigate('/edit-profile') },
             { label: 'Notifications', count: 3, action: () => navigate('/notifications') },
@@ -95,8 +96,8 @@ export default function MeProfileScreen() {
           ))}
         </div>
 
-        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
-          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Security &amp; PIN</p>
+        <div className="rounded-2xl divide-y overflow-hidden card-surface divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-400 text-xs font-bold uppercase tracking-wider">Security &amp; PIN</p>
           {[
             { label: 'Reset Security PIN', action: () => navigate('/reset-pin') },
           ].map((opt: { label: string; action: () => void }, i) => (
@@ -108,8 +109,8 @@ export default function MeProfileScreen() {
           ))}
         </div>
 
-        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
-          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Data &amp; Connected Banks</p>
+        <div className="rounded-2xl divide-y overflow-hidden card-surface divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-400 text-xs font-bold uppercase tracking-wider">Data &amp; Connected Banks</p>
           {[
             { label: 'Manage Banks', action: () => navigate('/security') },
             { label: 'Privacy Controls', action: () => navigate('/security') },
@@ -123,8 +124,8 @@ export default function MeProfileScreen() {
           ))}
         </div>
 
-        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
-          <p className="px-4 pt-3 pb-1 text-slate-500 text-xs font-bold uppercase tracking-wider">Help &amp; Support</p>
+        <div className="rounded-2xl divide-y overflow-hidden card-surface divide-slate-800/40">
+          <p className="px-4 pt-3 pb-1 text-slate-400 text-xs font-bold uppercase tracking-wider">Help &amp; Support</p>
           {[
             { label: 'Emergency Help', action: () => navigate('/emergency') },
           ].map((opt: { label: string; action: () => void }, i) => (
@@ -137,17 +138,19 @@ export default function MeProfileScreen() {
         </div>
 
         <hr className="border-slate-800" />
-        <div className="border rounded-2xl divide-y overflow-hidden bg-slate-900 border-slate-800 divide-slate-800/40">
-          {[
-            { label: 'Log Out', action: () => setShowLogoutConfirm(true) },
-            { label: 'Delete Account', action: () => navigate('/delete-account-confirm'), danger: true as const },
-          ].map((opt: { label: string; action: () => void; danger?: boolean }, i) => (
-            <motion.button key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-              onClick={opt.action} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-slate-900/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
-              <span className={opt.danger ? 'text-red-500' : 'text-white'}>{opt.label}</span>
-              <ChevronRight className="w-4 h-4 text-slate-600" />
-            </motion.button>
-          ))}
+        <div className="rounded-2xl overflow-hidden card-surface border border-slate-800">
+          <motion.button initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            onClick={() => setShowLogoutConfirm(true)} className="w-full px-4 py-3.5 flex justify-center items-center hover:bg-slate-900/10 transition text-xs font-bold text-slate-300 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500">
+            Log Out
+          </motion.button>
+        </div>
+        
+        <div className="rounded-2xl overflow-hidden card-surface border border-red-500/10 bg-red-500/5 mt-4">
+          <motion.button initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            onClick={() => navigate('/delete-account-confirm')} className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-red-500/10 transition text-xs font-medium focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-500">
+            <span className="text-red-500 font-bold">Delete Account</span>
+            <ChevronRight className="w-4 h-4 text-red-500/50" />
+          </motion.button>
         </div>
       </div>
 

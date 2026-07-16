@@ -57,6 +57,9 @@ export default function SlideToAction({
       setProgress(100);
       thumbX.set(rect.width - 56);
       setShowGlow(true);
+      if ('vibrate' in navigator) {
+        navigator.vibrate([50, 30, 100]); // success pattern
+      }
       setTimeout(() => setShowGlow(false), 500);
       setTimeout(() => {
         onComplete();
@@ -84,6 +87,9 @@ export default function SlideToAction({
       if (!disabled && !completeCalled.current) {
         completeCalled.current = true;
         setShowGlow(true);
+        if ('vibrate' in navigator) {
+          navigator.vibrate([50, 30, 100]); // success pattern
+        }
         setTimeout(() => setShowGlow(false), 500);
         setTimeout(onComplete, 200);
       }

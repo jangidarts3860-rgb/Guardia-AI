@@ -3,6 +3,7 @@ import { useStore } from '../../../store';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShieldCheck, X, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { getBankLogo } from '../Screens';
 
 const steps = [
   "Consent Established",
@@ -27,6 +28,9 @@ export default function LinkBankProgressScreen() {
   const [phase, setPhase] = useState<'loading' | 'success'>('loading');
   const [step, setStep] = useState(0);
 
+  const query = new URLSearchParams(window.location.search);
+  const bankId = query.get('bankId') || 'sbi';
+
   useEffect(() => {
     if (phase === 'loading' && step < steps.length) {
       const t = setTimeout(() => setStep(s => s + 1), 400);
@@ -39,8 +43,6 @@ export default function LinkBankProgressScreen() {
 
   useEffect(() => {
     if (phase === 'success') {
-      const query = new URLSearchParams(window.location.search);
-      const bankId = query.get('bankId');
       if (bankId) {
         setBanks(prev => {
           const bank = prev.find(b => b.id === bankId);
@@ -72,7 +74,7 @@ export default function LinkBankProgressScreen() {
         });
       }
     }
-  }, [phase, setBanks, setActivities, setNotifications]);
+  }, [phase, bankId, setBanks, setActivities, setNotifications]);
 
   useEffect(() => {
     if (phase === 'success') {
@@ -82,29 +84,39 @@ export default function LinkBankProgressScreen() {
   }, [phase, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full bg-slate-950 text-white p-6 space-y-6">
+    <div className="flex flex-col items-center justify-center min-h-full bg-transparent text-white p-6 space-y-6">
       <motion.div
-        key={phase}
-        initial={{ scale: 0.8, opacity: 0 }}
+        initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={phase === 'success' ? { type: "spring", stiffness: 300, damping: 15 } : { duration: 0.3 }}
-        className="relative w-20 h-20 flex items-center justify-center"
+        className="relative w-32 h-32 flex items-center justify-center"
       >
-        <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center ${
+        {phase === 'loading' && (
+          <>
+             {/* Radar Sweep Effect */}
+             <div className="absolute inset-0 rounded-full border-[2px] border-cyan-500/20" />
+             <div className="absolute inset-0 rounded-full bg-cyan-500/5 animate-pulse" />
+             <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-cyan-400 animate-spin" style={{ animationDuration: '1.5s' }} />
+             <div className="absolute inset-0 rounded-full animate-ping" style={{ animationDuration: '3s', background: 'radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 70%)' }} />
+          </>
+        )}
+        <div className={`w-20 h-20 rounded-[1.2rem] flex items-center justify-center relative z-10 transition-all duration-500 ${
           phase === 'success'
-            ? 'bg-emerald-900/40 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.3)]'
-            : 'bg-slate-900 border-slate-800'
+            ? 'bg-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.5)]'
+            : 'bg-transparent shadow-[0_0_25px_rgba(34,211,238,0.2)]'
         }`}>
           {phase === 'loading' && (
-            <ShieldCheck className="w-7 h-7 text-sky-400" />
+            <div className="scale-[1.2]">
+              {getBankLogo(bankId, 'Bank', 'w-16 h-16 rounded-[1.2rem]')}
+            </div>
           )}
           {phase === 'success' && (
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 12 }}
+              initial={{ scale: 0, rotate: -90 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 12, delay: 0.1 }}
             >
-              <Check className="w-8 h-8 text-emerald-400" strokeWidth={3} />
+              <Check className="w-12 h-12 text-white" strokeWidth={4} />
             </motion.div>
           )}
         </div>
@@ -118,7 +130,7 @@ export default function LinkBankProgressScreen() {
                 ? 'bg-emerald-900/20 border-emerald-800/30 text-emerald-400' 
                 : i === step 
                 ? 'bg-sky-900/20 border-sky-800/30 text-sky-400' 
-                : 'bg-slate-900/50 border-slate-800/50 text-slate-500'
+                : 'bg-slate-900/50 border-slate-800/50 text-slate-400'
             }`}>
               {i < step ? (
                 <Check className="w-4 h-4 shrink-0" />
@@ -150,7 +162,7 @@ export default function LinkBankProgressScreen() {
         </AnimatePresence>
       </div>
 
-      <button onClick={() => navigate('/home')} className="text-xs text-slate-500 hover:text-slate-300 font-bold tracking-wider focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
+      <button onClick={() => navigate('/home')} className="text-xs text-slate-400 hover:text-slate-300 font-bold tracking-wider focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center space-x-1">
         <X className="w-3 h-3" />
         <span>Cancel</span>
       </button>

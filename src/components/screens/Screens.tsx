@@ -3,6 +3,7 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { useStore } from '../../store';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const SplashScreen = React.lazy(() => import('./individual/SplashScreen'));
 const LoginScreen = React.lazy(() => import('./individual/LoginScreen'));
@@ -231,19 +232,40 @@ export function getBankLogo(bankId: string, name: string, sizeClass = 'w-10 h-10
 export default function Screens() {
   const location = useLocation();
   const [showBiometricState, setShowBiometricState] = React.useState(false);
+  const reduced = useReducedMotion();
+
+  const variants = {
+    initial: reduced ? { opacity: 0 } : { opacity: 0, y: 15, filter: 'blur(8px)' },
+    animate: reduced ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' },
+    exit: reduced ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: 'blur(4px)' }
+  };
+
+  const transition = reduced
+    ? { duration: 0.2 }
+    : { type: "spring", stiffness: 350, damping: 25 };
 
   return (
     <div className="relative w-full h-full">
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={variants}
+          transition={transition}
           className="w-full h-full"
         >
-          <React.Suspense fallback={<div className="flex flex-col h-full items-center justify-center bg-slate-950"><div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+          <React.Suspense fallback={
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 0.2, duration: 0.3 }} 
+              className="flex flex-col h-full items-center justify-center bg-[#020617]"
+            >
+              <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+            </motion.div>
+          }>
             <Routes location={location}>
           <Route path="/splash" element={<SplashScreen />} />
           <Route path="/login" element={<LoginScreen />} />

@@ -17,11 +17,15 @@ export default function SplashScreen() {
 
   const onComplete = useCallback(() => {
     if (typeof window !== 'undefined') {
-      const stored = JSON.parse(localStorage.getItem('guardia_user') || '{}');
-      if (stored.pin) {
-        setProfile({ name: stored.name || '', phone: stored.phone || '', email: stored.email || '', language: stored.language || '', photo: stored.photo || '' });
-        navigate('/login');
-        return;
+      try {
+        const stored = JSON.parse(localStorage.getItem('guardia_user') || '{}');
+        if (stored.pin) {
+          setProfile({ name: stored.name || '', phone: stored.phone || '', email: stored.email || '', language: stored.language || '', photo: stored.photo || '' });
+          navigate('/login');
+          return;
+        }
+      } catch (e) {
+        console.warn('localStorage not accessible');
       }
     }
     navigate('/create-account');
@@ -33,7 +37,7 @@ export default function SplashScreen() {
   }, [onComplete, duration]);
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-full bg-slate-950 text-white p-6 relative overflow-hidden">
+    <div className="flex flex-col items-center justify-between min-h-full bg-transparent text-white p-6 relative overflow-hidden">
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full">
         <motion.div
           animate={reduced ? {} : {

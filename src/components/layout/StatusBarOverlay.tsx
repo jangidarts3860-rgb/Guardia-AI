@@ -115,6 +115,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
       break;
 
     case 'delete-account-confirm':
+    case 'account-deleted':
       textClass = 'text-slate-400';
       opacityClass = 'opacity-60';
       break;

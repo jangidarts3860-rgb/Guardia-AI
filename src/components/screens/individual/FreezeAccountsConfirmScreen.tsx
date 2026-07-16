@@ -48,7 +48,7 @@ export default function FreezeAccountsConfirmScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-5 justify-between relative">
       <div className="absolute inset-0 bg-gradient-to-b from-red-950/10 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
       <AnimatePresence>
         {showBurst && (
@@ -76,14 +76,14 @@ export default function FreezeAccountsConfirmScreen() {
             className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto text-red-500">
             <Lock className="w-8 h-8" aria-hidden="true" />
           </motion.div>
-          <h2 className="text-2xl font-black text-red-500 tracking-tight">Confirm Freeze</h2>
+          <h1 className="text-2xl font-extrabold text-red-500 tracking-tight">Confirm Freeze</h1>
           <p className="text-xs text-slate-400 px-4 leading-normal">
             This will freeze all cards & disconnect active UPI mandates.
           </p>
         </div>
 
         <div className="space-y-2.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Accounts to lock</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Accounts to lock</span>
           {[
             { name: 'HDFC Bank savings (*4321)', desc: 'Blocks all ATM and NetBanking debits' },
             { name: 'ICICI Credit Card (*8823)', desc: 'Locks swipe & international e-com transactions' },
@@ -96,7 +96,7 @@ export default function FreezeAccountsConfirmScreen() {
               </div>
               <div>
                 <p className="font-bold text-white">{item.name}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{item.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -149,10 +149,10 @@ export default function FreezeAccountsConfirmScreen() {
             >
               <button
                 onClick={handleBiometricCancel}
-                className="absolute top-4 right-4 p-1 rounded-xl bg-slate-800/50 hover:bg-slate-800 text-slate-400 transition"
+                className="absolute top-4 right-4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition shadow-lg focus-visible:ring-2 focus-visible:ring-sky-500"
                 aria-label="Cancel biometric simulation"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
               
               <div className="space-y-4">
@@ -178,10 +178,10 @@ export default function FreezeAccountsConfirmScreen() {
                   />
                 </div>
                 
-                <p className="text-xs text-slate-500 font-mono">Verifying identity...</p>
+                <p className="text-xs text-slate-400 font-mono">Verifying identity...</p>
               </div>
               
-              <p className="mt-4 text-xs text-slate-600 leading-snug px-2">
+              <p className="mt-4 text-xs text-slate-400 leading-snug px-2">
                 Biometric authentication prevents accidental triggers. To restore access after freeze, OTP verification will be required.
               </p>
             </motion.div>

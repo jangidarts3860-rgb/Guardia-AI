@@ -26,9 +26,9 @@ export default function ScanQRScreen() {
   const [pasteText, setPasteText] = useState('');
   const [scanPhase, setScanPhase] = useState<ScanPhase>('idle');
   const [scanResult, setScanResult] = useState<'safe' | 'scam'>('safe');
-  const cardBg = 'bg-slate-900/90 border-slate-800/80 text-white';
+  const cardBg = 'card-surface text-white';
   const textMuted = 'text-slate-400';
-  const inputBg = 'bg-slate-950/80 border-slate-800/80 text-white focus:bg-slate-950';
+  const inputBg = 'bg-slate-900/60 border-slate-700/60 text-white focus:bg-slate-800/80';
 
   const handleScan = useCallback((outcome: 'safe' | 'scam') => {
     setScanResult(outcome);
@@ -48,7 +48,7 @@ export default function ScanQRScreen() {
   const bracketShadow = 'shadow-none';
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white">
+    <div className="flex flex-col min-h-full bg-transparent text-white">
       <div className="p-4 flex justify-between items-center border-b border-slate-800/10 shrink-0">
         <h2 className="text-base font-bold">Scan QR Code</h2>
         <button onClick={() => navigate('/home')} className="p-1.5 rounded-lg border border-slate-800/30 text-xs hover:bg-slate-900/30 focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Close scanner">Close</button>
@@ -56,7 +56,7 @@ export default function ScanQRScreen() {
 
       {!hasCameraPermission ? (
         <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-4 text-center bg-slate-900/40 relative">
-          <div className="w-16 h-16 rounded-full bg-slate-800 border border-slate-700/60 flex items-center justify-center text-slate-500">
+          <div className="w-16 h-16 rounded-full bg-slate-800 border border-slate-700/60 flex items-center justify-center text-slate-400">
             <Camera className="w-7 h-7 text-cyan-400" />
           </div>
           <div className="space-y-1.5 max-w-[240px]">
@@ -133,12 +133,13 @@ export default function ScanQRScreen() {
         </motion.div>
       )}
 
-      <div className={`p-4 border-t rounded-t-3xl space-y-4 text-left shrink-0 ${cardBg}`}>
+      <div className={`p-4 rounded-t-3xl space-y-4 text-left shrink-0 ${cardBg}`}>
         <div className="w-12 h-1 bg-slate-800 rounded-full mx-auto -mt-1.5 mb-2" />
         <span className={`text-xs font-bold tracking-wider uppercase ${textMuted}`}>Or verify a link / SMS</span>
         <div className="flex space-x-2">
           <input type="text" placeholder="Paste link or SMS content..." value={pasteText} onChange={(e) => setPasteText(e.target.value)}
             className={`flex-1 px-4 py-3 text-xs border rounded-xl focus:outline-none focus:border-sky-500 transition ${inputBg}`} aria-label="Paste link or SMS content"
+            maxLength={2000}
           />
           <button onClick={() => { if (pasteText.trim()) navigate('/analyzing-merchant'); }} className="px-5 bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs rounded-xl transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Verify link">
             Verify
@@ -153,7 +154,7 @@ export default function ScanQRScreen() {
               { name: 'Unknown UPI request', status: 'Scam detected', path: '/scam-detected', type: 'scam' },
               { name: 'Amazon Pay QR', status: 'No risks found', path: '/merchant-verified', type: 'safe' },
             ].map((item, i) => (
-              <div key={i} onClick={() => navigate(item.path as '/merchant-verified' | '/scam-detected')} className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition border-slate-800/80 hover:border-slate-700 text-xs ${cardBg}`}>
+              <div key={i} onClick={() => navigate(item.path as '/merchant-verified' | '/scam-detected')} className={`p-3 rounded-xl flex items-center justify-between cursor-pointer transition ${cardBg}`}>
                 <div className="flex items-center space-x-2.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${item.type === 'safe' ? 'bg-emerald-400 animate-pulse' : 'bg-red-500'}`} />
                   <span className="font-semibold text-slate-200">{item.name}</span>

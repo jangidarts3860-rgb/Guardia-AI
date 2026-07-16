@@ -34,6 +34,7 @@ export default function ActivityLogScreen() {
 
   const handleDateSelect = (day: number) => {
     const selected = new Date(calendarYear, calendarMonth, day);
+    if (selected > new Date()) return;
     if (!dateRange.start || (dateRange.start && dateRange.end)) {
       setDateRange({ start: selected, end: null });
     } else if (selected >= dateRange.start) {
@@ -75,7 +76,7 @@ export default function ActivityLogScreen() {
   const filteredActivities = activities.filter(a => activityFilter === 'All' || a.status === activityFilter);
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white">
+    <div className="flex flex-col min-h-full bg-transparent text-white">
       {/* Header */}
       <div className="px-4 pt-4 pb-3 space-y-3">
         <div className="flex justify-between items-center">
@@ -99,16 +100,20 @@ export default function ActivityLogScreen() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex space-x-2 overflow-x-auto scrollbar-none">
-          {(['All', 'Blocked', 'Verified', 'Cancelled'] as const).map((cat) => (
-            <button key={cat} onClick={() => setActivityFilter(cat)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative whitespace-nowrap ${activityFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
-              aria-pressed={activityFilter === cat}
-            >
-              <span className="relative z-10">{cat}</span>
-              {activityFilter === cat && <motion.div layoutId="activityTab" className="absolute inset-0 bg-sky-500 rounded-full shadow-md shadow-sky-500/10" />}
-            </button>
-          ))}
+        <div className="relative">
+          <div className="flex space-x-2 overflow-x-auto scrollbar-none pb-1">
+            {(['All', 'Blocked', 'Verified', 'Cancelled'] as const).map((cat) => (
+              <button key={cat} onClick={() => setActivityFilter(cat)}
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition relative whitespace-nowrap ${activityFilter === cat ? 'border-sky-400 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'} focus-visible:ring-2 focus-visible:ring-sky-500`}
+                aria-pressed={activityFilter === cat}
+              >
+                <span className="relative z-10">{cat}</span>
+                {activityFilter === cat && <motion.div layoutId="activityTab" className="absolute inset-0 bg-sky-500 rounded-full shadow-md shadow-sky-500/10" />}
+              </button>
+            ))}
+          </div>
+          {/* Scroll Hint Overlay */}
+          <div className="absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-[#020617] to-transparent pointer-events-none" />
         </div>
       </div>
 
@@ -146,7 +151,7 @@ export default function ActivityLogScreen() {
                 </div>
                 <div className="flex items-center shrink-0 ml-2">
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-500 font-mono block">{act.time}</span>
+                    <span className="text-[10px] text-slate-400 font-mono block">{act.time}</span>
                     <span className={`inline-block text-[8px] font-bold px-1.5 py-0.5 rounded mt-1 uppercase ${act.status === 'Blocked' ? 'bg-red-500/10 text-red-400' : act.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
                       {act.status}
                     </span>
@@ -190,19 +195,22 @@ export default function ActivityLogScreen() {
 
                 <div className="grid grid-cols-7 gap-1 text-center">
                   {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
-                    <span key={d} className="text-[10px] font-bold text-slate-500 py-1">{d}</span>
+                    <span key={d} className="text-[10px] font-bold text-slate-400 py-1">{d}</span>
                   ))}
                   {Array.from({ length: firstDayOfMonth }).map((_, i) => (
                     <div key={`empty-${i}`} />
                   ))}
                   {Array.from({ length: daysInMonth }).map((_, i) => {
                     const day = i + 1;
+                    const selectedDate = new Date(calendarYear, calendarMonth, day);
+                    const isFuture = selectedDate > new Date();
                     const selected = isInRange(day);
-                    const isToday = new Date().toDateString() === new Date(calendarYear, calendarMonth, day).toDateString();
+                    const isToday = new Date().toDateString() === selectedDate.toDateString();
                     return (
-                      <button key={day} onClick={() => handleDateSelect(day)}
-                        className={`w-8 h-8 rounded-full text-xs font-bold transition flex items-center justify-center focus-visible:ring-2 focus-visible:ring-sky-500 ${selected ? 'bg-sky-500 text-white' : isToday ? 'border border-sky-500/30 text-sky-400' : 'text-slate-300 hover:bg-slate-800'}`}
-                        aria-label={`${day} ${months[calendarMonth]} ${calendarYear}`}>
+                      <button key={day} onClick={() => !isFuture && handleDateSelect(day)}
+                        className={`w-8 h-8 rounded-full text-xs font-bold transition flex items-center justify-center focus-visible:ring-2 focus-visible:ring-sky-500 ${isFuture ? 'text-slate-700 cursor-not-allowed opacity-50' : selected ? 'bg-sky-500 text-white' : isToday ? 'border border-sky-500/30 text-sky-400' : 'text-slate-300 hover:bg-slate-800'}`}
+                        aria-label={`${day} ${months[calendarMonth]} ${calendarYear}`}
+                        disabled={isFuture}>
                         {day}
                       </button>
                     );
@@ -210,7 +218,7 @@ export default function ActivityLogScreen() {
                 </div>
 
                 {/* Selected Range Display */}
-                <div className="flex items-center justify-between text-xs text-slate-400 bg-slate-950/50 rounded-xl px-3 py-2 border border-slate-800/60">
+                <div className="flex items-center justify-between text-xs text-slate-400 bg-transparent/50 rounded-xl px-3 py-2 border border-slate-800/60">
                   <span>{dateRange.start ? formatDate(dateRange.start) : 'Start date'}</span>
                   <span className="text-slate-600">→</span>
                   <span>{dateRange.end ? formatDate(dateRange.end) : 'End date'}</span>

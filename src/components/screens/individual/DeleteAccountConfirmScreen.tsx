@@ -3,27 +3,24 @@ import { useStore } from '../../../store';
 import { useState } from 'react';
 import React from 'react';
 import { motion } from 'motion/react';
-import { Trash2, AlertTriangle, Download, FileText } from 'lucide-react';
+import { Trash2, AlertTriangle, Download, ArrowLeft } from 'lucide-react';
 import ConfirmationDialog from '../../ui/shared/ConfirmationDialog';
 import { showToast } from '../../ui/shared/Toast';
 
 
 export default function DeleteAccountConfirmScreen() {
   const navigate = useNavigate();
+
   const { 
     profile, setProfile, 
     subscriptions, setSubscriptions, 
     banks, setBanks, 
     notifications, setNotifications, 
     activities, setActivities, 
-    selectedSub, setSelectedSub, 
-    isOffline, setIsOffline, 
-    scanOutcome, setScanOutcome 
   } = useStore();
 
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [showFinalConfirm, setShowFinalConfirm] = useState(false);
-  const [showAuditLog, setShowAuditLog] = useState(false);
 
   const handleDelete = () => {
     setShowFinalConfirm(false);
@@ -56,14 +53,17 @@ export default function DeleteAccountConfirmScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-5 justify-between relative">
+      <button onClick={() => navigate('/me-profile')} className="absolute top-4 left-4 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-slate-900/80 border border-slate-700/50 backdrop-blur-md hover:bg-slate-800 transition shadow-lg" aria-label="Back">
+        <ArrowLeft className="w-5 h-5 text-slate-300" />
+      </button>
       <div className="space-y-6 text-center flex-1 flex flex-col justify-center">
         <motion.div animate={{ x: [-5, 5, -5, 5, 0] }} transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
           className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto text-red-500">
           <Trash2 className="w-8 h-8" aria-hidden="true" />
         </motion.div>
         <div className="space-y-2">
-          <h2 className="text-2xl font-black text-red-500 tracking-tight">Delete Account</h2>
+          <h1 className="text-2xl font-extrabold text-red-500 tracking-tight">Delete Account</h1>
           <p className="text-xs text-slate-400 px-6 leading-relaxed">
             This will permanently delete your profile, app settings, and tracked subscriptions. Active bank connections will be disconnected instantly. Note: Active subscriptions and merchant auto-debits must be cancelled separately with each provider.
           </p>
@@ -75,8 +75,8 @@ export default function DeleteAccountConfirmScreen() {
         </div>
 
         <div className="space-y-2 text-left max-w-sm mx-auto w-full pt-2">
-          <label htmlFor="delete-confirm" className="text-xs font-bold uppercase tracking-wider text-slate-500">Type &lsquo;DELETE&rsquo; to confirm</label>
-          <input id="delete-confirm" type="text" placeholder="Type 'DELETE' to confirm" value={deleteConfirmText} onChange={(e) => setDeleteConfirmText(e.target.value)}
+          <label htmlFor="delete-confirm" className="text-xs font-bold uppercase tracking-wider text-slate-400">Type &lsquo;DELETE&rsquo; to confirm</label>
+          <input id="delete-confirm" type="text" placeholder="Type 'DELETE' to confirm" value={deleteConfirmText} onChange={(e) => setDeleteConfirmText(e.target.value.replace(/\s/g, ''))}
             className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-red-500 transition text-center font-bold tracking-widest placeholder:tracking-normal placeholder:font-normal"
           />
         </div>
@@ -86,7 +86,7 @@ export default function DeleteAccountConfirmScreen() {
             <Download className="w-4 h-4" aria-hidden="true" />
             <span>Download My Security Audit Log</span>
           </button>
-          <p className="text-xs text-slate-600 text-center leading-snug px-2">
+          <p className="text-xs text-slate-400 text-center leading-snug px-2">
             Your data is permanently deleted from servers after a 30-day recovery grace period.
           </p>
         </div>

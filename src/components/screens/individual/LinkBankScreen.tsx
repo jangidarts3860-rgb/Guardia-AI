@@ -3,7 +3,7 @@ import { useStore } from '../../../store';
 import { useState, useRef, useEffect } from 'react';
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Search, Check, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Search, Check, ShieldCheck, X } from 'lucide-react';
 import { Bank, ActivityItem, NotificationItem } from '../../../types';
 import { getBankLogo } from '../Screens';
 
@@ -38,7 +38,7 @@ export default function LinkBankScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-5 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-5 justify-between relative">
       <div className="space-y-5 flex-1 flex flex-col">
         <div className="flex justify-between items-center pt-2">
           <button onClick={() => navigate('/onboarding')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
@@ -50,7 +50,7 @@ export default function LinkBankScreen() {
 
         <div className="text-left space-y-1">
           <h2 className="text-2xl font-bold tracking-tight">Select your bank</h2>
-          <p className="text-xs text-slate-500 leading-normal">
+          <p className="text-xs text-slate-400 leading-normal">
             We use RBI-approved secure channels to connect your bank.
           </p>
         </div>
@@ -72,12 +72,17 @@ export default function LinkBankScreen() {
           </div>
         </div>
 
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-500" aria-hidden="true" />
+        <div className="relative flex items-center">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" aria-hidden="true" />
           <input type="text" placeholder="Search bank name..." value={bankSearch} onChange={(e) => setBankSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 transition"
+            className="w-full pl-10 pr-10 py-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 transition"
             aria-label="Search bank name"
           />
+          {bankSearch && (
+            <button onClick={() => setBankSearch('')} className="absolute right-3 p-1 rounded-full bg-slate-800 text-slate-400 hover:text-white transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Clear search">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
 <div className="grid grid-cols-2 gap-2 flex-1 overflow-y-auto max-h-[300px] pt-1">
@@ -100,7 +105,7 @@ export default function LinkBankScreen() {
           
           {/* Available Banks Section */}
           {banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
-            <div className="col-span-2 text-center py-8 text-slate-500 text-xs">
+            <div className="col-span-2 text-center py-8 text-slate-400 text-xs">
               No banks found matching "{bankSearch}". Try searching for major banks like SBI, HDFC, or ICICI.
             </div>
           ) : (
@@ -115,7 +120,7 @@ export default function LinkBankScreen() {
                   <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
                   <div>
                     <p className="text-xs font-bold text-white">{bank.name}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">Tap to connect</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Tap to connect</p>
                   </div>
                   {isSelected && (
                     <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-2 right-2 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
@@ -131,14 +136,14 @@ export default function LinkBankScreen() {
 
       <div className="space-y-3 pt-4 z-10">
         <button onClick={handleLinkBankSubmit} disabled={!selectedBankId}
-          className={`w-full py-4 text-white font-bold rounded-2xl transition shadow-lg ${selectedBankId ? 'bg-sky-500 hover:bg-sky-400 cursor-pointer shadow-sky-500/10 focus-visible:ring-2 focus-visible:ring-sky-500' : 'bg-slate-800 cursor-not-allowed text-slate-500'}`}
+          className={`w-full py-4 text-white font-bold rounded-2xl transition shadow-lg ${selectedBankId ? 'bg-sky-500 hover:bg-sky-400 cursor-pointer shadow-sky-500/10 focus-visible:ring-2 focus-visible:ring-sky-500' : 'bg-slate-800 cursor-not-allowed text-slate-400'}`}
         >
           {selectedBankId ? 'Link Selected Bank' : 'Select a bank'}
         </button>
         <button onClick={() => navigate('/home')} className="w-full py-3 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-semibold rounded-2xl transition focus-visible:ring-2 focus-visible:ring-sky-500">
           Do this later / Skip
         </button>
-        <p className="text-xs text-slate-500 text-center">
+        <p className="text-xs text-slate-400 text-center">
           Bank-grade encryption • Regulated by RBI
         </p>
       </div>

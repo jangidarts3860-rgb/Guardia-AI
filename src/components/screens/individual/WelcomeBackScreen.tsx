@@ -71,7 +71,7 @@ export default function WelcomeBackScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-950 text-white p-6 justify-between relative">
+    <div className="flex flex-col min-h-full bg-transparent text-white p-6 justify-between relative">
       <div className="absolute inset-0 bg-radial-[circle_at_top,rgba(99,102,241,0.05)_0%,transparent_60%] pointer-events-none" aria-hidden="true" />
 
       <div className="space-y-6 z-10 flex-1 flex flex-col justify-between">
@@ -85,7 +85,7 @@ export default function WelcomeBackScreen() {
             </div>
           </div>
           <div className="space-y-1 text-center">
-            <h2 className="text-2xl font-black tracking-tight">Unlock Vault</h2>
+            <h1 className="text-2xl font-extrabold tracking-tight">Unlock Vault</h1>
             <p className="text-xs text-slate-400">Enter your 4-digit security PIN to access.</p>
           </div>
 
@@ -117,7 +117,7 @@ export default function WelcomeBackScreen() {
               <button onClick={() => navigate('/freeze-accounts-confirm')} className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-4 rounded-2xl border border-slate-700 transition focus-visible:ring-2 focus-visible:ring-sky-500 active:scale-[0.98]">
                 Freeze All Accounts
               </button>
-              <span className="block text-center text-[10px] text-slate-600 font-mono">Account locked for your safety</span>
+              <span className="block text-center text-[10px] text-slate-400 font-mono">Account locked for your safety</span>
             </motion.div>
           )}
           {!isPanicMode && (
@@ -135,7 +135,7 @@ export default function WelcomeBackScreen() {
                     className={`w-4 h-4 rounded-full transition-all duration-150 ${
                       filled
                           ? 'bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.8)] scale-110 border-sky-400'
-                          : 'border-2 border-slate-800 bg-slate-950'
+                          : 'border-2 border-slate-800 bg-transparent'
                     }`}
                   />
                 );
@@ -160,7 +160,7 @@ export default function WelcomeBackScreen() {
 
             <button
               onClick={handleBackspace}
-              className="w-14 h-14 rounded-full bg-transparent text-slate-500 text-xl font-bold transition-all flex items-center justify-center active:bg-slate-800/50 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+              className="w-14 h-14 rounded-full bg-transparent text-slate-400 text-xl font-bold transition-all flex items-center justify-center active:bg-slate-800/50 active:scale-90 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
               aria-label="Delete last digit"
             >
               ⌫
@@ -188,13 +188,13 @@ export default function WelcomeBackScreen() {
         <div className="pt-2 text-center space-y-3">
           <div className="flex justify-center items-center space-x-3">
             {!isPanicMode && (
-              <button onClick={() => navigate('/reset-pin')} className="text-xs text-slate-500 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
+              <button onClick={() => navigate('/reset-pin')} className="text-xs text-slate-400 hover:text-slate-400 font-semibold tracking-wide uppercase focus-visible:ring-2 focus-visible:ring-sky-500 rounded p-1">
                 Forgot PIN?
               </button>
             )}
           </div>
           <div>
-            <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-xs font-bold text-slate-500 font-mono">
+            <span className="inline-flex items-center space-x-1 px-3 py-1 bg-slate-900/60 border border-slate-800/40 rounded-full text-xs font-bold text-slate-400 font-mono">
               <span className={`w-1 h-1 rounded-full bg-emerald-500 inline-block ${reduced ? '' : 'animate-pulse'}`} aria-hidden="true" />
               <span>SECURED · RBI CERTIFIED</span>
             </span>

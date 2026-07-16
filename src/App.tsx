@@ -5,12 +5,12 @@ import FlowNavigator from './components/layout/FlowNavigator';
 import PhoneSimulator from './components/layout/PhoneSimulator';
 import Screens from './components/screens/Screens';
 import ToastContainer from './components/ui/shared/Toast';
-import { Home, CreditCard, ShieldCheck, User, Scan } from 'lucide-react';
-import { motion } from 'motion/react';
+import BottomNavBar from './components/layout/BottomNavBar';
 import { useStore } from './store';
+import { getGlowColors } from './constants/glowConfig';
 
 export default function App() {
-  const isDev = typeof window !== 'undefined' && (window.location.search.includes('dev=true') || window.location.search.includes('debug=true') || window.location.search.includes('explorer=true'));
+  const isDev = (typeof import.meta !== 'undefined' && import.meta.env?.DEV) || (typeof window !== 'undefined' && (window.location.search.includes('dev=true') || window.location.search.includes('debug=true') || window.location.search.includes('explorer=true')));
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
@@ -40,47 +40,22 @@ export default function App() {
   if (isScreenshotMode) {
     return (
       <div id="pure-screen-container" style={{ width: 390, height: 844, overflow: 'hidden', background: '#020617', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, isolation: 'isolate' }} aria-hidden="true">
+          {(function() { const c = getGlowColors(currentScreen); return <>
+            <div className="absolute top-[-10%] left-[-20%] w-[120%] h-[60%] rounded-full blur-[80px] mix-blend-screen animate-blob" style={{ transform: 'translateZ(0)', willChange: 'transform, filter', background: c.blob1 }} />
+            <div className="absolute top-[10%] right-[-20%] w-[80%] h-[50%] rounded-full blur-[80px] mix-blend-screen animate-blob-reverse" style={{ transform: 'translateZ(0)', willChange: 'transform, filter', background: c.blob2 }} />
+            <div className="absolute bottom-[-8%] left-[25%] w-[60%] h-[35%] rounded-full blur-[70px] mix-blend-screen animate-blob" style={{ transform: 'translateZ(0)', willChange: 'transform, filter', background: c.blob3, animationDelay: '-8s' }} />
+          </>})()}
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(2,6,23,0.2)', pointerEvents: 'none', zIndex: 1 }} />
+          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 2, opacity: 0.025, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.5\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '192px 192px' }} />
+        </div>
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', zIndex: 1 }}>
           <Screens />
           <ToastContainer />
         </div>
         {showBottomBar && (
-          <div style={{ position: 'absolute', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 50 }}>
-            <div className="flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl bg-slate-900/60 border-slate-700/50 shadow-black/80 shadow-2xl w-[320px]">
-              <button onClick={() => navigate('/home')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'home' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <Home className={`w-5 h-5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
-                </div>
-              </button>
-              <button onClick={() => navigate('/subs-dashboard')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'subs-dashboard' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <CreditCard className={`w-5 h-5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
-                </div>
-              </button>
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => navigate('/scan-qr')} className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
-                <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
-              </motion.button>
-              <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'security' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
-                </div>
-              </button>
-              <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'me-profile' && <motion.div layoutId="ssNavBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <User className={`w-5 h-5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
-                </div>
-              </button>
-            </div>
+          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, zIndex: 50 }}>
+            <BottomNavBar currentScreen={currentScreen} />
           </div>
         )}
       </div>
@@ -89,51 +64,24 @@ export default function App() {
 
   if (isMobileDevice) {
     return (
-      <div className="w-full h-[100dvh] bg-slate-950 flex flex-col relative overflow-hidden font-sans">
-        <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] pointer-events-none z-0">
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] opacity-40 transition-colors duration-1000 bg-cyan-500/10" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-[100px] opacity-30 transition-colors duration-1000 bg-indigo-500/10" />
+      <div className="w-full h-[100dvh] bg-[#020617] flex flex-col relative overflow-hidden font-sans">
+        <div className="absolute top-[0%] left-[0%] w-[100%] h-[100%] pointer-events-none z-0 isolate" aria-hidden="true">
+          {(function() { const c = getGlowColors(currentScreen); return <>
+            <div className="absolute top-[-10%] left-[-20%] w-[120%] h-[60%] rounded-full blur-[80px] mix-blend-screen animate-blob transform-gpu will-change-transform will-change-filter" style={{ background: c.blob1 }} />
+            <div className="absolute top-[10%] right-[-20%] w-[80%] h-[50%] rounded-full blur-[80px] mix-blend-screen animate-blob-reverse transform-gpu will-change-transform will-change-filter" style={{ background: c.blob2 }} />
+            <div className="absolute bottom-[-8%] left-[25%] w-[60%] h-[35%] rounded-full blur-[70px] mix-blend-screen animate-blob transform-gpu will-change-transform will-change-filter" style={{ background: c.blob3, animationDelay: '-8s' }} />
+          </>})()}
+          <div className="absolute inset-0 bg-[#020617]/20 pointer-events-none z-[1]" />
+          <div className="absolute inset-0 pointer-events-none z-[2] opacity-[0.025]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.5\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '192px 192px' }} />
         </div>
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative z-10">
           <Screens />
           <ToastContainer />
         </div>
         {showBottomBar && (
-          <div className="absolute bottom-0 left-0 right-0 pb-6 pt-4 px-4 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent z-50">
-            <div className="flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl bg-slate-900/60 border-slate-700/50 shadow-black/80 shadow-2xl max-w-sm mx-auto">
-              <button onClick={() => navigate('/home')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'home' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <Home className={`w-5 h-5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
-                </div>
-              </button>
-              <button onClick={() => navigate('/subs-dashboard')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'subs-dashboard' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <CreditCard className={`w-5 h-5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
-                </div>
-              </button>
-              <motion.button whileTap={{ scale: 0.95 }} onClick={() => navigate('/scan-qr')} className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
-                <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
-              </motion.button>
-              <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'security' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
-                </div>
-              </button>
-              <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                {currentScreen === 'me-profile' && <motion.div layoutId="navBg" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                <div className="relative flex flex-col items-center z-10">
-                  <User className={`w-5 h-5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
-                  <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
-                </div>
-              </button>
+          <div className="absolute bottom-0 left-0 right-0 z-50 pointer-events-none">
+            <div className="pointer-events-auto">
+              <BottomNavBar currentScreen={currentScreen} />
             </div>
           </div>
         )}
@@ -142,51 +90,20 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex font-sans overflow-hidden">
+    <div className="min-h-screen bg-[#020617] flex font-sans overflow-hidden relative isolate">
+      {/* Global Ambient Glow — Per-Screen Adaptive */}
+      {(function() { const c = getGlowColors(currentScreen); return <>
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[70%] rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen animate-blob transform-gpu will-change-transform will-change-filter" style={{ background: c.blob1 }} aria-hidden="true" />
+        <div className="absolute top-[10%] right-[10%] w-[40%] h-[50%] rounded-full blur-[120px] pointer-events-none z-0 mix-blend-screen animate-blob-reverse transform-gpu will-change-transform will-change-filter" style={{ background: c.blob2 }} aria-hidden="true" />
+        <div className="absolute bottom-0 left-[30%] w-[40%] h-[35%] rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen animate-blob transform-gpu will-change-transform will-change-filter" style={{ background: c.blob3, animationDelay: '-8s' }} aria-hidden="true" />
+      </>})()}
+      <div className="absolute inset-0 bg-[#020617]/15 pointer-events-none z-0" aria-hidden="true" />
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.025]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.5\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '192px 192px' }} aria-hidden="true" />
       {isDev && <FlowNavigator currentScreen={currentScreen} navigate={(s) => navigate('/' + s)} isOffline={isOffline} setIsOffline={setIsOffline} />}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 lg:p-8 relative">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02]" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
-        <PhoneSimulator isOffline={false}
+      <div className="flex-1 flex flex-col items-center justify-center p-4 lg:p-8 relative z-10">
+        <PhoneSimulator isOffline={isOffline} currentScreen={currentScreen}
           bottomNav={showBottomBar ? (
-            <div className="pb-8 pt-4 px-6 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent">
-              <div className="flex justify-between items-center px-2 py-2 rounded-full border backdrop-blur-xl bg-slate-900/60 border-slate-700/50 shadow-black/80 shadow-2xl">
-                <button onClick={() => navigate('/home')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                  {currentScreen === 'home' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                  <div className="relative flex flex-col items-center z-10">
-                    <Home className={`w-5 h-5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'home' ? 2.5 : 2} />
-                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'home' ? 'text-cyan-400' : 'text-slate-500'}`}>Home</span>
-                  </div>
-                </button>
-                <button onClick={() => navigate('/subs-dashboard')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                  {currentScreen === 'subs-dashboard' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                  <div className="relative flex flex-col items-center z-10">
-                    <CreditCard className={`w-5 h-5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'subs-dashboard' ? 2.5 : 2} />
-                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'subs-dashboard' ? 'text-cyan-400' : 'text-slate-500'}`}>Subs</span>
-                  </div>
-                </button>
-                <motion.button whileTap={{ scale: 0.95 }} onClick={() => navigate('/scan-qr')} className="relative flex items-center justify-center w-12 h-12 rounded-full mx-1">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full blur-md opacity-60" />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 rounded-full border border-white/20" />
-                  <Scan className="w-5 h-5 text-white relative z-10" strokeWidth={2.5} />
-                </motion.button>
-                <button onClick={() => navigate('/security')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                  {currentScreen === 'security' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                  <div className="relative flex flex-col items-center z-10">
-                    <ShieldCheck className={`w-5 h-5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'security' ? 2.5 : 2} />
-                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'security' ? 'text-cyan-400' : 'text-slate-500'}`}>Security</span>
-                  </div>
-                </button>
-                <button onClick={() => navigate('/me-profile')} className="relative flex flex-col items-center justify-center py-2 px-3 rounded-full transition-all">
-                  {currentScreen === 'me-profile' && <motion.div layoutId="navBgSim" className="absolute inset-0 bg-cyan-500/15 border border-cyan-500/30 rounded-full" />}
-                  <div className="relative flex flex-col items-center z-10">
-                    <User className={`w-5 h-5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={currentScreen === 'me-profile' ? 2.5 : 2} />
-                    <span className={`text-[9px] font-bold tracking-wide uppercase mt-0.5 ${currentScreen === 'me-profile' ? 'text-cyan-400' : 'text-slate-500'}`}>Profile</span>
-                  </div>
-                </button>
-              </div>
-            </div>
+            <BottomNavBar currentScreen={currentScreen} />
           ) : undefined}
         >
           <Screens />
