@@ -43,8 +43,8 @@ export default function BottomNavBar({ currentScreen }: BottomNavBarProps) {
 
   return (
     <div className="relative pb-5 pt-6 px-4 w-full mt-auto">
-      {/* Full-width Glassmorphism Bottom Frame (Opaque at bottom, fading up) */}
-      <div className="absolute top-0 -bottom-10 left-0 right-0 bg-gradient-to-t from-[#020617] via-[#020617]/80 to-transparent backdrop-blur-xl border-t border-white/[0.02] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] pointer-events-none mask-image-b" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 25%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 25%)' }} />
+      {/* Full-width Glassmorphism Bottom Frame */}
+      <div className="absolute top-6 -bottom-10 left-0 right-0 bg-transparent backdrop-blur-md border-t border-white/5 pointer-events-none shadow-[0_-10px_30px_rgba(0,0,0,0.3)]" />
       
       {/* Navbar Pill (Faded at edges) */}
       <div className="relative py-1.5 rounded-[2.5rem] border backdrop-blur-2xl bg-gradient-to-r from-slate-950/10 via-slate-950/80 to-slate-950/10 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] max-w-sm mx-auto pointer-events-auto">
