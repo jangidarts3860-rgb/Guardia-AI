@@ -44,7 +44,7 @@ export default function NotificationsScreen() {
     <div className="flex flex-col min-h-full bg-transparent text-white p-4 justify-between">
       <div className="space-y-4 flex-1 flex flex-col">
         {/* Header + Filter Tabs */}
-        <div className="sticky top-0 z-50 pb-3 pt-4 space-y-3 bg-slate-950/50 backdrop-blur-xl border-b border-slate-800/50 -mx-4 px-4 -mt-4">
+        <div className="sticky top-0 z-50 pb-3 pt-4 space-y-3 bg-transparent backdrop-blur-md -mx-4 px-4 -mt-4 border-b border-white/5">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <button onClick={() => navigate('/home')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
