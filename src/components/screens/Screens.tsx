@@ -5,40 +5,40 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useStore } from '../../store';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
-const SplashScreen = React.lazy(() => import('./individual/SplashScreen'));
-const LoginScreen = React.lazy(() => import('./individual/LoginScreen'));
-const OnboardingScreen = React.lazy(() => import('./individual/OnboardingScreen'));
-const PermissionsScreen = React.lazy(() => import('./individual/PermissionsScreen'));
-const CreateAccountScreen = React.lazy(() => import('./individual/CreateAccountScreen'));
-const VerifyOtpScreen = React.lazy(() => import('./individual/VerifyOtpScreen'));
+import SplashScreen from './individual/SplashScreen';
+import LoginScreen from './individual/LoginScreen';
+import OnboardingScreen from './individual/OnboardingScreen';
+import PermissionsScreen from './individual/PermissionsScreen';
+import CreateAccountScreen from './individual/CreateAccountScreen';
+import VerifyOtpScreen from './individual/VerifyOtpScreen';
 
-const HomeScreen = React.lazy(() => import('./individual/HomeScreen'));
-const AnalyzingMerchantScreen = React.lazy(() => import('./individual/AnalyzingMerchantScreen'));
-const MerchantVerifiedScreen = React.lazy(() => import('./individual/MerchantVerifiedScreen'));
-const ScamDetectedScreen = React.lazy(() => import('./individual/ScamDetectedScreen'));
-const ReceiptScreen = React.lazy(() => import('./individual/ReceiptScreen'));
-const SubsDashboardScreen = React.lazy(() => import('./individual/SubsDashboardScreen'));
-const SubDetailScreen = React.lazy(() => import('./individual/SubDetailScreen'));
-const CancelSuccessScreen = React.lazy(() => import('./individual/CancelSuccessScreen'));
-const VaultScreen = React.lazy(() => import('./individual/VaultScreen'));
-const LinkBankScreen = React.lazy(() => import('./individual/LinkBankScreen'));
-const LinkBankProgressScreen = React.lazy(() => import('./individual/LinkBankProgressScreen'));
-const ScanQRScreen = React.lazy(() => import('./individual/ScanQRScreen'));
-const NotificationsScreen = React.lazy(() => import('./individual/NotificationsScreen'));
-const ActivityLogScreen = React.lazy(() => import('./individual/ActivityLogScreen'));
-const OfflineScreen = React.lazy(() => import('./individual/OfflineScreen'));
-const EmergencyScreen = React.lazy(() => import('./individual/EmergencyScreen'));
-const SafeReportScreen = React.lazy(() => import('./individual/SafeReportScreen'));
-const YourWinScreen = React.lazy(() => import('./individual/YourWinScreen'));
-const MeProfileScreen = React.lazy(() => import('./individual/MeProfileScreen'));
-const EditProfileScreen = React.lazy(() => import('./individual/EditProfileScreen'));
-const DeleteAccountConfirmScreen = React.lazy(() => import('./individual/DeleteAccountConfirmScreen'));
-const AccountDeletedScreen = React.lazy(() => import('./individual/AccountDeletedScreen'));
-const FreezeAccountsConfirmScreen = React.lazy(() => import('./individual/FreezeAccountsConfirmScreen'));
-const CreatePinScreen = React.lazy(() => import('./individual/CreatePinScreen'));
-const ResetPinScreen = React.lazy(() => import('./individual/ResetPinScreen'));
-const FamilySpendHubScreen = React.lazy(() => import('./individual/FamilySpendHubScreen'));
-const WelcomeBackScreen = React.lazy(() => import('./individual/WelcomeBackScreen'));
+import HomeScreen from './individual/HomeScreen';
+import AnalyzingMerchantScreen from './individual/AnalyzingMerchantScreen';
+import MerchantVerifiedScreen from './individual/MerchantVerifiedScreen';
+import ScamDetectedScreen from './individual/ScamDetectedScreen';
+import ReceiptScreen from './individual/ReceiptScreen';
+import SubsDashboardScreen from './individual/SubsDashboardScreen';
+import SubDetailScreen from './individual/SubDetailScreen';
+import CancelSuccessScreen from './individual/CancelSuccessScreen';
+import VaultScreen from './individual/VaultScreen';
+import LinkBankScreen from './individual/LinkBankScreen';
+import LinkBankProgressScreen from './individual/LinkBankProgressScreen';
+import ScanQRScreen from './individual/ScanQRScreen';
+import NotificationsScreen from './individual/NotificationsScreen';
+import ActivityLogScreen from './individual/ActivityLogScreen';
+import OfflineScreen from './individual/OfflineScreen';
+import EmergencyScreen from './individual/EmergencyScreen';
+import SafeReportScreen from './individual/SafeReportScreen';
+import YourWinScreen from './individual/YourWinScreen';
+import MeProfileScreen from './individual/MeProfileScreen';
+import EditProfileScreen from './individual/EditProfileScreen';
+import DeleteAccountConfirmScreen from './individual/DeleteAccountConfirmScreen';
+import AccountDeletedScreen from './individual/AccountDeletedScreen';
+import FreezeAccountsConfirmScreen from './individual/FreezeAccountsConfirmScreen';
+import CreatePinScreen from './individual/CreatePinScreen';
+import ResetPinScreen from './individual/ResetPinScreen';
+import FamilySpendHubScreen from './individual/FamilySpendHubScreen';
+import WelcomeBackScreen from './individual/WelcomeBackScreen';
 
 export function getSubscriptionLogo(subId: string, name: string, sizeClass = 'w-12 h-12 rounded-xl') {
   const id = subId.toLowerCase();
@@ -235,14 +235,14 @@ export default function Screens() {
   const reduced = useReducedMotion();
 
   const variants = {
-    initial: reduced ? { opacity: 0 } : { opacity: 0, y: 15, filter: 'blur(8px)' },
-    animate: reduced ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' },
-    exit: reduced ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: 'blur(4px)' }
+    initial: reduced ? { opacity: 0 } : { opacity: 0, x: 25, scale: 0.99, filter: 'blur(4px)' },
+    animate: reduced ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' },
+    exit: reduced ? { opacity: 0 } : { opacity: 0, x: -15, scale: 0.98, filter: 'blur(2px)' }
   };
 
   const transition = reduced
     ? { duration: 0.2 }
-    : { type: "spring", stiffness: 350, damping: 25 };
+    : { type: "spring", stiffness: 350, damping: 35, mass: 1 };
 
   return (
     <div className="relative w-full h-full">

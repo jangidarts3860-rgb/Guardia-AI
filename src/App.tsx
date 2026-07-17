@@ -34,6 +34,34 @@ export default function App() {
 
   const { isOffline, setIsOffline } = useStore();
 
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOffline(false);
+      if (window.location.pathname === '/offline') {
+        navigate('/home', { replace: true });
+      }
+    };
+    const handleOffline = () => {
+      setIsOffline(true);
+      if (window.location.pathname !== '/offline') {
+        navigate('/offline');
+      }
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Initial check on mount
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      handleOffline();
+    }
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [navigate, setIsOffline]);
+
   const showBottomBar = ['home', 'subs-dashboard', 'security', 'me-profile'].includes(currentScreen);
   const isScreenshotMode = window.location.search.includes('screenshot=1');
 

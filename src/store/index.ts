@@ -52,7 +52,7 @@ export const useStore = create<AppState>((set) => ({
     phone: '+91 98765 43210',
     email: 'rohan.s@example.com',
     language: 'English',
-    photo: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150'
+    photo: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=150&h=150'
   },
   setProfile: (updater) => set((state) => ({ profile: typeof updater === 'function' ? updater(state.profile) : updater })),
   resetAllState: () => set({
@@ -62,6 +62,6 @@ export const useStore = create<AppState>((set) => ({
     activities: initialActivities,
     selectedSub: initialSubscriptions[0],
     isOffline: false,
-    profile: { name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.s@example.com', language: 'English', photo: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150' }
+    profile: { name: 'Rohan Sharma', phone: '+91 98765 43210', email: 'rohan.s@example.com', language: 'English', photo: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=150&h=150' }
   })
 }));

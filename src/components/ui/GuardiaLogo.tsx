@@ -87,17 +87,12 @@ export default function GuardiaLogo({
       />
 
       {/* Futuristic Shield/G Monogram */}
-      {/* Outer Hexagon Outline */}
-      <path 
-        d="M50 25 L75 35 L75 60 L50 75 L25 60 L25 35 Z" 
-        fill="none" 
-        stroke="rgba(34,211,238,0.2)" 
-        strokeWidth="1" 
-        className={animated ? "animate-[ping_3s_ease-in-out_infinite]" : ""}
-      />
 
       {/* 4. Modern Tech 'G' Monogram - Clean, geometric, readable */}
-      <g className={animated ? "animate-[pulse_2s_ease-in-out_infinite]" : ""}>
+      <g 
+        className={animated ? "animate-[pulse_2s_ease-in-out_infinite]" : ""}
+        transform="translate(2, 2)"
+      >
         <path
           d="M66 48 C66 58 58 66 48 66 C38 66 30 58 30 48 C30 38 38 30 48 30 C53 30 57 32 60 35 L54 41 C52 39 50 38 48 38 C42 38 38 42 38 48 C38 54 42 58 48 58 C52 58 55 56 57 52 L48 52 L48 44 L66 44 L66 48 Z"
           fill="url(#gMark)"

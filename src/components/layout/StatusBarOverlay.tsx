@@ -100,7 +100,7 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
 
     case 'offline':
       textClass = 'text-amber-100';
-      backgroundClass = 'bg-amber-950/40 border-b border-amber-900/30';
+      backgroundClass = 'bg-transparent border-none';
       accentIcon = <AlertTriangle className="w-3 h-3 text-amber-500" />;
       break;
 
@@ -117,7 +117,12 @@ export default function StatusBarOverlay({ currentScreen, isOffline }: StatusBar
     case 'delete-account-confirm':
     case 'account-deleted':
       textClass = 'text-slate-400';
+      backgroundClass = 'bg-transparent';
       opacityClass = 'opacity-60';
+      break;
+
+    case 'me-profile':
+      backgroundClass = 'bg-transparent border-none';
       break;
   }
 

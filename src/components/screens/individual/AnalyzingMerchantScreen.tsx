@@ -3,13 +3,14 @@ import { useStore } from '../../../store';
 import { motion } from 'motion/react';
 import { ShieldCheck, ScanLine } from 'lucide-react';
 import React from 'react';
-
-
+import GuardiaLogo from '../../ui/GuardiaLogo';
 
 function getScanLog(prog: number): string {
-  if (prog <= 33) return "Checking blacklists...";
-  if (prog <= 66) return "Analyzing domain reputation...";
-  return "Validating SSL certificates...";
+  if (prog <= 20) return "Establishing secure connection...";
+  if (prog <= 45) return "Checking global blacklists...";
+  if (prog <= 75) return "Analyzing merchant reputation...";
+  if (prog <= 95) return "Verifying SSL certificates...";
+  return "Finalizing security assessment...";
 }
 
 export default function AnalyzingMerchantScreen() {
@@ -29,7 +30,7 @@ export default function AnalyzingMerchantScreen() {
   const animRef = React.useRef<ReturnType<typeof setInterval>>();
 
   React.useEffect(() => {
-    const steps = [33, 66, 100];
+    const steps = [20, 45, 75, 90, 100];
     let i = 0;
     animRef.current = setInterval(() => {
       if (i < steps.length) {
@@ -38,7 +39,7 @@ export default function AnalyzingMerchantScreen() {
       } else {
         clearInterval(animRef.current);
       }
-    }, 600);
+    }, 800); // 800ms per step = 4 seconds total (better labor illusion UX)
     return () => clearInterval(animRef.current);
   }, []);
 
@@ -46,7 +47,7 @@ export default function AnalyzingMerchantScreen() {
     if (analyzeProgress >= 100) {
       const t = setTimeout(() => {
         navigate(scanOutcome === 'safe' ? '/merchant-verified' : '/scam-detected');
-      }, 600);
+      }, 800);
       return () => clearTimeout(t);
     }
   }, [analyzeProgress, scanOutcome, navigate]);
@@ -70,18 +71,36 @@ export default function AnalyzingMerchantScreen() {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center z-10 w-full px-4">
-        <div className="relative mb-8">
-          <div className="w-28 h-28 rounded-full bg-slate-800/60 border border-slate-700/60 flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.15)] animate-pulse">
-            <svg className="w-12 h-12 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
+        <div className="relative mb-12 mt-4 flex items-center justify-center">
+          
+          {/* Expanding Radar Rings */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-24 h-24 rounded-full border-2 border-sky-400/40"
+              initial={{ scale: 0.8, opacity: 0.8 }}
+              animate={{ scale: 3, opacity: 0 }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                delay: i * 0.8,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+
+          {/* Logo without any circular background box */}
+          <div className="relative z-10 flex items-center justify-center">
+            <GuardiaLogo size={80} variant="icon" animated={true} />
           </div>
         </div>
 
         <h2 className="text-lg font-black tracking-tight mb-2">Analyzing Merchant</h2>
-        <p className="text-xs text-slate-400 font-medium" style={{ maxWidth: 200 }}>{getScanLog(analyzeProgress)}</p>
+        <p className="text-xs text-slate-400 font-medium text-center" style={{ maxWidth: 220, minHeight: 40 }}>
+          {getScanLog(analyzeProgress)}
+        </p>
 
-        <div className="w-full max-w-xs mt-8 space-y-2" role="progressbar" aria-valuenow={analyzeProgress} aria-valuemin={0} aria-valuemax={100} aria-label={`Scan progress: ${analyzeProgress}%`}>
+        <div className="w-full max-w-xs mt-4 space-y-2" role="progressbar" aria-valuenow={analyzeProgress} aria-valuemin={0} aria-valuemax={100} aria-label={`Scan progress: ${analyzeProgress}%`}>
           <div className="w-full h-1.5 bg-slate-800/40 rounded-full overflow-hidden border border-slate-800/20">
             <div className="h-full bg-gradient-to-r from-sky-500 via-indigo-500 to-sky-400 rounded-full transition-all duration-300 ease-out" style={{ width: `${analyzeProgress}%` }} />
           </div>

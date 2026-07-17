@@ -1,0 +1,22 @@
+{
+  "name": "Guardia AI",
+  "short_name": "Guardia",
+  "start_url": "/splash",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "description": "Your AI-powered defense against scams.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

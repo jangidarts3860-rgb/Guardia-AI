@@ -75,14 +75,12 @@ export default function HomeScreen() {
             <div className="sticky top-0 z-30 bg-transparent -mx-4 -mt-4 px-4 pt-4 pb-2">
               <div className="flex justify-between items-center">
                 <div className="text-left flex-1 min-w-0 pr-2">
-                  <p className="text-xs text-slate-300 font-medium truncate flex items-center">
-                    <span className="shrink-0 mr-1">{(function() { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; })()},</span> 
-                    <span className="text-gradient-premium font-bold truncate inline-block align-bottom">{profile.name ? profile.name.split(' ')[0] : 'Rohan'}</span>
+                  <p className="text-sm text-slate-400 font-medium truncate">
+                    {(function() { const h = new Date().getHours(); return h < 12 ? 'Good morning,' : h < 18 ? 'Good afternoon,' : 'Good evening,'; })()}
                   </p>
-                  <div className="flex items-center space-x-1.5 mt-0.5">
-                    <GuardiaLogo size={20} variant="icon" />
-                    <h2 className="text-xl font-bold tracking-tight text-white">Your Shield</h2>
-                  </div>
+                  <h2 className="text-3xl font-extrabold tracking-tight text-white truncate mt-0.5">
+                    {profile.name ? profile.name.split(' ')[0] : 'Rohan'}
+                  </h2>
                 </div>
                 <div className="flex items-center space-x-2">
                   <button onClick={() => navigate('/notifications')} className="relative p-2.5 rounded-full border bg-slate-900 border-slate-800" aria-label="Notifications">
@@ -101,9 +99,10 @@ export default function HomeScreen() {
               <div className="relative shrink-0 flex items-center justify-center w-[68px] h-[68px]">
                 {isShieldActive ? (
                   <div className="relative w-full h-full rounded-full border-[1px] border-emerald-900/40 flex items-center justify-center shadow-[inset_0_0_15px_rgba(16,185,129,0.05)]">
-                    <div className="absolute inset-1 rounded-full border-[1px] border-emerald-800/40 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full animate-ping border border-emerald-500/30 opacity-20" style={{ animationDuration: '3s' }}></div>
+                    <div className="absolute inset-1 rounded-full border-[1px] border-emerald-800/40 flex items-center justify-center animate-pulse" style={{ animationDuration: '4s' }}>
                       <div className="absolute inset-1.5 rounded-full border-[1.5px] border-emerald-700/50 flex items-center justify-center bg-[#020617]/50">
-                        <ShieldCheck className="w-6 h-6 text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]" strokeWidth={1.5} />
+                        <ShieldCheck className="w-6 h-6 text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse" strokeWidth={1.5} style={{ animationDuration: '2s' }} />
                       </div>
                     </div>
                   </div>
@@ -163,7 +162,7 @@ export default function HomeScreen() {
                 <div className="flex space-x-3 overflow-x-auto pb-1 scrollbar-none">
                   <AnimatePresence>
                     {subscriptions.length > 0 && !dismissedNudges.includes('sub') && (
-                      <motion.div initial={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8, width: 0, marginLeft: 0, marginRight: 0, padding: 0, overflow: 'hidden' }} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setSelectedSub(subscriptions[0]); navigate('/sub-detail'); }} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer card-surface relative overflow-hidden group">
+                      <motion.div initial={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8, width: 0, marginLeft: 0, marginRight: 0, padding: 0, overflow: 'hidden' }} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setSelectedSub(subscriptions[0]); navigate('/sub-detail'); }} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer bg-slate-900/80 border-slate-800 shadow-sm relative overflow-hidden group">
                         <button onClick={(e) => { e.stopPropagation(); setDismissedNudges(prev => [...prev, 'sub']); }} className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white transition z-20" aria-label="Dismiss alert"><X className="w-3 h-3" /></button>
                         <div className="absolute top-0 -inset-full h-full w-1/2 z-0 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 animate-shine" />
                         <div className="mb-2 relative z-10">
@@ -175,7 +174,7 @@ export default function HomeScreen() {
                       </motion.div>
                     )}
                     {!dismissedNudges.includes('scam') && (
-                      <motion.div initial={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8, width: 0, marginLeft: 0, marginRight: 0, padding: 0, overflow: 'hidden' }} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer card-surface relative overflow-hidden group">
+                      <motion.div initial={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8, width: 0, marginLeft: 0, marginRight: 0, padding: 0, overflow: 'hidden' }} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => navigate('/scan-qr')} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer bg-slate-900/80 border-slate-800 shadow-sm relative overflow-hidden group">
                         <button onClick={(e) => { e.stopPropagation(); setDismissedNudges(prev => [...prev, 'scam']); }} className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white transition z-20" aria-label="Dismiss alert"><X className="w-3 h-3" /></button>
                         <div className="absolute top-0 -inset-full h-full w-1/2 z-0 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 animate-shine" style={{ animationDelay: '1s' }} />
                         <div className="mb-2 w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center relative z-10 shadow-[inset_0_0_8px_rgba(239,68,68,0.2)]">
@@ -184,6 +183,18 @@ export default function HomeScreen() {
                         <h4 className="font-bold text-xs text-white relative z-10">Scam SMS</h4>
                         <p className="text-[10px] text-slate-400 mt-0.5 relative z-10">Urgency phrase detected</p>
                         <p className="text-[10px] text-red-400 font-extrabold mt-3 relative z-10 drop-shadow-[0_0_4px_rgba(239,68,68,0.4)]">High Risk Alert</p>
+                      </motion.div>
+                    )}
+                    {!dismissedNudges.includes('security') && (
+                      <motion.div initial={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8, width: 0, marginLeft: 0, marginRight: 0, padding: 0, overflow: 'hidden' }} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => navigate('/security')} className="p-4 rounded-2xl border shrink-0 w-44 text-left cursor-pointer bg-slate-900/80 border-slate-800 shadow-sm relative overflow-hidden group">
+                        <button onClick={(e) => { e.stopPropagation(); setDismissedNudges(prev => [...prev, 'security']); }} className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white transition z-20" aria-label="Dismiss alert"><X className="w-3 h-3" /></button>
+                        <div className="absolute top-0 -inset-full h-full w-1/2 z-0 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 animate-shine" style={{ animationDelay: '2s' }} />
+                        <div className="mb-2 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center relative z-10 shadow-[inset_0_0_8px_rgba(16,185,129,0.2)]">
+                          <ShieldCheck className="w-4.5 h-4.5 text-emerald-500 drop-shadow-[0_0_4px_rgba(16,185,129,0.5)]" />
+                        </div>
+                        <h4 className="font-bold text-xs text-white relative z-10">Device Scan</h4>
+                        <p className="text-[10px] text-slate-400 mt-0.5 relative z-10">All systems secure</p>
+                        <p className="text-[10px] text-emerald-400 font-extrabold mt-3 relative z-10 drop-shadow-[0_0_4px_rgba(16,185,129,0.4)]">100% Protected</p>
                       </motion.div>
                     )}
                   </AnimatePresence>

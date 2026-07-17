@@ -30,13 +30,14 @@ export default function MeProfileScreen() {
 
   const handleLogout = () => {
     setShowLogoutConfirm(false);
-    navigate('/login');
+    setProfile({ name: '', phone: '', email: '', language: 'English', photo: '' });
+    navigate('/splash');
   };
 
   return (
     <div className="flex flex-col min-h-full pb-24 space-y-4 bg-transparent text-white">
       {/* Sticky Nav Row */}
-      <div className="sticky top-0 z-30 bg-transparent px-4 pt-4">
+      <div className="sticky top-0 z-30 bg-transparent backdrop-blur-md px-6 pt-4 pb-2">
         <div className="flex justify-between items-center text-left">
           <h2 className="text-xl font-extrabold tracking-tight">Profile</h2>
           <button onClick={() => navigate('/home')} className="text-sm font-bold bg-sky-500/10 text-sky-400 px-4 py-2 rounded-xl transition hover:bg-sky-500/20 focus-visible:ring-2 focus-visible:ring-sky-500">Done</button>

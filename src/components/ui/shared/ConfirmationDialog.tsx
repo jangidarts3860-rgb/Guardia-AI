@@ -39,7 +39,7 @@ export default function ConfirmationDialog({
           animate={{ opacity: 1 }}
           exit={reduced ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="absolute inset-0 z-50 flex items-center justify-center p-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-6"
         >
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onCancel} />
           <motion.div

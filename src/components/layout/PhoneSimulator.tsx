@@ -26,7 +26,7 @@ export default function PhoneSimulator({ children, bottomNav, isOffline, current
 
       {/* Phone Frame */}
       <div id="phone-simulator-frame" className="relative w-full h-full md:w-[375px] md:h-[780px] md:rounded-[52px] md:border-[10px] md:border-slate-900/90 bg-slate-950 md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_1px_0_rgba(148,163,184,0.1)] flex flex-col overflow-hidden md:ring-1 md:ring-slate-700/30">
-        <div id="phone-viewport" className="w-full h-full flex flex-col relative bg-[#020617] overflow-hidden md:rounded-[42px] isolate">
+        <div id="phone-viewport" className="w-full h-full flex flex-col relative transform-gpu bg-[#020617] overflow-hidden md:rounded-[42px] isolate">
           {/* Ambient Reference-Style Glows (Deep & Visible — Per-Screen Adaptive) */}
           <div className="absolute top-[-10%] left-[-20%] w-[120%] h-[60%] rounded-full blur-[80px] pointer-events-none z-0 mix-blend-screen animate-blob transform-gpu will-change-transform will-change-filter" style={{ background: colors.blob1 }} aria-hidden="true" />
           <div className="absolute top-[10%] right-[-20%] w-[80%] h-[50%] rounded-full blur-[80px] pointer-events-none z-0 mix-blend-screen animate-blob-reverse transform-gpu will-change-transform will-change-filter" style={{ background: colors.blob2 }} aria-hidden="true" />
