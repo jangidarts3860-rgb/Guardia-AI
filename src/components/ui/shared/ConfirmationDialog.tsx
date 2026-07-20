@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'motion/react';
-import React from 'react';
-import { AlertTriangle, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { AlertTriangle, X, XCircle, CheckCircle2 } from 'lucide-react';
 import { useReducedMotion } from '../../../hooks/useReducedMotion';
-import { XCircle, CheckCircle2 } from 'lucide-react';
 
 interface ConfirmationDialogProps {
   open: boolean;
@@ -30,8 +30,17 @@ export default function ConfirmationDialog({
   icon,
 }: ConfirmationDialogProps) {
   const reduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const target = document.getElementById('phone-viewport') || document.getElementById('pure-screen-container') || document.body;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -101,6 +110,7 @@ export default function ConfirmationDialog({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    target
   );
 }
