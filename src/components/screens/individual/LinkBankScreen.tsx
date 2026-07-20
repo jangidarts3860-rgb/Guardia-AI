@@ -38,7 +38,7 @@ export default function LinkBankScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-transparent text-white p-5 justify-between relative">
+    <div className="flex flex-col h-full overflow-hidden bg-transparent text-white p-5 justify-between relative">
       <div className="space-y-5 flex-1 flex flex-col">
         <div className="flex justify-between items-center pt-2">
           <button onClick={() => navigate('/onboarding')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">

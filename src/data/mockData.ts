@@ -86,8 +86,8 @@ export const initialSubscriptions: Subscription[] = [
 ];
 
 export const initialBanks: Bank[] = [
-  { id: 'sbi', name: 'SBI', color: 'bg-blue-600', logoColor: '#0066cc', isConnected: true, balance: 21050, accNumber: '•••• 8834', lastSynced: '14 min ago' },
-  { id: 'hdfc', name: 'HDFC Bank', color: 'bg-blue-900', logoColor: '#003366', isConnected: true, balance: 84200, accNumber: '•••• 4521', lastSynced: '2 min ago' },
+  { id: 'sbi', name: 'SBI', color: 'bg-blue-600', logoColor: '#0066cc', isConnected: false },
+  { id: 'hdfc', name: 'HDFC Bank', color: 'bg-blue-900', logoColor: '#003366', isConnected: false },
   { id: 'icici', name: 'ICICI Bank', color: 'bg-orange-600', logoColor: '#ff6600', isConnected: false },
   { id: 'axis', name: 'Axis Bank', color: 'bg-red-700', logoColor: '#ae275f', isConnected: false },
   { id: 'kotak', name: 'Kotak Mahindra', color: 'bg-red-600', logoColor: '#ff0000', isConnected: false },
