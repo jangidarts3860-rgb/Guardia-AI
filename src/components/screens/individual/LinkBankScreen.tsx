@@ -38,8 +38,9 @@ export default function LinkBankScreen() {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-transparent text-white p-5 justify-between relative">
-      <div className="space-y-5 flex-1 flex flex-col">
+    <div className="flex flex-col h-full bg-transparent text-white p-5">
+      
+      <div className="space-y-5 shrink-0">
         <div className="flex justify-between items-center pt-2">
           <button onClick={() => navigate('/onboarding')} className="p-2 -ml-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-sky-500" aria-label="Go back">
             <ArrowLeft className="w-4 h-4" />
@@ -84,57 +85,57 @@ export default function LinkBankScreen() {
             </button>
           )}
         </div>
-
-<div className="grid grid-cols-2 gap-2 flex-1 overflow-y-auto max-h-[300px] pt-1">
-          {/* Linked Accounts Section */}
-          {banks.filter(b => b.isConnected).map((bank) => (
-            <motion.div key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-              className="p-4 rounded-xl border border-slate-700 bg-emerald-500/5 flex flex-col justify-between items-start text-left relative"
-              aria-label={`${bank.name} - Already linked`}
-            >
-              <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
-              <div>
-                <p className="text-xs font-bold text-white">{bank.name}</p>
-                <p className="text-xs text-emerald-400 mt-0.5 flex items-center space-x-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                  <span>Linked • {bank.lastSynced}</span>
-                </p>
-              </div>
-            </motion.div>
-          ))}
-          
-          {/* Available Banks Section */}
-          {banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
-            <div className="col-span-2 text-center py-8 text-slate-400 text-xs">
-              No banks found matching "{bankSearch}". Try searching for major banks like SBI, HDFC, or ICICI.
-            </div>
-          ) : (
-            banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).map((bank) => {
-              const isSelected = selectedBankId === bank.id;
-              return (
-                <motion.button key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-                  onClick={() => setSelectedBankId(bank.id)}
-                  className={`p-4 rounded-xl border flex flex-col justify-between items-start text-left transition relative ${isSelected ? 'border-sky-500 bg-sky-500/10 shadow-md shadow-sky-500/5' : 'border-slate-800 bg-slate-900/60 hover:bg-slate-900'}`}
-                  aria-pressed={isSelected} aria-label={`Select ${bank.name}`}
-                >
-                  <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
-                  <div>
-                    <p className="text-xs font-bold text-white">{bank.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Tap to connect</p>
-                  </div>
-                  {isSelected && (
-                    <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-2 right-2 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
-                      <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-                    </motion.span>
-                  )}
-                </motion.button>
-              );
-            })
-          )}
-        </div>
       </div>
 
-      <div className="space-y-3 pt-4 z-10">
+      <div className="grid grid-cols-2 gap-2 flex-1 overflow-y-auto mt-4 pt-1 pb-4 min-h-0">
+        {/* Linked Accounts Section */}
+        {banks.filter(b => b.isConnected).map((bank) => (
+          <motion.div key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+            className="p-4 rounded-xl border border-slate-700 bg-emerald-500/5 flex flex-col justify-between items-start text-left relative"
+            aria-label={`${bank.name} - Already linked`}
+          >
+            <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
+            <div>
+              <p className="text-xs font-bold text-white">{bank.name}</p>
+              <p className="text-xs text-emerald-400 mt-0.5 flex items-center space-x-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span>Linked • {bank.lastSynced}</span>
+              </p>
+            </div>
+          </motion.div>
+        ))}
+        
+        {/* Available Banks Section */}
+        {banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).length === 0 ? (
+          <div className="col-span-2 text-center py-8 text-slate-400 text-xs">
+            No banks found matching "{bankSearch}". Try searching for major banks like SBI, HDFC, or ICICI.
+          </div>
+        ) : (
+          banks.filter(b => !b.isConnected && b.name.toLowerCase().includes(bankSearch.toLowerCase())).map((bank) => {
+            const isSelected = selectedBankId === bank.id;
+            return (
+              <motion.button key={bank.id} layout initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+                onClick={() => setSelectedBankId(bank.id)}
+                className={`p-4 rounded-xl border flex flex-col justify-between items-start text-left transition relative ${isSelected ? 'border-sky-500 bg-sky-500/10 shadow-md shadow-sky-500/5' : 'border-slate-800 bg-slate-900/60 hover:bg-slate-900'}`}
+                aria-pressed={isSelected} aria-label={`Select ${bank.name}`}
+              >
+                <div className="mb-3">{getBankLogo(bank.id, bank.name, "w-8 h-8 rounded-lg")}</div>
+                <div>
+                  <p className="text-xs font-bold text-white">{bank.name}</p>
+                  <p className="text-xs text-slate-400 mt-0.5">Tap to connect</p>
+                </div>
+                {isSelected && (
+                  <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-2 right-2 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
+                    <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                  </motion.span>
+                )}
+              </motion.button>
+            );
+          })
+        )}
+      </div>
+
+      <div className="space-y-3 pt-4 shrink-0 border-t border-slate-800/60 mt-2 z-10">
         <button onClick={handleLinkBankSubmit} disabled={!selectedBankId}
           className={`w-full py-4 text-white font-bold rounded-2xl transition shadow-lg ${selectedBankId ? 'bg-sky-500 hover:bg-sky-400 cursor-pointer shadow-sky-500/10 focus-visible:ring-2 focus-visible:ring-sky-500' : 'bg-slate-800 cursor-not-allowed text-slate-400'}`}
         >
