@@ -317,3 +317,137 @@ BEFORE USING A PATTERN:
 ☐ Does it have error/empty/loading states?
 ☐ Can I measure if it works?
 ```
+
+---
+
+## Growth Design & Activation Engine
+
+### Premium Onboarding Funnels
+
+#### Progressive Profile Completion Rule (Miller's Law)
+```
+DON'T ask for password, name, payment + role all on page 1.
+Break signup into 3 stages:
+  Stage 1 — Account Creation: Email & password (or 1-click Google auth) ONLY
+  Stage 2 — Persona Selection: "Who are you?" Teacher/Student/Admin → personalize on-the-fly
+  Stage 3 — Activation Setup: First meaningful action (create a class, add a student)
+```
+
+#### Onboarding Progress UI Specs
+```
+Use Goal Gradient Effect layout:
+  ✅ Progress bar starts pre-filled at 25% ("Account created!")
+  ✅ Descriptive titles: "Personalize", "Invite Crew", "Finish" (NOT "Step 1 of 5")
+  ✅ Back/Skip always visible unless strict compliance required
+```
+
+### High-Conversion Pricing Artifacts
+
+#### Visual Tiering Rules
+```
+The "Best Value" Pop:
+  - Highlight exactly ONE primary tier (usually the middle plan)
+  - Primary tier: Indigo Action color (80-15-5 rule). Others: ghost/slate borders
+  - Von Restorff Effect: Squircle chip badge ("Most Popular", "Best Value") on top
+
+Yearly / Monthly Toggle:
+  - Toggle badge: "Save 20%" in pill (bg-emerald-50 text-emerald-700)
+  - Slide animation: 200ms ease-out spring physics
+
+Feature Checklists:
+  - Standard features: slate checkmarks
+  - Premium features: vibrant text or text gradient highlight
+```
+
+### Frictionless Checkout Layouts
+
+#### Trust Signals Placement
+```
+Place trust badges DIRECTLY beneath the primary "Pay" CTA:
+  - UPI / VISA / Mastercard / Razorpay logos
+  - Lock icon + "SSL Secured & Encrypted"
+  ❌ No promotional copy at checkout (causes cognitive division)
+```
+
+#### Order Summaries & Form Fields
+```
+Desktop layout: 60/40 split. Mobile: stacked.
+  Left panel: Single-column clean input fields, auto-fill enabled (Tesler's Law)
+  Right panel: Invoice card — Base Price + Tax + Promo Code block
+Micro-copy: Clear pricing terms + localized currency formats (₹ + Indian format)
+```
+
+### Behavioral Psychology Cheatsheet
+```
+Growth flow review triggers:
+  - Weber's Law: Is primary "Upgrade Now" CTA at least 14% larger/higher contrast than surroundings?
+  - Zeigarnik Effect: Does the flow show how close user is to completion?
+  - Fogg Model: Do simplifying prompts appear only when ability is highest?
+  - India Hook: Does billing plan highlight UPI autopay prominently? (Top trust signal Tier 1-3)
+  - No Dark Patterns: Hidden auto-renew terms require double-confirmation opt-in. Priority 2 safety rule.
+```
+## Behavioral Economics & Growth Psychology (The Growth Design Engine)
+
+### The Hook Model Implementation
+```
+Every recurring core habit MUST map to:
+1. TRIGGER
+   - External: Push notification, email, contextual CTA (e.g., "Your report is ready").
+   - Internal: User's emotional need (e.g., FOMO, boredom, anxiety about missing a payment).
+2. ACTION 
+   - The simplest behavior in anticipation of reward (e.g., clicking the push, scrolling the feed).
+   - Friction removal is critical here (Fogg Ability).
+3. VARIABLE REWARD
+   - The unpredictability that drives dopamine.
+   - Rewards of the Tribe: Social validation, likes, comments (Social apps).
+   - Rewards of the Hunt: Finding a deal, swiping for matches, discovering new content (E-com/Content).
+   - Rewards of the Self: Mastery, completion, leveling up, clearing an inbox (Productivity/Gaming).
+4. INVESTMENT
+   - User does work to improve the experience for next time.
+   - E.g., Adding a friend, rating a product, saving a playlist, adding money to wallet.
+   - Loads the next trigger.
+```
+
+### Cognitive Biases & Heuristics in UX
+```
+1. Paradox of Choice
+   - Rule: Hick's Law on steroids. Never show >3 primary choices.
+   - Execution: Pre-select a "Smart Default" based on data. Hide edge-case choices behind "Advanced options".
+
+2. Loss Aversion (Ethical Framing)
+   - Rule: People fear losing ₹100 more than they desire gaining ₹100.
+   - Execution: "You will lose your ₹500 cashback if you skip" works better than "Complete to earn ₹500".
+   - Constraint: Must be true. Do not invent fake losses (Priority 2: Honest).
+
+3. Endowment Effect
+   - Rule: People value what they feel they already own.
+   - Execution: Give users a "taste" of the premium tier (e.g., free premium trial instantly applied) before asking them to pay. "Your Pro trial is active."
+
+4. Peak-End Rule for Growth
+   - Rule: Users judge an experience by its peak (most intense moment) and its end.
+   - Execution: Over-design the success completion screen (confetti, major visual celebration) and the "Aha!" moment of the product.
+```
+
+### The Empty State Formula
+```
+Never leave a screen blank. Every empty state MUST have 3 elements:
+1. Illustration/Icon: Visually interesting, branded, lighthearted.
+2. Comforting/Instructive Text: "It's quiet in here..." + "Your saved items will appear here."
+3. Primary Action CTA: A button that helps them populate the screen ("Start Shopping", "Create Task").
+```
+
+### Activation & Onboarding Funnels
+```
+1. Time-to-Value (TTV) Optimization
+   - The "Aha! Moment" must happen before the paywall or complex signup if possible.
+   - Execution: Allow "Skip to explore" for non-critical onboarding steps.
+
+2. Progressive Disclosure Validation
+   - Never ask for all permissions (Location, Push, Camera) upfront.
+   - Execution: Ask in context. Ask for Camera permission ONLY when user taps "Scan QR".
+
+3. Pricing Page Psychology
+   - 3-Tier Anchoring: Show a high-priced decoy to make the middle tier look reasonable.
+   - Center/Highlight the preferred tier (Size, Elevation, "Most Popular" badge).
+   - Clear toggle for Monthly/Yearly with explicit "Save X%" callout.
+```

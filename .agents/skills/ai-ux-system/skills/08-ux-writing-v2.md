@@ -20,6 +20,16 @@ Content is the PRODUCT.
 
 ---
 
+
+## The Golden Rules of Resilience
+```
+1. Never blame the user. -> Not "You entered the wrong code", but "This code doesn't match".
+2. Never dead-end a flow. -> Every error or empty state must have a clear recovery action (primary CTA).
+3. Never say "Something went wrong". -> Always explain What happened, Why, and How to fix it.
+```
+
+---
+
 ## Product Voice Definition
 
 ```

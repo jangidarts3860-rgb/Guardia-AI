@@ -161,6 +161,113 @@ UX LAW CONFLICT:
 
 ---
 
+## Laws Auto-Activation by Screen Type
+
+When working on a specific screen type, these laws activate automatically:
+
+```
+NAVIGATION/MENU    → Hick's + Serial Position + Jakob's + Progressive Disclosure + Paradox of Choice
+BUTTON/CTA         → Fitts's + Affordance + Von Restorff + Color Psychology + Weber's Law
+FORM               → Miller's + Tesler's + Error Prevention + Postel's + Cognitive Load
+ONBOARDING         → Zeigarnik + Goal Gradient + Fogg + Doherty + Peak-End + Dual Coding
+PRODUCT LISTING    → Proximity + Similarity + Common Region + Closure + Social Proof + Paradox of Choice
+CHECKOUT/PAYMENT   → Tesler's + Error Prevention + Doherty + Shneiderman Closure + Trust + Goal Gradient
+EMPTY STATE        → Fogg Model + Zeigarnik + Affordance + Dual Coding
+NOTIFICATION       → Hook Model Trigger + Fogg Prompt + Scarcity (honest only)
+DASHBOARD          → Miller's + Proximity + Figure-Ground + F-pattern + Aesthetic-Usability + Dual Coding
+ERROR SCREEN       → Nielsen H9 + Don Norman Feedback + Postel's + Cognitive Load
+LANDING PAGE       → Z-pattern + Fogg + Social Proof + Scarcity + Peak-End + Dual Coding
+PROFILE/SETTINGS   → Pareto + Recognition>Recall + User Control + Progressive Disclosure
+MODAL/OVERLAY      → Doherty + Nielsen H3 + Cognitive Load + Don Norman Constraints
+ANIMATION/MOTION   → Weber's Law + Microinteractions + Doherty Threshold
+FINTECH SCREEN     → Trust signals + Tesler's + Error Prevention + Cognitive Load + Scarcity (honest)
+```
+
+---
+
+## Output Format Template
+
+Every design recommendation must use this exact format:
+
+```
+DESIGN DECISION: [What to change or design]
+
+SEVERITY:  Critical (blocks task) | High (damages UX) | Nice-to-have (polish)
+EFFORT:    Quick win (<1hr) | Medium (1 day) | Big change (1 week+)
+
+LAW/PRINCIPLE: [Exact law name — e.g., "Law 5: Doherty Threshold"]
+DO THIS:   [Exactly what to do — no vague words, specific implementation]
+EXAMPLE:   [Indian app that does this right, e.g., "Swiggy uses skeleton screens"]
+AVOID:     [Specific anti-pattern — e.g., "No blank screen >400ms"]
+
+BRAIN NOTE: [1-2 sentence psychology — why user brain responds this way]
+```
+
+Sort output: Critical → High → Nice-to-have.
+Brain Note = the "why" that makes designs defensible to clients.
+
+---
+
+## Portfolio / Case Study Justification Format
+
+When justifying design decisions to clients or in portfolio:
+
+```
+DECISION JUSTIFICATION FORMAT:
+"I chose [design decision] because [Law Name] states [principle].
+Research shows [user psychology reason].
+[Indian app example] uses this for [outcome].
+I considered [alternative option] but rejected it because [which law wins and why]."
+```
+
+---
+
+## Multi-Layer Considerations
+- **Platform Layer:** Mobile-first default (touch targets 44×44px Fitts's + Thumb zone). See `platform-specific.md`.
+- **Industry Layer:** Follow specific conventions for Fintech, E-com, SaaS etc. See `industry-patterns.md`.
+- **Behavioral Design:** Hook and Fogg models. See `behavioral-design.md`.
+- **Fintech Special Layer:** Trust signals, no ambiguous money states, clear recovery path. See `fintech.md`.
+
+---
+
+## AI & Workflow Automation UX Laws (Special Edge Cases)
+
+When designing interfaces where AI acts on the user's behalf (Agents/Workflows) or automates multi-step flows, apply these special rules:
+
+### A.1: The Rule of Explanability (No Black Boxes)
+* **Law:** AI decisions must show their "showing work" state within 600ms if taking actions ≥ ₹500 value or mutating user data. 
+* **UI Pattern:** Step-by-step progress checklist (like in Claude workflows) instead of a simple "Loading..." spinner. 
+
+### A.2: Human-in-the-Loop (HITL) Triggers
+* **Law:** The friction threshold must automatically increase as risk increases.
+* **Friction Matrix for Workflows:**
+  - *Low Risk* (e.g., Categorizing an email, listing items): Fully automated + Silent notification.
+  - *Medium Risk* (e.g., Drafting a message, scheduling a sync): Pre-verified draft, one-click send (Implicit approve).
+  - *High Risk* (e.g., Making a financial payment, deleting records): Mandatory explicit review + confirmation (Irreversible action rule under P1 Safety).
+
+### A.3: Graceful Degradation & Fallback
+* **Law:** When an automated script or API times out or fails (Doherty Threshold exceed), never show a terminal crash state.
+* **UI Pattern:** Pivot dynamically to "Manual mode override" showing the exact state where the automation failed, pre-filled with whatever data was recovered.
+
+---
+
+## Golden Rules v3
+
+1. Every decision needs a law — "Looks good" is not a justification
+2. Mobile-first always — India = mobile dominant, one-handed use design
+3. Friction is the enemy — Remove every unnecessary step
+4. User is not the problem — Bad design is the problem
+5. Test all 5 edge cases — Error, Empty, Zero Results, Loading, Drop-off
+6. Honest always — No dark patterns. Dieter Rams > Business pressure
+7. Best UX is invisible — User completes goal without noticing the design
+8. Severity first — Fix Critical before polishing Nice-to-have
+9. Conflict? Follow Authority Hierarchy — Tier 1 always wins
+10. Accessibility = non-negotiable — Layer 8 runs on every project
+11. Brain Note on every recommendation — design must be explainable
+12. This reference is Source of Truth — no other file overrides it
+
+---
+
 ## Reference Files — When to Read
 
 | File | Purpose |

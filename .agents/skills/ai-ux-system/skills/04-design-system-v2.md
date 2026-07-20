@@ -299,6 +299,10 @@ ELEVATION RULES:
 ✅ Dropdown menus: shadow-md
 ✅ Modals: shadow-lg
 ✅ Bottom sheet: shadow-xl
+✅ Multi-layered soft shadows: Instead of heavy shadow-xl/lg, use extremely soft, wide-spread, low-opacity shadows (e.g., 0px 20px 40px rgba(0,0,0,0.04)).
+✅ Inner Glows / Edge Highlights: Give cards a premium feel with subtle inner borders (e.g., box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)).
+✅ Hairline Borders: Use 1px borders with very low opacity (e.g., border-white/10 or border-black/5) to define structure without adding noise.
+✅ Squircle Corners: Use radius-xl (16px) or radius-2xl (24px) / radius-3xl (32px) for modern squircle app-like cards, not just radius-md (8px).
 ❌ NEVER mix elevation and border on same element
 ```
 
@@ -722,3 +726,57 @@ PAGE STRUCTURE:
    → Build what you need now
    → Tier 1 components → ship → add Tier 2 → ship
 ```
+---
+
+## Brand Identity integration (Brand Identity Director - Templates)
+
+When acting as a Brand Identity Director, use these specific templates and gates to ensure strict control over brand expression and export:
+
+### Gate 4 — Exploration Prompt Formula
+When generating prompts for brand exploration or identity ideation:
+`[identity type] + [single strategic idea] + [brand attributes] + [audience/context] + [formal constraints] + [typography direction] + [color rules] + [applications] + [technical requirements] + [avoid list]`
+
+*Default Avoid List:* gradients, 3D, drop shadows, clip-art detail, unexplained geometry, fake readable text, mockup-only presentation, photorealism.
+
+### Gate 5 — Revision Prompt Template
+When processing client or internal revisions to a brand mark or identity:
+`Keep [approved strategic idea]. Change [specific failure]. Simplify [specific element]. Preserve [approved form/relationship]. Use [technical constraints]. Test in [applications/sizes]. Avoid [failure modes]. Return isolated mark, wordmark, lockups, and one-color versions; do not invent final text.`
+
+### Gate 7 — Machine-Readable Brand Spec (Minimal Shape)
+Always output brand specs in this JSON format to prevent brand drift:
+```json
+{
+  "brand": "brand-name",
+  "tokens": {
+    "color.primary": "#000000",
+    "color.canvas": "#FFFFFF",
+    "font.primary": "Font Name"
+  },
+  "variants": ["primary", "horizontal", "stacked", "icon-only", "monochrome", "reversed"],
+  "usage_rules": {
+    "min_size_px": 24,
+    "clear_space": "1x cap-height"
+  },
+  "prohibited": ["gradient fill", "drop shadow", "rotation beyond 0deg", "recoloring outside token set"]
+}
+```
+*Note: This is the floor, not the ceiling. Keep `prohibited` explicit.*
+
+### Gate 7 — Asset Naming Convention
+Force this naming convention unless overridden: `brandname_variant_colormode.ext`
+*(Examples: `acme_icon-only_dark.svg`, `acme_horizontal_light.png`, `acme_primary_mono.svg`)*
+
+---
+## 10-Year Creative Director Protocol: Optical Alignment & Typography Mastery
+
+### 1. Optical vs. Mathematical Alignment
+* **Rule:** Never rely purely on CSS/Figma exact mathematical center alignment for asymmetrical shapes (e.g., Play buttons, Chevrons, custom icons). 
+* **Execution:** Shift asymmetrical icons optically (usually 5-10% toward their visually lighter side) so they *feel* centered in their containers.
+
+### 2. High-End Typography Nudges
+* **Headlines (Display/H1/H2):** Apply negative tracking (letter-spacing: -2% to -4%). Large text needs tighter spacing to look premium and locked-in.
+* **Microcopy & OVERLINES (All-Caps):** Apply wide tracking (letter-spacing: 1.5px to 2px). Never use All-Caps without widening the tracking (it creates breathable elegance).
+* **Line Height (Leading):**
+  * Headings: Tight (110% - 120% / 1.1 - 1.2)
+  * Body: Open and readable (150% - 160% / 1.5 - 1.6)
+* **Font Weight Contrast:** Skip intermediate weights. Create extreme contrast (e.g., a Bold headline paired with a Regular/Light body) instead of matching Medium with Semibold.

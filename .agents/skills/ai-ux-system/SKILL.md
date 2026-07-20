@@ -4,7 +4,7 @@ description: Coordinated UI/UX design, research, audit, and validation framework
 ---
 
 # AI UX System: Master Instructions
-Version: 3.0 | Updated: 2026-07-11 | 16 active skills + 21 references
+Version: 3.0 | Updated: 2026-07-18 | 16 active skills + 16 references
 
 ## What this is
 This package turns any capable AI into a coordinated UX product team. Skills are workflow modules. References are knowledge modules. The AI must self-route: read this file, detect intent, and load only the skills and references the task needs. The user should never have to name a skill.
@@ -31,7 +31,7 @@ Core workflow (stored at `.agents/skills/ai-ux-system/skills/`):
 - `07-ux-validation-v2` : usability, comprehension, accessibility testing
 
 Specialists (stored at `.agents/skills/ai-ux-system/skills/`):
-- `08-ux-writing-v2` : labels, errors, empty states, financial copy
+- `08-ux-writing-v2` : labels, errors, empty states, financial copy, error resilience, empty state copy formulas
 - `09-final-design-qa-v2` : final consistency and truthfulness gate
 - `10-technical-feasibility-v2` : can it be built and is the claim true
 - `11-analytics-measurement-v2` : events, funnels, metrics, experiments
@@ -42,7 +42,7 @@ Pattern packs (stored at `.agents/skills/ai-ux-system/skills/`):
 - `14-product-patterns-v2` : IA/navigation, onboarding, trust/safety, privacy/consent, retention, service journey
 - `15-ui-patterns-v2` : responsive, forms/auth, search, data viz, notifications, developer handoff
 
-## 21 references (load on demand)
+## 16 references (load on demand)
 Located in `.agents/skills/ai-ux-system/references/`:
 `ux-laws`, `ux-audit-checklist`, `laws-by-screen`, `design-tokens`, `figma-architecture`, `accessibility`, `platform-ios`, `platform-android`, `indian-patterns`, `fintech`, `components`, `motion`, `motion-trends`, `haptics-guide`, `design-trends`, `figma-setup`, `research-methods`, `product-strategy`, `debugging`, `anti-patterns`, `behavioral-design`, `industry-patterns`, `brand-patterns` (and its 10 individual brand files: `airbnb`, `airtable`, `apple`, `bmw`, `cal`, `claude`, `clay`, `clickhouse`, `cohere`, `coinbase`, `linear`, `notion`, `stripe`, `supabase`, `warp`, `webflow`, `wise`, `xai`, `zapier`).
 
@@ -64,8 +64,13 @@ Match on the user's words AND the underlying task. A request can match several r
 | metrics, tracking, events, funnel, drop-off, A/B test | 11 | research-methods |
 | information hierarchy, terminology, content structure | 12 | components |
 | "looks generic/AI-made", visual polish, distinctiveness | 13 | brand-patterns (max two) |
+| "edge case", "empty state", "error state", "offline mode", "404", "skeleton loader", "limits" | 15 (+08) | ux-laws |
+| "premium UI", "modern design", "stylish", "top 1%", "beast UI", "trendy UI", "dribbble level", "awwwards quality" | 05 (+13) | brand-patterns (max two) |
+| "data density", "table design", "B2B SaaS", "CMD+K", "command menu", "filter system", "complex table" | 15 | components |
+| "growth design", "pricing page", "onboarding funnel", "conversion", "activation", "checkout flow" | 14 | behavioral-design |
+| "Generative UI", "LLM", "streaming response", "AI interface", "AI assistant" | 06 | design-trends |
 | navigation, onboarding, activation, trust, safety, privacy, consent, retention, notifications strategy, service journey | 14 | ux-laws, fintech if financial, platform |
-| responsive, forms, OTP, PIN, biometric, search, filters, charts, dashboards, notification UI, dev handoff, tokens-to-code | 15 | components, platform, accessibility |
+| responsive, forms, OTP, PIN, biometric, search, filters, charts, dashboards, notification UI | 15 | components, platform, accessibility |
 | full product or major redesign | full pipeline | per stage, never all at once |
 
 If intent is ambiguous, infer from context (current file, PRD, screenshots) before asking. Ask at most one focused question, and only when guessing would be unsafe, destructive, or fundamentally wrong.
@@ -86,6 +91,7 @@ Common short routes:
 - Plan metrics: `00, 11`
 - Feasibility review: `00, 10, 03`
 - Test a prototype: `00, 07, 05`
+- Premium/modern UI from scratch: `00, 02, 05, 13, 08, 09`
 
 Never run the full pipeline for a small request.
 

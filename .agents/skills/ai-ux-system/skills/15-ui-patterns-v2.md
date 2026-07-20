@@ -136,6 +136,33 @@ Entertainment/Kids   180        15       1     Bouncy, playful
 
 ---
 
+
+---
+
+## Edge Cases & Stress Testing (UI Resilience)
+
+```
+1. The German Word Test: Long titles/names (45+ chars) 
+   → Spec: Use `truncate` or `line-clamp-2` with `break-words`.
+2. The "999+" Test: Badges and counters must stop growing. 
+   → Spec: Design for 1, 10, and 99+. Box width must adjust without breaking layout.
+3. Missing Data: No avatar image uploaded? 
+   → Spec: Fallback to initials with a generated solid background color.
+4. Permissions Denied: Camera/Mic/Location blocked by OS.
+   → Spec: Clean fallback UI explaining *why* it's needed with a CTA to "Open Settings".
+```
+
+---
+
+## Offline & Network States (India-First)
+
+```
+RULES FOR SLOW/DROPPED NETWORKS:
+- Loading Skeletons: Exact shape of incoming content (not generic boxes), 1.5s shimmer loop.
+- Offline Banner: Unobtrusive banner (e.g., bg-amber-100) "You are offline. Showing cached data."
+- Optimistic UI: Immediately update UI for basic actions (Like, Save, Bookmark) while offline, sync in background when network returns.
+```
+
 ## Accessibility Implementation
 
 ```
@@ -191,6 +218,77 @@ Rules:
 - Empty state: Message + guidance, not blank axes
 - Accessible colors: Never red+green only
 - Screen reader: aria-label describing key insight
+```
+
+---
+
+## Data Density & Elite Table Systems
+
+### Data Table Anatomy (Stripe/Linear Standard)
+
+#### Grid & Row Spacing
+```
+Row Heights (Strict Sizes):
+  Compact:   36px (highly dense, data analysis)
+  Standard:  44px (general SaaS dashboards — DEFAULT)
+  Spacious:  56px (low density, media rows, user profiles)
+
+Cell Paddings: Left & Right padding minimum 16px.
+  Text, status, ID tags        → Left-aligned
+  Numbers, currencies, metrics → Right-aligned (easier downward scanning)
+  Actions (meatballs, edit)    → Pinned to extreme right
+
+Borders & Grids:
+  ❌ BAN vertical gridlines. Use only horizontal divider lines.
+  Divider: border-slate-100 / dark:border-slate-900 at 0.5px or 1px max.
+  ❌ BAN zebra striping on modern UIs.
+  ✅ Use subtle hover state highlights: hover:bg-slate-50/50 / hover:bg-zinc-900/30.
+```
+
+#### Typography Hierarchy Inside Cells
+```
+Headings:          11px uppercase, semi-bold/medium, muted (text-slate-400 / dark:text-zinc-500), tracking-wider
+Primary Cell Text: 13px or 14px, regular/medium, high contrast (text-slate-900 / dark:text-zinc-100)
+Secondary Text:    12px, regular, muted (text-slate-500 / dark:text-zinc-400)
+Rule: Max 2 weights per cell system (Regular + Medium). No font weight bloat.
+```
+
+### Advanced Filters & Search Composition
+```
+The "Filter Bar" Pattern (Hick's Law — prevent paralysis with 1000s of rows):
+1. Interactive search field: Left-aligned, search icon, placeholder, shortcut (⌘F)
+2. Filter chips: Dynamic badges [Key: Value] [x]. E.g., "Status: Paid (x)", "Role: Admin (x)"
+3. Save View: Inline CTA "Save this view" — B2B power-user bookmark for complex filter combos
+4. Empty Filter State: Clear "Reset filters" CTA (Fitts's Law — easy escape)
+```
+
+### Power-User Interactive Patterns
+
+#### Command Menu (CMD+K)
+```
+Trigger: Global keydown (⌘K / Ctrl+K)
+Visuals: Centered overlay modal, backdrop-blur-md, hairline border, shadow-sm
+Structure:
+  - Focused input at top ("Search actions, documents, students...")
+  - Miller-chunked sections: "Recents", "Navigation", "Actions", "Settings"
+  - Key indicators on right (Enter to run, Tab to expand, ⌥P for profile)
+```
+
+#### Multi-Select Action Drawers
+```
+When users select multiple table rows via checkboxes, bottom bar slides up:
+  Background: bg-slate-900 dark:bg-zinc-900/90 + inner glow (border-t border-white/10)
+  Content: "3 items selected" + quick action icons ("Change status", "Delete", "Export")
+  Destructive primary button ONLY if action is irreversible (Severity Critical warnings)
+```
+
+### Table Performance & Scanning QA
+```
+☐ Pinned header row stays fixed on vertical scrolling?
+☐ Cell widths auto-truncate with ellipses (text-ellipsis overflow-hidden whitespace-nowrap)?
+☐ Status indicators use colored pills with dual-signal markers (color + icon)?
+☐ Column headers show sort arrow ONLY on hover/active (no visual pollution)?
+☐ Skeletal loading layout mimics rows exactly with 1500ms shimmer pulse?
 ```
 
 ---
@@ -307,3 +405,70 @@ radius-2xl:   24px  (hero cards, featured sections)
 radius-3xl:   32px  (large feature cards)
 radius-full:  9999px (pills, avatars, FABs, tags)
 ```
+---
+
+## Technical Feasibility & Developer Handoff
+
+### Token-First Enforcement Rules
+```
+Absolute Law: NEVER use random hex codes, manual pixel values, or custom shadows in design execution or handoff. Everything must map to a semantic design token.
+
+1. Colors (Semantic over Literal)
+   - YES: `bg-primary`, `text-surface-inverse`, `border-error`, `--color-success-100`
+   - NO: `#4F46E5`, `#FFFFFF`, `#FF0000`
+
+2. Spacing & Layout (Strict 4px Grid)
+   - YES: `space-4` (16px), `gap-6` (24px), `p-2` (8px)
+   - NO: `15px gap`, `padding: 21px`
+
+3. Sizing (T-Shirt Sizes)
+   - Radius: `radius-sm` (4px), `radius-md` (8px), `radius-lg` (12px), `radius-full`
+   - Shadows: `shadow-sm`, `shadow-md`, `shadow-lg`
+```
+
+### The 5 Mandatory Interactive States
+```
+When designing any interactive component (button, input, card, chip), you MUST specify how it behaves across these 5 states. A design without states is a wireframe, not a product.
+
+1. Default: The resting state of the UI.
+2. Hover: (Web only) Cursor over element. Usually a slight background darken or elevation (shadow-md).
+3. Active / Pressed: The moment of interaction. Tends to scale down slightly (scale-95) or darken further.
+4. Disabled: Element cannot be interacted with. `opacity-50`, `pointer-events-none`, `text-slate-400`. Must still pass minimum WCAG contrast if readable context is needed, otherwise dim it.
+5. Focus / Focus-Visible: Keyboard navigation state. MUST have a high-contrast outline (e.g., `ring-2 ring-primary ring-offset-2`). Do not rely on default browser outlines.
+```
+
+### Component Anatomy Spec Format (3-Column Table)
+```
+When handing off a component to engineering, break down its anatomy clearly:
+
+| Element | Design Token | Tailwind / CSS Equivalent |
+|---------|-------------|----------------------------|
+| Container | `surface-main`, `radius-lg`, `shadow-sm` | `bg-white rounded-xl shadow-sm` |
+| Primary Text | `text-heading-sm`, `color-text-main` | `text-lg font-semibold text-slate-900` |
+| Action Button | `bg-primary`, `radius-md`, `space-3` | `bg-indigo-600 rounded-lg p-3` |
+| Hover State | `surface-hover` | `hover:bg-slate-50` |
+| Focus State | `ring-focus` | `focus:ring-2 focus:ring-indigo-500` |
+```
+
+### Responsive & Fluid Handoff
+```
+When handing off responsive designs, specify breakpoints where behavior changes, not just fixed mobile/desktop layouts.
+
+- Breakpoints: Mobile (<768px), Tablet (768px - 1024px), Desktop (>1024px).
+- Behavior notes required: Does the flex row wrap? Does the table become a card list? Do margins collapse?
+```
+
+---
+## 10-Year Creative Director Protocol: Editorial & Bento Layouts
+
+### 1. The Bento Box & Asymmetrical Grids (Breaking the 12-Column Monotony)
+* **Rule:** Standard 12-column equal-card grids look like templates. Use asymmetrical "Bento Grids" (mixing 2x2, 2x1, 1x1 cells) to create a visual journey.
+* **Execution:** Assign cell sizes based on content hierarchy, not code convenience. The hero feature gets a 2x2 span, secondary features get 1x1.
+
+### 2. Invisible Framing (Whitespace as Borders)
+* **Rule:** Amateur UIs rely on visible 1px borders for structure. Premium UIs use whitespace and proximity to group content.
+* **Execution:** Remove internal dividers and borders wherever possible. Increase padding/gap to 32px or 48px to group elements optically rather than caging them in lines.
+
+### 3. The Editorial Approach
+* **Rule:** Treat software interfaces like high-end magazine layouts.
+* **Execution:** Introduce deliberate asymmetry. Allow large typography to break out of rigid containers. Use full-bleed imagery bleeding into margins.

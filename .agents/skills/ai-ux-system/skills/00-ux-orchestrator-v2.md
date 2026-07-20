@@ -10,6 +10,60 @@ Coordinate the full UX pipeline: Research → Strategy → Audit → Design Syst
 
 ---
 
+## Global Memory Tracker (Run on EVERY Task Start)
+
+Before executing any design task, the Orchestrator MUST establish the current project context to ensure absolute consistency across AI sessions.
+
+**Step 1. Read Project Brief (Context Check)**
+Search for a `uiux-brief.md` file in the user's project by checking these paths in order:
+1. `doc/uiux-brief.md`
+2. `docs/uiux-brief.md`
+3. `uiux-brief.md` (root folder)
+
+- *If found:* Actively extract the project name, platform, target users, preferred tone, and constraints. Use this to guide all decisions.
+- *If not found:* Proceed normally using Assumption Mode.
+
+**Step 2. Read or Create Design Memory (Continuity Check)**
+Design consistency requires tracking established tokens and patterns. Check the project root for `design-memory.json`.
+- *If it exists:* Read it. You MUST enforce the tokens and patterns defined here. NEVER invent new hex colors or contradictory patterns if they exist in memory, unless specifically asked to update them.
+- *If it does NOT exist:* Create `design-memory.json` in the root using the schema below based on the current context or brief.
+
+**Step 3. Update Memory (Post-Task Action)**
+Before ending your turn, if you created new color tokens, typography rules, or established a new structural pattern (e.g., "All modals use bottom sheets on mobile"), you MUST automatically append them to `design-memory.json` and update the `last_updated` date.
+
+### `design-memory.json` Template Schema
+```json
+{
+  "project_name": "Project Name (from brief or inferred)",
+  "theme_mode": "light | dark | dark-first | system",
+  "tokens": {
+    "colors": {
+      "primary": "token/Tailwind class (e.g., bg-indigo-600)",
+      "surface": "e.g., bg-slate-900",
+      "text_main": "e.g., text-slate-100",
+      "accent": "e.g., text-emerald-400"
+    },
+    "typography": {
+      "font_family": "e.g., Inter, sans-serif",
+      "heading_weight": "e.g., font-bold",
+      "body_size": "e.g., text-sm"
+    },
+    "borders": {
+      "radius": "e.g., rounded-xl",
+      "border_color": "e.g., border-slate-800"
+    }
+  },
+  "established_patterns": [
+    "List structural rules AI should remember across sessions here",
+    "e.g., Primary CTAs are always full-width on mobile",
+    "e.g., Empty states must feature comfort text + action button"
+  ],
+  "last_updated": "YYYY-MM-DD"
+}
+```
+
+---
+
 ## Phase Pipeline (Run Only What's Needed)
 
 | Phase | Skill | Trigger | Output |
@@ -18,8 +72,8 @@ Coordinate the full UX pipeline: Research → Strategy → Audit → Design Syst
 | 2. Strategy | `02-product-strategy-v2` | "define scope", "HMW", "MoSCoW", "sitemap", "user flow" | IA, flows, metrics, assumptions |
 | 3. Audit | `03-ux-audit-v2` | "UX audit", "heuristic review", "accessibility check", "dark pattern scan" | Severity-ranked issues |
 | 4. Design System | `04-design-system-v2` | "design tokens", "component library", "Figma variables", "style guide" | Token JSON, component specs |
-| 5. Execution | `05-ui-execution-v2` | "design screen", "Figma wireframe", "high-fidelity", "component" | Figma frames, specs, handoff |
-| 6. Interaction | `06-interaction-v2` | "animate", "prototype", "motion", "gesture", "haptic", "transition" | Motion specs, Figma prototype |
+| 5. Execution | `05-ui-execution-v2` | "design screen", "Figma wireframe", "high-fidelity", "component", "UI design" | Figma frames, specs, handoff |
+| 6. Interaction | `06-interaction-v2` | "animate", "prototype", "motion", "gesture", "haptic", "transition", "generative ui", "ai interaction" | Motion specs, Figma prototype, AI streaming layout |
 | 7. Validation | `07-ux-validation-v2` | "usability test", "test plan", "SUS", "iteration", "A/B test" | Test scripts, findings, fixes |
 
 ---
@@ -239,8 +293,8 @@ This orchestrator coordinates skills that now contain deep legacy content:
 - **08-ux-writing-v2** ← `define-ideate.md` Step 2E (content strategy, bilingual rules, copy formulas)
 - **09-final-design-qa-v2** ← `ui-ux-pro-max.md` (pre-delivery checklist, visual/interaction/a11y/performance)
 - **10-technical-feasibility-v2** ← `design-system.md` Phase 5 (token JSON/CSS, component anatomy for devs)
-- **14-product-patterns-v2** ← `awesome-design.md` (10 brand pattern deep-dives with agent prompts)
-- **15-ui-patterns-v2** ← `ui-ux-pro-max.md` (50+ styles, layout patterns, component specs)
+- **14-product-patterns-v2** ← `awesome-design.md`, `growth-design-and-activation.md` (brand pattern deep-dives, onboarding steps, value pricing pop, payment trusts, friction control)
+- **15-ui-patterns-v2** ← `ui-ux-pro-max.md`, `data-density-and-tables.md`, `edge-and-error-states.md` (50+ styles, layout patterns, component specs, Grid heights, filter chips, keyboard shortcuts, CMD+K panels, Empty states, error flows, offline UI, data limits)
 
 ---
 
@@ -252,11 +306,11 @@ This orchestrator coordinates skills that now contain deep legacy content:
 | "Scope define karo", "HMW", "MoSCoW", "sitemap", "user flow" | 02-product-strategy-v2 |
 | "UX audit", "heuristic review", "accessibility check", "dark pattern" | 03-ux-audit-v2 |
 | "Design tokens", "component library", "Figma variables" | 04-design-system-v2 |
-| "Screen design karo", "Figma wireframe", "high-fidelity" | 05-ui-execution-v2 |
-| "Animate", "prototype", "motion", "gesture", "haptic" | 06-interaction-v2 |
+| "Screen design karo", "Figma wireframe", "high-fidelity", "Premium visual", "stylish UI", "top 1% UI", "beast UI", "modern design" | 05-ui-execution-v2 |
+| "Animate", "prototype", "motion", "gesture", "haptic", "Generative UI", "streaming response", "AI chat", "prompt design" | 06-interaction-v2 |
 | "Usability test", "test plan", "SUS", "iterate" | 07-ux-validation-v2 |
 | "Copy likho", "error message", "empty state", "bilingual" | 08-ux-writing-v2 |
 | "Final QA", "pre-delivery check", "visual quality" | 09-final-design-qa-v2 |
 | "Dev handoff", "token JSON", "CSS variables", "component anatomy" | 10-technical-feasibility-v2 |
-| "Stripe/Apple jaisa", "brand pattern", "design inspiration" | 14-product-patterns-v2 |
-| "Button style", "layout pattern", "card variant", "dashboard" | 15-ui-patterns-v2 |
+| "Stripe/Apple jaisa", "brand pattern", "design inspiration", "onboarding funnel", "pricing tiers", "conversion metrics", "checkout" | 14-product-patterns-v2 |
+| "Button style", "layout pattern", "card variant", "dashboard", "empty state", "error state", "offline mode", "validation flow", "edge case", "data density", "table design", "B2B SaaS", "command menu", "advanced filter" | 15-ui-patterns-v2 |

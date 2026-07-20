@@ -1,14 +1,14 @@
 ---
 name: ui-execution-v2
-description: Elite Figma execution skill for creating professional, production-ready screens, components, and design systems inside Figma using MCP tools. Use when: "Figma mein design karo", "screen banao Figma mein", "component banao", "wireframe", "Figma se design karo", "UI spec chahiye", "design system Figma mein", "design review", "UI improve karo Figma mein", "auto-layout", "design tokens Figma".
+description: Elite Figma execution skill for creating professional, production-ready screens, components, and design systems inside Figma using MCP tools. Use when: "Figma mein design karo", "screen banao Figma mein", "component banao", "wireframe", "Figma se design karo", "UI spec chahiye", "design system Figma mein", "design review", "UI improve karo Figma mein", "auto-layout", "design tokens Figma", "beast UI", "top 1% UI".
 version: 2.0
 ---
-# Figma Design v2 — Elite Execution Skill
+# Figma Design v2 — Elite Execution Skill (Beast Mode Enabled)
 
 > **Hierarchy:** Tier 1 = UX Brain (ux-thinking) | Tier 2 = design-taste-frontend | Tier 3 = THIS SKILL
 > UX laws and psychology → ux-thinking is the authority.
-> This skill executes those decisions inside Figma.
-> If a Figma decision violates a ux-thinking law → FLAG IT before proceeding.
+> This skill executes those decisions inside Figma or high-fidelity UI code.
+> If a UI decision violates a ux-thinking law → FLAG IT before proceeding.
 
 ---
 
@@ -31,6 +31,275 @@ Query: "[product type] UI design [current year] trending"
 Example: "fintech app UI design 2026" / "food delivery dark mode design 2026"
 ```
 Then read `references/design-trends.md` to cross-reference.
+
+---
+
+## Mandatory: Premium Visual Check (Beast Mode Gate)
+
+Run this gate before finalizing any screen:
+
+```
+PREMIUM VISUAL GATE (BEAST MODE):
+☐ Layout: Bento grid or editorial composition? (No generic 12-col card soup)
+☐ Typography: Large H1 hero + micro ALL-CAPS labels? (No uniform text sizes)
+☐ Spacing: p-8 or p-12 extreme whitespace? (No cramped p-4 everywhere)
+☐ Shadows: Soft multi-layer 0 20px 40px rgba? (No heavy single shadow-xl/lg)
+☐ Borders: Hairline border-white/10 or border-black/5? (No thick 1px solid borders)
+☐ Colors: 95% mono + 1 vibrant accent? (No rainbow multi-color palette)
+☐ Glassmorphism: backdrop-blur-xl + bg-white/5 if used? (No heavy opaque glass)
+☐ WWTD check: Would Linear/Stripe/Apple approve this?
+```
+
+If any box is unchecked → fix before delivery. No exceptions.
+
+---
+
+## Top 1% Premium UI Aesthetic Engine (Beast Mode Specs)
+
+### 🚫 1. Banned Rules
+- **NO Default Colors:** Never use pure `#FF0000` or basic HEX primary colors. Always use tinted, desaturated, or HSL-based sophisticated palettes (e.g., slate, zinc, neutral-800).
+- **NO Heavy Drop Shadows:** Ban `shadow-lg` or `shadow-xl` with high opacity.
+- **NO Boring Grids:** Ban standard symmetrical 12-column card layouts unless it's a data table.
+- **NO Generic Fonts:** Ban Roboto, Arial, Open Sans. (Use Inter, Geist, Satoshi, SF Pro, or elegant Serif for editorial).
+- **NO Cluttered Borders:** Ban thick grey borders separating every item.
+
+### ✨ 2. Top 1% Aesthetics Specs
+- **Bento Box Grids:** Use asymmetrical grid layouts (Bento grids) with varying card sizes (e.g., 2x2, 1x2) for dashboards and features.
+- **Editorial Typography:** Massive contrast in typography. Huge, tracking-tight (letter-spacing tight) H1s, paired with tiny, tracking-wide ALL-CAPS micro-labels.
+- **Extreme Whitespace (Let it breathe):** Double the padding/margins you usually apply. If you think `p-4` is good, make it `p-8` or `p-12`. Spatial design is premium.
+- **Subtle Glassmorphism:** Use `backdrop-blur-xl`, `bg-white/5` (dark mode) or `bg-white/60` (light mode).
+- **Hairline Borders:** Use 1px borders with very low opacity (e.g., `border-white/10` or `border-black/5`) to define structure without adding noise.
+- **Multi-layered Soft Shadows:** Instead of heavy shadows, use extremely soft, wide-spread, low-opacity shadows (e.g., `0px 20px 40px rgba(0,0,0,0.04)`).
+- **Inner Glows / Edge Highlights:** Give cards a premium feel with subtle inner borders (e.g., `box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)`).
+- **Monochrome + 1 Neon/Vibrant Accent:** 95% of the UI should be shades of monochrome (black, white, greys). Only 5% should use a highly vibrant accent color (e.g., Electric Violet, Emerald, or Neon Cyan).
+- **Mesh Gradients & Glows:** For hero backgrounds or empty states, use soft, blurred, multi-colored mesh gradients placed behind UI elements (`blur-3xl`).
+- **Surface Elevation:** In dark mode, don't use pitch black (`#000000`) everywhere. Use deep slates (e.g., `#09090B`) and elevate cards with slightly lighter tones (`#18181B`).
+- **Pill Shapes & Squircles:** Use fully rounded pill shapes for badges, status indicators (`rounded-full`) and `rounded-2xl` / `rounded-3xl` for modern app-like cards.
+- **Text Gradients:** Key headings can have subtle linear text gradients (e.g., `bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60`).
+
+### 🎯 3. Reference Framework (WWTD - What Would They Do?)
+Before finalizing any UI, ask yourself:
+- *Would Linear approve this layout?* (Dark, sharp, minimal, glow effects)
+- *Would Stripe approve this form?* (Soft, highly polished, perfect micro-interactions, clean typography)
+- *Would Apple approve this spacing?* (Massive margins, extreme clarity, perfect hierarchy)
+
+---
+
+## Beast Mode: 80-15-5 Color Enforcement System
+
+Every screen MUST pass this ratio before delivery. No exceptions.
+
+### The 3-Role System
+```
+| Role       | Colors             | Budget | Usage                                    |
+|------------|--------------------|--------|------------------------------------------|
+| Structure  | Zinc / Slate       | 80%    | Backgrounds, cards, nav, borders, text   |
+| Action     | Indigo             | 15%    | Primary CTA buttons ONLY                 |
+| Status     | Emerald/Amber/Rose | 5%     | Success, Paid, Live, Warning, Error ONLY |
+```
+
+### Allowed Color Classes (Whitelist)
+```css
+/* PRIMARY CTA ONLY — clickable + primary action */
+bg-indigo-600 text-white hover:bg-indigo-700
+
+/* Interactive icon container — hover state ONLY */
+bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600
+
+/* Hero gradient — MAX 1 per page, username/title only */
+bg-gradient-to-r from-indigo-600 to-purple-600
+
+/* Success / Paid / Live */
+bg-emerald-500 animate-pulse   /* live dot */
+text-emerald-600               /* status label */
+
+/* Warning / Pending */
+text-amber-600 bg-amber-100
+
+/* Error / Overdue */
+text-rose-600 bg-rose-100
+```
+
+### Banned Color Usage (Hard Reject)
+```
+❌ Indigo on decorative / non-clickable elements → use slate-100
+❌ Indigo on informational icon containers → use slate-100 text-slate-500
+❌ Emerald for anything non-success → remove
+❌ Multiple gradients per screen → max 1 only
+❌ shadow-xl with backdrop-blur → use shadow-sm only
+❌ bg-gradient on empty states → use bg-slate-100 dark:bg-slate-800
+```
+
+### One-Line Decision Rule
+> "Agar element clickable hai aur primary action hai → Indigo.
+> Agar success/live/paid status hai → Emerald.
+> Baaki sab → Zinc. Koi exception nahi."
+
+### Color Audit Gate (Run Per Screen)
+```
+COLOR AUDIT:
+☐ Count Indigo elements — are they ALL primary CTAs? (max 15% of screen)
+☐ Count Emerald elements — are they ALL status indicators? (max 5%)
+☐ Remaining visual weight — is it 80%+ Zinc/Slate?
+☐ Gradient count — max 1 per page?
+☐ Non-interactive Indigo — zero tolerance?
+☐ shadow-xl + blur combo — zero tolerance?
+```
+
+---
+
+## Beast Mode: Glassmorphism Stack (Exact Spec)
+
+```css
+/* CORRECT — use exactly this combination */
+backdrop-blur-md          ✅
+bg-white/90               ✅
+dark:bg-slate-900/90      ✅
+border border-slate-100/50 ✅
+shadow-sm                 ✅
+
+/* NEVER combine these */
+shadow-xl + backdrop-blur  ❌  /* blur already provides depth */
+```
+
+---
+
+## Beast Mode: Layout Templates
+
+### Template 1 — Bento Dashboard
+```
+┌──────────────────────┬──────────────┐
+│                      │              │
+│   Hero Stat Card     │  Quick       │
+│   (2x height)        │  Action      │
+│                      │  Card        │
+├────────────┬─────────┴──────────────┤
+│            │                        │
+│  Metric    │   Activity Feed        │
+│  Card      │   (full-width)         │
+│            │                        │
+└────────────┴────────────────────────┘
+
+Rules:
+- Cards MUST vary in size (1x1, 2x1, 1x2) — NO uniform grid
+- gap-4 between cards, p-8 container padding
+- Hero card = gradient bg (max 1), rest = zinc surface
+```
+
+### Template 2 — Editorial Feature Page
+```
+┌─────────────────────────────────────┐
+│  TRACKING-WIDE ALL-CAPS MICRO LABEL │
+│                                     │
+│  Massive H1 Hero                    │
+│  tracking-tight                     │
+│                                     │
+│  Subtitle in muted text             │
+│                                     │
+│         [Primary CTA Button]        │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│         p-12 extreme                │
+│         whitespace                  │
+│                                     │
+│  ┌──────────┐  ┌──────────┐        │
+│  │ Feature  │  │ Feature  │        │
+│  │ Card 1   │  │ Card 2   │        │
+│  └──────────┘  └──────────┘        │
+└─────────────────────────────────────┘
+
+Rules:
+- H1: text-4xl md:text-6xl font-bold tracking-tight
+- Micro label: text-xs uppercase tracking-widest text-slate-500
+- Section gap: py-16 md:py-24
+- Max-width container: max-w-4xl mx-auto
+```
+
+### Template 3 — Card Detail / Profile
+```
+┌─────────────────────────────────────┐
+│  ← Back                            │
+│                                     │
+│  ┌─────────────────────────────────┐│
+│  │  Avatar/Image         Status ●  ││
+│  │                                 ││
+│  │  Name                           ││
+│  │  Subtitle                       ││
+│  │                                 ││
+│  │  ┌───────┐ ┌───────┐ ┌───────┐ ││
+│  │  │ Stat  │ │ Stat  │ │ Stat  │ ││
+│  │  └───────┘ └───────┘ └───────┘ ││
+│  └─────────────────────────────────┘│
+│                                     │
+│  Section Title                      │
+│  ┌─────────────────────────────────┐│
+│  │ List Item Row                →  ││
+│  ├─────────────────────────────────┤│
+│  │ List Item Row                →  ││
+│  └─────────────────────────────────┘│
+│                                     │
+│  [Full Width CTA Button]           │
+└─────────────────────────────────────┘
+
+Rules:
+- Status badge: Emerald for active, Amber for pending, Rose for overdue
+- Stats row: 3 items max (Miller's Law), zinc surface
+- List rows: min-height 56px touch target
+- CTA: sticky bottom on mobile, indigo-600
+```
+
+### Template 4 — Empty State
+```
+┌─────────────────────────────────────┐
+│                                     │
+│                                     │
+│         [Illustration/Icon]         │
+│                                     │
+│         No [Items] Yet              │
+│         (Friendly microcopy)        │
+│                                     │
+│         [Primary CTA Button]        │
+│                                     │
+│                                     │
+└─────────────────────────────────────┘
+
+Rules:
+- bg-slate-100 dark:bg-slate-800 — NO gradient backgrounds
+- Icon: Lucide React, text-slate-400, 48px
+- Title: text-lg font-semibold text-slate-900
+- Body: text-sm text-slate-500, max-w-xs mx-auto
+- CTA: indigo-600 ONLY if primary action exists
+```
+
+---
+
+## Beast Mode: 8-State Component Matrix
+
+Every interactive component MUST define all 8 states. Ship with missing states = rejected.
+
+```
+STATE        │ VISUAL SPEC                              │ FEEDBACK
+═════════════╪══════════════════════════════════════════╪══════════════════════
+1. Default   │ Base resting appearance                  │ None
+2. Hover     │ bg-opacity shift (+5%), cursor pointer   │ 150ms ease-out
+3. Active    │ scale(0.97-0.98), bg-darken 10%         │ <100ms, haptic light
+4. Focus     │ ring-2 ring-indigo-500 ring-offset-2    │ Keyboard only
+5. Loading   │ Spinner replaces icon/text, bg unchanged│ Disable re-tap
+6. Disabled  │ opacity-40, cursor-not-allowed           │ None (no haptic)
+7. Error     │ border-rose-500, bg-rose-50, icon+text  │ Shake animation 400ms
+8. Success   │ border-emerald-500, bg-emerald-50, ✓    │ Scale pop 200ms
+```
+
+### State Transition Map (Which State Can Go Where)
+```
+Default → Hover → Active → Loading → Success/Error
+Default → Focus → Active → Loading → Success/Error
+Default → Disabled (no other transitions)
+Error → Default (on retry/fix)
+Success → Default (after 2s auto-reset or manual)
+Loading → Success | Error (never back to Default directly)
+```
 
 ---
 
@@ -378,3 +647,9 @@ UX LAW COMPLIANCE (from ux-thinking):
 ☐ No anti-patterns from Layer 7?
 ☐ Layer 8 (WCAG) fully passed?
 ```
+---
+## 10-Year Creative Director Protocol: Top 1% Execution Standards
+* **Color Discipline:** 90% Restrained Neutrals (Zinc/Slate/Charcoal), 10% Purposeful Accent. DO NOT use pure `#000` or pure `#FFF`.
+* **Elevated Borders & Shadows:** Hairline borders (`border-white/10` in dark mode, `border-black/5` in light mode). Soft, diffused shadows (never hard drops).
+* **Typography Hierarchy:** Extreme weight jumps (Bold Display + Regular Body). Strict tracking rules: Negative for large fonts, wide positive spacing for all-caps microcopy. 
+* **The "Would Stripe Ship This?" Check:** If it looks like a generic Dribbble template with colorful card soup—delete it. Aim for "Quiet Luxury" and ruthless functional minimalism.

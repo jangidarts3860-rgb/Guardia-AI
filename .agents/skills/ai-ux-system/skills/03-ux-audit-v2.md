@@ -12,17 +12,35 @@ version: 2.0
 
 ## Activation Protocol
 
-When user says: "UX audit karo", "design review", "check accessibility", "dark pattern check" → Run full 8-layer audit.
+When user says: "UX audit karo", "design review", "check accessibility", "dark pattern check":
+1. **CONTEXT**: Identify Platform, Industry, Screen type, User type, Goal.
+2. **LAWS**: Activate laws specific to that screen type.
+3. **CONFLICT**: Resolve any clashes strictly by the Priority Hierarchy (P1 Safety > P2 Trust > P3 Usability > P4 Aesthetic).
+4. **VALIDATE**: Run the full 8-layer checklist below.
+5. **OUTPUT**: Present using the strict Law-Backed Findings format.
 
 **Output Format:** Every finding must use:
 ```
 FINDING: [What's wrong]
 SEVERITY: Critical (blocks task) | High (damages UX) | Medium (friction) | Low (polish)
+EFFORT: Quick win (<1hr) | Medium (1 day) | Big change (1 week+)
 LAW: [Specific law from ux-thinking — e.g., "Law 5: Doherty Threshold"]
 SCREEN: [Screen ID or description]
 FIX: [Exact change — no vague words]
 BRAIN NOTE: [1-sentence psychology — why user brain responds this way]
 ```
+
+---
+
+## Context Identification Matrix (Before Audit)
+
+| Check | Variants | Impact on Audit |
+|-------|----------|-----------------|
+| **Platform** | Mobile / Web / Tablet | Mobile needs 44px targets, Web needs F-pattern/Hover. |
+| **Industry** | Food / E-commerce / Fintech | Fintech demands extra trust + zero-ambiguity checks. |
+| **Screen Type** | Form / Nav / View / Dashboard | Dictates which laws are actively scrutinized. |
+| **User Type** | Novice / Power User / Elderly | Need for shortcuts, dual-coding, or huge text. |
+| **Mode** | Regular / Case Study / Portfolio | If Case Study, justify each fix with "Decision Justification" format. |
 
 ---
 
@@ -91,6 +109,22 @@ BRAIN NOTE: [1-sentence psychology — why user brain responds this way]
 | 5.5 | All 3 emotional levels addressed? (Visceral, Behavioral, Reflective) | Emotional Design | Medium | | |
 | 5.6 | Colors match semantic meaning? (Red=error, Green=success, Indian context: Green=UPI) | Color Psychology | Critical | | |
 | 5.7 | State changes visually distinct enough to perceive (>14% diff)? | Weber's Law | High | | |
+| 5.8 | Is friction proportional to motivation? (M * A * P aligned?) | Fogg Behavior Model | High | | |
+| 5.9 | Is there an ethical investment phase for returning users? | Hook Model | Medium | | |
+| 5.10 | Are critical elements paired visual+text? | Dual Coding Theory | Critical | | |
+
+---
+
+## Layer 5.5: Fintech & High-Stakes Special Audit (Auto-runs for finance apps)
+
+| # | Check | Rationale | Severity |
+|---|-------|-----------|----------|
+| F.1 | Security badges / "Encryption" text visible near money input | Lowers anxiety | Critical |
+| F.2 | Balance is prominent, never hidden | Reduces cognitive load | Critical |
+| F.3 | Two money amounts on same line have unmistakable bold labels | Prevents costly mistakes | Critical |
+| F.4 | Explicit confirmation required for sends/transfers > ₹500 | Error prevention (P1) | Critical |
+| F.5 | Fees shown BEFORE final confirm button | Honesty (Dieter Rams) | Critical |
+| F.6 | Error message says exactly "Your money is safe" if failed mid-flow | Panic prevention | Critical |
 
 ---
 

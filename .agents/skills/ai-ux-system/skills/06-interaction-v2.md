@@ -384,3 +384,119 @@ When design system updates tokens → all motion updates automatically.
 - [ ] Haptic specified for every key mobile interaction
 - [ ] Motion tokens used (not hardcoded values)
 - [ ] `references/motion-trends.md` checked for trending patterns
+
+---
+
+## Interaction Design for AI & LLM Systems
+
+### The Laws of AI UX
+```
+Law 1: Elastic Latency Management (Doherty Threshold override)
+  AI actions take seconds. Design for 3 latency tiers:
+    - <400ms: Instant feedback (updating typing indicator/cursor).
+    - 400ms - 2s: Custom typing skeleton loader (shimmer line).
+    - 2s+: Progressive status logs ("Analyzing...", "Finding...", "Generating...").
+
+Law 2: Human-in-the-Loop Safeguard (Nielsen H5 override)
+  Before irreversible action (email, delete, DB modify), AI MUST present confirmation: "AI generated this action. Approve or Edit".
+
+Law 3: Explicit AI Labeling (Dieter Rams Honest Rule)
+  Never pass AI content as absolute truth. Use cues: Sparkle icon, mesh backdrops, or muted disclaimers.
+```
+
+### Generative UI & Streaming Patterns
+```
+Streaming Data Layouts:
+  - Progressive stream (character/word by word) so user reads immediately.
+  - Active Cursor: Pulsing vertical block (|) at stream end to anchor focus.
+  - Complex Transitions: Parse markdown/tables/code smoothly, don't jump raw text to layout abruptly.
+
+The Sparkly/AI Prompt Bar:
+  - Position: Fixed bottom anchor.
+  - Style: Pill-shaped (radius-full), hairline border, subtle glowing mesh backdrop (glow max 1).
+  - Inside: Sparkle icon (left), expandable textarea, upward arrow action button (right).
+  - Action Button: Slate base → vibrant Indigo ONLY when text is entered.
+```
+
+### Error Recovery & Fallback Flows
+```
+When AI fails or hallucinates:
+  1. Inline Refinement: "Regenerate", "Simplify", "Edit Prompt" buttons below block.
+  2. Copy to Clipboard: Always 1-tap copy icon on generated content.
+  3. Guardrail Warn: Never red crash error. Use neutral Slate card: "Prompt violates terms. Refine instructions."
+```
+
+### AI Feature Metadata QA
+```
+☐ Typing indicator pulses while generating?
+☐ User can abort/stop active stream?
+☐ AI tags styled with Sparkle identifiers?
+☐ Human confirmation required for destructive actions?
+☐ Footnotes cite source links/references?
+☐ UI works smoothly when stream mixes Markdown, code, math?
+```
+---
+
+## The AI-Native UI Playbook
+
+### Streaming Content UI Rules
+```
+When AI is generating content (Streaming), the UI must not jump or break layout.
+1. Pre-allocate Vertical Space: If a large block of text is expected, expand the container smoothly first, then fill it. Prevent jarring layout shifts below the response.
+2. The Blinking Cursor: A pulsing caret `|` must anchor the end of the streaming text to guide the user's eye and indicate active generation.
+3. Scroll Anchoring: If streaming pushes content below the fold, smoothly autoscroll to keep the new text visible, but STOP autoscrolling immediately if the user attempts to manually scroll up.
+```
+
+### "Thinking" States & Latency Masking
+```
+1. Expected Time < 2 seconds: Use a subtle skeleton loader or a shimmer effect on the text block.
+2. Expected Time > 2 seconds: Use Progressive Status Updates. Do not just spin a wheel.
+   - Show steps: "Analyzing context..." → "Searching database..." → "Drafting response..."
+   - This builds trust (The Labor Illusion) and makes the wait feel much shorter.
+```
+
+### AI Transparency & Attribution
+```
+1. Source Citations: If the AI makes a factual claim or summarizes documents, present inline footnote pills `[1]` that hover to reveal the exact source text/link.
+2. Confidence Indicators: For probabilistic features (e.g., predictive analytics, categorization), show low confidence visually (e.g., lighter text, warning icon) and allow human review.
+```
+
+### Micro-Feedback Loops (End of Generation)
+```
+Every completed AI block must have a persistent utility bar anchored below or beside it:
+- Copy to clipboard (changes to checkmark on click).
+- Thumbs up / Thumbs down (for reinforcement learning).
+- Edit / Refine (Allows user to tweak the exact prompt that generated this block).
+- Regenerate (Standard retry).
+```
+
+### Human-In-The-Loop (HITL) Friction Escalation
+```
+AI autonomy must map to action risk. The UI MUST introduce friction for high-risk actions.
+- Low Risk (e.g., Drafting an email): Auto-generate, show in composer, user clicks send.
+- Medium Risk (e.g., Updating a CRM record): Show diff view (Before/After), require explicit "Approve All" click.
+- High Risk (e.g., Transferring money, dropping a table): Hard block. AI prepares the payload, but UI forces a multi-step confirmation or 2FA challenge. "AI has staged this action. Please confirm."
+```
+
+### Advanced Prompt Bar Design
+```
+The central interaction point for Generative UI:
+- Rotating Placeholders: Guide the user on what is possible (e.g., "Ask about revenue...", "Draft a polite decline...", "Explain this chart...").
+- Auto-growing Textarea: Start at 1 line, grow up to 5-7 lines max before scrolling internally.
+- Submit Button Activation: Keep the submit icon (usually an upward arrow or paper plane) disabled (dimmed) until the input possesses minimum valid character count (usually ≥3). Light it up brightly (primary color) when ready.
+- Attachment Anchors: Pills showing context files should sit ABOVE or INLINE with the text input, easily removable with an 'x'.
+```
+
+---
+## 10-Year Creative Director Protocol: Motion Choreography
+
+### 1. Staggered Entrances (The Domino Effect)
+* **Rule:** Elements should never appear as a single flat block.
+* **Execution:** Apply delays incrementing by 50ms-100ms across list items, cards, or hero elements. The UI should "cascade" into existence seamlessly.
+
+### 2. Physical Weight in Motion
+* **Rule:** Heavy UI elements moves differently than light ones.
+* **Execution:** A large hero image expand should use a slow, highly damped spring. A small icon toggle uses a snappy, underdamped spring. Mathematical linearity is strictly prohibited. 
+
+### 3. Mask Reveals & Scroll-Driven Transitions
+* **Execution:** Use clipping masks to reveal text or images as if they are emerging from behind an invisible wall, rather than basic opacity fades. Tie opacity/scale subtly to the user's scroll-progress rather than just firing on scroll-enter.

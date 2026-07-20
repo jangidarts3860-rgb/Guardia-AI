@@ -399,6 +399,36 @@ DIGITAL TOOLS:
 • Even Google Slides works for student projects
 ```
 
+### Advanced Quantitative Validation (A/B Testing & Heatmaps)
+
+```
+A/B TESTING GOLDEN RULES:
+1. Statistical Significance: Never declare a winner without 95% confidence. If just 10 extra conversions flip the result, it's NOT a winner yet. Use an A/B calc.
+2. Variable Isolation: Change either the CTA copy OR the layout. If you change both, you don't know what actually caused the lift.
+3. Business Cycles: Run tests for 2 full weeks minimum (14 days) to account for weekday/weekend behavioral shifts.
+
+FUNNEL & DROP-OFF ANALYSIS:
+• Screen A (100%) → Screen B (80%) → Screen C (30%) 🚨 [Drop-off >40% across non-payment steps = Severe UX Friction]
+• Combine drop-off data with Heatmaps/Session recordings (Clarity/Hotjar):
+  - Rage Clicks (fast repeated clicking): System slow or button looks active but isn't.
+  - Dead Clicks: Users think a static element is clickable (Violates Affordance).
+  - U-Turns: Users proceed to next step, panic, and immediately hit 'Back'.
+```
+
+### AI-Assisted Synthesis (For User Transcripts/Notes)
+
+```
+PROMPT TEMPLATE FOR TRANSCRIPT ANALYSIS:
+"Act as a Senior UX Researcher. Here are raw transcripts/notes from 5 usability sessions testing [Product/Flow].
+Please extract:
+1. Friction Points: Ranked by frequency (how many users faced it) and severity (1-4).
+2. Validated Assumptions: Which design assumptions were proven correct?
+3. Direct Quotes: Provide 1 exact quote for each finding as evidence.
+Rule: Do NOT invent insights. Ignore new feature requests. Focus strictly on usability roadblocks."
+
+⚠️ RULE: Never let AI hallucinate findings. Always demand direct quote citations.
+```
+
 ---
 
 ## Step 7: Iteration Brief

@@ -258,3 +258,13 @@ OVERALL: [Ship / Iterate Once More / Major Redesign Needed]
 ## Final Rule
 
 > **"Achha lagta hai" NAHI chalega.** Every decision needs a law. Every criticism cites a law. Every praise cites a law. Design must be explainable to a stakeholder who doesn't care about design — only outcomes.
+---
+## 10-Year Creative Director Protocol: The "Taste-Maker" Anti-Dribbble Filter
+
+### Layer 9: The "Quiet Luxury" & Premium Minimalism Check
+This layer is for the subjective but critical 1% that makes apps feel like Apple, Stripe, or Vercel.
+
+- [ ] **The "Dribbble Soup" Ban:** Are there generic floating 3D elements, heavy unmotivated drop shadows, or gradient backgrounds that look like 2018 Crypto apps? -> STRIP THEM OUT.
+- [ ] **Restrained Palette (90/10 Rule):** Is the UI 90% strictly restrained neutrals (off-whites, slates, charcoals, bone) with only a 10% highly strategic accent color?
+- [ ] **Off-Blacks & Off-Whites:** Has pure `#000000` (harsh eye strain) been replaced by rich darks (e.g., `#0F172A`)? Has pure `#FFFFFF` background been replaced by `#FAFAFA` or `#F8F9FA` for softer contrast?
+- [ ] **Shadow Subtlety:** Are shadows built using multi-layered, low-opacity stacking (e.g., `0px 20px 40px rgba(0,0,0,0.04)`) rather than single harsh blobs?

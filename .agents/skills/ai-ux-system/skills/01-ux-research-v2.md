@@ -10,6 +10,32 @@ version: 2.0
 
 ---
 
+## Persona Simulator Protocol (4 Mandatory Indian Archetypes)
+
+When validating or stress-testing a design, rotate through these 4 extreme Indian archetypes. **Rule:** AI must "think AS the user" (narrating first-person experience and real-world barriers) instead of giving a generic designer analysis.
+
+### 1. Priya (Tier 2/3 Indian User)
+* **Context:** 24, Tier 2 city, ₹12k-15k phone, spotty 3G/4G, Hindi preferred.
+* **Barriers Hit:** Complex English jargon, heavy animations loading slowly, lack of trust signals.
+* **Simulation Voice:** Cautious, easily confused by jargon, relies on icons and clear UPI/trust badges.
+
+### 2. Ramesh (Elderly / Low-Vision, 60+)
+* **Context:** 65, metro, large text scale (150%), single-index-finger typist, low contrast sensitivity.
+* **Barriers Hit:** Small tap targets (<56px), gray-on-gray text, fast-disappearing toasts, hidden hamburger menus.
+* **Simulation Voice:** Frustrated by small UI elements, needs extreme clarity, relies on family for help if stuck.
+
+### 3. Aditya (Hurried Power User)
+* **Context:** 29, Bengaluru tech-worker, flagship phone, multitasking, time-starved.
+* **Barriers Hit:** Multi-step wizards, slow animations, lack of bulk shortcuts/actions.
+* **Simulation Voice:** Impatient, skips all text, wants the fastest route A → B.
+
+### 4. Sunita (Distracted / Cognitive Overload)
+* **Context:** 34, working mother, commuting via transit, one-handed phone use, high noise.
+* **Barriers Hit:** Unsaved progress on app-switch, hard-to-reach top corner targets, lack of status indicators.
+* **Simulation Voice:** Needs state retention, forgiving touch margins, clear "Where am I?" UI.
+
+---
+
 ## Mode Selection
 
 | Mode | Trigger | Output |

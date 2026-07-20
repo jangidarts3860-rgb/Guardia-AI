@@ -42,39 +42,37 @@ export default function LinkBankProgressScreen() {
   }, [phase, step]);
 
   useEffect(() => {
-    if (phase === 'success') {
-      if (bankId) {
-        setBanks(prev => {
-          const bank = prev.find(b => b.id === bankId);
-          if (bank) {
-            setActivities(actPrev => [{ 
-              id: 'act-link-' + Date.now(), 
-              title: `${bank.name} linked`, 
-              description: 'Account Aggregator connected successfully', 
-              time: 'Just now', 
-              status: 'Verified' 
-            }, ...actPrev]);
-            setNotifications(notPrev => [{ 
-              id: 'not-link-' + Date.now(), 
-              title: `${bank.name} linked successfully`, 
-              description: 'Security monitoring initiated.', 
-              time: 'now', 
-              type: 'System' as const, 
-              risk: 'Success', 
-              unread: true 
-            }, ...notPrev]);
-          }
-          return prev.map(b => b.id === bankId ? { 
-            ...b, 
-            isConnected: true, 
-            balance: Math.floor(Math.random() * 50000) + 10000, 
-            accNumber: '•••• ' + Math.floor(Math.random() * 9000 + 1000), 
-            lastSynced: 'Just now' 
-          } : b);
-        });
+    if (phase === 'success' && bankId) {
+      const bank = banks.find(b => b.id === bankId);
+      if (bank && !bank.isConnected) {
+        setActivities(actPrev => [{ 
+          id: 'act-link-' + Date.now(), 
+          title: `${bank.name} linked`, 
+          description: 'Account Aggregator connected successfully', 
+          time: 'Just now', 
+          status: 'Verified' 
+        }, ...actPrev]);
+        
+        setNotifications(notPrev => [{ 
+          id: 'not-link-' + Date.now(), 
+          title: `${bank.name} linked successfully`, 
+          description: 'Security monitoring initiated.', 
+          time: 'now', 
+          type: 'System' as const, 
+          risk: 'Success', 
+          unread: true 
+        }, ...notPrev]);
+
+        setBanks(prev => prev.map(b => b.id === bankId ? { 
+          ...b, 
+          isConnected: true, 
+          balance: Math.floor(Math.random() * 50000) + 10000, 
+          accNumber: '•••• ' + Math.floor(Math.random() * 9000 + 1000), 
+          lastSynced: 'Just now' 
+        } : b));
       }
     }
-  }, [phase, bankId, setBanks, setActivities, setNotifications]);
+  }, [phase, bankId, banks, setBanks, setActivities, setNotifications]);
 
   useEffect(() => {
     if (phase === 'success') {

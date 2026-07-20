@@ -116,8 +116,9 @@ OUR POSITIONING:
 │ Trust Level:    Skeptical / Neutral / Trusting                 │
 │ Decision Speed: Impulsive / Deliberate                         │
 ├─────────────────────────────────────────────────────────────────┤
-│ A DAY IN THEIR LIFE                                             │
+│ A DAY IN THEIR LIFE (Mental context for triggers)               │
 │ [2-3 sentences — exactly when + where they'd use this product] │
+│ [example: "On a crowded metro at 9 AM, one-handed use only"]   │
 ├─────────────────────────────────────────────────────────────────┤
 │ KEY QUOTE                                                       │
 │ "[What they'd actually say — in their voice, their language]"  │
@@ -336,7 +337,7 @@ PERMISSIONS NEEDED:
 │ Camera     │ [reason]   │ In-context only │ [upload option] │
 └────────────┴────────────┴─────────────────┴─────────────────┘
 
-NOTIFICATION TYPES:
+NOTIFICATION TYPES (Cap limits to avoid uninstall):
 ┌────────────┬───────────────────┬───────────┬────────────┐
 │ Type       │ Example copy      │ Frequency │ User ctrl  │
 ├────────────┼───────────────────┼───────────┼────────────┤
@@ -346,9 +347,9 @@ NOTIFICATION TYPES:
 └────────────┴───────────────────┴───────────┴────────────┘
 
 RULES:
-• Never ask permissions before delivering first value
-• Always explain WHY before requesting any permission
-• "Maybe later" must work — and be respected permanently
+• Never ask permissions before delivering first value.
+• Always explain WHY before requesting any permission on iOS/Android.
+• "Maybe later" must work — and be respected permanently.
 ```
 
 ---
@@ -384,7 +385,7 @@ BILINGUAL RULES (Indian market):
 • Technical terms stay in English: OTP, UPI, EMI, PIN
 • Action/emotional copy in Hindi for Tier 2/3
 • NEVER auto-translate — always human-verified Hindi
-• Hindi text 30% wider — all containers must be tested
+• Hindi text is 30% wider — ALL CONTAINER WIDTHS AND LINE HEIGHTS MUST BE TESTED FOR OVERFLOW.
 ```
 
 ---
